@@ -1,0 +1,47 @@
+****************************************
+INSTALLATION NOTES FOR THE xTras PACKAGE
+****************************************
+
+xTras consists of a single package file, "xTras.m", and notebook "xTras.nb"
+containing some documentation. The file "xTras.m" must be placed at
+(or linked from) where you've installed xAct.
+
+Linux:
+
+   - system-wide installation (requires root priviledges):
+
+        /usr/share/Mathematica/Applications/xAct/
+
+   - single-user installation:
+
+        $HOME/.Mathematica/Applications/xAct/
+
+Mac OS:
+
+   - system-wide installation (requires root priviledges):
+
+        /Library/Mathematica/Applications/xAct/
+
+   - single-user installation:
+
+        /Users/<user>/Library/Mathematica/Applications/xAct/
+
+MSWindows:
+
+   - system-wide installation:
+
+        C:\Documents and settings\All Users\Application data\Mathematica\Applications\xAct\
+
+   - single-user installation:
+
+        C:\Documents and settings\<user>\Application Data\Mathematica\Applications\xAct\
+
+Beware that in Windows these directories might be hidden!
+
+Then the package can be loaded using unix style
+
+        <<xAct/xTras.m
+
+or Mathematica style
+
+        <<xAct`xTras`
