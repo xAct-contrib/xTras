@@ -4,7 +4,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = "1.0";
+xAct`xTras`$Version = "1.01 pre";
 
 (* Check if Invar and xPert have been loaded. If not, load them. *)
 If[!ValueQ[xAct`xPert`$Version],Needs["xAct`xPert`"]];
@@ -544,7 +544,7 @@ EulerDensity[cd_?CovDQ, D_?EvenQ] :=
 
 InvarWrapper[invarFunction_, g_?MetricQ][expr_, otherargs___] := 
   Module[{cd, tangent, i1, i2, i3, ricciscalar, ricci, riemann, rules,
-     result, curvrel, monvb, uppder},
+     result, curvrel, monvb, uppder,commutescalars},
    (* Initialize *)
    cd = CovDOfMetric[g];
    tangent = VBundleOfMetric[g];
@@ -554,18 +554,20 @@ InvarWrapper[invarFunction_, g_?MetricQ][expr_, otherargs___] :=
    ricci = GiveSymbol[Ricci, cd];
    ricciscalar = GiveSymbol[RicciScalar, cd];
    riemann = GiveSymbol[Riemann, cd];
-   (* Store old config values *)
    
+   (* Store old config values *)
    curvrel = CurvatureRelationsQ[cd];
    monvb = Options[ToCanonical, UseMetricOnVBundle];
    uppder = Options[ContractMetric, AllowUpperDerivatives];
-   (* Set config values to Invar compatible settings *)
+   commutescalars = xAct`xTensor`$CommuteCovDsOnScalars;
    
+   (* Set config values to Invar compatible settings *)
    SetOptions[ToCanonical, UseMetricOnVBundle -> All];
    SetOptions[ContractMetric, AllowUpperDerivatives -> True];
    ClearCurvatureRelations[cd, Verbose -> False];
-   (* Make rules to convert the Ricci scalar and Ricci tensor to \
-Riemanns *)
+   xAct`xTensor`$CommuteCovDsOnScalars = False;
+   
+   (* Make rules to convert the Ricci scalar and Ricci tensor to Riemanns *)
    rules = Join[
      MakeRule[
       Evaluate[{ricciscalar[], Scalar[riemann[i1, i2, -i1, -i2]]}], 
@@ -574,10 +576,10 @@ Riemanns *)
       MetricOn -> All]
      ];
    (* Apply them to the expression and run RiemannSimplify *)
-   
    result = invarFunction[g, expr /. rules, otherargs];
-   (* Reapply the settings as they were before *)
    
+   (* Reapply the settings as they were before *)
+   xAct`xTensor`$CommuteCovDsOnScalars = commutescalars;
    SetOptions[ToCanonical, monvb // First];
    SetOptions[ContractMetric, uppder // First];
    If[curvrel, SetCurvatureRelations[cd, Verbose -> False]];
@@ -598,6 +600,7 @@ MyRiemannSimplify[metric_?MetricQ, level_Integer][expr_] :=
  Module[{scalar, curvatureTensors},
   curvatureTensors = CurvatureTensors[];
   scalar = PutScalar[expr];
+  (* TODO: if the result contains Cycles something went wrong, and we should return the original expression. *)
   NoScalar[
    scalar /. 
     Scalar[subexpr_] /; (Complement[
