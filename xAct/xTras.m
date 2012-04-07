@@ -100,7 +100,7 @@ OrderCoefficient::usage =
 InvarLagrangian.";
 
 
-(* TimedMap *)
+(* MapTimed *)
 
 LevelSpecQ::usage = 
 	"LevelSpecQ[levelspec] yields True if levelspec is a standard levelspec, and false otherwise.";
@@ -109,12 +109,12 @@ TimeString::usage =
   "TimeString[seconds] nicely formats the amount of seconds as a \
 string.";
 
-Description::usage = "Option for TimedMap.";
+Description::usage = "Option for MapTimed.";
 
-MonitorSteps::usage = "Option for TimedMap.";
+MonitorSteps::usage = "Option for MapTimed.";
 
-TimedMap::usage = 
-  "TimedMap[func,expr] is similar to Map, except that it also prints \
+MapTimed::usage = 
+  "MapTimed[func,expr] is similar to Map, except that it also prints \
 the expected calculation time.";
 
 
@@ -736,7 +736,7 @@ OrderCoefficient[o_, n_] := Module[{symbol},
 
 
 (************)
-(* TimedMap *)
+(* MapTimed *)
 (************)
 
 TimeString[0] = "0 seconds";
@@ -773,17 +773,17 @@ LevelSpecQ[Infinity] := True
 LevelSpecQ[___] := False
 
 
-Options[TimedMap] ^= {
+Options[MapTimed] ^= {
 	Description -> "", 
 	MonitorSteps -> All,
-	DoTensorCollect -> True 
+	DoTensorCollect -> False 
 };
 
-TimedMap[func_, expr_, levelspec_: {1}, options___?OptionQ] /; LevelSpecQ[levelspec] := 
+MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; LevelSpecQ[levelspec] := 
   Module[{begintime, desc, ms, l, sl, bytes, timer, mon, ETA, steps,dtc},
    {desc, 
      ms,dtc} = {Description, MonitorSteps, DoTensorCollect} /. CheckOptions[options] /. 
-     Options[TimedMap];
+     Options[MapTimed];
    desc = ToString[desc];
    (* TODO: fix length / 
    duration calculation if the levelspec is different from {1} *)
