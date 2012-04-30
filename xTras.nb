@@ -32,7 +32,7 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["xAct`xTras`$Version", "Print", "PrintUsage",
- CellTags->"Info3542807788-4505686"],
+ CellTags->"Info3544767138-9534944"],
 
 Cell[BoxData[
  InterpretationBox[GridBox[{
@@ -54,7 +54,7 @@ Cell[BoxData[
      "RowsIndexed" -> {}}],
   Definition[xAct`xTras`$Version],
   Editable->False]], "Print",
- CellTags->"Info3542807788-4505686"]
+ CellTags->"Info3544767138-9534944"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -91,14 +91,14 @@ Cell[BoxData["\<\"BackgroundSolution\"\>"], "Print"],
 Cell[BoxData[
  StyleBox["\<\"BackgroundSolution is an option for ApplyBackground.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807794-4505686"],
+ CellTags->"Info3544769332-8868870"],
 
 Cell[BoxData["\<\"ClearAutomaticRules\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"ClearAutomaticRules[symbol,rules] tries to remove rules from \
 the upvalues and downvalues of symbol.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807794-4505686"],
+ CellTags->"Info3544769333-8868870"],
 
 Cell[BoxData["\<\"ClearCurvatureRelations\"\>"], "Print"],
 
@@ -106,21 +106,21 @@ Cell[BoxData[
  StyleBox["\<\"ClearCurvatureRelations[CD] removes the automatic curvature \
 relations for the covariant derivative CD.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807794-4505686"],
+ CellTags->"Info3544769333-8868870"],
 
 Cell[BoxData["\<\"Coefficients\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"Option for InvarInvariants.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807794-4505686"],
+ CellTags->"Info3544769333-8868870"],
 
 Cell[BoxData["\<\"CollectMethod\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"CollectMethod is an option for TensorCollect.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807795-4505686"],
+ CellTags->"Info3544769333-8868870"],
 
 Cell[BoxData["\<\"ConstantExprQ\"\>"], "Print"],
 
@@ -128,7 +128,7 @@ Cell[BoxData[
  StyleBox["\<\"ConstantExprQ[expr] returns True if expr only contains \
 contains constants (i.e. constant symbols and integers, fractions, etc), and \
 False otherwise.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807795-4505686"],
+ CellTags->"Info3544769333-8868870"],
 
 Cell[BoxData["\<\"CurvatureRelationsQ\"\>"], "Print"],
 
@@ -136,21 +136,14 @@ Cell[BoxData[
  StyleBox["\<\"CurvatureRelationsQ[CD] returns True if all of the curvature \
 relations for the covariant derivative CD have been set as automatic rules, \
 and False otherwise.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807795-4505686"],
+ CellTags->"Info3544769334-8868870"],
 
 Cell[BoxData["\<\"CurvatureTensors\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"CurvatureTensors[CD] gives the list of all the curvature \
 tensors of CD.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807796-4505686"],
-
-Cell[BoxData["\<\"DefEinsteinCC\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"DefEinsteinCC[cd] define the cosmological Einstein tensor for \
-the covariant derivative cd.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807796-4505686"],
+ CellTags->"Info3544769334-8868870"],
 
 Cell[BoxData["\<\"DefMetricVariation\"\>"], "Print"],
 
@@ -158,34 +151,20 @@ Cell[BoxData[
  StyleBox["\<\"DefMetricVariation[metric, pert, param] first defines a metric \
 perturbation with the same arguments, and then defines covariant VarD and \
 VarL functions for the metric.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807796-4505686"],
-
-Cell[BoxData["\<\"DefSchouten\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"DefSchouten[cd] defines the Schouten tensor for the covariant \
-derivative cd.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807796-4505686"],
-
-Cell[BoxData["\<\"DefSchoutenCC\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"DefSchoutenCC[cd] defines the cosmological Schouten tensor for \
-the covariant derivative cd.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807796-4505686"],
+ CellTags->"Info3544769334-8868870"],
 
 Cell[BoxData["\<\"DerivativeOrder\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"DerivativeOrder[expr,CD] gives the order of derivatives of \
 expr.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807797-4505686"],
+ CellTags->"Info3544769335-8868870"],
 
 Cell[BoxData["\<\"Description\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"Option for MapTimed.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807797-4505686"],
+ CellTags->"Info3544769335-8868870"],
 
 Cell[BoxData["\<\"DivFreeQ\"\>"], "Print"],
 
@@ -194,14 +173,14 @@ Cell[BoxData[
 a divergence of the given tensor w.r.t. the given CD after arbritrary \
 commutations of the covariant derivatives.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807797-4505686"],
+ CellTags->"Info3544769335-8868870"],
 
 Cell[BoxData["\<\"DontSolveFor\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"Option for TensorCollectSolve.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807797-4505686"],
+ CellTags->"Info3544769336-8868870"],
 
 Cell[BoxData["\<\"DoTensorCollect\"\>"], "Print"],
 
@@ -210,7 +189,7 @@ Cell[BoxData[
 tensor in expr. This is useful if you have an expression with one tensor \
 object with lots of different constants.\"\>", "MSG"]], "Print", "PrintUsage",
  
- CellTags->"Info3542807797-4505686"],
+ CellTags->"Info3544769336-8868870"],
 
 Cell[BoxData["\<\"EinsteinCC\"\>"], "Print"],
 
@@ -218,14 +197,14 @@ Cell[BoxData[
  StyleBox["\<\"EinsteinCC is a reserved word in xTras. It is used to generate \
 the name of the cosmological Einstein curvature tensor associated to a \
 connection acting on a tangent bundle.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807798-4505686"],
+ CellTags->"Info3544769336-8868870"],
 
 Cell[BoxData["\<\"EinsteinCCToRicci\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"EinsteinCCToRicci[expr,cd] converts cosmological Einstein \
 tensors to Ricci tensors.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807798-4505686"],
+ CellTags->"Info3544769336-8868870"],
 
 Cell[BoxData["\<\"EinsteinSpaceRules\"\>"], "Print"],
 
@@ -233,7 +212,7 @@ Cell[BoxData[
  StyleBox["\<\"EinsteinSpaceRules[CD,K] produces replacement rules for the \
 curvature tensors of CD (except the Riemann) on an Einstein space of \
 curvature K.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807798-4505686"],
+ CellTags->"Info3544769336-8868870"],
 
 Cell[BoxData["\<\"EulerDensity\"\>"], "Print"],
 
@@ -242,7 +221,7 @@ Cell[BoxData[
 tensor of the covariant derivative CD. If the manifold has generic dimension, \
 you can use EulerDensity[CD,dim] to specify a dimension.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807798-4505686"],
+ CellTags->"Info3544769337-8868870"],
 
 Cell[BoxData["\<\"ExpandBackground\"\>"], "Print"],
 
@@ -251,7 +230,7 @@ Cell[BoxData[
 perbutation of expr on an arbitrary background, without an expansion \
 parameter or 1/n! factor. The background is set with the option \
 BackgroundSolution.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807799-4505686"],
+ CellTags->"Info3544769337-8868870"],
 
 Cell[BoxData["\<\"ExpandFlat\"\>"], "Print"],
 
@@ -259,21 +238,21 @@ Cell[BoxData[
  StyleBox["\<\"ExpandFlat[expr,n] expands only the nth order perbutation of \
 expr on a flat background, without an expansion parameter or 1/n! \
 factor.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807799-4505686"],
+ CellTags->"Info3544769337-8868870"],
 
 Cell[BoxData["\<\"ExpandPerturbationDer\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"ExpandPerturbationDer expands the perturbatios of derivatives.\
 \"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807799-4505686"],
+ CellTags->"Info3544769337-8868870"],
 
 Cell[BoxData["\<\"ExtraRules\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"ExtraRules is an option for ApplyBackground.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807799-4505686"],
+ CellTags->"Info3544769338-8868870"],
 
 Cell[BoxData["\<\"FD\"\>"], "Print"],
 
@@ -281,21 +260,21 @@ Cell[BoxData[
  StyleBox["\<\"FD is the head for functional derivatives. \
 FD[FD1[tensor1]FD2[tensor2]] represents the functional derivative of tensor1 \
 w.r.t tensor2.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807799-4505686"],
+ CellTags->"Info3544769338-8868870"],
 
 Cell[BoxData["\<\"FD1\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"FD1 represents the numerator in functional derivatives.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807800-4505686"],
+ CellTags->"Info3544769338-8868870"],
 
 Cell[BoxData["\<\"FD2\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"FD2 represents the denominator in functional derivatives.\"\>",
    "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807800-4505686"],
+ CellTags->"Info3544769338-8868870"],
 
 Cell[BoxData["\<\"FlatRules\"\>"], "Print"],
 
@@ -303,14 +282,14 @@ Cell[BoxData[
  StyleBox["\<\"FlatRules[expr] produces rules for a covariant derivative CD \
 such that, when applied to an expression, the expression is effectively on a \
 flat background.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807800-4505686"],
+ CellTags->"Info3544769339-8868870"],
 
 Cell[BoxData["\<\"FS\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"FS[metric][expr] tries to simplify expr as much as possible.\"\
 \>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807800-4505686"],
+ CellTags->"Info3544769339-8868870"],
 
 Cell[BoxData["\<\"IncludeDuals\"\>"], "Print"],
 
@@ -318,14 +297,14 @@ Cell[BoxData[
  StyleBox["\<\"Option for SingleInvariants, ProductInvariants, \
 RangeInvariants, and InvarLagrangian whether to include dual invariants or \
 not.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807801-4505686"],
+ CellTags->"Info3544769339-8868870"],
 
 Cell[BoxData["\<\"InvarLagrangian\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"InvarLagrangian[metric,levelspec] gives a Lagrangian up to \
 maxorder in derivatives of the metric.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807801-4505686"],
+ CellTags->"Info3544769339-8868870"],
 
 Cell[BoxData["\<\"InvarWrapper\"\>"], "Print"],
 
@@ -334,14 +313,14 @@ Cell[BoxData[
 function specified by invarFunction s.t. you can use your own options for \
 ToCanonical, ContractMetric, and CurvatureRelations.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807801-4505686"],
+ CellTags->"Info3544769340-8868870"],
 
 Cell[BoxData["\<\"LevelSpecQ\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"LevelSpecQ[levelspec] yields True if levelspec is a standard \
 levelspec, and false otherwise.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807801-4505686"],
+ CellTags->"Info3544769340-8868870"],
 
 Cell[BoxData["\<\"MakeEquationRule\"\>"], "Print"],
 
@@ -349,20 +328,20 @@ Cell[BoxData[
  StyleBox["\<\"MakeEquationRule[{equation,pattern,cond}] returns rules for \
 tensors matching pattern in the given equation.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807801-4505686"],
+ CellTags->"Info3544769340-8868870"],
 
 Cell[BoxData["\<\"MapTimed\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"MapTimed[func,expr] is similar to Map, except that it also \
 prints the expected calculation time.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807802-4505686"],
+ CellTags->"Info3544769340-8868870"],
 
 Cell[BoxData["\<\"MonitorSteps\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"Option for MapTimed.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807802-4505686"],
+ CellTags->"Info3544769340-8868870"],
 
 Cell[BoxData["\<\"MyRiemannSimplify\"\>"], "Print"],
 
@@ -371,21 +350,21 @@ Cell[BoxData[
 RiemannSimplify, except that it also works for generic options for \
 ToCanonical etc, and works on more general expressions.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807802-4505686"],
+ CellTags->"Info3544769341-8868870"],
 
 Cell[BoxData["\<\"OrderCoefficient\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"OrderCoefficient[order,n] gives a constant symbol for \
 InvarLagrangian.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807802-4505686"],
+ CellTags->"Info3544769341-8868870"],
 
 Cell[BoxData["\<\"OrderParameter\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"Options for InvarLagrangian.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807802-4505686"],
+ CellTags->"Info3544769341-8868870"],
 
 Cell[BoxData["\<\"PerturbBackground\"\>"], "Print"],
 
@@ -395,7 +374,7 @@ around an arbitrary background for only the order n. This is useful if you \
 want to keep symbolic things like Perturbation[EinsteinCD[]] unexpanded. The \
 background is set with the option BackgroundSolution.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807803-4505686"],
+ CellTags->"Info3544769341-8868870"],
 
 Cell[BoxData["\<\"PerturbFlat\"\>"], "Print"],
 
@@ -404,7 +383,7 @@ Cell[BoxData[
 flat background for only the order n. This is useful if you want to keep \
 symbolic things like Perturbation[EinsteinCD[]] unexpanded.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807803-4505686"],
+ CellTags->"Info3544769342-8868870"],
 
 Cell[BoxData["\<\"PreferBoxOfRule\"\>"], "Print"],
 
@@ -412,7 +391,7 @@ Cell[BoxData[
  StyleBox["\<\"PreferBoxOfRule[tensor,CD] gives rules for rewriting an \
 expression with boxes on the given tensor with respect to the given CD.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807803-4505686"],
+ CellTags->"Info3544769342-8868870"],
 
 Cell[BoxData["\<\"PreferDivOfRule\"\>"], "Print"],
 
@@ -420,7 +399,7 @@ Cell[BoxData[
  StyleBox["\<\"PreferDivOfRule[tensor,CD] gives rules for rewriting an \
 expression with divergences of the given tensor with respect to the given CD.\
 \"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807803-4505686"],
+ CellTags->"Info3544769342-8868870"],
 
 Cell[BoxData["\<\"ProductInvariants\"\>"], "Print"],
 
@@ -428,21 +407,21 @@ Cell[BoxData[
  StyleBox["\<\"ProductInvariants[metric,order] gives all product invariants \
 of the Riemann tensor at that given order (which has the standard level \
 specification)\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807803-4505686"],
+ CellTags->"Info3544769343-8868870"],
 
 Cell[BoxData["\<\"RemoveConstants\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"RemoveConstants[expr] removes all constants from the tensorial \
 expression expr.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807804-4505686"],
+ CellTags->"Info3544769343-8868870"],
 
 Cell[BoxData["\<\"RemoveTensors\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"RemoveTensors[expr] removes all tensors from expr, and leaves \
 just the constants.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807804-4505686"],
+ CellTags->"Info3544769343-8868870"],
 
 Cell[BoxData["\<\"RicciDivRule\"\>"], "Print"],
 
@@ -450,28 +429,28 @@ Cell[BoxData[
  StyleBox["\<\"RicciDivRule[CD] gives rules for rewriting the divergence of \
 the Ricci tensor of the given covariant derivative in terms of the Ricci \
 scalar.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807804-4505686"],
+ CellTags->"Info3544769343-8868870"],
 
 Cell[BoxData["\<\"RicciToEinsteinCC\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"RicciToEinsteinCC[K][expr,cd] converts Ricci tensors into \
 cosmological Einstein tensors.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807805-4505686"],
+ CellTags->"Info3544769344-8868870"],
 
 Cell[BoxData["\<\"RicciToSchouten\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"RicciToSchouten[expr,cd] converts Ricci tensors to Schouten \
 tensors.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807805-4505686"],
+ CellTags->"Info3544769344-8868870"],
 
 Cell[BoxData["\<\"RicciToSchoutenCC\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"RicciToSchoutenCC[expr,cd] converts Ricci tensors to \
 cosmological Schouten tensors.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807805-4505686"],
+ CellTags->"Info3544769344-8868870"],
 
 Cell[BoxData["\<\"RiemannDivRule\"\>"], "Print"],
 
@@ -479,7 +458,7 @@ Cell[BoxData[
  StyleBox["\<\"RiemannDivRule[CD] gives rules for rewriting the divergence of \
 the Riemann tensor of the given covariant derivative in terms of the Ricci \
 tensor.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807805-4505686"],
+ CellTags->"Info3544769344-8868870"],
 
 Cell[BoxData["\<\"RiemannYoungRule\"\>"], "Print"],
 
@@ -488,7 +467,7 @@ Cell[BoxData[
 covariant derivative of the Riemann tensor of the covariant derivative CD \
 onto its Young tableau. The default for n is 0.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807805-4505686"],
+ CellTags->"Info3544769345-8868870"],
 
 Cell[BoxData["\<\"Schouten\"\>"], "Print"],
 
@@ -496,7 +475,7 @@ Cell[BoxData[
  StyleBox["\<\"Schouten is a reserved word in xTras. It is used to generate \
 the name of the Schouten curvature tensor associated to a connection acting \
 on a tangent bundle.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807806-4505686"],
+ CellTags->"Info3544769345-8868870"],
 
 Cell[BoxData["\<\"SchoutenCC\"\>"], "Print"],
 
@@ -504,21 +483,21 @@ Cell[BoxData[
  StyleBox["\<\"SchoutenCC is a reserved word in xTras. It is used to generate \
 the name of the cosmological Schouten curvature tensor associated to a \
 connection acting on a tangent bundle.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807806-4505686"],
+ CellTags->"Info3544769345-8868870"],
 
 Cell[BoxData["\<\"SchoutenCCToRicci\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"SchoutenCCToRicci[expr,cd] converts cosmological Schouten \
 tensors to Ricci tensors.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807806-4505686"],
+ CellTags->"Info3544769345-8868870"],
 
 Cell[BoxData["\<\"SchoutenToRicci\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"SchoutenToRicci[expr,cd] converts Schouten tensors to Ricci \
 tensors.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807806-4505686"],
+ CellTags->"Info3544769345-8868870"],
 
 Cell[BoxData["\<\"SetCurvatureRelations\"\>"], "Print"],
 
@@ -526,14 +505,14 @@ Cell[BoxData[
  StyleBox["\<\"SetCurvatureRelations[CD] sets the automatic curvature \
 relations for the covariant derivative CD.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807807-4505686"],
+ CellTags->"Info3544769346-8868870"],
 
 Cell[BoxData["\<\"SimplifyMethod\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"SimplifyMethod is an option for TensorCollect.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807807-4505686"],
+ CellTags->"Info3544769346-8868870"],
 
 Cell[BoxData["\<\"SingleInvariants\"\>"], "Print"],
 
@@ -541,14 +520,14 @@ Cell[BoxData[
  StyleBox["\<\"SingleInvariants[metric,order] gives the single invariants of \
 the Riemann tensor at that given order (which has the standard level \
 specification)\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807807-4505686"],
+ CellTags->"Info3544769346-8868870"],
 
 Cell[BoxData["\<\"SolveFor\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"Option for TensorCollectSolve.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807807-4505686"],
+ CellTags->"Info3544769346-8868870"],
 
 Cell[BoxData["\<\"SymmetricSpaceRules\"\>"], "Print"],
 
@@ -556,35 +535,35 @@ Cell[BoxData[
  StyleBox["\<\"SymmetricSpaceRules[CD,K] produces replacement rules for the \
 curvature tensors of CD on a symmetric space of constant curvature K.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807808-4505686"],
+ CellTags->"Info3544769346-8868870"],
 
 Cell[BoxData["\<\"TensorCollect\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"TensorCollect[expr] acts as Collect[expr,tensorsof[expr]]\"\>",
    "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807808-4505686"],
+ CellTags->"Info3544769347-8868870"],
 
 Cell[BoxData["\<\"TensorCollector\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"TensorCollector[expr] wraps all tensors in expr in a head \
 'TensorCollector'.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807808-4505686"],
+ CellTags->"Info3544769347-8868870"],
 
 Cell[BoxData["\<\"TensorCollectSolve\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"TensorCollectSolve[expr] solves expr = 0 for any constant \
 symbols appearing in expr.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807808-4505686"],
+ CellTags->"Info3544769347-8868870"],
 
 Cell[BoxData["\<\"TimeString\"\>"], "Print"],
 
 Cell[BoxData[
  StyleBox["\<\"TimeString[seconds] nicely formats the amount of seconds as a \
 string.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807809-4505686"],
+ CellTags->"Info3544769347-8868870"],
 
 Cell[BoxData["\<\"ToBackground\"\>"], "Print"],
 
@@ -592,7 +571,7 @@ Cell[BoxData[
  StyleBox["\<\"ToBackground[expr] ensures expr is on some background. The \
 background is set with the option BackgroundSolution.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807809-4505686"],
+ CellTags->"Info3544769348-8868870"],
 
 Cell[BoxData["\<\"ToFlat\"\>"], "Print"],
 
@@ -600,7 +579,7 @@ Cell[BoxData[
  StyleBox["\<\"ToFlat[expr] ensures expr is on a flat background, i.e. it \
 sets unperturbed curvature tensors to zero, etc.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807809-4505686"],
+ CellTags->"Info3544769348-8868870"],
 
 Cell[BoxData["\<\"VarL\"\>"], "Print"],
 
@@ -608,7 +587,7 @@ Cell[BoxData[
  StyleBox["\<\"VarL[g[-a,-b]][L] varies Sqrt[-Det[g]]*L w.r.t. g.  \\nIt is \
 only defined after using DefMetricVariation for the given metric.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807809-4505686"],
+ CellTags->"Info3544769348-8868870"],
 
 Cell[BoxData["\<\"YoungProject\"\>"], "Print"],
 
@@ -620,7 +599,7 @@ indices of expr. \\nYoungProject[tensor,tableau] projects the tensor \
 integers. \\n\\nThe difference between projecting and symmetrizing is that \
 the projection has a different overall factor, such that repeatedly \
 projecting does not change the result.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807809-4505686"],
+ CellTags->"Info3544769348-8868870"],
 
 Cell[BoxData["\<\"YoungSymmetrize\"\>"], "Print"],
 
@@ -631,7 +610,7 @@ the set of free indices of expr.\\n\\n  YoungSymmetrize[tensor,tableau] \
 symmetrizes the tensor (withouth the [] on tensor) according to tableau, \
 where the entries of tableau are integers.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807810-4505686"],
+ CellTags->"Info3544769349-8868870"],
 
 Cell[BoxData["\<\"YoungTableauQ\"\>"], "Print"],
 
@@ -641,7 +620,7 @@ Young tableau, and False otherwhise. A proper Young tableau is a list of \
 lists of integers or symbols, whose intersection is empty. Furthermore the \
 length of the lists has to decrease monotonically.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3542807810-4505686"]
+ CellTags->"Info3544769349-8868870"]
 }, Open  ]]
 }, Open  ]]
 }, Closed]],
@@ -4290,9 +4269,7 @@ $CellContext`d],
 
 Cell[CellGroupData[{
 
-Cell["\<\
-Variations, MapTimed, TensorCollect\
-\>", "Subsection"],
+Cell["Variations, MapTimed, TensorCollect", "Subsection"],
 
 Cell["We can define a covariant metric variations as", "Text"],
 
@@ -6839,7 +6816,6 @@ $CellContext`f, $CellContext`g],
                    Offset[0.]}}, "RowsIndexed" -> {}}],
              FontSize->9]}
           },
-          
           GridBoxAlignment->{
            "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
             "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -6994,7 +6970,6 @@ $CellContext`d, $CellContext`f]]],
                    Offset[0.]}}, "RowsIndexed" -> {}}],
              FontSize->9]}
           },
-          
           GridBoxAlignment->{
            "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
             "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -10413,9 +10388,10 @@ Cell[BoxData[
  RowBox[{"DefConstantSymbol", "[", "\[CapitalLambda]", "]"}]], "Input"],
 
 Cell[BoxData[
- RowBox[{"bg", " ", ":=", " ", 
-  RowBox[{"SymmetricSpaceRules", "[", 
-   RowBox[{"CD", ",", "\[CapitalLambda]"}], "]"}]}]], "Input"],
+ RowBox[{
+  RowBox[{"bg", " ", "=", " ", 
+   RowBox[{"SymmetricSpaceRules", "[", 
+    RowBox[{"CD", ",", "\[CapitalLambda]"}], "]"}]}], ";"}]], "Input"],
 
 Cell["\<\
 For the equations of motion computed earlier, the background curvature \
@@ -10592,397 +10568,400 @@ Cell[BoxData[
        AutoSpacing->False],
       $CellContext`\[CapitalLambda],
       Editable->False], "\[Rule]", 
-     FractionBox[
-      RowBox[{
-       RowBox[{"2", " ", 
-        InterpretationBox[
-         StyleBox[
-          SubsuperscriptBox["c", "1", "1"],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`o1n1,
-         Editable->False]}], "-", 
-       RowBox[{"3", " ", 
-        InterpretationBox[
-         StyleBox["D",
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`dimension,
-         Editable->False], " ", 
-        InterpretationBox[
-         StyleBox[
-          SubsuperscriptBox["c", "1", "1"],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`o1n1,
-         Editable->False]}], "+", 
+     RowBox[{
+      RowBox[{"(", 
        RowBox[{
-        SuperscriptBox[
+        RowBox[{"2", " ", 
+         InterpretationBox[
+          StyleBox[
+           SubsuperscriptBox["c", "1", "1"],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`o1n1,
+          Editable->False]}], "-", 
+        RowBox[{"3", " ", 
          InterpretationBox[
           StyleBox["D",
            ShowAutoStyles->False,
            AutoSpacing->False],
           $CellContext`dimension,
-          Editable->False], "2"], " ", 
-        InterpretationBox[
-         StyleBox[
-          SubsuperscriptBox["c", "1", "1"],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`o1n1,
-         Editable->False]}], "-", 
-       SqrtBox[
+          Editable->False], " ", 
+         InterpretationBox[
+          StyleBox[
+           SubsuperscriptBox["c", "1", "1"],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`o1n1,
+          Editable->False]}], "+", 
         RowBox[{
          SuperscriptBox[
-          RowBox[{"(", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"-", "2"}], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "1", "1"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o1n1,
-              Editable->False]}], "+", 
-            RowBox[{"3", " ", 
-             InterpretationBox[
-              StyleBox["D",
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`dimension,
-              Editable->False], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "1", "1"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o1n1,
-              Editable->False]}], "-", 
-            RowBox[{
-             SuperscriptBox[
-              InterpretationBox[
-               StyleBox["D",
-                ShowAutoStyles->False,
-                AutoSpacing->False],
-               $CellContext`dimension,
-               Editable->False], "2"], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "1", "1"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o1n1,
-              Editable->False]}]}], ")"}], "2"], "+", 
-         RowBox[{"4", " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "1", "0"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o0n1,
-           Editable->False], " ", 
-          RowBox[{"(", 
-           RowBox[{
-            RowBox[{"4", " ", 
-             InterpretationBox[
-              StyleBox["D",
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`dimension,
-              Editable->False], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "1", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n1,
-              Editable->False]}], "-", 
-            RowBox[{"9", " ", 
-             SuperscriptBox[
-              InterpretationBox[
-               StyleBox["D",
-                ShowAutoStyles->False,
-                AutoSpacing->False],
-               $CellContext`dimension,
-               Editable->False], "2"], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "1", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n1,
-              Editable->False]}], "+", 
-            RowBox[{"6", " ", 
-             SuperscriptBox[
-              InterpretationBox[
-               StyleBox["D",
-                ShowAutoStyles->False,
-                AutoSpacing->False],
-               $CellContext`dimension,
-               Editable->False], "3"], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "1", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n1,
-              Editable->False]}], "-", 
-            RowBox[{
-             SuperscriptBox[
-              InterpretationBox[
-               StyleBox["D",
-                ShowAutoStyles->False,
-                AutoSpacing->False],
-               $CellContext`dimension,
-               Editable->False], "4"], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "1", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n1,
-              Editable->False]}], "+", 
-            RowBox[{"4", " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "2", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n2,
-              Editable->False]}], "-", 
-            RowBox[{"9", " ", 
-             InterpretationBox[
-              StyleBox["D",
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`dimension,
-              Editable->False], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "2", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n2,
-              Editable->False]}], "+", 
-            RowBox[{"6", " ", 
-             SuperscriptBox[
-              InterpretationBox[
-               StyleBox["D",
-                ShowAutoStyles->False,
-                AutoSpacing->False],
-               $CellContext`dimension,
-               Editable->False], "2"], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "2", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n2,
-              Editable->False]}], "-", 
-            RowBox[{
-             SuperscriptBox[
-              InterpretationBox[
-               StyleBox["D",
-                ShowAutoStyles->False,
-                AutoSpacing->False],
-               $CellContext`dimension,
-               Editable->False], "3"], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "2", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n2,
-              Editable->False]}], "-", 
-            RowBox[{"8", " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "3", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n3,
-              Editable->False]}], "+", 
-            RowBox[{"10", " ", 
-             InterpretationBox[
-              StyleBox["D",
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`dimension,
-              Editable->False], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "3", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n3,
-              Editable->False]}], "-", 
-            RowBox[{"2", " ", 
-             SuperscriptBox[
-              InterpretationBox[
-               StyleBox["D",
-                ShowAutoStyles->False,
-                AutoSpacing->False],
-               $CellContext`dimension,
-               Editable->False], "2"], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "3", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n3,
-              Editable->False]}]}], ")"}]}]}]]}], 
-      RowBox[{"2", " ", 
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"4", " ", 
           InterpretationBox[
            StyleBox["D",
             ShowAutoStyles->False,
             AutoSpacing->False],
            $CellContext`dimension,
-           Editable->False], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "1", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n1,
-           Editable->False]}], "-", 
-         RowBox[{"9", " ", 
-          SuperscriptBox[
-           InterpretationBox[
-            StyleBox["D",
-             ShowAutoStyles->False,
-             AutoSpacing->False],
-            $CellContext`dimension,
-            Editable->False], "2"], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "1", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n1,
-           Editable->False]}], "+", 
-         RowBox[{"6", " ", 
-          SuperscriptBox[
-           InterpretationBox[
-            StyleBox["D",
-             ShowAutoStyles->False,
-             AutoSpacing->False],
-            $CellContext`dimension,
-            Editable->False], "3"], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "1", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n1,
-           Editable->False]}], "-", 
+           Editable->False], "2"], " ", 
+         InterpretationBox[
+          StyleBox[
+           SubsuperscriptBox["c", "1", "1"],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`o1n1,
+          Editable->False]}], "-", 
+        RowBox[{"\[Sqrt]", 
+         RowBox[{"(", 
+          RowBox[{
+           SuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"-", "2"}], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "1", "1"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o1n1,
+                Editable->False]}], "+", 
+              RowBox[{"3", " ", 
+               InterpretationBox[
+                StyleBox["D",
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`dimension,
+                Editable->False], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "1", "1"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o1n1,
+                Editable->False]}], "-", 
+              RowBox[{
+               SuperscriptBox[
+                InterpretationBox[
+                 StyleBox["D",
+                  ShowAutoStyles->False,
+                  AutoSpacing->False],
+                 $CellContext`dimension,
+                 Editable->False], "2"], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "1", "1"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o1n1,
+                Editable->False]}]}], ")"}], "2"], "+", 
+           RowBox[{"4", " ", 
+            InterpretationBox[
+             StyleBox[
+              SubsuperscriptBox["c", "1", "0"],
+              ShowAutoStyles->False,
+              AutoSpacing->False],
+             $CellContext`o0n1,
+             Editable->False], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"4", " ", 
+               InterpretationBox[
+                StyleBox["D",
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`dimension,
+                Editable->False], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "1", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n1,
+                Editable->False]}], "-", 
+              RowBox[{"9", " ", 
+               SuperscriptBox[
+                InterpretationBox[
+                 StyleBox["D",
+                  ShowAutoStyles->False,
+                  AutoSpacing->False],
+                 $CellContext`dimension,
+                 Editable->False], "2"], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "1", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n1,
+                Editable->False]}], "+", 
+              RowBox[{"6", " ", 
+               SuperscriptBox[
+                InterpretationBox[
+                 StyleBox["D",
+                  ShowAutoStyles->False,
+                  AutoSpacing->False],
+                 $CellContext`dimension,
+                 Editable->False], "3"], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "1", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n1,
+                Editable->False]}], "-", 
+              RowBox[{
+               SuperscriptBox[
+                InterpretationBox[
+                 StyleBox["D",
+                  ShowAutoStyles->False,
+                  AutoSpacing->False],
+                 $CellContext`dimension,
+                 Editable->False], "4"], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "1", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n1,
+                Editable->False]}], "+", 
+              RowBox[{"4", " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "2", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n2,
+                Editable->False]}], "-", 
+              RowBox[{"9", " ", 
+               InterpretationBox[
+                StyleBox["D",
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`dimension,
+                Editable->False], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "2", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n2,
+                Editable->False]}], "+", 
+              RowBox[{"6", " ", 
+               SuperscriptBox[
+                InterpretationBox[
+                 StyleBox["D",
+                  ShowAutoStyles->False,
+                  AutoSpacing->False],
+                 $CellContext`dimension,
+                 Editable->False], "2"], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "2", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n2,
+                Editable->False]}], "-", 
+              RowBox[{
+               SuperscriptBox[
+                InterpretationBox[
+                 StyleBox["D",
+                  ShowAutoStyles->False,
+                  AutoSpacing->False],
+                 $CellContext`dimension,
+                 Editable->False], "3"], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "2", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n2,
+                Editable->False]}], "-", 
+              RowBox[{"8", " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "3", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n3,
+                Editable->False]}], "+", 
+              RowBox[{"10", " ", 
+               InterpretationBox[
+                StyleBox["D",
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`dimension,
+                Editable->False], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "3", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n3,
+                Editable->False]}], "-", 
+              RowBox[{"2", " ", 
+               SuperscriptBox[
+                InterpretationBox[
+                 StyleBox["D",
+                  ShowAutoStyles->False,
+                  AutoSpacing->False],
+                 $CellContext`dimension,
+                 Editable->False], "2"], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "3", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n3,
+                Editable->False]}]}], ")"}]}]}], ")"}]}]}], ")"}], "/", 
+      RowBox[{"(", 
+       RowBox[{"2", " ", 
+        RowBox[{"(", 
          RowBox[{
-          SuperscriptBox[
+          RowBox[{"4", " ", 
            InterpretationBox[
             StyleBox["D",
              ShowAutoStyles->False,
              AutoSpacing->False],
             $CellContext`dimension,
-            Editable->False], "4"], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "1", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n1,
-           Editable->False]}], "+", 
-         RowBox[{"4", " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "2", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n2,
-           Editable->False]}], "-", 
-         RowBox[{"9", " ", 
-          InterpretationBox[
-           StyleBox["D",
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`dimension,
-           Editable->False], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "2", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n2,
-           Editable->False]}], "+", 
-         RowBox[{"6", " ", 
-          SuperscriptBox[
+            Editable->False], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "1", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n1,
+            Editable->False]}], "-", 
+          RowBox[{"9", " ", 
+           SuperscriptBox[
+            InterpretationBox[
+             StyleBox["D",
+              ShowAutoStyles->False,
+              AutoSpacing->False],
+             $CellContext`dimension,
+             Editable->False], "2"], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "1", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n1,
+            Editable->False]}], "+", 
+          RowBox[{"6", " ", 
+           SuperscriptBox[
+            InterpretationBox[
+             StyleBox["D",
+              ShowAutoStyles->False,
+              AutoSpacing->False],
+             $CellContext`dimension,
+             Editable->False], "3"], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "1", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n1,
+            Editable->False]}], "-", 
+          RowBox[{
+           SuperscriptBox[
+            InterpretationBox[
+             StyleBox["D",
+              ShowAutoStyles->False,
+              AutoSpacing->False],
+             $CellContext`dimension,
+             Editable->False], "4"], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "1", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n1,
+            Editable->False]}], "+", 
+          RowBox[{"4", " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "2", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n2,
+            Editable->False]}], "-", 
+          RowBox[{"9", " ", 
            InterpretationBox[
             StyleBox["D",
              ShowAutoStyles->False,
              AutoSpacing->False],
             $CellContext`dimension,
-            Editable->False], "2"], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "2", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n2,
-           Editable->False]}], "-", 
-         RowBox[{
-          SuperscriptBox[
+            Editable->False], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "2", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n2,
+            Editable->False]}], "+", 
+          RowBox[{"6", " ", 
+           SuperscriptBox[
+            InterpretationBox[
+             StyleBox["D",
+              ShowAutoStyles->False,
+              AutoSpacing->False],
+             $CellContext`dimension,
+             Editable->False], "2"], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "2", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n2,
+            Editable->False]}], "-", 
+          RowBox[{
+           SuperscriptBox[
+            InterpretationBox[
+             StyleBox["D",
+              ShowAutoStyles->False,
+              AutoSpacing->False],
+             $CellContext`dimension,
+             Editable->False], "3"], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "2", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n2,
+            Editable->False]}], "-", 
+          RowBox[{"8", " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "3", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n3,
+            Editable->False]}], "+", 
+          RowBox[{"10", " ", 
            InterpretationBox[
             StyleBox["D",
              ShowAutoStyles->False,
              AutoSpacing->False],
             $CellContext`dimension,
-            Editable->False], "3"], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "2", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n2,
-           Editable->False]}], "-", 
-         RowBox[{"8", " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "3", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n3,
-           Editable->False]}], "+", 
-         RowBox[{"10", " ", 
-          InterpretationBox[
-           StyleBox["D",
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`dimension,
-           Editable->False], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "3", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n3,
-           Editable->False]}], "-", 
-         RowBox[{"2", " ", 
-          SuperscriptBox[
+            Editable->False], " ", 
            InterpretationBox[
-            StyleBox["D",
+            StyleBox[
+             SubsuperscriptBox["c", "3", "2"],
              ShowAutoStyles->False,
              AutoSpacing->False],
-            $CellContext`dimension,
-            Editable->False], "2"], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "3", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n3,
-           Editable->False]}]}], ")"}]}]]}], "}"}], ",", 
+            $CellContext`o2n3,
+            Editable->False]}], "-", 
+          RowBox[{"2", " ", 
+           SuperscriptBox[
+            InterpretationBox[
+             StyleBox["D",
+              ShowAutoStyles->False,
+              AutoSpacing->False],
+             $CellContext`dimension,
+             Editable->False], "2"], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "3", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n3,
+            Editable->False]}]}], ")"}]}], ")"}]}]}], "}"}], ",", 
    RowBox[{"{", 
     RowBox[{
      InterpretationBox[
@@ -10991,397 +10970,401 @@ Cell[BoxData[
        AutoSpacing->False],
       $CellContext`\[CapitalLambda],
       Editable->False], "\[Rule]", 
-     FractionBox[
-      RowBox[{
-       RowBox[{"2", " ", 
-        InterpretationBox[
-         StyleBox[
-          SubsuperscriptBox["c", "1", "1"],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`o1n1,
-         Editable->False]}], "-", 
-       RowBox[{"3", " ", 
-        InterpretationBox[
-         StyleBox["D",
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`dimension,
-         Editable->False], " ", 
-        InterpretationBox[
-         StyleBox[
-          SubsuperscriptBox["c", "1", "1"],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`o1n1,
-         Editable->False]}], "+", 
+     RowBox[{
+      RowBox[{"(", 
        RowBox[{
-        SuperscriptBox[
+        RowBox[{"2", " ", 
+         InterpretationBox[
+          StyleBox[
+           SubsuperscriptBox["c", "1", "1"],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`o1n1,
+          Editable->False]}], "-", 
+        RowBox[{"3", " ", 
          InterpretationBox[
           StyleBox["D",
            ShowAutoStyles->False,
            AutoSpacing->False],
           $CellContext`dimension,
-          Editable->False], "2"], " ", 
-        InterpretationBox[
-         StyleBox[
-          SubsuperscriptBox["c", "1", "1"],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`o1n1,
-         Editable->False]}], "+", 
-       SqrtBox[
+          Editable->False], " ", 
+         InterpretationBox[
+          StyleBox[
+           SubsuperscriptBox["c", "1", "1"],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`o1n1,
+          Editable->False]}], "+", 
         RowBox[{
          SuperscriptBox[
-          RowBox[{"(", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"-", "2"}], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "1", "1"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o1n1,
-              Editable->False]}], "+", 
-            RowBox[{"3", " ", 
-             InterpretationBox[
-              StyleBox["D",
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`dimension,
-              Editable->False], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "1", "1"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o1n1,
-              Editable->False]}], "-", 
-            RowBox[{
-             SuperscriptBox[
-              InterpretationBox[
-               StyleBox["D",
-                ShowAutoStyles->False,
-                AutoSpacing->False],
-               $CellContext`dimension,
-               Editable->False], "2"], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "1", "1"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o1n1,
-              Editable->False]}]}], ")"}], "2"], "+", 
-         RowBox[{"4", " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "1", "0"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o0n1,
-           Editable->False], " ", 
-          RowBox[{"(", 
-           RowBox[{
-            RowBox[{"4", " ", 
-             InterpretationBox[
-              StyleBox["D",
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`dimension,
-              Editable->False], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "1", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n1,
-              Editable->False]}], "-", 
-            RowBox[{"9", " ", 
-             SuperscriptBox[
-              InterpretationBox[
-               StyleBox["D",
-                ShowAutoStyles->False,
-                AutoSpacing->False],
-               $CellContext`dimension,
-               Editable->False], "2"], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "1", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n1,
-              Editable->False]}], "+", 
-            RowBox[{"6", " ", 
-             SuperscriptBox[
-              InterpretationBox[
-               StyleBox["D",
-                ShowAutoStyles->False,
-                AutoSpacing->False],
-               $CellContext`dimension,
-               Editable->False], "3"], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "1", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n1,
-              Editable->False]}], "-", 
-            RowBox[{
-             SuperscriptBox[
-              InterpretationBox[
-               StyleBox["D",
-                ShowAutoStyles->False,
-                AutoSpacing->False],
-               $CellContext`dimension,
-               Editable->False], "4"], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "1", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n1,
-              Editable->False]}], "+", 
-            RowBox[{"4", " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "2", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n2,
-              Editable->False]}], "-", 
-            RowBox[{"9", " ", 
-             InterpretationBox[
-              StyleBox["D",
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`dimension,
-              Editable->False], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "2", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n2,
-              Editable->False]}], "+", 
-            RowBox[{"6", " ", 
-             SuperscriptBox[
-              InterpretationBox[
-               StyleBox["D",
-                ShowAutoStyles->False,
-                AutoSpacing->False],
-               $CellContext`dimension,
-               Editable->False], "2"], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "2", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n2,
-              Editable->False]}], "-", 
-            RowBox[{
-             SuperscriptBox[
-              InterpretationBox[
-               StyleBox["D",
-                ShowAutoStyles->False,
-                AutoSpacing->False],
-               $CellContext`dimension,
-               Editable->False], "3"], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "2", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n2,
-              Editable->False]}], "-", 
-            RowBox[{"8", " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "3", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n3,
-              Editable->False]}], "+", 
-            RowBox[{"10", " ", 
-             InterpretationBox[
-              StyleBox["D",
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`dimension,
-              Editable->False], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "3", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n3,
-              Editable->False]}], "-", 
-            RowBox[{"2", " ", 
-             SuperscriptBox[
-              InterpretationBox[
-               StyleBox["D",
-                ShowAutoStyles->False,
-                AutoSpacing->False],
-               $CellContext`dimension,
-               Editable->False], "2"], " ", 
-             InterpretationBox[
-              StyleBox[
-               SubsuperscriptBox["c", "3", "2"],
-               ShowAutoStyles->False,
-               AutoSpacing->False],
-              $CellContext`o2n3,
-              Editable->False]}]}], ")"}]}]}]]}], 
-      RowBox[{"2", " ", 
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"4", " ", 
           InterpretationBox[
            StyleBox["D",
             ShowAutoStyles->False,
             AutoSpacing->False],
            $CellContext`dimension,
-           Editable->False], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "1", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n1,
-           Editable->False]}], "-", 
-         RowBox[{"9", " ", 
-          SuperscriptBox[
-           InterpretationBox[
-            StyleBox["D",
-             ShowAutoStyles->False,
-             AutoSpacing->False],
-            $CellContext`dimension,
-            Editable->False], "2"], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "1", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n1,
-           Editable->False]}], "+", 
-         RowBox[{"6", " ", 
-          SuperscriptBox[
-           InterpretationBox[
-            StyleBox["D",
-             ShowAutoStyles->False,
-             AutoSpacing->False],
-            $CellContext`dimension,
-            Editable->False], "3"], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "1", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n1,
-           Editable->False]}], "-", 
+           Editable->False], "2"], " ", 
+         InterpretationBox[
+          StyleBox[
+           SubsuperscriptBox["c", "1", "1"],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`o1n1,
+          Editable->False]}], "+", 
+        RowBox[{"\[Sqrt]", 
+         RowBox[{"(", 
+          RowBox[{
+           SuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"-", "2"}], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "1", "1"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o1n1,
+                Editable->False]}], "+", 
+              RowBox[{"3", " ", 
+               InterpretationBox[
+                StyleBox["D",
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`dimension,
+                Editable->False], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "1", "1"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o1n1,
+                Editable->False]}], "-", 
+              RowBox[{
+               SuperscriptBox[
+                InterpretationBox[
+                 StyleBox["D",
+                  ShowAutoStyles->False,
+                  AutoSpacing->False],
+                 $CellContext`dimension,
+                 Editable->False], "2"], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "1", "1"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o1n1,
+                Editable->False]}]}], ")"}], "2"], "+", 
+           RowBox[{"4", " ", 
+            InterpretationBox[
+             StyleBox[
+              SubsuperscriptBox["c", "1", "0"],
+              ShowAutoStyles->False,
+              AutoSpacing->False],
+             $CellContext`o0n1,
+             Editable->False], " ", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"4", " ", 
+               InterpretationBox[
+                StyleBox["D",
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`dimension,
+                Editable->False], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "1", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n1,
+                Editable->False]}], "-", 
+              RowBox[{"9", " ", 
+               SuperscriptBox[
+                InterpretationBox[
+                 StyleBox["D",
+                  ShowAutoStyles->False,
+                  AutoSpacing->False],
+                 $CellContext`dimension,
+                 Editable->False], "2"], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "1", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n1,
+                Editable->False]}], "+", 
+              RowBox[{"6", " ", 
+               SuperscriptBox[
+                InterpretationBox[
+                 StyleBox["D",
+                  ShowAutoStyles->False,
+                  AutoSpacing->False],
+                 $CellContext`dimension,
+                 Editable->False], "3"], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "1", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n1,
+                Editable->False]}], "-", 
+              RowBox[{
+               SuperscriptBox[
+                InterpretationBox[
+                 StyleBox["D",
+                  ShowAutoStyles->False,
+                  AutoSpacing->False],
+                 $CellContext`dimension,
+                 Editable->False], "4"], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "1", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n1,
+                Editable->False]}], "+", 
+              RowBox[{"4", " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "2", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n2,
+                Editable->False]}], "-", 
+              RowBox[{"9", " ", 
+               InterpretationBox[
+                StyleBox["D",
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`dimension,
+                Editable->False], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "2", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n2,
+                Editable->False]}], "+", 
+              RowBox[{"6", " ", 
+               SuperscriptBox[
+                InterpretationBox[
+                 StyleBox["D",
+                  ShowAutoStyles->False,
+                  AutoSpacing->False],
+                 $CellContext`dimension,
+                 Editable->False], "2"], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "2", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n2,
+                Editable->False]}], "-", 
+              RowBox[{
+               SuperscriptBox[
+                InterpretationBox[
+                 StyleBox["D",
+                  ShowAutoStyles->False,
+                  AutoSpacing->False],
+                 $CellContext`dimension,
+                 Editable->False], "3"], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "2", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n2,
+                Editable->False]}], "-", 
+              RowBox[{"8", " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "3", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n3,
+                Editable->False]}], "+", 
+              RowBox[{"10", " ", 
+               InterpretationBox[
+                StyleBox["D",
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`dimension,
+                Editable->False], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "3", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n3,
+                Editable->False]}], "-", 
+              RowBox[{"2", " ", 
+               SuperscriptBox[
+                InterpretationBox[
+                 StyleBox["D",
+                  ShowAutoStyles->False,
+                  AutoSpacing->False],
+                 $CellContext`dimension,
+                 Editable->False], "2"], " ", 
+               InterpretationBox[
+                StyleBox[
+                 SubsuperscriptBox["c", "3", "2"],
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`o2n3,
+                Editable->False]}]}], ")"}]}]}], ")"}]}]}], ")"}], "/", 
+      RowBox[{"(", 
+       RowBox[{"2", " ", 
+        RowBox[{"(", 
          RowBox[{
-          SuperscriptBox[
+          RowBox[{"4", " ", 
            InterpretationBox[
             StyleBox["D",
              ShowAutoStyles->False,
              AutoSpacing->False],
             $CellContext`dimension,
-            Editable->False], "4"], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "1", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n1,
-           Editable->False]}], "+", 
-         RowBox[{"4", " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "2", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n2,
-           Editable->False]}], "-", 
-         RowBox[{"9", " ", 
-          InterpretationBox[
-           StyleBox["D",
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`dimension,
-           Editable->False], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "2", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n2,
-           Editable->False]}], "+", 
-         RowBox[{"6", " ", 
-          SuperscriptBox[
+            Editable->False], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "1", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n1,
+            Editable->False]}], "-", 
+          RowBox[{"9", " ", 
+           SuperscriptBox[
+            InterpretationBox[
+             StyleBox["D",
+              ShowAutoStyles->False,
+              AutoSpacing->False],
+             $CellContext`dimension,
+             Editable->False], "2"], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "1", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n1,
+            Editable->False]}], "+", 
+          RowBox[{"6", " ", 
+           SuperscriptBox[
+            InterpretationBox[
+             StyleBox["D",
+              ShowAutoStyles->False,
+              AutoSpacing->False],
+             $CellContext`dimension,
+             Editable->False], "3"], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "1", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n1,
+            Editable->False]}], "-", 
+          RowBox[{
+           SuperscriptBox[
+            InterpretationBox[
+             StyleBox["D",
+              ShowAutoStyles->False,
+              AutoSpacing->False],
+             $CellContext`dimension,
+             Editable->False], "4"], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "1", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n1,
+            Editable->False]}], "+", 
+          RowBox[{"4", " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "2", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n2,
+            Editable->False]}], "-", 
+          RowBox[{"9", " ", 
            InterpretationBox[
             StyleBox["D",
              ShowAutoStyles->False,
              AutoSpacing->False],
             $CellContext`dimension,
-            Editable->False], "2"], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "2", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n2,
-           Editable->False]}], "-", 
-         RowBox[{
-          SuperscriptBox[
+            Editable->False], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "2", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n2,
+            Editable->False]}], "+", 
+          RowBox[{"6", " ", 
+           SuperscriptBox[
+            InterpretationBox[
+             StyleBox["D",
+              ShowAutoStyles->False,
+              AutoSpacing->False],
+             $CellContext`dimension,
+             Editable->False], "2"], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "2", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n2,
+            Editable->False]}], "-", 
+          RowBox[{
+           SuperscriptBox[
+            InterpretationBox[
+             StyleBox["D",
+              ShowAutoStyles->False,
+              AutoSpacing->False],
+             $CellContext`dimension,
+             Editable->False], "3"], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "2", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n2,
+            Editable->False]}], "-", 
+          RowBox[{"8", " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "3", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n3,
+            Editable->False]}], "+", 
+          RowBox[{"10", " ", 
            InterpretationBox[
             StyleBox["D",
              ShowAutoStyles->False,
              AutoSpacing->False],
             $CellContext`dimension,
-            Editable->False], "3"], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "2", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n2,
-           Editable->False]}], "-", 
-         RowBox[{"8", " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "3", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n3,
-           Editable->False]}], "+", 
-         RowBox[{"10", " ", 
-          InterpretationBox[
-           StyleBox["D",
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`dimension,
-           Editable->False], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "3", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n3,
-           Editable->False]}], "-", 
-         RowBox[{"2", " ", 
-          SuperscriptBox[
+            Editable->False], " ", 
            InterpretationBox[
-            StyleBox["D",
+            StyleBox[
+             SubsuperscriptBox["c", "3", "2"],
              ShowAutoStyles->False,
              AutoSpacing->False],
-            $CellContext`dimension,
-            Editable->False], "2"], " ", 
-          InterpretationBox[
-           StyleBox[
-            SubsuperscriptBox["c", "3", "2"],
-            ShowAutoStyles->False,
-            AutoSpacing->False],
-           $CellContext`o2n3,
-           Editable->False]}]}], ")"}]}]]}], "}"}]}], "}"}]], "Output"]
+            $CellContext`o2n3,
+            Editable->False]}], "-", 
+          RowBox[{"2", " ", 
+           SuperscriptBox[
+            InterpretationBox[
+             StyleBox["D",
+              ShowAutoStyles->False,
+              AutoSpacing->False],
+             $CellContext`dimension,
+             Editable->False], "2"], " ", 
+           InterpretationBox[
+            StyleBox[
+             SubsuperscriptBox["c", "3", "2"],
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`o2n3,
+            Editable->False]}]}], ")"}]}], ")"}]}]}], "}"}]}], 
+  "}"}]], "Output"]
 }, Open  ]],
 
 Cell["We can do pertubations around this background:", "Text"],
@@ -16566,16 +16549,7 @@ Cell[CellGroupData[{
 Cell["Schouten tensor", "Subsection"],
 
 Cell["\<\
-The Schouten tensor is a particular combination of the Ricci tensor and Ricci \
-scalar. Let\[CloseCurlyQuote]s define them for our covariant derivative.\
-\>", "Text"],
-
-Cell[BoxData[{
- RowBox[{"DefSchouten", "[", "CD", "]"}], "\[IndentingNewLine]", 
- RowBox[{"DefSchoutenCC", "[", "CD", "]"}]}], "Input"],
-
-Cell["\<\
-We can go back and forth to Ricci tensor with the following commands:\
+We can go back and forth from Schoutens to Riccis with the following commands:\
 \>", "Text"],
 
 Cell[CellGroupData[{
@@ -16592,7 +16566,8 @@ Cell[BoxData[{
 Cell[BoxData[
  InterpretationBox[
   StyleBox[GridBox[{
-     {"S", 
+     {
+      RowBox[{"S", "[", "\[EmptyDownTriangle]", "]"}], 
       StyleBox[GridBox[{
          {" ", " "},
          {"a", "b"}
@@ -16719,7 +16694,8 @@ Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   StyleBox[GridBox[{
-     {"S", 
+     {
+      RowBox[{"S", "[", "\[EmptyDownTriangle]", "]"}], 
       StyleBox[GridBox[{
          {" ", " "},
          {"a", "b"}
@@ -16769,7 +16745,8 @@ Cell[BoxData[{
 Cell[BoxData[
  InterpretationBox[
   StyleBox[GridBox[{
-     {"S", 
+     {
+      RowBox[{"S", "[", "\[EmptyDownTriangle]", "]"}], 
       StyleBox[GridBox[{
          {"\[CapitalLambda]", " ", " "},
          {" ", "a", "b"}
@@ -16935,7 +16912,8 @@ Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   StyleBox[GridBox[{
-     {"S", 
+     {
+      RowBox[{"S", "[", "\[EmptyDownTriangle]", "]"}], 
       StyleBox[GridBox[{
          {"\[CapitalLambda]", " ", " "},
          {" ", "a", "b"}
@@ -16989,7 +16967,8 @@ Cell[BoxData[{
 Cell[BoxData[
  InterpretationBox[
   StyleBox[GridBox[{
-     {"S", 
+     {
+      RowBox[{"S", "[", "\[EmptyDownTriangle]", "]"}], 
       StyleBox[GridBox[{
          {" ", " "},
          {"a", "b"}
@@ -17057,7 +17036,8 @@ Cell[BoxData[
 Cell[BoxData[
  InterpretationBox[
   StyleBox[GridBox[{
-     {"S", 
+     {
+      RowBox[{"S", "[", "\[EmptyDownTriangle]", "]"}], 
       StyleBox[GridBox[{
          {"\[CapitalLambda]", " ", " "},
          {" ", "a", "b"}
@@ -17095,12 +17075,9 @@ Cell[CellGroupData[{
 Cell["Cosmological Einstein tensor", "Subsection"],
 
 Cell["\<\
-The cosmological Einstein tensor is defined such that is vanishes on AdS \
+The cosmological Einstein tensor is defined such that it vanishes on AdS \
 spaces.\
 \>", "Text"],
-
-Cell[BoxData[
- RowBox[{"DefEinsteinCC", "[", "CD", "]"}]], "Input"],
 
 Cell[CellGroupData[{
 
@@ -17119,7 +17096,8 @@ Cell[BoxData[{
 Cell[BoxData[
  InterpretationBox[
   StyleBox[GridBox[{
-     {"G", 
+     {
+      RowBox[{"G", "[", "\[EmptyDownTriangle]", "]"}], 
       StyleBox[GridBox[{
          {"\[CapitalLambda]", " ", " "},
          {" ", "a", "b"}
