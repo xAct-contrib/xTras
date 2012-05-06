@@ -4,7 +4,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = "1.01 pre";
+xAct`xTras`$Version = "1.01";
 
 (* Check if Invar and xPert have been loaded. If not, load them. *)
 If[!ValueQ[xAct`xPert`$Version],Needs["xAct`xPert`"]];
@@ -1466,7 +1466,7 @@ EinsteinSpaceRules[CD_?CovDQ, K_?ConstantExprQ] :=
 (*************************)
 
 (* 
-	I got idea of using Young projectors from Guillaume Faye and Kaspar Peeters.
+	I got the idea of using Young projectors from Guillaume Faye and Kaspar Peeters.
  	See http://groups.google.com/group/xact/browse_thread/thread/d19247526163ed62/986a5b04d4fa19f4 .
 *)
 
