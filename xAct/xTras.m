@@ -4,7 +4,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = "1.01";
+xAct`xTras`$Version = "1.0.1";
 
 (* Check if Invar and xPert have been loaded. If not, load them. *)
 If[!ValueQ[xAct`xPert`$Version],Needs["xAct`xPert`"]];
