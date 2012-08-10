@@ -4,7 +4,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = "1.0.1";
+xAct`xTras`$Version = "1.0.2.pre";
 
 (* Check if Invar and xPert have been loaded. If not, load them. *)
 If[!ValueQ[xAct`xPert`$Version],Needs["xAct`xPert`"]];
@@ -397,6 +397,7 @@ MetricOn				:= xAct`xTensor`MetricOn;
 MetricQ					:= xAct`xTensor`MetricQ;
 MetricsOfVBundle		:= xAct`xTensor`MetricsOfVBundle;
 NoScalar				:= xAct`xTensor`NoScalar;
+ParameterQ				:= xAct`xTensor`ParameterQ;
 PD						:= xAct`xTensor`PD;
 PrintAs					:= xAct`xTensor`PrintAs;
 PutScalar				:= xAct`xTensor`PutScalar;
@@ -928,8 +929,14 @@ MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; LevelSpecQ[levels
 (* TensorCollet et. al. *)
 (************************)
 
-ConstantExprQ[expr_] /; FreeQ[expr, List] := 
- And @@ (ConstantQ /@ Variables[expr])
+(* ConstantExprQ simply checks if there are no tensors or parameters in the expression,
+   and returns true if there are none. A better way would be to list all variables
+   in the expression and then check if they are all constants, but the built-in
+   function Variables only works on polynomials (alas). *)
+
+ConstantExprQ[expr_] /; FreeQ[expr, List] :=
+ FreeQ[expr, _?xTensorQ | _?ParameterQ] 
+ (*And @@ (ConstantQ /@ Variables[expr])*)
 ConstantExprQ[expr_] := False
 
 TensorCollector[x_List] := TensorCollector /@ x;
