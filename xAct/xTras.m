@@ -332,6 +332,32 @@ EinsteinCCToRicci::usage = "EinsteinCCToRicci[expr,cd] converts cosmological Ein
 
 RicciToEinsteinCC::usage = "RicciToEinsteinCC[K][expr,cd] converts Ricci tensors into cosmological Einstein tensors.";
 
+
+(* Killing vectors *)
+
+KillingVectorQ::usage = 
+  "KillingVectorQ[tensor] return True if the tensor is defined to be a Killing vector";
+
+KillingVectorOf::usage = 
+  "Option for DefTensor. If the tensor is to be a Killing vector, the \
+option should be a covariant derivative. (i.e. KillingVectorOf->CD)";
+
+KillingRules::usage = 
+  "KillingRules[killingvector] returns the replacement rules for that \
+Killing vector.";
+
+KillingVectorPlaceholder::usage = 
+  "KillingVectorPlaceholder is for maintainance purposes.";
+
+$KillingVectors::usage = 
+  "$KillingVectors is a list of all the Killing vectors currently \
+defined.";
+
+Killing::usage = 
+  "Killing[expr] canonicalizes expr while using Killing vector \
+identities.";
+
+
 (*********************)
 (*                   *)
 (*   Begin private   *)
@@ -350,6 +376,7 @@ CheckOptions 			:= xAct`xCore`CheckOptions;
 FoldedRule				:= xAct`xCore`FoldedRule;
 xTension				:= xAct`xCore`xTension;
 
+Antisymmetric			:= xAct`xPerm`Antisymmetric;
 Symmetric				:= xAct`xPerm`Symmetric;
 
 $CovDs					:= xAct`xTensor`$CovDs;
@@ -386,6 +413,7 @@ GiveOutputString		:= xAct`xTensor`GiveOutputString;
 HostsOf					:= xAct`xTensor`HostsOf;
 IndexList				:= xAct`xTensor`IndexList;
 IndicesOf				:= xAct`xTensor`IndicesOf;
+IndicesOfVBundle		:= xAct`xTensor`IndicesOfVBundle;
 LI						:= xAct`xTensor`LI;
 LieD					:= xAct`xTensor`LieD;
 MakeRule				:= xAct`xTensor`MakeRule;
@@ -421,6 +449,7 @@ Tensor					:= xAct`xTensor`Tensor;
 TFRicciCD				:= xAct`xTensor`TFRicciCD;
 ToCanonical				:= xAct`xTensor`ToCanonical;
 UndefConstantSymbol		:= xAct`xTensor`UndefConstantSymbol;
+UndefTensor				:= xAct`xTensor`UndefTensor;
 UpIndexQ				:= xAct`xTensor`UpIndexQ;
 UseMetricOnVBundle		:= xAct`xTensor`UseMetricOnVBundle;
 UseSymmetries			:= xAct`xTensor`UseSymmetries;
@@ -1561,6 +1590,83 @@ DerivativeOrder[x_ * y_,cd_?CovDQ] := DerivativeOrder[x,cd] + DerivativeOrder[y,
 
 DerivativeOrder[x_?ConstantExprQ,cd_?CovDQ] := 0
 
+
+
+(*******************)
+(* Killing vectors *)
+(*******************)
+
+
+KillingVectorQ[expr_] := False
+KillingVectorOf[expr_] := None
+KillingVectorPlaceholder[expr_] := Null;
+KillingRules[expr_] := {};
+$KillingVectors = {};
+
+
+Unprotect[xAct`xTensor`DefTensor];
+If[FreeQ[Options[xAct`xTensor`DefTensor], KillingVectorOf], 
+ Options[xAct`xTensor`DefTensor] ^= Append[Options[xAct`xTensor`DefTensor], KillingVectorOf -> None];
+ , 
+ Null;
+];
+Protect[xAct`xTensor`DefTensor];
+
+
+xTension["xTras`", DefTensor, "End"] := xTrasDefTensor;
+xTension["xTras`", UndefTensor, "Beginning"] := xTrasUndefTensor;
+
+
+xTrasDefTensor[head_[indices___], dependencies_, sym_, options___] :=
+    DefKillingVector[head[indices], KillingVectorOf /. CheckOptions[options] /. Options[DefTensor]];
+xTrasUndefTensor[tensor_] := UndefKillingVector[tensor];
+
+
+(* The pattern only matches if the index is a lower one in the correct tangent bundle. *)
+DefKillingVector[xi_[-a_], cd_?CovDQ] /; MemberQ[First@IndicesOfVBundle@First@VBundlesOfCovD@cd, a] :=
+  Module[{M, vb, metric, cdxi, b, c, d, rules1, rules2, riemann},
+   
+   (* Set up some variables. *)
+   M = ManifoldOfCovD[cd];
+   vb = First@VBundlesOfCovD[cd];
+   b = DummyIn[vb];
+   c = DummyIn[vb];
+   d = DummyIn[vb];
+   riemann = GiveSymbol[Riemann, cd];
+   metric = MetricOfCovD[cd];
+   
+   (* Define the placeholder for the covariant derivative of xi. *)
+   DefTensor[cdxi[-a, -b], M, Antisymmetric[{-a, -b}]];
+   
+   (* Make the rules *)
+   rules1 = Join[
+   	{LieD[xi[_]][metric[__]]->0},
+   	MakeRule[{cd[-a]@xi[-b], cdxi[-a, -b]}]
+   ];
+   rules2 = FoldedRule[
+     MakeRule[{cdxi[-a, -b], cd[-a]@xi[-b]}],
+     MakeRule[{cd[-c]@cd[-a]@xi[-b], -riemann[-a, -b, -c, d] xi[-d]}]
+   ];
+   
+   (* Attach the rules and the rest. *)
+   KillingRules[xi] ^= {rules1, rules2};
+   KillingVectorOf[xi] ^= cd;
+   KillingVectorQ[xi] ^= True;
+   KillingVectorPlaceholder[xi] ^= cdxi;
+   AppendTo[$KillingVectors, xi];
+];
+
+
+UndefKillingVector[vector_?KillingVectorQ] := Module[{},
+   $KillingVectors = DeleteCases[$KillingVectors, vector];
+   UndefTensor[KillingVectorPlaceholder[vector]];
+];
+
+
+Killing[expr_, vector_?KillingVectorQ] := 
+  ToCanonical[expr /. First@KillingRules[vector]] /. Last@KillingRules[vector];
+
+Killing[expr_] := Fold[Killing[#1, #2] &, expr, $KillingVectors];
 
 
 (*********************)
