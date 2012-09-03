@@ -1560,7 +1560,7 @@ RiemannYoungRule[cd_?CovDQ, numcds_Integer] /; numcds >= 0 :=
 	RiemannYoungRule[cd,{0,numcds}];
 
 RiemannYoungRule[cd_?CovDQ, {min_Integer,max_Integer}] /; max >= min && min >=0 :=
-	Flatten@RiemannYoungRule[cd,{#}]&/@Range[min,max];
+	Flatten[RiemannYoungRule[cd,{#}]&/@Range[min,max]];
 
 RiemannYoungRule[cd_?CovDQ, {numcds_Integer}] /; numcds >= 0 := 
  Module[{riemann, indrie, indcds, tableau, expr},
