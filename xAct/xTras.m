@@ -211,7 +211,8 @@ perturbation with the same arguments, and then defines covariant VarD \
 and VarL functions for the metric.";
 
 ExpandPerturbationDer::usage = 
-	"ExpandPerturbationDer expands the perturbatios of derivatives.";
+	"ExpandPerturbationDer expands the perturbations of derivatives. 
+	It's similar to the private xAct function ExpandPerturbationDer, but not quite.";
 
 
 (* Background perturbations *)
@@ -1277,7 +1278,7 @@ follows.Note that we're only varying the metric and hence set \
 variations of any other tensors to zero. *)
      
      VarDt[metric, expr_] := Module[{mod},
-     	mod = Expand@ExpandPerturbationDer@Perturbation[expr];
+     	mod = Expand@Perturbation[expr];
      	If[Head[mod]===Plus,
      		mod = ContractMetric/@mod,
      		mod = ContractMetric@mod
