@@ -32,13 +32,13 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["xAct`xTras`$Version", "Print", "PrintUsage",
- CellTags->"Info3554292547-8775167"],
+ CellTags->"Info3555655384-1351604"],
 
 Cell[BoxData[
  InterpretationBox[GridBox[{
     {GridBox[{
        {
-        RowBox[{"$Version", "=", "\<\"1.0.2.pre\"\>"}]}
+        RowBox[{"$Version", "=", "\<\"1.0.3pre\"\>"}]}
       },
       BaselinePosition->{Baseline, {1, 1}},
       GridBoxAlignment->{
@@ -54,7 +54,7 @@ Cell[BoxData[
      "RowsIndexed" -> {}}],
   Definition[xAct`xTras`$Version],
   Editable->False]], "Print",
- CellTags->"Info3554292547-8775167"]
+ CellTags->"Info3555655384-1351604"]
 }, Open  ]]
 }, Open  ]],
 
@@ -15642,7 +15642,8 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"youngrule2", " ", "=", " ", 
   RowBox[{"RiemannYoungRule", "[", 
-   RowBox[{"CD", ",", "1"}], "]"}]}]], "Input"],
+   RowBox[{"CD", ",", 
+    RowBox[{"{", "1", "}"}]}], "]"}]}]], "Input"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -16442,7 +16443,7 @@ Cell[BoxData[
 
 Cell[BoxData["0"], "Output"]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -17797,7 +17798,7 @@ $CellContext`d],
 }, Closed]]
 },
 WindowSize->{1043, 691},
-WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowMargins->{{Automatic, 231}, {59, Automatic}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,

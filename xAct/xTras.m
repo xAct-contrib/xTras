@@ -4,7 +4,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = "1.0.2";
+xAct`xTras`$Version = "1.0.3pre";
 
 (* Check if Invar and xPert have been loaded. If not, load them. *)
 If[!ValueQ[xAct`xPert`$Version],Needs["xAct`xPert`"]];
@@ -294,7 +294,7 @@ such that repeatedly projecting does not change the result.";
 RiemannYoungRule::usage = 
   "RiemannYoungRule[CD,n] gives the projection rule of n'th covariant \
 derivative of the Riemann tensor of the covariant derivative CD onto \
-its Young tableau. The default for n is 0.";
+its Young tableau. n has the default levelspec form. The default for n is {0}.";
 
 
 (* Other stuff *)
@@ -1506,12 +1506,9 @@ EinsteinSpaceRules[CD_?CovDQ, K_?ConstantExprQ] :=
  	See http://groups.google.com/group/xact/browse_thread/thread/d19247526163ed62/986a5b04d4fa19f4 .
 *)
 
-YoungTableauQ[tableau : {{___Integer} ...}] := 
+YoungTableauQ[tableau:{{___Integer}...}|{{(-_Symbol|_Symbol)...}...}] := 
  Reverse[Length /@ tableau] === Sort[Length /@ tableau] && 
-  Intersection @@ tableau === {}
-YoungTableauQ[tableau : {{(-_Symbol | _Symbol) ...} ...}] := 
- Reverse[Length /@ tableau] === Sort[Length /@ tableau] && 
-  Intersection @@ tableau === {}
+  If[Length@tableau > 1, Intersection @@ tableau === {}, True]
 YoungTableauQ[_] := False
 
 
@@ -1556,7 +1553,16 @@ YoungProject[tensor_?xTensorQ,
    YoungProject[tensor @@ indices, indices[[#]] & /@ tableau]
    ];
 
-RiemannYoungRule[cd_?CovDQ, numcds_Integer: 0] /; numcds >= 0 := 
+
+RiemannYoungRule[cd_?CovDQ] := RiemannYoungRule[cd,{0}];
+
+RiemannYoungRule[cd_?CovDQ, numcds_Integer] /; numcds >= 0 :=
+	RiemannYoungRule[cd,{0,numcds}];
+
+RiemannYoungRule[cd_?CovDQ, {min_Integer,max_Integer}] /; max >= min && min >=0 :=
+	Flatten@RiemannYoungRule[cd,{#}]&/@Range[min,max];
+
+RiemannYoungRule[cd_?CovDQ, {numcds_Integer}] /; numcds >= 0 := 
  Module[{riemann, indrie, indcds, tableau, expr},
   riemann = GiveSymbol[Riemann, cd];
   indrie = DummyIn /@ SlotsOfTensor@riemann;
