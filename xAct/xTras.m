@@ -489,9 +489,18 @@ xTrasDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[{M,D,einst
 	einsteincc = GiveSymbol[EinsteinCC,cd];
 	rs = GiveSymbol[RicciScalar,cd];
 	
+	(* Define the new curvature tensors. *)
 	DefTensor[GiveSymbol[Schouten,cd][-a, -b], M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd]];
 	DefTensor[GiveSymbol[SchoutenCC,cd][LI[_],-a, -b], M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd]];	
 	DefTensor[einsteincc[LI[_],-a, -b], M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Einstein,cd]];
+	
+	(* Teach xPert how to expand the new curvature tensors. *)
+	xAct`xPert`Private`ExpandPerturbation1[Perturbation[s:GiveSymbol[Schouten,cd][__],n_.],opts___] := 
+		ExpandPerturbation[Perturbation[SchoutenToRicci@s, n], opts];
+	xAct`xPert`Private`ExpandPerturbation1[Perturbation[s:GiveSymbol[SchoutenCC,cd][__],n_.],opts___] := 
+		ExpandPerturbation[Perturbation[SchoutenCCToRicci@s, n], opts];
+	xAct`xPert`Private`ExpandPerturbation1[Perturbation[s:GiveSymbol[EinsteinCC,cd][__],n_.],opts___] := 
+		ExpandPerturbation[Perturbation[EinsteinCCToRicci@s, n], opts];
 	
 	cd[c_]@einsteincc[LI[_],___,d_,___] /; c === ChangeIndex[d] ^= 0;
 	einsteincc[LI[K_], c_, d_] /; c === ChangeIndex[d] := (1/ 2 (D-2)(D-1) D K + (1-D/2) rs[]);
