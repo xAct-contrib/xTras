@@ -1073,7 +1073,7 @@ MakeEquationRule[{equation_, pattern_, cond___},
    If[Length[terms] =!= 1, Return[{}]];
    coefficient = terms[[1, 2]];
    lhs = terms[[1, 1]];
-   rhs = lhs - (expanded/coefficient) // Simplify;
+   rhs = (lhs - (expanded/coefficient)) // Simplification;
    UndefConstantSymbol[cs];
    If[Length[IndicesOf[][lhs]] === 0, rhs = PutScalar[rhs]];
    MakeRule[Evaluate[{lhs, rhs, cond}], options]
