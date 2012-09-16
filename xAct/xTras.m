@@ -25,6 +25,22 @@ Print[xAct`xCore`Private`bars];
 (*********************)
 
 
+(* MetricPermutations *)
+
+MetricPermutations::usage =
+	"MetricPermutations[metric][indices] gives a list of all possible \
+permutations of indices distributed over n/2 metrics (n being the number of indices). \
+Thus MetricPermutations[g][{a,b,c,d}] gives {g[a,b]g[c,d], g[a,c]g[b,d], g[a,d]g[b,c]}. \
+\n\nNaively this gives n! combinations, but because the metric is symmetric and the \
+ordering of the product is irrelevant, the number of permutations reduces to \
+(n-1)!!, which is roughly the square root of n!. MetricPermutations takes \
+this simplification into account.";
+
+UnorderedPairsPermutations::usage =
+	"UnorderPairsPermutations[list] gives all permutations of the elements of \
+list that are unorder pairs. list has the have an even number of elements.";
+
+
 (* ClearAutomaticRules et. al. *)
 
 ClearAutomaticRules::usage = 
@@ -1683,6 +1699,41 @@ Killing[expr_, vector_?KillingVectorQ] :=
   ToCanonical[expr /. First@KillingRules[vector]] /. Last@KillingRules[vector];
 
 Killing[expr_] := Fold[Killing[#1, #2] &, expr, $KillingVectors];
+
+
+(***********************)
+(* Metric permutations *)
+(***********************)
+
+MetricPermutations[metric_][list_] := 
+ Map[Times @@ Map[metric @@ # &, #] &, UnorderedPairsPermutations[list]];
+
+UnorderedPairsPermutations[list_] /; EvenQ@Length@list := 
+ Partition[#, 2] & /@ UnorderedPairsPermutations1[list];
+
+(* The actual workhorse. *)
+UnorderedPairsPermutations1[list_] /; Length[list] == 2 := {list}
+UnorderedPairsPermutations1[list_] /; Length[list] > 2 && EvenQ[Length[list]] := 
+  Module[{previous, last},
+   last = list[[-2 ;; -1]];
+   previous = UnorderedPairsPermutations1[list[[1 ;; -3]]];
+   Flatten[Map[PairPermuteJoin[#, last] &, previous], 1]
+];
+
+(* Internal function. *)
+PairPermuteJoin[list_, newPair_] := 
+  Module[{joined1, joined2, cycles, positions},
+   joined1 = Join[list, newPair];
+   joined2 = Join[list, Reverse@newPair];
+   positions = 2 Range[Length[list]/2]; 
+   cycles = xAct`xPerm`Cycles[{#, Length[list] + 1}] & /@ positions;
+   Join[
+    {joined1},
+    xAct`xPerm`PermuteList[joined1, #] & /@ cycles,
+    xAct`xPerm`PermuteList[joined2, #] & /@ cycles
+    ]
+];
+
 
 
 (*********************)
