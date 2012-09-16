@@ -27,8 +27,14 @@ Print[xAct`xCore`Private`bars];
 
 (* MetricPermutations *)
 
+AllContractions::usage =
+	"AllContractions[metric,indices][expr] gives all possible contractions of \
+expr (which can also be a list of expressions with the same free indices) \
+with metrics with the given indices.";
+
+
 MetricPermutations::usage =
-	"MetricPermutations[metric][indices] gives a list of all possible \
+	"MetricPermutations[metric,indices] gives a list of all possible \
 permutations of indices distributed over n/2 metrics (n being the number of indices). \
 Thus MetricPermutations[g][{a,b,c,d}] gives {g[a,b]g[c,d], g[a,c]g[b,d], g[a,d]g[b,c]}. \
 \n\nNaively this gives n! combinations, but because the metric is symmetric and the \
@@ -467,6 +473,7 @@ TFRicciCD				:= xAct`xTensor`TFRicciCD;
 ToCanonical				:= xAct`xTensor`ToCanonical;
 UndefConstantSymbol		:= xAct`xTensor`UndefConstantSymbol;
 UndefTensor				:= xAct`xTensor`UndefTensor;
+UpIndex					:= xAct`xTensor`UpIndex;
 UpIndexQ				:= xAct`xTensor`UpIndexQ;
 UseMetricOnVBundle		:= xAct`xTensor`UseMetricOnVBundle;
 UseSymmetries			:= xAct`xTensor`UseSymmetries;
@@ -1705,7 +1712,23 @@ Killing[expr_] := Fold[Killing[#1, #2] &, expr, $KillingVectors];
 (* Metric permutations *)
 (***********************)
 
-MetricPermutations[metric_][list_] := 
+
+AllContractions[metric_?MetricQ, indexList_][expr_] /; 
+   FreeQ[expr, List] := AllContractions[metric, indexList][{expr}];
+AllContractions[metric_?MetricQ, indexList_][exprs_List] := 
+  Module[{metrics, dummies},
+   metrics = MetricPermutations[metric,indexList];
+   dummies = Intersection[
+   	UpIndex /@ (IndexList@@indexList), 
+    UpIndex /@ (IndicesOf[Free][First@exprs])
+   ];
+   DeleteDuplicates@MapTimed[
+     ReplaceDummies[ToCanonical@ContractMetric[# ], dummies]&, 
+     Flatten@Outer[Times[#1, #2] &, exprs, metrics], 
+     Description -> "Contracting indices."]
+   ];
+
+MetricPermutations[metric_?MetricQ, list_] /; EvenQ@Length@list := 
  Map[Times @@ Map[metric @@ # &, #] &, UnorderedPairsPermutations[list]];
 
 UnorderedPairsPermutations[list_] /; EvenQ@Length@list := 
