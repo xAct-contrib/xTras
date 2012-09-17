@@ -325,6 +325,10 @@ its Young tableau. n has the default levelspec form. The default for n is {0}.";
 DerivativeOrder::usage =
 	"DerivativeOrder[expr,CD] gives the order of derivatives of expr.";
 
+SortedCovDsQ::usage =
+	"SortedCovDsQ[expr] returns True if the expression has all its covariant \
+derivatives sorted, and False otherwise. \
+\n\nSortedCovDsQ[expr,CD] only checks the covariant derivative CD.";
 
 (* Extra curvature tensors *)
 	
@@ -425,6 +429,7 @@ DefTensor				:= xAct`xTensor`DefTensor;
 Determinant				:= xAct`xTensor`Determinant;
 DimOfManifold			:= xAct`xTensor`DimOfManifold;
 DimOfVBundle			:= xAct`xTensor`DimOfVBundle;
+DisorderedPairQ			:= xAct`xTensor`DisorderedPairQ;
 DownIndexQ				:= xAct`xTensor`DownIndexQ;
 DummyIn					:= xAct`xTensor`DummyIn;
 Einstein				:= xAct`xTensor`Einstein;
@@ -1611,6 +1616,12 @@ RiemannYoungRule[cd_?CovDQ, {numcds_Integer}] /; numcds >= 0 :=
 (* Other stuff  *)
 (****************)
 
+SortedCovDsQ[expr_,cd_?CovDQ] := 
+ FreeQ[expr, cd[b_]@cd[a_]@_ /; DisorderedPairQ[a, b]];
+
+SortedCovDsQ[expr_] := And @@ ( SortedCovDsQ[expr, #]& /@ DeleteCases[$CovDs,PD] );
+
+
 DerivativeOrder[expr_] := 
  Total[DerivativeOrder[expr, #] & /@ $CovDs];
 
@@ -1623,7 +1634,7 @@ Module[{ordertwo,christoffel},
  		+ Count[expr, (cd[_][_])|(christoffel[___]), {0, Infinity}, Heads -> True]
 ];
 
-DerivativeOrder[Power[y_, z_Integer],cd_?CovDQ] := DerivativeOrder[x,cd] + z DerivativeOrder[y,cd];
+DerivativeOrder[Power[y_, z_Integer],cd_?CovDQ] := z DerivativeOrder[y,cd];
 
 DerivativeOrder[x_ * y_,cd_?CovDQ] := DerivativeOrder[x,cd] + DerivativeOrder[y,cd];
 
