@@ -82,7 +82,9 @@ for ToCanonical, ContractMetric, and CurvatureRelations.";
 MyRiemannSimplify::usage = 
   "MyRiemannSimplify[metric,level][expr] works similarly to \
 RiemannSimplify, except that it also works for generic options for \
-ToCanonical etc, and works on more general expressions.";
+ToCanonical etc, and works on more general expressions. \
+\nNote that it only simplifies expression consisting of Riccis and Riemanns, \
+and not of other curvature tensors.";
 
 CurvatureTensors::usage = 
   "CurvatureTensors[CD] gives the list of all the curvature tensors \
@@ -211,8 +213,13 @@ Riemann tensor of the given covariant derivative in terms of the \
 Ricci tensor.";
 
 FS::usage = 
-  "FS[metric][expr] tries to simplify expr as much as possible.";
+  "FS is an alias of FullSimplification. Kept for backwards compatibility.";
 
+FullSimplification::usage =
+	"FullSimplification[metric][expr] tries to simplify expr as much as possible, \
+taking Bianchi identities into account and sorting covariant derivatives. \
+It also uses to power of the Invar package to simplify scalar invariants of  \
+Riccis and Riemanns (but not of other curvature tensors like the Weyl tensor).";
 
 (* Variational calculus *)
 
@@ -447,6 +454,7 @@ LieD					:= xAct`xTensor`LieD;
 MakeRule				:= xAct`xTensor`MakeRule;
 ManifoldOfCovD			:= xAct`xTensor`ManifoldOfCovD;
 ManifoldQ				:= xAct`xTensor`ManifoldQ;
+Master					:= xAct`xTensor`Master;
 MasterOf				:= xAct`xTensor`MasterOf;
 MetricOfCovD			:= xAct`xTensor`MetricOfCovD;
 MetricOn				:= xAct`xTensor`MetricOn;
@@ -518,9 +526,12 @@ xTrasDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[{M,D,einst
 	rs = GiveSymbol[RicciScalar,cd];
 	
 	(* Define the new curvature tensors. *)
-	DefTensor[GiveSymbol[Schouten,cd][-a, -b], M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd]];
-	DefTensor[GiveSymbol[SchoutenCC,cd][LI[_],-a, -b], M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd]];	
-	DefTensor[einsteincc[LI[_],-a, -b], M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Einstein,cd]];
+	DefTensor[GiveSymbol[Schouten,cd][-a, -b], 
+		M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];
+	DefTensor[GiveSymbol[SchoutenCC,cd][LI[_],-a, -b], 
+		M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];	
+	DefTensor[einsteincc[LI[_],-a, -b], 
+		M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Einstein,cd], Master->cd];
 	
 	(* Teach xPert how to expand the new curvature tensors. *)
 	xAct`xPert`Private`ExpandPerturbation1[Perturbation[s:GiveSymbol[Schouten,cd][__],n_.],opts___] := 
@@ -764,18 +775,24 @@ InvarWrapper[invarFunction_, g_?MetricQ][expr_, otherargs___] :=
    result
    ];
 
-MyRiemannSimplify[][expr_] := 
-	If[MatchQ[$InvSimplifyLevel,1|2|3|4|5|6],
-		MyRiemannSimplify[$InvSimplifyLevel][expr],
-		MyRiemannSimplify[4][expr]
-	];  
 MyRiemannSimplify[level_Integer][expr_] := 
-  Fold[MyRiemannSimplify[#2, level][#1] &, expr, $Metrics];
+  Fold[MyRiemannSimplify[#2,level][#1] &, expr, $Metrics];
+MyRiemannSimplify[][expr_] := 
+  Fold[MyRiemannSimplify[#2][#1] &, expr, $Metrics];
 MyRiemannSimplify[metric_?MetricQ][expr_] := 
-  MyRiemannSimplify[metric, $InvSimplifyLevel][expr];
+	If[MemberQ[Range[6],$InvSimplifyLevel] && !(DimOfManifold@ManifoldOfCovD@CovDOfMetric@metric =!= 4 && $InvSimplifyLevel > 4),
+		MyRiemannSimplify[metric, $InvSimplifyLevel][expr],
+		MyRiemannSimplify[metric, 4][expr]
+	]; 
 MyRiemannSimplify[metric_?MetricQ, level_Integer][expr_] := 
- Module[{scalar, curvatureTensors},
-  curvatureTensors = CurvatureTensors[];
+ Module[{scalar, curvatureTensors,cd},
+  cd = CovDOfMetric@metric;
+  curvatureTensors = {
+  	metric,
+  	GiveSymbol[Ricci,cd],
+  	GiveSymbol[RicciScalar,cd],
+  	GiveSymbol[Riemann,cd]
+  };
   scalar = PutScalar[expr];
   (* TODO: if the result contains Cycles something went wrong, and we should return the original expression. *)
   NoScalar[
@@ -1219,14 +1236,16 @@ RiemannDivRule[cd_?CovDQ] := Module[{ricci, riemann, a, b, c, d},
     ]
    ];
 
-Options[FS] ^= {SortCovDs -> True};
+FS = FullSimplification;
 
-FS[options___?OptionQ][expr_] := 
-  Fold[FS[#2, options][#1] &, expr, $Metrics];
-FS[metric_?MetricQ, options___?OptionQ][expr_] := 
+Options[FullSimplification] ^= {SortCovDs -> True};
+
+FullSimplification[options___?OptionQ][expr_] := 
+  Fold[FullSimplification[#2, options][#1] &, expr, $Metrics];
+FullSimplification[metric_?MetricQ, options___?OptionQ][expr_] := 
   Module[{cd, oldmonv, olduppder, tmp, sortcd, riemannDivRule, 
     ricciDivRule},
-   {sortcd} = {SortCovDs} /. CheckOptions[options] /. Options[FS];
+   {sortcd} = {SortCovDs} /. CheckOptions[options] /. Options[FullSimplification];
    
    cd = CovDOfMetric[metric];
    
@@ -1237,7 +1256,7 @@ FS[metric_?MetricQ, options___?OptionQ][expr_] :=
    SetOptions[ContractMetric, AllowUpperDerivatives -> True];
    
    tmp = expr // ContractMetric // ToCanonical;
-   tmp = MyRiemannSimplify[][tmp];
+   tmp = MyRiemannSimplify[metric][tmp];
    
    (* TODO: Apply dimensional dependent identities *)
    

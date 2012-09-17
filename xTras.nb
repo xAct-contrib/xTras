@@ -34,7 +34,7 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["xAct`xTras`$Version", "Print", "PrintUsage",
- CellTags->"Info3556880278-4649254"],
+ CellTags->"Info3556892954-2735199"],
 
 Cell[BoxData[
  InterpretationBox[GridBox[{
@@ -56,7 +56,7 @@ Cell[BoxData[
      "RowsIndexed" -> {}}],
   Definition[xAct`xTras`$Version],
   Editable->False]], "Print",
- CellTags->"Info3556880278-4649254"]
+ CellTags->"Info3556892954-2735199"]
 }, Open  ]]
 }, Open  ]],
 
@@ -4440,7 +4440,9 @@ $CellContext`d],
 
 Cell[CellGroupData[{
 
-Cell["Variations, MapTimed, TensorCollect", "Subsection"],
+Cell["\<\
+Variations, MapTimed, FullSimplification &TensorCollect\
+\>", "Subsection"],
 
 Cell["We can define a covariant metric variations as", "Text"],
 
@@ -8735,7 +8737,9 @@ $CellContext`f],
    Editable->False]}]], "Output"]
 }, Open  ]],
 
-Cell["Both these are incorporated into the FS function.", "Text"],
+Cell["\<\
+Both these are incorporated into the FullSimplification function.\
+\>", "Text"],
 
 Cell[CellGroupData[{
 
@@ -8743,7 +8747,8 @@ Cell[BoxData[
  RowBox[{"fs", " ", "=", " ", 
   RowBox[{"MapTimed", "[", 
    RowBox[{
-    RowBox[{"FS", "[", "metric", "]"}], ",", "eom"}], "]"}]}]], "Input"],
+    RowBox[{"FullSimplification", "[", "metric", "]"}], ",", "eom"}], 
+   "]"}]}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -16481,11 +16486,18 @@ Cell[BoxData["0"], "Output"]
 
 Cell[CellGroupData[{
 
-Cell["DerivativeOrder", "Subsection"],
+Cell["DerivativeOrder & SortedCovDs", "Subsection"],
 
-Cell["\<\
-DerivativeOrder returns the number of derivatives in the expression:\
-\>", "Text"],
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "DerivativeOrder"}]], "Input"],
+
+Cell[BoxData[
+ StyleBox["\<\"DerivativeOrder[expr,CD] gives the order of derivatives of \
+expr.\"\>", "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3556880390-4649254"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -16815,6 +16827,19 @@ $CellContext`d],
 
 Cell[CellGroupData[{
 
+Cell[BoxData[
+ RowBox[{"?", "SortedCovDsQ"}]], "Input"],
+
+Cell[BoxData[
+ StyleBox["\<\"SortedCovDsQ[expr] returns True if the expression has all its \
+covariant derivatives sorted, and False otherwise. \
+\\n\\nSortedCovDsQ[CD][expr] only checks the covariant derivative CD.\"\>", 
+  "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3556880405-4649254"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
 Cell[BoxData[{
  RowBox[{
   RowBox[{"CD", "[", 
@@ -17028,7 +17053,7 @@ $CellContext`e],
 
 Cell[BoxData["True"], "Output"]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -23003,7 +23028,8 @@ Cell[BoxData[
          GridBoxSpacings->{"Columns" -> {
              Offset[0.27999999999999997`], {
               Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> 
+           {
              Offset[0.2], {
               Offset[0.4]}, 
              Offset[0.2]}, "RowsIndexed" -> {}}]}],
