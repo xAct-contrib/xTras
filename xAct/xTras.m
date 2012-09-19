@@ -376,21 +376,6 @@ KillingVectorOf::usage =
   "Option for DefTensor. If the tensor is to be a Killing vector, the \
 option should be a covariant derivative. (i.e. KillingVectorOf->CD)";
 
-KillingRules::usage = 
-  "KillingRules[killingvector] returns the replacement rules for that \
-Killing vector.";
-
-KillingVectorPlaceholder::usage = 
-  "KillingVectorPlaceholder is for maintainance purposes.";
-
-$KillingVectors::usage = 
-  "$KillingVectors is a list of all the Killing vectors currently \
-defined.";
-
-Killing::usage = 
-  "Killing[expr] canonicalizes expr while using Killing vector \
-identities.";
-
 
 (*********************)
 (*                   *)
@@ -478,6 +463,8 @@ Simplification			:= xAct`xTensor`Simplification;
 SlotsOfTensor			:= xAct`xTensor`SlotsOfTensor;
 SymbolOfCovD			:= xAct`xTensor`SymbolOfCovD;
 Symmetrize				:= xAct`xTensor`Symmetrize;
+Symmetry				:= xAct`xTensor`Symmetry;
+SymmetryOf				:= xAct`xTensor`SymmetryOf;
 SymmetryTableauxOfTensor:= xAct`xTensor`SymmetryTableauxOfTensor;
 SortCovDs				:= xAct`xTensor`SortCovDs;
 TangentBundleOfManifold	:= xAct`xTensor`TangentBundleOfManifold;
@@ -496,6 +483,8 @@ VBundlesOfCovD			:= xAct`xTensor`VBundlesOfCovD;
 VBundleQ				:= xAct`xTensor`VBundleQ;
 Weyl					:= xAct`xTensor`Weyl;
 xTensorQ				:= xAct`xTensor`xTensorQ;
+
+slot					:= xAct`xTensor`Private`slot; 
 
 $InvSimplifyLevel		:= xAct`Invar`$InvSimplifyLevel;
 DualRInvs				:= xAct`Invar`DualRInvs;
@@ -1668,10 +1657,6 @@ DerivativeOrder[x_?ConstantExprQ,cd_?CovDQ] := 0
 
 KillingVectorQ[expr_] := False
 KillingVectorOf[expr_] := None
-KillingVectorPlaceholder[expr_] := Null;
-KillingRules[expr_] := {};
-$KillingVectors = {};
-
 
 Unprotect[xAct`xTensor`DefTensor];
 If[FreeQ[Options[xAct`xTensor`DefTensor], KillingVectorOf], 
@@ -1683,60 +1668,32 @@ Protect[xAct`xTensor`DefTensor];
 
 
 xTension["xTras`", DefTensor, "End"] := xTrasDefTensor;
-xTension["xTras`", UndefTensor, "Beginning"] := xTrasUndefTensor;
 
 
 xTrasDefTensor[head_[indices___], dependencies_, sym_, options___] :=
     DefKillingVector[head[indices], KillingVectorOf /. CheckOptions[options] /. Options[DefTensor]];
-xTrasUndefTensor[tensor_] := UndefKillingVector[tensor];
 
-
-(* The pattern only matches if the index is a lower one in the correct tangent bundle. *)
-DefKillingVector[xi_[-a_], cd_?CovDQ] /; MemberQ[First@IndicesOfVBundle@First@VBundlesOfCovD@cd, a] :=
-  Module[{M, vb, metric, cdxi, b, c, d, rules1, rules2, riemann},
+(* The pattern only matches if the index is one in the correct tangent bundle. *)
+DefKillingVector[xi_[ind_], cd_?CovDQ] /; Or@@(GiveSymbol[#, "`pmQ"][ind] & /@ VBundlesOfCovD@cd) :=
+  Module[{vb, metric, riemann},
    
    (* Set up some variables. *)
-   M = ManifoldOfCovD[cd];
    vb = First@VBundlesOfCovD[cd];
-   b = DummyIn[vb];
-   c = DummyIn[vb];
-   d = DummyIn[vb];
    riemann = GiveSymbol[Riemann, cd];
    metric = MetricOfCovD[cd];
    
-   (* Define the placeholder for the covariant derivative of xi. *)
-   DefTensor[cdxi[-a, -b], M, Antisymmetric[{-a, -b}]];
-   
-   (* Make the rules *)
-   rules1 = Join[
-   	{LieD[xi[_]][metric[__]]->0},
-   	MakeRule[{cd[-a]@xi[-b], cdxi[-a, -b]}]
-   ];
-   rules2 = FoldedRule[
-     MakeRule[{cdxi[-a, -b], cd[-a]@xi[-b]}],
-     MakeRule[{cd[-c]@cd[-a]@xi[-b], -riemann[-a, -b, -c, d] xi[-d]}]
-   ];
-   
+   (* Set the symmetry. Thanks to JMM for pointing this out. *)
+   SymmetryOf[cd[x_][xi[y_]]] ^:= Symmetry[2, cd[slot[2]][xi[slot[1]]], {slot[1] -> y, slot[2] -> x}, Antisymmetric[{1, 2}]]; 
+    
    (* Attach the rules and the rest. *)
-   KillingRules[xi] ^= {rules1, rules2};
+   cd[c_]@cd[b_]@xi[a_] := Module[{d = DummyIn@vb}, riemann[a,b,c,d] xi[-d]];
+   Unprotect[xAct`xTensor`LieD];
+   LieD[xi[_]][metric[__]] = 0;
+   Protect[xAct`xTensor`LieD];
+   
    KillingVectorOf[xi] ^= cd;
    KillingVectorQ[xi] ^= True;
-   KillingVectorPlaceholder[xi] ^= cdxi;
-   AppendTo[$KillingVectors, xi];
 ];
-
-
-UndefKillingVector[vector_?KillingVectorQ] := Module[{},
-   $KillingVectors = DeleteCases[$KillingVectors, vector];
-   UndefTensor[KillingVectorPlaceholder[vector]];
-];
-
-
-Killing[expr_, vector_?KillingVectorQ] := 
-  ToCanonical[expr /. First@KillingRules[vector]] /. Last@KillingRules[vector];
-
-Killing[expr_] := Fold[Killing[#1, #2] &, expr, $KillingVectors];
-
 
 (***********************)
 (* Metric permutations *)
