@@ -393,6 +393,7 @@ Begin["`Private`"]
 
 CheckOptions 			:= xAct`xCore`CheckOptions;
 FoldedRule				:= xAct`xCore`FoldedRule;
+MapIfPlus				:= xAct`xCore`MapIfPlus;
 xTension				:= xAct`xCore`xTension;
 
 Antisymmetric			:= xAct`xPerm`Antisymmetric;
@@ -1066,11 +1067,8 @@ DoTensorCollect[func_][expr_] := Module[{collected, map},
      func[subexpr],
      subexpr /. HoldPattern[TensorCollector[p___]] :> func[p]
      ];
-   If[Head[collected] === Plus,
-    map /@ collected,
-    map@collected
-    ]
-   ];
+   MapIfPlus[map,collected]
+];
 
 Options[TensorCollectSolve] ^= {SolveFor -> All, DontSolveFor -> None,
     Method -> Default};
@@ -1323,11 +1321,7 @@ follows.Note that we're only varying the metric and hence set \
 variations of any other tensors to zero. *)
      
      VarDt[metric, expr_] := Module[{mod},
-     	mod = Expand@Perturbation[expr];
-     	If[Head[mod]===Plus,
-     		mod = ContractMetric/@mod,
-     		mod = ContractMetric@mod
-     	];
+     	mod = MapIfPlus[ContractMetric,Expand@Perturbation[expr]];
      	ExpandPerturbation@SameDummies@mod /. {
         	per[LI[1], inds__] :> var[inds],
         	p:(tensor_[LI[1], ___]) /; (xTensorQ[tensor] && tensor =!= per && PerturbationOrder[p]===1) -> 0
