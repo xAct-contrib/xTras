@@ -374,7 +374,7 @@ KillingVectorQ::usage =
 
 KillingVectorOf::usage = 
   "Option for DefTensor. If the tensor is to be a Killing vector, the \
-option should be a covariant derivative. (i.e. KillingVectorOf->CD)";
+option should be a metric. (i.e. KillingVectorOf->metric)";
 
 
 (*********************)
@@ -402,6 +402,7 @@ Symmetric				:= xAct`xPerm`Symmetric;
 $CovDs					:= xAct`xTensor`$CovDs;
 $Metrics				:= xAct`xTensor`$Metrics;
 $Rules					:= xAct`xTensor`$Rules;
+AIndexQ					:= xAct`xTensor`AIndexQ;
 AllowUpperDerivatives	:= xAct`xTensor`AllowUpperDerivatives;
 Antisymmetrize			:= xAct`xTensor`Antisymmetrize;
 AutomaticRules 			:= xAct`xTensor`AutomaticRules;
@@ -1667,25 +1668,28 @@ xTension["xTras`", DefTensor, "End"] := xTrasDefTensor;
 xTrasDefTensor[head_[indices___], dependencies_, sym_, options___] :=
     DefKillingVector[head[indices], KillingVectorOf /. CheckOptions[options] /. Options[DefTensor]];
 
-(* The pattern only matches if the index is one in the correct tangent bundle. *)
-DefKillingVector[xi_[ind_], cd_?CovDQ] /; Or@@(GiveSymbol[#, "`pmQ"][ind] & /@ VBundlesOfCovD@cd) :=
-  Module[{vb, metric, riemann},
+(* The pattern only matches if the index belongs to the correct tangent bundle. *)
+DefKillingVector[xi_[L1:LI[_]...,ind_,L2:LI[_]...], metric_?MetricQ] /; AIndexQ[ind, VBundleOfMetric@metric] :=
+  Module[{vb, cd,riemann,l1patt,l2patt},
    
    (* Set up some variables. *)
-   vb = First@VBundlesOfCovD[cd];
+   vb = VBundleOfMetric@metric;
+   cd = CovDOfMetric[metric];
    riemann = GiveSymbol[Riemann, cd];
-   metric = MetricOfCovD[cd];
+   l1patt = Repeated[LI[_],{Length@List@L1}];
+   l2patt = Repeated[LI[_],{Length@List@L2}];
    
-   (* Set the symmetry. Thanks to JMM for pointing this out. *)
-   SymmetryOf[cd[x_][xi[y_]]] ^:= Symmetry[2, cd[slot[2]][xi[slot[1]]], {slot[1] -> y, slot[2] -> x}, Antisymmetric[{1, 2}]]; 
+   (* Set the symmetry. Thanks to JMM for pointing out of this works. *)
+   SymmetryOf[cd[x_][xi[l1:l1patt,y_,l2:l2patt]]] ^:= Symmetry[2, cd[slot[2]][xi[l1,slot[1],l2]], {slot[1] -> y, slot[2] -> x}, Antisymmetric[{1, 2}]]; 
     
    (* Attach the rules and the rest. *)
-   cd[c_]@cd[b_]@xi[a_] := Module[{d = DummyIn@vb}, riemann[a,b,c,d] xi[-d]];
+   cd[c_]@cd[b_]@xi[l1:l1patt,a_,l2:l2patt] := Module[{d = DummyIn@vb}, riemann[a,b,c,d] xi[l1,-d,l2]];
    Unprotect[xAct`xTensor`LieD];
-   LieD[xi[_]][metric[__]] = 0;
+   LieD[xi[l1patt,_,l2patt]][metric[__]] = 0;
+   LieD[xi[l1patt,_,l2patt],_][metric[__]] = 0;
    Protect[xAct`xTensor`LieD];
    
-   KillingVectorOf[xi] ^= cd;
+   KillingVectorOf[xi] ^= metric;
    KillingVectorQ[xi] ^= True;
 ];
 
