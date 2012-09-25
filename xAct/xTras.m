@@ -1670,7 +1670,7 @@ xTrasDefTensor[head_[indices___], dependencies_, sym_, options___] :=
     DefKillingVector[head[indices], KillingVectorOf /. CheckOptions[options] /. Options[DefTensor]];
 
 (* The pattern only matches if the index belongs to the correct tangent bundle. *)
-DefKillingVector[xi_[L1:LI[_]...,ind_,L2:LI[_]...], metric_?MetricQ] /; AIndexQ[ind, VBundleOfMetric@metric] :=
+DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], metric_?MetricQ] /; AIndexQ[ind, VBundleOfMetric@metric] :=
   Module[{vb, cd,riemann,l1patt,l2patt},
   	
   	If[$DefInfoQ,Print["** Defining " <> PrintAs@xi <> " to be a Killing vector of the metric " <> PrintAs@metric <> "."]];
@@ -1679,8 +1679,8 @@ DefKillingVector[xi_[L1:LI[_]...,ind_,L2:LI[_]...], metric_?MetricQ] /; AIndexQ[
    vb = VBundleOfMetric@metric;
    cd = CovDOfMetric[metric];
    riemann = GiveSymbol[Riemann, cd];
-   l1patt = Repeated[LI[_],{Length@List@L1}];
-   l2patt = Repeated[LI[_],{Length@List@L2}];
+   l1patt = PatternSequence[L1]/.LI[___]->LI[___];
+   l2patt = PatternSequence[L2]/.LI[___]->LI[___];
    
    (* Set the symmetry. Thanks to JMM for pointing out of this works. *)
    SymmetryOf[cd[x_][xi[l1:l1patt,y_,l2:l2patt]]] ^:= Symmetry[2, cd[slot[2]][xi[l1,slot[1],l2]], {slot[1] -> y, slot[2] -> x}, Antisymmetric[{1, 2}]]; 
