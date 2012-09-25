@@ -400,6 +400,7 @@ Antisymmetric			:= xAct`xPerm`Antisymmetric;
 Symmetric				:= xAct`xPerm`Symmetric;
 
 $CovDs					:= xAct`xTensor`$CovDs;
+$DefInfoQ				:= xAct`xTensor`$DefInfoQ;
 $Metrics				:= xAct`xTensor`$Metrics;
 $Rules					:= xAct`xTensor`$Rules;
 AIndexQ					:= xAct`xTensor`AIndexQ;
@@ -1671,6 +1672,8 @@ xTrasDefTensor[head_[indices___], dependencies_, sym_, options___] :=
 (* The pattern only matches if the index belongs to the correct tangent bundle. *)
 DefKillingVector[xi_[L1:LI[_]...,ind_,L2:LI[_]...], metric_?MetricQ] /; AIndexQ[ind, VBundleOfMetric@metric] :=
   Module[{vb, cd,riemann,l1patt,l2patt},
+  	
+  	If[$DefInfoQ,Print["** Defining " <> PrintAs@xi <> " to be a Killing vector of the metric " <> PrintAs@metric <> "."]];
    
    (* Set up some variables. *)
    vb = VBundleOfMetric@metric;
