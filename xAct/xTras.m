@@ -965,39 +965,34 @@ Options[MapTimed] ^= {
 	DoTensorCollect -> False 
 };
 
-MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; LevelSpecQ[levelspec] := 
-  Module[{begintime, desc, ms, l, sl, bytes, timer, mon, ETA, steps,dtc},
-   {desc, 
-     ms,dtc} = {Description, MonitorSteps, DoTensorCollect} /. CheckOptions[options] /. 
-     Options[MapTimed];
+MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; 
+   LevelSpecQ[levelspec] := 
+  Module[{begintime, desc, ms, length, stringlength, timer, mon, ETA, steps, dtc, position}, 
+   (* Determine the options *)
+   {desc, ms, dtc} = {Description, MonitorSteps, DoTensorCollect} /. CheckOptions[options] /. Options[MapTimed];
    desc = ToString[desc];
-   (* TODO: fix length / 
-   duration calculation if the levelspec is different from {1} *)
-   
-   l = Length[expr];
-   sl = ToString[l];
-   steps = If[ms === All, 1, Ceiling[l/ms]];
-   bytes = 1 + ByteCount /@ List @@ expr;
+   (* Initialize variables *)
+   length = 0;
+   position = 0;
+   (* Do a test run to determine the length of the map. *)
+   Map[(length++) &, expr, levelspec];
+   stringlength = ToString[length];
+   steps = If[ms === All, 1, Ceiling[length/ms]];
    begintime = AbsoluteTime[];
-   mon =  desc <> " " <> sl <> " parts.";
-   
-   ETA[pos_] := Round[(AbsoluteTime[] - begintime)*(l - pos)/pos];
-   
-   timer[part_, {pos_}] := Module[{result},
-     result = If[dtc,
-		DoTensorCollect[func][part],
-		func@part
-     ];
-     If[ms === All || Mod[pos, steps] == 0,
-      mon = 
-       desc <> " Parts " <> ToString@pos <> "/" <> sl <> 
-        " done. ETA in " <> TimeString@ETA@pos <> "."
-      ];
+   mon = desc <> " " <> stringlength <> " parts.";
+   ETA[pos_] := 
+    Ceiling[(AbsoluteTime[] - begintime)*(length - pos)/pos];
+   timer[part_] := Module[{result},
+     result = If[dtc, DoTensorCollect[func][part], func@part];
+     position++;
+     If[ms === All || Mod[position, steps] == 0, 
+      mon = desc <> " Parts " <> ToString@position <> "/" <> 
+        stringlength <> " done. ETA in " <> TimeString@ETA@position <>
+         "."];
      result
-     ];
-   
-   Monitor[MapIndexed[timer, expr, levelspec], mon]
    ];
+   Monitor[Map[timer, expr, levelspec], mon]
+];
 
 
 
