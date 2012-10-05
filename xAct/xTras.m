@@ -232,13 +232,6 @@ Riccis and Riemanns (but not of other curvature tensors like the Weyl tensor).";
 
 (* Variational calculus *)
 
-FD::usage = "FD is the head for functional derivatives. \
-FD[FD1[tensor1]FD2[tensor2]] represents the functional derivative of tensor1 w.r.t tensor2.";
-
-FD1::usage = "FD1 represents the numerator in functional derivatives.";
-
-FD2::usage = "FD2 represents the denominator in functional derivatives.";
-
 VarL::usage = 
 	"VarL[g[-a,-b]][L] varies Sqrt[-Det[g]]*L w.r.t. g. \ 
 It is only defined after using DefMetricVariation for the given metric.";
@@ -1279,10 +1272,6 @@ FullSimplification[metric_?MetricQ, options___?OptionQ][expr_] :=
 (* Variations *)
 (**************)
 
-DefInertHead[FD];
-DefInertHead[FD1,PrintAs->"\[Delta]"];
-DefInertHead[FD2,PrintAs->"\[Delta]"];
-
 ExpandPerturbationDer[expr_] := 
  SeparateMetric[][expr] //. 
   subexpr : 
@@ -1339,13 +1328,13 @@ variations of any other tensors to zero. *)
        mod = TensorCollect@VarDt[metric, expr];
        novar = mod /. var[__]->0;
        withvar = mod - novar;
-       VarD[var[-c, -d], cd][withvar] + ReplaceDummies@novar /.Perturbation[x_]:>FD[FD1@x FD2@metric[c,d]]
+       VarD[var[-c, -d], cd][withvar]
        ];
      VarD[metric[+c_Symbol, +d_Symbol], cd][expr_] := Module[{mod,withvar,novar},
        mod = TensorCollect@VarDt[metric, expr];
        novar = mod /. var[__]->0;
        withvar = mod - novar;
-       -VarD[var[c, d], cd][withvar] + ReplaceDummies@novar /.Perturbation[x_]:>FD[FD1@x FD2@metric[-c,-d]]
+       -VarD[var[c, d], cd][withvar]
        ];
      (* And one handy function that varies Lagrangians, 
      and thus takes care of the square root of the determinant. *)
