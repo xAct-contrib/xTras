@@ -22,8 +22,9 @@ If[Not@OrderedQ@
 
 (* Print info *)
 Print[xAct`xCore`Private`bars];
-Print["Package xAct`xTras` by Teake Nutma, version ", xAct`xTras`$Version, "." ];
-Print[xAct`xCore`Private`bars];
+Print["Package xAct`xTras`  version ", xAct`xTras`$Version];
+Print["Written by Teake Nutma."];
+Print["https://code.google.com/p/xact-xtras/"];
 
 
 If[xAct`xCore`Private`$LastPackage === "xAct`xTras`",
