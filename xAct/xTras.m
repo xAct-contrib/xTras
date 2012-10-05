@@ -7,10 +7,11 @@
 xAct`xTras`$Version = "1.0.3pre";
 xAct`xTras`$xTensorVersionExpected = {"1.0.4", {2012, 5, 5}};
 
+If[Unevaluated[xAct`xCore`Private`$LastPackage] === 
+   xAct`xCore`Private`$LastPackage, 
+  xAct`xCore`Private`$LastPackage = "xAct`xTras`"];
 
-(* Check if Invar and xPert have been loaded. If not, load them. *)
-If[!ValueQ[xAct`xPert`$Version],Needs["xAct`xPert`"]];
-If[!ValueQ[xAct`Invar`$Version],Needs["xAct`Invar`"]];
+BeginPackage["xAct`xTras`",{"xAct`xCore`","xAct`xPerm`","xAct`xTensor`","xAct`xPert`", "xAct`Invar`"}]
 
 (* Check if we have the correct version of xAct. *)
 If[Not@OrderedQ@
@@ -19,13 +20,20 @@ If[Not@OrderedQ@
    xAct`xTensor`$Version, xAct`xTras`$xTensorVersionExpected];
   Abort[]];
 
-BeginPackage["xAct`xTras`"]
-
 (* Print info *)
 Print[xAct`xCore`Private`bars];
 Print["Package xAct`xTras` by Teake Nutma, version ", xAct`xTras`$Version, "." ];
 Print[xAct`xCore`Private`bars];
 
+
+If[xAct`xCore`Private`$LastPackage === "xAct`xTras`",
+  Unset[xAct`xCore`Private`$LastPackage];
+  Print[xAct`xCore`Private`bars];
+  Print["These packages come with ABSOLUTELY NO WARRANTY; for details \
+type Disclaimer[]. This is free software, and you are welcome to \
+redistribute it under certain conditions. See the General Public \
+License for details."];
+  Print[xAct`xCore`Private`bars]];
 
 (*********************)
 (*                   *)
@@ -397,118 +405,7 @@ Begin["`Private`"]
 (* Importing xAct symbols *)
 (**************************)
 
-CheckOptions 			:= xAct`xCore`CheckOptions;
-FoldedRule				:= xAct`xCore`FoldedRule;
-MapIfPlus				:= xAct`xCore`MapIfPlus;
-xTension				:= xAct`xCore`xTension;
-
-Antisymmetric			:= xAct`xPerm`Antisymmetric;
-Symmetric				:= xAct`xPerm`Symmetric;
-
-$CovDs					:= xAct`xTensor`$CovDs;
-$DefInfoQ				:= xAct`xTensor`$DefInfoQ;
-$Metrics				:= xAct`xTensor`$Metrics;
-$Rules					:= xAct`xTensor`$Rules;
-AIndexQ					:= xAct`xTensor`AIndexQ;
-AllowUpperDerivatives	:= xAct`xTensor`AllowUpperDerivatives;
-Antisymmetrize			:= xAct`xTensor`Antisymmetrize;
-AutomaticRules 			:= xAct`xTensor`AutomaticRules;
-Bracket					:= xAct`xTensor`Bracket;
-ChangeIndex				:= xAct`xTensor`ChangeIndex;
-Christoffel				:= xAct`xTensor`Christoffel;
-ConstantSymbolQ			:= xAct`xTensor`ConstantSymbolQ;
-ConstantQ				:= xAct`xTensor`ConstantQ;
-ContractMetric			:= xAct`xTensor`ContractMetric;
-CovDOfMetric			:= xAct`xTensor`CovDOfMetric;
-CovDQ					:= xAct`xTensor`CovDQ;
-CommuteCovDs			:= xAct`xTensor`CommuteCovDs;
-CurvatureRelations		:= xAct`xTensor`CurvatureRelations;
-DefConstantSymbol		:= xAct`xTensor`DefConstantSymbol;
-DefInertHead			:= xAct`xTensor`DefInertHead;
-DefInfo					:= xAct`xTensor`DefInfo;
-DefMetric				:= xAct`xTensor`DefMetric;
-DefTensor				:= xAct`xTensor`DefTensor;
-Determinant				:= xAct`xTensor`Determinant;
-DimOfManifold			:= xAct`xTensor`DimOfManifold;
-DimOfVBundle			:= xAct`xTensor`DimOfVBundle;
-DisorderedPairQ			:= xAct`xTensor`DisorderedPairQ;
-DownIndexQ				:= xAct`xTensor`DownIndexQ;
-DummyIn					:= xAct`xTensor`DummyIn;
-Einstein				:= xAct`xTensor`Einstein;
-epsilon					:= xAct`xTensor`epsilon;
-Free					:= xAct`xTensor`Free;
-FindAllOfType			:= xAct`xTensor`FindAllOfType;
-GiveSymbol				:= xAct`xTensor`GiveSymbol;
-GiveOutputString		:= xAct`xTensor`GiveOutputString;
-HostsOf					:= xAct`xTensor`HostsOf;
-IndexList				:= xAct`xTensor`IndexList;
-IndicesOf				:= xAct`xTensor`IndicesOf;
-IndicesOfVBundle		:= xAct`xTensor`IndicesOfVBundle;
-LI						:= xAct`xTensor`LI;
-LieD					:= xAct`xTensor`LieD;
-MakeRule				:= xAct`xTensor`MakeRule;
-ManifoldOfCovD			:= xAct`xTensor`ManifoldOfCovD;
-ManifoldQ				:= xAct`xTensor`ManifoldQ;
-Master					:= xAct`xTensor`Master;
-MasterOf				:= xAct`xTensor`MasterOf;
-MetricOfCovD			:= xAct`xTensor`MetricOfCovD;
-MetricOn				:= xAct`xTensor`MetricOn;
-MetricQ					:= xAct`xTensor`MetricQ;
-MetricsOfVBundle		:= xAct`xTensor`MetricsOfVBundle;
-NoScalar				:= xAct`xTensor`NoScalar;
-ParameterQ				:= xAct`xTensor`ParameterQ;
-PD						:= xAct`xTensor`PD;
-PrintAs					:= xAct`xTensor`PrintAs;
-PutScalar				:= xAct`xTensor`PutScalar;
-ReplaceDummies			:= xAct`xTensor`ReplaceDummies;
-Ricci					:= xAct`xTensor`Ricci;
-RicciScalar				:= xAct`xTensor`RicciScalar;
-Riemann					:= xAct`xTensor`Riemann;
-SameDummies				:= xAct`xTensor`SameDummies;
-SeparateMetric			:= xAct`xTensor`SeparateMetric;
-Scalar					:= xAct`xTensor`Scalar;
-ServantsOf				:= xAct`xTensor`ServantsOf;
-SignDetOfMetric			:= xAct`xTensor`SignDetOfMetric;
-Simplification			:= xAct`xTensor`Simplification;
-SlotsOfTensor			:= xAct`xTensor`SlotsOfTensor;
-SymbolOfCovD			:= xAct`xTensor`SymbolOfCovD;
-Symmetrize				:= xAct`xTensor`Symmetrize;
-Symmetry				:= xAct`xTensor`Symmetry;
-SymmetryOf				:= xAct`xTensor`SymmetryOf;
-SymmetryTableauxOfTensor:= xAct`xTensor`SymmetryTableauxOfTensor;
-SortCovDs				:= xAct`xTensor`SortCovDs;
-TangentBundleOfManifold	:= xAct`xTensor`TangentBundleOfManifold;
-Tensor					:= xAct`xTensor`Tensor;
-TFRicciCD				:= xAct`xTensor`TFRicciCD;
-ToCanonical				:= xAct`xTensor`ToCanonical;
-UndefConstantSymbol		:= xAct`xTensor`UndefConstantSymbol;
-UndefTensor				:= xAct`xTensor`UndefTensor;
-UpIndex					:= xAct`xTensor`UpIndex;
-UpIndexQ				:= xAct`xTensor`UpIndexQ;
-UseMetricOnVBundle		:= xAct`xTensor`UseMetricOnVBundle;
-UseSymmetries			:= xAct`xTensor`UseSymmetries;
-VarD					:= xAct`xTensor`VarD;
-VBundleOfMetric			:= xAct`xTensor`VBundleOfMetric;
-VBundlesOfCovD			:= xAct`xTensor`VBundlesOfCovD;
-VBundleQ				:= xAct`xTensor`VBundleQ;
-Weyl					:= xAct`xTensor`Weyl;
-xTensorQ				:= xAct`xTensor`xTensorQ;
-
 slot					:= xAct`xTensor`Private`slot; 
-
-$InvSimplifyLevel		:= xAct`Invar`$InvSimplifyLevel;
-DualRInvs				:= xAct`Invar`DualRInvs;
-InvarCases				:= xAct`Invar`InvarCases;
-InvarDualCases			:= xAct`Invar`InvarDualCases;
-InvToRiemann			:= xAct`Invar`InvToRiemann;
-RiemannSimplify			:= xAct`Invar`RiemannSimplify;
-RInvs					:= xAct`Invar`RInvs;
-
-xAct`xTras`Private`DefMetricPerturbation	:= xAct`xPert`DefMetricPerturbation;
-xAct`xTras`Private`ExpandPerturbation		:= xAct`xPert`ExpandPerturbation;
-xAct`xTras`Private`Perturbation				:= xAct`xPert`Perturbation;
-xAct`xTras`Private`PerturbationOrder		:= xAct`xPert`PerturbationOrder;
-
 
 
 (**********************)
