@@ -232,6 +232,10 @@ Riccis and Riemanns (but not of other curvature tensors like the Weyl tensor).";
 
 (* Variational calculus *)
 
+DefVariation::usage =
+	"DefVariation is an option for DefMetric. If True, DefMetric automatically \
+defines a covariant metric variation.";
+
 VarL::usage = 
 	"VarL[g[-a,-b]][L] varies Sqrt[-Det[g]]*L w.r.t. g. \ 
 It is only defined after using DefMetricVariation for the given metric.";
@@ -512,7 +516,9 @@ xAct`xTras`Private`PerturbationOrder		:= xAct`xPert`PerturbationOrder;
 
 xTension["xTras`", DefMetric, "End"] := xTrasDefMetric;
 
-xTrasDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[{M,D,einsteincc,rs},
+xTrasDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[{M,D,einsteincc,rs,defvar,metricPert,metricPar},
+	
+	defvar = TrueQ[DefVariation /. CheckOptions[options] /. Options[DefMetric]];
 	
 	M = ManifoldOfCovD[cd];
 	D = DimOfManifold[M];
@@ -535,8 +541,16 @@ xTrasDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[{M,D,einst
 	xAct`xPert`Private`ExpandPerturbation1[Perturbation[s:GiveSymbol[EinsteinCC,cd][__],n_.],opts___] := 
 		ExpandPerturbation[Perturbation[EinsteinCCToRicci@s, n], opts];
 	
+	(* Some identities for the cosmological Einstein tensor. *)
 	cd[c_]@einsteincc[LI[_],___,d_,___] /; c === ChangeIndex[d] ^= 0;
 	einsteincc[LI[K_], c_, d_] /; c === ChangeIndex[d] := (1/ 2 (D-2)(D-1) D K + (1-D/2) rs[]);
+	
+	If[defvar,
+		metricPert = GiveSymbol[metric,Perturbation];
+		metricPar  = GiveSymbol[metric,\[Epsilon]];
+		DefMetricVariation[metric,metricPert,metricPar];
+	];
+	
 	
 ];
 
@@ -1285,6 +1299,14 @@ ExpandPerturbationDer[expr_] :=
 	package. This is due to Cyril Pitrou. See
 	http://groups.google.com/group/xact/browse_thread/thread/46f3ae4cbae14ea8/22c9e238d0869271
 *)
+
+Unprotect[xAct`xTensor`DefMetric];
+If[FreeQ[Options[xAct`xTensor`DefMetric], DefVariation], 
+ Options[xAct`xTensor`DefMetric] ^= Append[Options[xAct`xTensor`DefMetric], DefVariation -> True];
+ , 
+ Null;
+];
+Protect[xAct`xTensor`DefMetric];
 
 Options[DefMetricVariation] ^= {PrintAs -> ""};
 
