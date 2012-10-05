@@ -425,6 +425,7 @@ CommuteCovDs			:= xAct`xTensor`CommuteCovDs;
 CurvatureRelations		:= xAct`xTensor`CurvatureRelations;
 DefConstantSymbol		:= xAct`xTensor`DefConstantSymbol;
 DefInertHead			:= xAct`xTensor`DefInertHead;
+DefInfo					:= xAct`xTensor`DefInfo;
 DefMetric				:= xAct`xTensor`DefMetric;
 DefTensor				:= xAct`xTensor`DefTensor;
 Determinant				:= xAct`xTensor`Determinant;
@@ -547,7 +548,7 @@ xTrasDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[{M,D,einst
 	
 	If[defvar,
 		metricPert = GiveSymbol[metric,Perturbation];
-		metricPar  = GiveSymbol[metric,\[Epsilon]];
+		metricPar  = GiveSymbol[metric,"\[Epsilon]"];
 		DefMetricVariation[metric,metricPert,metricPar];
 	];
 	
@@ -1303,18 +1304,14 @@ ExpandPerturbationDer[expr_] :=
 Unprotect[xAct`xTensor`DefMetric];
 If[FreeQ[Options[xAct`xTensor`DefMetric], DefVariation], 
  Options[xAct`xTensor`DefMetric] ^= Append[Options[xAct`xTensor`DefMetric], DefVariation -> True];
- , 
- Null;
 ];
 Protect[xAct`xTensor`DefMetric];
 
 Options[DefMetricVariation] ^= {PrintAs -> ""};
 
-DefMetricVariation[metric_?MetricQ, per_, param_, 
-   options___?OptionQ] := Module[{var, M, vb, a, b, print, def},
+DefMetricVariation[metric_?MetricQ, per_, param_, options___?OptionQ] := Module[{var, M, vb, a, b, print, def},
    
-   {print} = {PrintAs} /. CheckOptions[options] /. 
-     Options[DefMetricVariation];
+   {print} = {PrintAs} /. CheckOptions[options] /. Options[DefMetricVariation];
    
    M = First@Select[HostsOf[metric], ManifoldQ];
    vb = VBundleOfMetric[metric];
@@ -1322,21 +1319,19 @@ DefMetricVariation[metric_?MetricQ, per_, param_,
    b = DummyIn[vb];
    
    (* First we define a metric perturbation for the xPert package and \
-a tensor that represents an infinitessimal variation of the metric. *)
-
-      DefMetricPerturbation[metric, per, param];
-   DefTensor[var[-a, -b], M, Symmetric[{-a, -b}]];
+      a tensor that represents an infinitessimal variation of the metric. *)
+   DefMetricPerturbation[metric, per, param];
+   DefTensor[var[-a, -b], M, Symmetric[{-a, -b}],DefInfo->False];
    
    If[print =!= "", PrintAs[per] ^= print];
    
    (* The stuff below is wrapped in a function because SetDelayed has \
-the HoldAll attribute. *)
-   
+      the HoldAll attribute. *)
    def[cd_, sqrt_] := (
+   
      (* We can now define a total variation (w.r.t.to metric) as \
-follows.Note that we're only varying the metric and hence set \
-variations of any other tensors to zero. *)
-     
+        follows.Note that we're only varying the metric and hence set \
+        variations of any other tensors to zero. *)
      VarDt[metric, expr_] := Module[{mod},
      	mod = MapIfPlus[ContractMetric,Expand@Perturbation[expr]];
      	ExpandPerturbation@SameDummies@mod /. {
@@ -1344,31 +1339,30 @@ variations of any other tensors to zero. *)
         	p:(tensor_[LI[1], ___]) /; (xTensorQ[tensor] && tensor =!= per && PerturbationOrder[p]===1) -> 0
         }
      ];
-     (* The functional derivation is then defined as ... *)
      
+     (* The functional derivation is then defined as ... *)
      VarD[metric[-c_Symbol, -d_Symbol], cd][expr_] := Module[{mod,withvar,novar},
        mod = TensorCollect@VarDt[metric, expr];
        novar = mod /. var[__]->0;
        withvar = mod - novar;
        VarD[var[-c, -d], cd][withvar]
-       ];
+     ];
      VarD[metric[+c_Symbol, +d_Symbol], cd][expr_] := Module[{mod,withvar,novar},
        mod = TensorCollect@VarDt[metric, expr];
        novar = mod /. var[__]->0;
        withvar = mod - novar;
        -VarD[var[c, d], cd][withvar]
-       ];
+     ];
+       
      (* And one handy function that varies Lagrangians, 
      and thus takes care of the square root of the determinant. *)
+     VarL[metric[inds__]][L_] := VarL[metric[inds], cd][L];
+     VarL[metric[inds__], cd][L_] := VarD[metric[inds], cd][sqrt L]/sqrt;
    
-       VarL[metric[inds__]][L_] := VarL[metric[inds], cd][L];
-     VarL[metric[inds__], cd][L_] := 
-      VarD[metric[inds], cd][sqrt L]/sqrt;
-     );
+   );
    
-   def[CovDOfMetric[metric], 
-    Sqrt[SignDetOfMetric[metric] Determinant[metric][]]];
-   ];
+   def[CovDOfMetric[metric],Sqrt[SignDetOfMetric[metric] Determinant[metric][]]];
+];
 
 
 

@@ -34,7 +34,7 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["xAct`xTras`$Version", "Print", "PrintUsage",
- CellTags->"Info3558418725-4464613"],
+ CellTags->"Info3558420262-8117303"],
 
 Cell[BoxData[
  InterpretationBox[GridBox[{
@@ -56,7 +56,7 @@ Cell[BoxData[
      "RowsIndexed" -> {}}],
   Definition[xAct`xTras`$Version],
   Editable->False]], "Print",
- CellTags->"Info3558418725-4464613"]
+ CellTags->"Info3558420262-8117303"]
 }, Open  ]]
 }, Open  ]],
 
@@ -96,42 +96,16 @@ Cell[BoxData[
  RowBox[{
   RowBox[{"$InvSimplifyLevel", " ", "=", "4"}], ";"}]], "Input"],
 
-Cell[CellGroupData[{
-
 Cell[BoxData[
  RowBox[{"DefConstantSymbol", "[", 
   RowBox[{"dimension", ",", 
    RowBox[{"PrintAs", "\[Rule]", "\"\<D\>\""}]}], "]"}]], "Input"],
 
 Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ValidateSymbol", "::", "used"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Symbol \[NoBreak]\\!\\(\\\"dimension\\\"\\)\[NoBreak] is \
-already used \[NoBreak]\\!\\(\\\"as a \
-constant-symbol\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
  RowBox[{"DefManifold", "[", 
   RowBox[{"M", ",", "dimension", ",", 
    RowBox[{"IndexRange", "[", 
     RowBox[{"a", ",", "l"}], "]"}]}], "]"}]], "Input"],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ValidateSymbol", "::", "used"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Symbol \[NoBreak]\\!\\(\\\"M\\\"\\)\[NoBreak] is already \
-used \[NoBreak]\\!\\(\\\"as a manifold\\\"\\)\[NoBreak].\"\>"}]], "Message", \
-"MSG"]
-}, Open  ]],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"DefMetric", "[", 
@@ -142,26 +116,7 @@ Cell[BoxData[
      RowBox[{"-", "a"}], ",", 
      RowBox[{"-", "b"}]}], "]"}], ",", "CD", ",", 
    RowBox[{"PrintAs", "\[Rule]", "\"\<g\>\""}], ",", 
-   RowBox[{"CurvatureRelations", "\[Rule]", "True"}]}], "]"}]], "Input"],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"DefMetric", "::", "old"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"There are already metrics \[NoBreak]\\!\\({metric}\\)\
-\[NoBreak] in vbundle \[NoBreak]\\!\\(TangentM\\)\[NoBreak].\"\>"}]], \
-"Message", "MSG"],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"ValidateSymbol", "::", "used"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Symbol \[NoBreak]\\!\\(\\\"metric\\\"\\)\[NoBreak] is \
-already used \[NoBreak]\\!\\(\\\"as a metric\\\"\\)\[NoBreak].\"\>"}]], \
-"Message", "MSG"]
-}, Open  ]]
+   RowBox[{"CurvatureRelations", "\[Rule]", "True"}]}], "]"}]], "Input"]
 }, Closed]]
 }, Open  ]],
 
@@ -23077,8 +23032,7 @@ Cell[BoxData[
          GridBoxSpacings->{"Columns" -> {
              Offset[0.27999999999999997`], {
               Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> 
-           {
+             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
              Offset[0.2], {
               Offset[0.4]}, 
              Offset[0.2]}, "RowsIndexed" -> {}}]}],
