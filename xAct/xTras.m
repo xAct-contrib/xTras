@@ -5,10 +5,19 @@
 (*********************)
 
 xAct`xTras`$Version = "1.0.3pre";
+xAct`xTras`$xTensorVersionExpected = {"1.0.4", {2012, 5, 5}};
+
 
 (* Check if Invar and xPert have been loaded. If not, load them. *)
 If[!ValueQ[xAct`xPert`$Version],Needs["xAct`xPert`"]];
 If[!ValueQ[xAct`Invar`$Version],Needs["xAct`Invar`"]];
+
+(* Check if we have the correct version of xAct. *)
+If[Not@OrderedQ@
+    Map[Last, {xAct`xTras`$xTensorVersionExpected, xAct`xTensor`$Version}], 
+  Message[General::versions, "xTensor", 
+   xAct`xTensor`$Version, xAct`xTras`$xTensorVersionExpected];
+  Abort[]];
 
 BeginPackage["xAct`xTras`"]
 
