@@ -8,7 +8,7 @@ xAct`xTras`$Version = "1.0.3pre";
 
 (* Check if Invar and xPert have been loaded. If not, load them. *)
 If[!ValueQ[xAct`xPert`$Version],Needs["xAct`xPert`"]];
-If[!ValueQ[xAct`Invar`$Version],Needs["xAct`Invar`Invar`"]];
+If[!ValueQ[xAct`Invar`$Version],Needs["xAct`Invar`"]];
 
 BeginPackage["xAct`xTras`"]
 
