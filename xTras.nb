@@ -34,13 +34,13 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["xAct`xTras`$Version", "Print", "PrintUsage",
- CellTags->"Info3558421792-6401971"],
+ CellTags->"Info3558871185-9280455"],
 
 Cell[BoxData[
  InterpretationBox[GridBox[{
     {GridBox[{
        {
-        RowBox[{"$Version", "=", "\<\"1.0.3pre\"\>"}]}
+        RowBox[{"$Version", "=", "\<\"1.0.3\"\>"}]}
       },
       BaselinePosition->{Baseline, {1, 1}},
       GridBoxAlignment->{
@@ -56,7 +56,7 @@ Cell[BoxData[
      "RowsIndexed" -> {}}],
   Definition[xAct`xTras`$Version],
   Editable->False]], "Print",
- CellTags->"Info3558421792-6401971"]
+ CellTags->"Info3558871185-9280455"]
 }, Open  ]]
 }, Open  ]],
 
@@ -10174,11 +10174,10 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"Solve", "::", "svars"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Equations may not give solutions for all \\\"solve\\\" \
-variables. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
+   RowBox[{"Solve", "::", "svars"}], "MessageName"], ":", 
+  " ", "\<\"Equations may not give solutions for all \\\"solve\\\" variables. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
 ButtonNote -> \\\"Solve::svars\\\"]\\)\"\>"}]], "Message", "MSG"],
 
 Cell[BoxData[
@@ -19322,11 +19321,9 @@ Cell[BoxData[{
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"ValidateSymbol", "::", "used"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Symbol \[NoBreak]\\!\\(\\\"T\\\"\\)\[NoBreak] is already \
-used \[NoBreak]\\!\\(\\\"as a tensor\\\"\\)\[NoBreak].\"\>"}]], "Message", \
-"MSG"]
+   RowBox[{"ValidateSymbol", "::", "used"}], "MessageName"], ":", 
+  " ", "\<\"Symbol \[NoBreak]\\!\\(\\\"T\\\"\\)\[NoBreak] is already used \
+\[NoBreak]\\!\\(\\\"as a tensor\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG"]
 }, Open  ]],
 
 Cell["No free indices.", "Text"],
