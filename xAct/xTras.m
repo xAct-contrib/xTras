@@ -62,7 +62,7 @@ this simplification into account.";
 
 UnorderedPairsPermutations::usage =
 	"UnorderPairsPermutations[list] gives all permutations of the elements of \
-list that are unorder pairs. list has the have an even number of elements.";
+list that are unorder pairs. list has to have an even number of elements.";
 
 
 (* ClearAutomaticRules et. al. *)
@@ -134,12 +134,11 @@ the Riemann tensor at that given order (which has the standard level \
 specification)";
 
 InvarLagrangian::usage = 
-  "InvarLagrangian[metric,levelspec] gives a Lagrangian up to \
-maxorder in derivatives of the metric.";
+  "InvarLagrangian[metric, maxorder] gives the most general Lagrangian up to \
+maxorder in derivatives of the metric, consisting solely of curvature tensors.";
 
 OrderCoefficient::usage = 
-  "OrderCoefficient[order,n] gives a constant symbol for \
-InvarLagrangian.";
+  "OrderCoefficient[order,n] gives a constant symbol for InvarLagrangian.";
 
 
 (* MapTimed *)
@@ -246,8 +245,8 @@ DefVariation::usage =
 defines a covariant metric variation.";
 
 VarL::usage = 
-	"VarL[g[-a,-b]][L] varies Sqrt[-Det[g]]*L w.r.t. g. \ 
-It is only defined after using DefMetricVariation for the given metric.";
+	"VarL[ metric[a,b] ][ L ] varies Sqrt[-Det[g]] * L with respect to metric[a,b], \ 
+and then divides with Sqrt[-Det[g]].";
 
 DefMetricVariation::usage = 
   "DefMetricVariation[metric, pert, param] first defines a metric \
@@ -297,7 +296,7 @@ that, when applied to an expression, the expression is effectively on \
 a flat background.";
 
 BackgroundSolution::usage = 
-  "BackgroundSolution is an option for ApplyBackground.";
+  "BackgroundSolution is an option for ToBackground. It should be (a list of) replacement rule(s).";
 
 ExtraRules::usage = "ExtraRules is an option for ApplyBackground.";
 
@@ -389,7 +388,7 @@ KillingVectorQ::usage =
 
 KillingVectorOf::usage = 
   "Option for DefTensor. If the tensor is to be a Killing vector, the \
-option should be a metric. (i.e. KillingVectorOf->metric)";
+option should be a metric. (i.e. KillingVectorOf -> metric)";
 
 
 (*********************)
