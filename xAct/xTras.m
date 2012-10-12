@@ -4,7 +4,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = "1.0.3";
+xAct`xTras`$Version = "1.0.4pre";
 xAct`xTras`$xTensorVersionExpected = {"1.0.4", {2012, 5, 5}};
 
 If[Unevaluated[xAct`xCore`Private`$LastPackage] === 
@@ -1004,24 +1004,20 @@ SolveConstants[expr_,varsdoms__] :=
 (* This is a handy shortcut *)
 SolveConstants[expr_] := SolveConstants[expr, Select[Variables[expr],ConstantSymbolQ] ];
 
-MakeEquationRule[{equation_, pattern_, cond___}, 
-    options___?OptionQ] /; ! FreeQ[equation, Plus] := 
-  Module[{expanded, list, terms, coefficient, lhs, rhs, cs}, DefConstantSymbol[cs];
-   expanded = TensorCollect[cs*equation];
-   list = List @@ expanded;
-   terms = 
-    Cases[list, (cccc_?ConstantExprQ*tttt_ /; 
-        MatchQ[tttt, pattern]) :> {tttt, cccc}];
-   If[Length[terms] =!= 1, Return[{}]];
-   coefficient = terms[[1, 2]];
-   lhs = terms[[1, 1]];
-   rhs = (lhs - (expanded/coefficient)) // Simplification;
-   UndefConstantSymbol[cs];
-   If[Length[IndicesOf[][lhs]] === 0, rhs = PutScalar[rhs]];
-   MakeRule[Evaluate[{lhs, rhs, cond}], options]
+MakeEquationRule[{Equal[LHS_,RHS_], pattern_, cond___}, options___?OptionQ]:=
+  Module[{expanded, list, terms, coefficient, lhs, rhs},
+	expanded	= TensorCollect[LHS - RHS, CollectMethod->Default, SimplifyMethod->Identity];
+	list		= If[Head[expanded] === Plus, List@@expanded, List@expanded];
+	terms = Cases[list, (Optional[c_] * t_) /; ConstantExprQ[c] && MatchQ[t, HoldPattern@pattern] :> {t, c}];
+	If[Length[terms] =!=1, Return[{}]];
+	coefficient	= terms[[1,2]];
+	lhs			= terms[[1,1]];
+	rhs			= Simplification[lhs - (expanded/coefficient)];
+	If[Length[IndicesOf[][lhs]] === 0, rhs = PutScalar[rhs]];
+	MakeRule[Evaluate[{lhs, rhs, cond}], options]
 ];
 
-
+SetAttributes[MakeEquationRule,HoldFirst];
 
 (********************************)
 (* Metric determinant varations *)
