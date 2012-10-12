@@ -192,17 +192,18 @@ DoTensorCollect::usage =
 expr. This is useful if you have an expression with one tensor object \
 with lots of different constants.";
 
-SolveFor::usage = "Option for TensorCollectSolve.";
-DontSolveFor::usage = "Option for TensorCollectSolve.";
-
-TensorCollectSolve::usage = 
-  "TensorCollectSolve[expr] solves expr = 0 for any constant symbols \
-appearing in expr.";
-
 MakeEquationRule::usage = 
   "MakeEquationRule[{equation,pattern,cond}] returns rules for \
 tensors matching pattern in the given equation.";
 
+ToConstantSymbolEquations::usage =
+	"ToConstantSymbolEquations[eq] takes the tensorial equation eq \
+and turns it into equations for the constant symbols appearing eq.";
+
+SolveConstants::usage =
+	"SolveConstants[expr, vars] attempts to solve the tensorial expr for constant \
+symbols vars. \nSolveConstants[expr] attempts to solve expr for all the constant \
+symbols appearing in expr.";
 
 (* Simplifying *)
 
@@ -981,29 +982,27 @@ DoTensorCollect[func_][expr_] := Module[{collected, map},
    MapIfPlus[map,collected]
 ];
 
-Options[TensorCollectSolve] ^= {SolveFor -> All, DontSolveFor -> None,
-    Method -> Default};
 
-TensorCollectSolve[expr__, options___?OptionQ] := 
-  Module[{solvefor, dontsolvefor, collected, list, vars},
-   {solvefor, 
-     dontsolvefor} = {SolveFor, DontSolveFor} /. 
-      CheckOptions[options] /. Options[TensorCollectSolve];
-   collected = TensorCollect[#, options] & /@ List[expr];
-   list = Flatten[If[Head[#] === Plus,
-        List @@ #,
-        List@#
-        ] & /@ collected];
-   list = RemoveTensors@list;
-   If[solvefor === All,
-    vars = Select[Variables[list], ConstantSymbolQ],
-    vars = Flatten[List[solvefor]];
-    ];
-   If[dontsolvefor =!= None,
-    vars = Complement[vars, Flatten[List[dontsolvefor]]]
-    ];
-   Solve[list == 0, vars]
-   ];
+ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] /; FreeQ[eq,List] := Module[{collected,list,freeT,withT},
+	collected = TensorCollect[lhs - rhs, 
+		CollectMethod->Default, 
+		SimplifyMethod->Identity
+	];
+	list = TensorCollector /@ If[Head[#] === Plus, 
+			List@@#, 
+			List@#
+		]& @ collected;
+	freeT = Select[list,FreeQ[#,TensorCollector]&];
+	withT = Select[list,!FreeQ[#,TensorCollector]&]  /. HoldPattern[TensorCollector[___]] -> 1;
+	
+	Apply[And, Equal[#,0]& /@ Append[withT, Plus@@freeT] ] 
+];
+
+SolveConstants[expr_,varsdoms__] := 
+	Solve[expr /. equation_Equal :> ToConstantSymbolEquations[equation], varsdoms];
+
+(* This is a handy shortcut *)
+SolveConstants[expr_] := SolveConstants[expr, Select[Variables[expr],ConstantSymbolQ] ];
 
 MakeEquationRule[{equation_, pattern_, cond___}, 
     options___?OptionQ] /; ! FreeQ[equation, Plus] := 
@@ -1020,7 +1019,7 @@ MakeEquationRule[{equation_, pattern_, cond___},
    UndefConstantSymbol[cs];
    If[Length[IndicesOf[][lhs]] === 0, rhs = PutScalar[rhs]];
    MakeRule[Evaluate[{lhs, rhs, cond}], options]
-   ];
+];
 
 
 
@@ -1487,7 +1486,7 @@ YoungProject[expr_, tableau_?YoungTableauQ] /;
    sym1 = YoungSymmetrize[expr, tableau];
    sym2 = YoungSymmetrize[sym1, tableau];
    result = 
-    n sym1 /. First@TensorCollectSolve[sym1 - n sym2, SolveFor -> n] //
+    n sym1 /. First@SolveConstants[sym1 == n sym2, n] //
       ToCanonical;
    UndefConstantSymbol[n];
    result

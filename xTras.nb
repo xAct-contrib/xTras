@@ -34,7 +34,7 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["xAct`xTras`$Version", "Print", "PrintUsage",
- CellTags->"Info3558871185-9280455"],
+ CellTags->"Info3559052225-9423661"],
 
 Cell[BoxData[
  InterpretationBox[GridBox[{
@@ -56,7 +56,7 @@ Cell[BoxData[
      "RowsIndexed" -> {}}],
   Definition[xAct`xTras`$Version],
   Editable->False]], "Print",
- CellTags->"Info3558871185-9280455"]
+ CellTags->"Info3559052225-9423661"]
 }, Open  ]]
 }, Open  ]],
 
@@ -122,637 +122,500 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["New function descriptions", "Subsection"],
+Cell["New functions", "Subsection"],
 
 Cell["These are the new functions and variables defined in xTras:", "Text"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{
-  RowBox[{
+ RowBox[{"?", "xAct`xTras`*"}]], "Input"],
+
+Cell[BoxData[
+ DynamicModuleBox[{Typeset`open$$ = True}, 
+  PaneSelectorBox[{False->
    RowBox[{
-    RowBox[{"(", 
-     RowBox[{
-      RowBox[{"Print", "[", "#", "]"}], ";", 
-      RowBox[{"Information", "[", 
-       RowBox[{
-        RowBox[{"Evaluate", "@", 
-         RowBox[{"Symbol", "@", "#"}]}], ",", 
-        RowBox[{"LongForm", "\[Rule]", "False"}]}], "]"}]}], ")"}], "&"}], "/@", 
-   RowBox[{"DeleteCases", "[", 
-    RowBox[{
-     RowBox[{"Names", "[", "\"\<xAct`xTras`*\>\"", "]"}], ",", 
-     "\"\<$Version\>\""}], "]"}]}], ";"}]], "Input"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData["\<\"BackgroundSolution\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"BackgroundSolution is an option for ApplyBackground.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792374-4556485"],
-
-Cell[BoxData["\<\"ClearAutomaticRules\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"ClearAutomaticRules[symbol,rules] tries to remove rules from \
-the upvalues and downvalues of symbol.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792374-4556485"],
-
-Cell[BoxData["\<\"ClearCurvatureRelations\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"ClearCurvatureRelations[CD] removes the automatic curvature \
-relations for the covariant derivative CD.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792375-4556485"],
-
-Cell[BoxData["\<\"Coefficients\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"Option for InvarInvariants.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792375-4556485"],
-
-Cell[BoxData["\<\"CollectMethod\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"CollectMethod is an option for TensorCollect.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792375-4556485"],
-
-Cell[BoxData["\<\"ConstantExprQ\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"ConstantExprQ[expr] returns True if expr only contains \
-contains constants (i.e. constant symbols and integers, fractions, etc), and \
-False otherwise.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792375-4556485"],
-
-Cell[BoxData["\<\"CurvatureRelationsQ\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"CurvatureRelationsQ[CD] returns True if all of the curvature \
-relations for the covariant derivative CD have been set as automatic rules, \
-and False otherwise.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792376-4556485"],
-
-Cell[BoxData["\<\"CurvatureTensors\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"CurvatureTensors[CD] gives the list of all the curvature \
-tensors of CD.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792376-4556485"],
-
-Cell[BoxData["\<\"DefMetricVariation\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"DefMetricVariation[metric, pert, param] first defines a metric \
-perturbation with the same arguments, and then defines covariant VarD and \
-VarL functions for the metric.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792376-4556485"],
-
-Cell[BoxData["\<\"DerivativeOrder\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"DerivativeOrder[expr,CD] gives the order of derivatives of \
-expr.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792376-4556485"],
-
-Cell[BoxData["\<\"Description\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"Option for MapTimed.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792377-4556485"],
-
-Cell[BoxData["\<\"DivFreeQ\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"DivFreeQ[expr,tensor,CD] returns True if expr does not contain \
-a divergence of the given tensor w.r.t. the given CD after arbritrary \
-commutations of the covariant derivatives.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792377-4556485"],
-
-Cell[BoxData["\<\"DontSolveFor\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"Option for TensorCollectSolve.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792378-4556485"],
-
-Cell[BoxData["\<\"DoTensorCollect\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"DoTensorCollect[func][expr] maps func on every collected \
-tensor in expr. This is useful if you have an expression with one tensor \
-object with lots of different constants.\"\>", "MSG"]], "Print", "PrintUsage",
- 
- CellTags->"Info3556792378-4556485"],
-
-Cell[BoxData["\<\"EinsteinCC\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"EinsteinCC is a reserved word in xTras. It is used to generate \
-the name of the cosmological Einstein curvature tensor associated to a \
-connection acting on a tangent bundle.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792379-4556485"],
-
-Cell[BoxData["\<\"EinsteinCCToRicci\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"EinsteinCCToRicci[expr,cd] converts cosmological Einstein \
-tensors to Ricci tensors.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792379-4556485"],
-
-Cell[BoxData["\<\"EinsteinSpaceRules\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"EinsteinSpaceRules[CD,K] produces replacement rules for the \
-curvature tensors of CD (except the Riemann) on an Einstein space of \
-curvature K.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792379-4556485"],
-
-Cell[BoxData["\<\"EulerDensity\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"EulerDensity[CD] give the Euler density of the curvature \
-tensor of the covariant derivative CD. If the manifold has generic dimension, \
-you can use EulerDensity[CD,dim] to specify a dimension.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792380-4556485"],
-
-Cell[BoxData["\<\"ExpandBackground\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"ExpandBackground[expr,n] expands only the nth order \
-perbutation of expr on an arbitrary background, without an expansion \
-parameter or 1/n! factor. The background is set with the option \
-BackgroundSolution.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792380-4556485"],
-
-Cell[BoxData["\<\"ExpandFlat\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"ExpandFlat[expr,n] expands only the nth order perbutation of \
-expr on a flat background, without an expansion parameter or 1/n! \
-factor.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792381-4556485"],
-
-Cell[BoxData["\<\"ExpandPerturbationDer\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"ExpandPerturbationDer expands the perturbations of \
-derivatives. \\n\tIt's similar to the private xAct function \
-ExpandPerturbationDer, but not quite.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792381-4556485"],
-
-Cell[BoxData["\<\"ExtraRules\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"ExtraRules is an option for ApplyBackground.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792381-4556485"],
-
-Cell[BoxData["\<\"FD\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"FD is the head for functional derivatives. \
-FD[FD1[tensor1]FD2[tensor2]] represents the functional derivative of tensor1 \
-w.r.t tensor2.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792381-4556485"],
-
-Cell[BoxData["\<\"FD1\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"FD1 represents the numerator in functional derivatives.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792382-4556485"],
-
-Cell[BoxData["\<\"FD2\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"FD2 represents the denominator in functional derivatives.\"\>",
-   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792382-4556485"],
-
-Cell[BoxData["\<\"FlatRules\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"FlatRules[expr] produces rules for a covariant derivative CD \
-such that, when applied to an expression, the expression is effectively on a \
-flat background.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792382-4556485"],
-
-Cell[BoxData["\<\"FS\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"FS[metric][expr] tries to simplify expr as much as possible.\"\
-\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792382-4556485"],
-
-Cell[BoxData["\<\"IncludeDuals\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"Option for SingleInvariants, ProductInvariants, \
-RangeInvariants, and InvarLagrangian whether to include dual invariants or \
-not.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792383-4556485"],
-
-Cell[BoxData["\<\"InvarLagrangian\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"InvarLagrangian[metric,levelspec] gives a Lagrangian up to \
-maxorder in derivatives of the metric.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792383-4556485"],
-
-Cell[BoxData["\<\"InvarWrapper\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"InvarWrapper[invarFunction,g][expr,otherargs] wraps an Invar \
-function specified by invarFunction s.t. you can use your own options for \
-ToCanonical, ContractMetric, and CurvatureRelations.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792383-4556485"],
-
-Cell[BoxData["\<\"Killing\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"Killing[expr] canonicalizes expr while using Killing vector \
-identities.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792383-4556485"],
-
-Cell[BoxData["\<\"KillingRules\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"KillingRules[killingvector] returns the replacement rules for \
-that Killing vector.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792384-4556485"],
-
-Cell[BoxData["\<\"KillingVectorOf\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"Option for DefTensor. If the tensor is to be a Killing vector, \
-the option should be a covariant derivative. (i.e. KillingVectorOf->CD)\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792384-4556485"],
-
-Cell[BoxData["\<\"KillingVectorPlaceholder\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"KillingVectorPlaceholder is for maintainance purposes.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792384-4556485"],
-
-Cell[BoxData["\<\"KillingVectorQ\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"KillingVectorQ[tensor] return True if the tensor is defined to \
-be a Killing vector\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792384-4556485"],
-
-Cell[BoxData["\<\"LevelSpecQ\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"LevelSpecQ[levelspec] yields True if levelspec is a standard \
-levelspec, and false otherwise.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792385-4556485"],
-
-Cell[BoxData["\<\"MakeEquationRule\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"MakeEquationRule[{equation,pattern,cond}] returns rules for \
-tensors matching pattern in the given equation.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792385-4556485"],
-
-Cell[BoxData["\<\"MapTimed\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"MapTimed[func,expr] is similar to Map, except that it also \
-prints the expected calculation time.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792385-4556485"],
-
-Cell[BoxData["\<\"MetricPermutations\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"MetricPermutations[metric][indices] gives a list of all \
-possible permutations of indices distributed over n/2 metrics (n being the \
-number of indices). Thus MetricPermutations[g][{a,b,c,d}] gives \
-{g[a,b]g[c,d], g[a,c]g[b,d], g[a,d]g[b,c]}. \\n\\nNaively this gives n! \
-combinations, but because the metric is symmetric and the ordering of the \
-product is irrelevant, the number of permutations reduces to (n-1)!!, which \
-is roughly the square root of n!. MetricPermutations takes this \
-simplification into account.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792385-4556485"],
-
-Cell[BoxData["\<\"MonitorSteps\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"Option for MapTimed.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792386-4556485"],
-
-Cell[BoxData["\<\"MyRiemannSimplify\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"MyRiemannSimplify[metric,level][expr] works similarly to \
-RiemannSimplify, except that it also works for generic options for \
-ToCanonical etc, and works on more general expressions.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792386-4556485"],
-
-Cell[BoxData["\<\"OrderCoefficient\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"OrderCoefficient[order,n] gives a constant symbol for \
-InvarLagrangian.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792386-4556485"],
-
-Cell[BoxData["\<\"OrderParameter\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"Options for InvarLagrangian.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792386-4556485"],
-
-Cell[BoxData["\<\"PerturbBackground\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"PerturbBackground[expr,n] does an (unexpanded) perturbation \
-around an arbitrary background for only the order n. This is useful if you \
-want to keep symbolic things like Perturbation[EinsteinCD[]] unexpanded. The \
-background is set with the option BackgroundSolution.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792387-4556485"],
-
-Cell[BoxData["\<\"PerturbFlat\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"PerturbFlat[expr,n] does an (unexpanded) perturbation around a \
-flat background for only the order n. This is useful if you want to keep \
-symbolic things like Perturbation[EinsteinCD[]] unexpanded.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792387-4556485"],
-
-Cell[BoxData["\<\"PreferBoxOfRule\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"PreferBoxOfRule[tensor,CD] gives rules for rewriting an \
-expression with boxes on the given tensor with respect to the given CD.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792387-4556485"],
-
-Cell[BoxData["\<\"PreferDivOfRule\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"PreferDivOfRule[tensor,CD] gives rules for rewriting an \
-expression with divergences of the given tensor with respect to the given CD.\
-\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792388-4556485"],
-
-Cell[BoxData["\<\"ProductInvariants\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"ProductInvariants[metric,order] gives all product invariants \
-of the Riemann tensor at that given order (which has the standard level \
-specification)\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792388-4556485"],
-
-Cell[BoxData["\<\"RemoveConstants\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"RemoveConstants[expr] removes all constants from the tensorial \
-expression expr.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792389-4556485"],
-
-Cell[BoxData["\<\"RemoveTensors\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"RemoveTensors[expr] removes all tensors from expr, and leaves \
-just the constants.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792389-4556485"],
-
-Cell[BoxData["\<\"RicciDivRule\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"RicciDivRule[CD] gives rules for rewriting the divergence of \
-the Ricci tensor of the given covariant derivative in terms of the Ricci \
-scalar.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792390-4556485"],
-
-Cell[BoxData["\<\"RicciToEinsteinCC\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"RicciToEinsteinCC[K][expr,cd] converts Ricci tensors into \
-cosmological Einstein tensors.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792391-4556485"],
-
-Cell[BoxData["\<\"RicciToSchouten\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"RicciToSchouten[expr,cd] converts Ricci tensors to Schouten \
-tensors.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792391-4556485"],
-
-Cell[BoxData["\<\"RicciToSchoutenCC\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"RicciToSchoutenCC[expr,cd] converts Ricci tensors to \
-cosmological Schouten tensors.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792392-4556485"],
-
-Cell[BoxData["\<\"RiemannDivRule\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"RiemannDivRule[CD] gives rules for rewriting the divergence of \
-the Riemann tensor of the given covariant derivative in terms of the Ricci \
-tensor.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792393-4556485"],
-
-Cell[BoxData["\<\"RiemannYoungRule\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"RiemannYoungRule[CD,n] gives the projection rule of n'th \
-covariant derivative of the Riemann tensor of the covariant derivative CD \
-onto its Young tableau. n has the default levelspec form. The default for n \
-is {0}.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792393-4556485"],
-
-Cell[BoxData["\<\"Schouten\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"Schouten is a reserved word in xTras. It is used to generate \
-the name of the Schouten curvature tensor associated to a connection acting \
-on a tangent bundle.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792394-4556485"],
-
-Cell[BoxData["\<\"SchoutenCC\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"SchoutenCC is a reserved word in xTras. It is used to generate \
-the name of the cosmological Schouten curvature tensor associated to a \
-connection acting on a tangent bundle.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792394-4556485"],
-
-Cell[BoxData["\<\"SchoutenCCToRicci\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"SchoutenCCToRicci[expr,cd] converts cosmological Schouten \
-tensors to Ricci tensors.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792394-4556485"],
-
-Cell[BoxData["\<\"SchoutenToRicci\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"SchoutenToRicci[expr,cd] converts Schouten tensors to Ricci \
-tensors.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792395-4556485"],
-
-Cell[BoxData["\<\"SetCurvatureRelations\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"SetCurvatureRelations[CD] sets the automatic curvature \
-relations for the covariant derivative CD.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792395-4556485"],
-
-Cell[BoxData["\<\"SimplifyMethod\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"SimplifyMethod is an option for TensorCollect.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792395-4556485"],
-
-Cell[BoxData["\<\"SingleInvariants\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"SingleInvariants[metric,order] gives the single invariants of \
-the Riemann tensor at that given order (which has the standard level \
-specification)\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792396-4556485"],
-
-Cell[BoxData["\<\"SolveFor\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"Option for TensorCollectSolve.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792396-4556485"],
-
-Cell[BoxData["\<\"SymmetricSpaceRules\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"SymmetricSpaceRules[CD,K] produces replacement rules for the \
-curvature tensors of CD on a symmetric space of constant curvature K.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792396-4556485"],
-
-Cell[BoxData["\<\"TensorCollect\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"TensorCollect[expr] acts as Collect[expr,tensorsof[expr]]\"\>",
-   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792397-4556485"],
-
-Cell[BoxData["\<\"TensorCollector\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"TensorCollector[expr] wraps all tensors in expr in a head \
-'TensorCollector'.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792398-4556485"],
-
-Cell[BoxData["\<\"TensorCollectSolve\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"TensorCollectSolve[expr] solves expr = 0 for any constant \
-symbols appearing in expr.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792399-4556485"],
-
-Cell[BoxData["\<\"TimeString\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"TimeString[seconds] nicely formats the amount of seconds as a \
-string.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792401-4556485"],
-
-Cell[BoxData["\<\"ToBackground\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"ToBackground[expr] ensures expr is on some background. The \
-background is set with the option BackgroundSolution.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792403-4556485"],
-
-Cell[BoxData["\<\"ToFlat\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"ToFlat[expr] ensures expr is on a flat background, i.e. it \
-sets unperturbed curvature tensors to zero, etc.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792403-4556485"],
-
-Cell[BoxData["\<\"UnorderedPairsPermutations\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"UnorderPairsPermutations[list] gives all permutations of the \
-elements of list that are unorder pairs. list has the have an even number of \
-elements.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792404-4556485"],
-
-Cell[BoxData["\<\"VarL\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"VarL[g[-a,-b]][L] varies Sqrt[-Det[g]]*L w.r.t. g.  \\nIt is \
-only defined after using DefMetricVariation for the given metric.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792404-4556485"],
-
-Cell[BoxData["\<\"YoungProject\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"YoungProject[expr,tableau] projects a tensorial expression \
-onto tableau, where the entries of the tableau have to be the set of free \
-indices of expr. \\nYoungProject[tensor,tableau] projects the tensor \
-(withouth the [] on tensor) onto tableau, where the entries of tableau are \
-integers. \\n\\nThe difference between projecting and symmetrizing is that \
-the projection has a different overall factor, such that repeatedly \
-projecting does not change the result.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792404-4556485"],
-
-Cell[BoxData["\<\"YoungSymmetrize\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"YoungSymmetrize[expr,tableau] symmetrizes a tensorial \
-expression according to tableau, where the entries of the tableau have to be \
-the set of free indices of expr.\\n\\n  YoungSymmetrize[tensor,tableau] \
-symmetrizes the tensor (withouth the [] on tensor) according to tableau, \
-where the entries of tableau are integers.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792404-4556485"],
-
-Cell[BoxData["\<\"YoungTableauQ\"\>"], "Print"],
-
-Cell[BoxData[
- StyleBox["\<\"YoungTableauQ[tableau] returns True if tableau is a proper \
-Young tableau, and False otherwhise. A proper Young tableau is a list of \
-lists of integers or symbols, whose intersection is empty. Furthermore the \
-length of the lists has to decrease monotonically.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3556792405-4556485"],
-
-Cell[BoxData["\<\"$KillingVectors\"\>"], "Print"]
-}, Open  ]],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Information", "::", "nomatch"}], "MessageName"], ":", 
-  " ", "\<\"No symbol matching \[NoBreak]\\!\\({}\\)\[NoBreak] found. \
-\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
-ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/Information/nomatch\\\", ButtonNote -> \
-\\\"Information::nomatch\\\"]\\)\"\>"}]], "Message", "MSG"]
+    OpenerBox[Dynamic[Typeset`open$$],
+     ImageSize->Small], 
+    StyleBox["xAct`xTras`", "InfoHeading"]}], True->GridBox[{
+     {
+      RowBox[{
+       OpenerBox[Dynamic[Typeset`open$$],
+        ImageSize->Small], 
+       StyleBox["xAct`xTras`", "InfoHeading"]}]},
+     {GridBox[{
+        {
+         ButtonBox["AllContractions",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"AllContractions", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["FullSimplification",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"FullSimplification", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["RiemannDivRule",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"RiemannDivRule", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["BackgroundSolution",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"BackgroundSolution", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["IncludeDuals",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"IncludeDuals", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["RiemannYoungRule",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"RiemannYoungRule", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["ClearAutomaticRules",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"ClearAutomaticRules", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["InvarLagrangian",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"InvarLagrangian", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["Schouten",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3559053342-9423661", {"Schouten", "xAct`xTras`"}},
+          
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["ClearCurvatureRelations",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {
+            "ClearCurvatureRelations", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["InvarWrapper",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"InvarWrapper", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["SchoutenCC",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"SchoutenCC", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["Coefficients",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"Coefficients", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["KillingVectorOf",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"KillingVectorOf", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["SchoutenCCToRicci",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"SchoutenCCToRicci", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["CollectMethod",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"CollectMethod", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["KillingVectorQ",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"KillingVectorQ", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["SchoutenToRicci",
+          BaseStyle->"InformationLink",
+          ButtonData:>{
+           "Info3559053342-9423661", {"SchoutenToRicci", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["ConstantExprQ",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"ConstantExprQ", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["LevelSpecQ",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"LevelSpecQ", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["SetCurvatureRelations",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"SetCurvatureRelations", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["CurvatureRelationsQ",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"CurvatureRelationsQ", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["MakeEquationRule",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"MakeEquationRule", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["SimplifyMethod",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"SimplifyMethod", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["CurvatureTensors",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"CurvatureTensors", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["MapTimed",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3559053342-9423661", {"MapTimed", "xAct`xTras`"}},
+          
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["SingleInvariants",
+          BaseStyle->"InformationLink",
+          ButtonData:>{
+           "Info3559053342-9423661", {"SingleInvariants", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["DefMetricVariation",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"DefMetricVariation", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["MetricPermutations",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"MetricPermutations", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["SolveConstants",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"SolveConstants", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["DefVariation",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"DefVariation", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["MonitorSteps",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"MonitorSteps", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["SortedCovDsQ",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"SortedCovDsQ", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["DerivativeOrder",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"DerivativeOrder", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["MyRiemannSimplify",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"MyRiemannSimplify", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["SymmetricSpaceRules",
+          BaseStyle->"InformationLink",
+          ButtonData:>{
+           "Info3559053342-9423661", {"SymmetricSpaceRules", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["Description",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"Description", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["OrderCoefficient",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"OrderCoefficient", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["TensorCollect",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"TensorCollect", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["DivFreeQ",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3559053342-9423661", {"DivFreeQ", "xAct`xTras`"}},
+          
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["OrderParameter",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"OrderParameter", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["TensorCollector",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"TensorCollector", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["DoTensorCollect",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"DoTensorCollect", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["PerturbBackground",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"PerturbBackground", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["TimeString",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"TimeString", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["EinsteinCC",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"EinsteinCC", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["PerturbFlat",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"PerturbFlat", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["ToBackground",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"ToBackground", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["EinsteinCCToRicci",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"EinsteinCCToRicci", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["PreferBoxOfRule",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"PreferBoxOfRule", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["ToConstantSymbolEquations",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {
+            "ToConstantSymbolEquations", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["EinsteinSpaceRules",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"EinsteinSpaceRules", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["PreferDivOfRule",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"PreferDivOfRule", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["ToFlat",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3559053342-9423661", {"ToFlat", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["EulerDensity",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"EulerDensity", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["ProductInvariants",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"ProductInvariants", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["UnorderedPairsPermutations",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {
+            "UnorderedPairsPermutations", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["ExpandBackground",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"ExpandBackground", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["RemoveConstants",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"RemoveConstants", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["VarL",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3559053342-9423661", {"VarL", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["ExpandFlat",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"ExpandFlat", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["RemoveTensors",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"RemoveTensors", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["YoungProject",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"YoungProject", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["ExpandPerturbationDer",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"ExpandPerturbationDer", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["RicciDivRule",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"RicciDivRule", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["YoungSymmetrize",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"YoungSymmetrize", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["ExtraRules",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"ExtraRules", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["RicciToEinsteinCC",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"RicciToEinsteinCC", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["YoungTableauQ",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"YoungTableauQ", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["FlatRules",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3559053342-9423661", {"FlatRules", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["RicciToSchouten",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"RicciToSchouten", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["$Version",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3559053342-9423661", {"$Version", "xAct`xTras`"}},
+          
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["FS",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3559053342-9423661", {"FS", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["RicciToSchoutenCC",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {"RicciToSchoutenCC", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["$xTensorVersionExpected",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3559053342-9423661", {
+            "$xTensorVersionExpected", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]}
+       },
+       DefaultBaseStyle->"InfoGrid",
+       GridBoxItemSize->{"Columns" -> {{
+            Scaled[0.31666666666666665`]}}}]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}]}, 
+   Dynamic[Typeset`open$$],
+   ImageSize->Automatic]]], "Print", "InfoCell"]
 }, Open  ]]
 }, Closed]],
 
@@ -4144,6 +4007,101 @@ Cell[BoxData[
  RowBox[{"L", " ", "=", " ", 
   RowBox[{"InvarLagrangian", "[", 
    RowBox[{"metric", ",", "4"}], "]"}]}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 2 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", "0", "}"}]}],
+  SequenceForm["Reading InvRules for step 2 and case ", {0}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 3 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", "0", "}"}]}],
+  SequenceForm["Reading InvRules for step 3 and case ", {0}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 4 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", "0", "}"}]}],
+  SequenceForm["Reading InvRules for step 4 and case ", {0}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 2 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0"}], "}"}]}],
+  SequenceForm["Reading InvRules for step 2 and case ", {0, 0}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 3 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0"}], "}"}]}],
+  SequenceForm["Reading InvRules for step 3 and case ", {0, 0}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 4 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0"}], "}"}]}],
+  SequenceForm["Reading InvRules for step 4 and case ", {0, 0}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 2 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", "2", "}"}]}],
+  SequenceForm["Reading InvRules for step 2 and case ", {2}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 3 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", "2", "}"}]}],
+  SequenceForm["Reading InvRules for step 3 and case ", {2}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 4 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", "2", "}"}]}],
+  SequenceForm["Reading InvRules for step 4 and case ", {2}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 1 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0"}], "}"}]}],
+  SequenceForm["Reading InvRules for step 1 and case ", {0, 0}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 1 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", "2", "}"}]}],
+  SequenceForm["Reading InvRules for step 1 and case ", {2}],
+  Editable->False]], "Print"]
+}, Open  ]],
 
 Cell[BoxData[
  RowBox[{
@@ -10098,8 +10056,21 @@ $CellContext`f],
 }, Open  ]],
 
 Cell["\<\
-TensorCollectSolve solves for any constant symbols in the expression:\
+SolveConstants solves for any constant symbols in the expression:\
 \>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "SolveConstants"}]], "Input"],
+
+Cell[BoxData[
+ StyleBox["\<\"SolveConstants[expr,variables] attempts to solve the tensorial \
+expr in terms of constant\\nsymbols variables. SolveConstants[expr] attempts \
+to solve expr in terms of all the constant\\nsymbols appearing in expr\"\>", 
+  "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3559052314-9423661"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -10107,7 +10078,8 @@ Cell[BoxData[{
  RowBox[{"fs", "[", 
   RowBox[{"[", 
    RowBox[{"-", "1"}], "]"}], "]"}], "\[IndentingNewLine]", 
- RowBox[{"TensorCollectSolve", "[", "%", "]"}]}], "Input"],
+ RowBox[{"SolveConstants", "[", 
+  RowBox[{"%", "\[Equal]", "0"}], "]"}]}], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -10172,34 +10144,25 @@ Cell[BoxData[
     Editable->False], ")"}]}]], "Output"],
 
 Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Solve", "::", "svars"}], "MessageName"], ":", 
-  " ", "\<\"Equations may not give solutions for all \\\"solve\\\" variables. \
-\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
-ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
-ButtonNote -> \\\"Solve::svars\\\"]\\)\"\>"}]], "Message", "MSG"],
-
-Cell[BoxData[
  RowBox[{"{", 
   RowBox[{"{", 
    RowBox[{
     InterpretationBox[
      StyleBox[
-      SubsuperscriptBox["c", "2", "2"],
+      SubsuperscriptBox["c", "1", "2"],
       ShowAutoStyles->False,
       AutoSpacing->False],
-     $CellContext`o2n2,
+     $CellContext`o2n1,
      Editable->False], "\[Rule]", 
-    RowBox[{
-     RowBox[{"-", "4"}], " ", 
-     InterpretationBox[
-      StyleBox[
-       SubsuperscriptBox["c", "1", "2"],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`o2n1,
-      Editable->False]}]}], "}"}], "}"}]], "Output"]
+    RowBox[{"-", 
+     FractionBox[
+      InterpretationBox[
+       StyleBox[
+        SubsuperscriptBox["c", "2", "2"],
+        ShowAutoStyles->False,
+        AutoSpacing->False],
+       $CellContext`o2n2,
+       Editable->False], "4"]}]}], "}"}], "}"}]], "Output"]
 }, Open  ]]
 }, Closed]],
 
@@ -10231,9 +10194,10 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"fs", "/.", "bg"}], "//", 
   "TensorCollect"}], "\[IndentingNewLine]", 
- RowBox[{"TensorCollectSolve", "[", 
-  RowBox[{"%", ",", 
-   RowBox[{"SolveFor", "\[Rule]", "\[CapitalLambda]"}]}], "]"}]}], "Input"],
+ RowBox[{"SolveConstants", "[", 
+  RowBox[{
+   RowBox[{"%", "\[Equal]", "0"}], ",", "\[CapitalLambda]"}], 
+  "]"}]}], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -14533,6 +14497,12 @@ Cell["\<\
 The Riemann tensor \[OpenCurlyQuote]lives\[CloseCurlyQuote] in the \
 {{1,3},{2,4}} Young tableau. We can explicitly project onto this:\
 \>", "Text"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"$DefInfoQ", "=", "False"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"$UndefInfoQ", "=", "False"}], ";"}]}], "Input"],
 
 Cell[CellGroupData[{
 
@@ -24215,8 +24185,8 @@ Cell[BoxData[
 }, Open  ]]
 }, Closed]]
 },
-WindowSize->{1022, 611},
-WindowMargins->{{113, Automatic}, {Automatic, 66}},
+WindowSize->{1118, 759},
+WindowMargins->{{113, Automatic}, {31, Automatic}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,
