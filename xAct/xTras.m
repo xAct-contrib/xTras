@@ -7,18 +7,17 @@
 xAct`xTras`$Version = "1.0.4pre";
 xAct`xTras`$xTensorVersionExpected = {"1.0.4", {2012, 5, 5}};
 
-If[Unevaluated[xAct`xCore`Private`$LastPackage] === 
-   xAct`xCore`Private`$LastPackage, 
-  xAct`xCore`Private`$LastPackage = "xAct`xTras`"];
+If[Unevaluated[xAct`xCore`Private`$LastPackage] === xAct`xCore`Private`$LastPackage, 
+	xAct`xCore`Private`$LastPackage = "xAct`xTras`"
+];
 
 BeginPackage["xAct`xTras`",{"xAct`xCore`","xAct`xPerm`","xAct`xTensor`","xAct`xPert`", "xAct`Invar`"}]
 
 (* Check if we have the correct version of xAct. *)
-If[Not@OrderedQ@
-    Map[Last, {xAct`xTras`$xTensorVersionExpected, xAct`xTensor`$Version}], 
-  Message[General::versions, "xTensor", 
-   xAct`xTensor`$Version, xAct`xTras`$xTensorVersionExpected];
-  Abort[]];
+If[Not@OrderedQ@Map[Last, {xAct`xTras`$xTensorVersionExpected, xAct`xTensor`$Version}], 
+	Message[General::versions, "xTensor", xAct`xTensor`$Version, xAct`xTras`$xTensorVersionExpected];
+	Abort[]
+];
 
 (* Print info *)
 Print[xAct`xCore`Private`bars];
@@ -28,13 +27,14 @@ Print["https://code.google.com/p/xact-xtras/"];
 
 
 If[xAct`xCore`Private`$LastPackage === "xAct`xTras`",
-  Unset[xAct`xCore`Private`$LastPackage];
-  Print[xAct`xCore`Private`bars];
-  Print["These packages come with ABSOLUTELY NO WARRANTY; for details \
+	Unset[xAct`xCore`Private`$LastPackage];
+	Print[xAct`xCore`Private`bars];
+	Print["These packages come with ABSOLUTELY NO WARRANTY; for details \
 type Disclaimer[]. This is free software, and you are welcome to \
 redistribute it under certain conditions. See the General Public \
 License for details."];
-  Print[xAct`xCore`Private`bars]];
+	Print[xAct`xCore`Private`bars]
+];
 
 (*********************)
 (*                   *)
@@ -406,7 +406,7 @@ Begin["`Private`"]
 (* Importing xAct symbols *)
 (**************************)
 
-slot					:= xAct`xTensor`Private`slot; 
+slot := xAct`xTensor`Private`slot; 
 
 
 (**********************)
@@ -419,10 +419,10 @@ xTrasDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[{M,D,einst
 	
 	defvar = TrueQ[DefVariation /. CheckOptions[options] /. Options[DefMetric]];
 	
-	M = ManifoldOfCovD[cd];
-	D = DimOfManifold[M];
-	einsteincc = GiveSymbol[EinsteinCC,cd];
-	rs = GiveSymbol[RicciScalar,cd];
+	M 			= ManifoldOfCovD[cd];
+	D 			= DimOfManifold[M];
+	einsteincc 	= GiveSymbol[EinsteinCC,cd];
+	rs 			= GiveSymbol[RicciScalar,cd];
 	
 	(* Define the new curvature tensors. *)
 	DefTensor[GiveSymbol[Schouten,cd][-a, -b], 
@@ -449,97 +449,78 @@ xTrasDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[{M,D,einst
 		metricPar  = GiveSymbol[metric,"\[Epsilon]"];
 		DefMetricVariation[metric,metricPert,metricPar];
 	];
-	
-	
+
 ];
 
 (* TODO: undefmetric hook *)
 
-GiveOutputString[Schouten, covd_] := 
-  StringJoin["S", "[", SymbolOfCovD[covd][[2]], "]"];
+GiveOutputString[Schouten, covd_] := StringJoin["S", "[", SymbolOfCovD[covd][[2]], "]"];
 
 SchoutenToRicci[expr_, cd_?CovDQ] := Module[{d, ricci, rs, schouten, metric},
-   ricci = GiveSymbol[Ricci, cd];
-   rs = GiveSymbol[RicciScalar, cd];
-   schouten = GiveSymbol[Schouten, cd];
-   metric = MetricOfCovD@cd;
-   d = DimOfManifold@ManifoldOfCovD@cd;
-   expr /. 
-    schouten[inds__] :> 
-     ricci[inds]/(d - 2) - metric[inds] rs[] / (2 (d - 1) (d - 2))
-   ];
-SchoutenToRicci[expr_] := 
-  Fold[SchoutenToRicci, expr, DeleteCases[$CovDs, PD]];
+	ricci 		= GiveSymbol[Ricci, cd];
+	rs 			= GiveSymbol[RicciScalar, cd];
+	schouten 	= GiveSymbol[Schouten, cd];
+	metric 		= MetricOfCovD@cd;
+	d 			= DimOfManifold@ManifoldOfCovD@cd;
+	expr /. schouten[inds__] :> ricci[inds]/(d - 2) - metric[inds] rs[] / (2 (d - 1) (d - 2))
+];
+
+SchoutenToRicci[expr_] := Fold[SchoutenToRicci, expr, DeleteCases[$CovDs, PD]];
 
 RicciToSchouten[expr_, cd_?CovDQ] := Module[{d, ricci, rs, schouten, metric},
-   ricci = GiveSymbol[Ricci, cd];
-   rs = GiveSymbol[RicciScalar, cd];
-   schouten = GiveSymbol[Schouten, cd];
-   metric = MetricOfCovD@cd;
-   d = DimOfManifold@ManifoldOfCovD@cd;
-   expr /. 
-    ricci[inds__] :> 
-     schouten[inds] (d - 2) + metric[inds] rs[] /(2 (d - 1))
-   ];
-RicciToSchouten[expr_] := 
-  Fold[RicciToSchouten, expr, DeleteCases[$CovDs, PD]];
-	
+	ricci 		= GiveSymbol[Ricci, cd];
+	rs 			= GiveSymbol[RicciScalar, cd];
+	schouten	= GiveSymbol[Schouten, cd];
+	metric 		= MetricOfCovD@cd;
+	d 			= DimOfManifold@ManifoldOfCovD@cd;
+	expr /. ricci[inds__] :> schouten[inds] (d - 2) + metric[inds] rs[] /(2 (d - 1))
+];
+
+RicciToSchouten[expr_] := Fold[RicciToSchouten, expr, DeleteCases[$CovDs, PD]];
 
 SchoutenCCToRicci[expr_, cd_?CovDQ] := Module[{d, ricci, rs, schouten, metric},
-   ricci = GiveSymbol[Ricci, cd];
-   rs = GiveSymbol[RicciScalar, cd];
-   schouten = GiveSymbol[SchoutenCC, cd];
-   metric = MetricOfCovD@cd;
-   d = DimOfManifold@ManifoldOfCovD@cd;
-   expr /. 
-    schouten[LI[K_],inds__] :> 
-     ricci[inds]/(d - 2) - metric[inds] rs[] / (2 (d - 1) (d - 2)) - 1/2 K  metric[inds]
-   ];
-SchoutenCCToRicci[expr_] := 
-  Fold[SchoutenCCToRicci, expr, DeleteCases[$CovDs, PD]];
+	ricci 		= GiveSymbol[Ricci, cd];
+	rs 			= GiveSymbol[RicciScalar, cd];
+	schouten 	= GiveSymbol[SchoutenCC, cd];
+	metric 		= MetricOfCovD@cd;
+	d 			= DimOfManifold@ManifoldOfCovD@cd;
+	expr /. schouten[LI[K_],inds__] :> ricci[inds]/(d - 2) - metric[inds] rs[] / (2 (d - 1) (d - 2)) - 1/2 K  metric[inds]
+];
+
+SchoutenCCToRicci[expr_] := Fold[SchoutenCCToRicci, expr, DeleteCases[$CovDs, PD]];
 
 RicciToSchoutenCC[K_][expr_, cd_?CovDQ] := Module[{d, ricci, rs, schouten, metric},
-   ricci = GiveSymbol[Ricci, cd];
-   rs = GiveSymbol[RicciScalar, cd];
-   schouten = GiveSymbol[SchoutenCC, cd];
-   metric = MetricOfCovD@cd;
-   d = DimOfManifold@ManifoldOfCovD@cd;
-   expr /. 
-    ricci[inds__] :> 
-     schouten[LI[K],inds] (d - 2) + metric[inds] rs[] /(2 (d - 1)) + 1/2 (d-2) K metric[inds]
-   ];
-RicciToSchoutenCC[K_][expr_] := 
-  Fold[RicciToSchoutenCC[K], expr, DeleteCases[$CovDs, PD]];
+	ricci 		= GiveSymbol[Ricci, cd];
+	rs 			= GiveSymbol[RicciScalar, cd];
+	schouten 	= GiveSymbol[SchoutenCC, cd];
+	metric 		= MetricOfCovD@cd;
+	d 			= DimOfManifold@ManifoldOfCovD@cd;
+	expr /. ricci[inds__] :> schouten[LI[K],inds] (d - 2) + metric[inds] rs[] /(2 (d - 1)) + 1/2 (d-2) K metric[inds]
+];
 
+RicciToSchoutenCC[K_][expr_] := Fold[RicciToSchoutenCC[K], expr, DeleteCases[$CovDs, PD]];
 
-EinsteinCCToRicci[expr_, cd_?CovDQ] := 
-  Module[{ricci, rs, einsteincc, d, metric},
-   d = DimOfManifold@ManifoldOfCovD@cd;
-   metric = MetricOfCovD[cd];
-   ricci = GiveSymbol[Ricci, cd];
-   rs = GiveSymbol[RicciScalar, cd];
-   einsteincc = GiveSymbol[EinsteinCC, cd];
-   expr /. 
-    einsteincc[LI[K_], 
-      inds__] :> (ricci[inds] + 
-       1/2 metric[inds] (-rs[] + (d - 2) (d - 1) K))
-   ];
-EinsteinCCToRicci[expr_] := 
-  Fold[EinsteinCCToRicci, expr, DeleteCases[$CovDs, PD]];
+EinsteinCCToRicci[expr_, cd_?CovDQ] := Module[{ricci, rs, einsteincc, d, metric},
+	d 			= DimOfManifold@ManifoldOfCovD@cd;
+	metric 		= MetricOfCovD[cd];
+	ricci 		= GiveSymbol[Ricci, cd];
+	rs 			= GiveSymbol[RicciScalar, cd];
+	einsteincc 	= GiveSymbol[EinsteinCC, cd];
+	expr /. einsteincc[LI[K_], inds__] :> (ricci[inds] + 1/2 metric[inds] (-rs[] + (d - 2) (d - 1) K))
+];
 
-RicciToEinsteinCC[K_][expr_, cd_?CovDQ] := 
-  Module[{ricci, rs, einsteincc, d, metric},
-   d = DimOfManifold@ManifoldOfCovD@cd;
-   metric = MetricOfCovD[cd];
-   ricci = GiveSymbol[Ricci, cd];
-   rs = GiveSymbol[RicciScalar, cd];
-   einsteincc = GiveSymbol[EinsteinCC, cd];
-   expr /. 
-    ricci[inds__] :> (einsteincc[LI[K], inds] - 
-       1/2 metric[inds] (-rs[] + (d - 2) (d - 1) K))
-   ];
-RicciToEinsteinCC[K_][expr_] := 
-  Fold[RicciToEinsteinCC[K], expr, DeleteCases[$CovDs, PD]];
+EinsteinCCToRicci[expr_] := Fold[EinsteinCCToRicci, expr, DeleteCases[$CovDs, PD]];
+
+RicciToEinsteinCC[K_][expr_, cd_?CovDQ] := Module[{ricci, rs, einsteincc, d, metric},
+	d 			= DimOfManifold@ManifoldOfCovD@cd;
+	metric 		= MetricOfCovD[cd];
+	ricci 		= GiveSymbol[Ricci, cd];
+	rs 			= GiveSymbol[RicciScalar, cd];
+	einsteincc 	= GiveSymbol[EinsteinCC, cd];
+	expr /. ricci[inds__] :> (einsteincc[LI[K], inds] - 1/2 metric[inds] (-rs[] + (d - 2) (d - 1) K))
+];
+
+RicciToEinsteinCC[K_][expr_] := Fold[RicciToEinsteinCC[K], expr, DeleteCases[$CovDs, PD]];
 
 
 (*************************)
@@ -549,67 +530,64 @@ RicciToEinsteinCC[K_][expr_] :=
 
 SetAttributes[ClearAutomaticRules, HoldFirst];
 
-ClearAutomaticRules[symbol_Symbol, rules_List, options___?OptionQ] := 
-  Module[{pos, upvs, downvs, othervs, unknownvs, up, down, other, 
-    verbose = 
-     Verbose /. CheckOptions[options] /. Options[AutomaticRules]}, 
-   pos[list1_, list2_] := 
-    Position[Map[Intersection[list1, {#}] =!= {} &, list2], True];
-   (*Get the positions for verbose info*)
-   
-   downvs = Flatten@pos[DownValues[symbol], rules];
-   upvs = Flatten@pos[UpValues[symbol], rules];
-   othervs = Flatten@pos[$Rules, rules];
-   unknownvs = Complement[Range[Length[rules]], downvs, upvs, othervs];
-   (*Get the positions for deleting rules*)
-   
-   down = pos[rules, DownValues[symbol]];
-   up = pos[rules, UpValues[symbol]];
-   other = pos[rules, $Rules];
-   (*The actual work*)
-   
-   DownValues[symbol] = Delete[DownValues[symbol], down];
-   UpValues[symbol] = Delete[UpValues[symbol], up];
-   $Rules = Delete[$Rules, other];
-   (*Verbose output*)
-   
-   If[Length[downvs] > 0 && verbose, 
-    Print["   Rules ", Shallow[downvs], 
-     " have been removed as DownValues for ", symbol, "."]];
-   If[Length[upvs] > 0 && verbose, 
-    Print["   Rules ", Shallow[upvs], 
-     " have been removed as UpValues for ", symbol, "."]];
-   If[Length[othervs] > 0 && verbose, 
-    Print["   Rules ", Shallow[othervs], 
-     " have been removed as generic rules."]];
-   If[Length[unknownvs] > 0 && verbose, 
-    Print["   Rules ", Shallow[unknownvs], 
-     " were not automatic rules for ", symbol, "."]];
-   ];
+ClearAutomaticRules[symbol_Symbol, rules_List, options___?OptionQ] := Module[{
+	pos, upvs, downvs, othervs, unknownvs, up, down, other, 
+    verbose = Verbose /. CheckOptions[options] /. Options[AutomaticRules]
+}, 
+	pos[list1_, list2_] := Position[Map[Intersection[list1, {#}] =!= {} &, list2], True];
 
-ClearCurvatureRelations[cd_?CovDQ, options___?OptionQ] := Module[{},
-   ClearAutomaticRules[Evaluate[GiveSymbol[Ricci, cd]], 
-    CurvatureRelations[cd, Ricci], options];
-   ClearAutomaticRules[Evaluate[GiveSymbol[Riemann, cd]], 
-    CurvatureRelations[cd, Riemann], options];
-   ];
+	(* Get the positions for verbose info. *)
+	downvs 		= Flatten@pos[DownValues[symbol], rules];
+	upvs 		= Flatten@pos[UpValues[symbol], rules];
+	othervs 	= Flatten@pos[$Rules, rules];
+	unknownvs 	= Complement[Range[Length[rules]], downvs, upvs, othervs];
 
-SetCurvatureRelations[cd_?CovDQ, options___?OptionQ] := Module[{},
-   AutomaticRules[Evaluate[GiveSymbol[Ricci, cd]], 
-    CurvatureRelations[cd, Ricci], options];
-   AutomaticRules[Evaluate[GiveSymbol[Riemann, cd]], 
-    CurvatureRelations[cd, Riemann], options];
-   ];
+	(* Get the positions for deleting rules. *)
+	down 	= pos[rules, DownValues[symbol]];
+	up 		= pos[rules, UpValues[symbol]];
+	other 	= pos[rules, $Rules];
+	
+	(* The actual work. *)
+	DownValues[symbol] 	= Delete[DownValues[symbol], down];
+	UpValues[symbol] 	= Delete[UpValues[symbol], up];
+	$Rules 				= Delete[$Rules, other];
 
-CurvatureRelationsQ[cd_?CovDQ] := Module[{ricci, riemann},
-   ricci = GiveSymbol[Ricci, cd];
-   riemann = GiveSymbol[Riemann, cd];
-   Complement[CurvatureRelations[cd, Ricci], 
-      DownValues[Evaluate[ricci]], UpValues[Evaluate[ricci]]] === {} &&
-     Complement[CurvatureRelations[cd, Riemann], 
-      DownValues[Evaluate[riemann]], 
-      UpValues[Evaluate[riemann]]] === {}
-   ];
+	(*Verbose output*)
+	If[Length[downvs] > 0 && verbose, 
+		Print["   Rules ", Shallow[downvs], " have been removed as DownValues for ", symbol, "."]];
+	If[Length[upvs] > 0 && verbose, 
+		Print["   Rules ", Shallow[upvs], " have been removed as UpValues for ", symbol, "."]];
+	If[Length[othervs] > 0 && verbose, 
+		Print["   Rules ", Shallow[othervs], " have been removed as generic rules."]];
+	If[Length[unknownvs] > 0 && verbose, 
+		Print["   Rules ", Shallow[unknownvs], " were not automatic rules for ", symbol, "."]];
+
+];
+
+ClearCurvatureRelations[cd_?CovDQ, options___?OptionQ] := (
+	ClearAutomaticRules[Evaluate[GiveSymbol[Ricci, cd]], CurvatureRelations[cd, Ricci], options];
+	ClearAutomaticRules[Evaluate[GiveSymbol[Riemann, cd]], CurvatureRelations[cd, Riemann], options];
+);
+
+SetCurvatureRelations[cd_?CovDQ, options___?OptionQ] := (
+	AutomaticRules[Evaluate[GiveSymbol[Ricci, cd]], CurvatureRelations[cd, Ricci], options];
+	AutomaticRules[Evaluate[GiveSymbol[Riemann, cd]], CurvatureRelations[cd, Riemann], options];
+);
+
+CurvatureRelationsQ[cd_?CovDQ] := Module[
+	{
+		ricci 	= GiveSymbol[Ricci, cd], 
+		riemann	= GiveSymbol[Riemann, cd]
+	},
+	Complement[
+		CurvatureRelations[cd, Ricci], 
+		DownValues[Evaluate[ricci]], UpValues[Evaluate[ricci]]
+	] === {} &&	Complement[
+		CurvatureRelations[cd, Riemann], 
+		DownValues[Evaluate[riemann]], 
+		UpValues[Evaluate[riemann]]
+	] === {}
+];
 
 
 
@@ -618,24 +596,21 @@ CurvatureRelationsQ[cd_?CovDQ] := Module[{ricci, riemann},
 (********************)
 
 
-EulerDensity[cd_?CovDQ] := 
-  EulerDensity[cd, DimOfManifold[ManifoldOfCovD[cd]]];
+EulerDensity[cd_?CovDQ] := EulerDensity[cd, DimOfManifold[ManifoldOfCovD[cd]]];
 
-EulerDensity[cd_?CovDQ, D_?EvenQ] := 
-  Module[{indices, e1, e2, riemann, n, e},
-   indices = Table[DummyIn@VBundleOfMetric@MetricOfCovD@cd, {2 D}];
-   e = GiveSymbol[epsilon, MetricOfCovD[cd]];
-   e1 = e @@ (-indices[[1 ;; D]]);
-   e2 = e @@ (-indices[[D + 1 ;; 2 D]]);
-   riemann[i_] := GiveSymbol[Riemann, cd][
-     indices[[2 i - 1]],
-     indices[[2 i]],
-     indices[[2 i + D - 1]],
-     indices[[2 i + D]]
-     ];
-   1/2^(D/2) e1 e2 Product[riemann[n], {n, 1, D/2}] // 
-      ContractMetric // ToCanonical // Expand
-   ];
+EulerDensity[cd_?CovDQ, D_?EvenQ] := Module[{indices, e1, e2, riemann, n, e},
+	indices 	= Table[DummyIn@VBundleOfMetric@MetricOfCovD@cd, {2 D}];
+	e 			= GiveSymbol[epsilon, MetricOfCovD[cd]];
+	e1 			= e @@ (-indices[[1 ;; D]]);
+	e2 			= e @@ (-indices[[D + 1 ;; 2 D]]);
+	riemann[i_] := GiveSymbol[Riemann, cd][
+		indices[[2 i - 1]],
+		indices[[2 i]],
+		indices[[2 i + D - 1]],
+		indices[[2 i + D]]
+	];
+	1/2^(D/2) e1 e2 Product[riemann[n], {n, 1, D/2}] // ContractMetric // ToCanonical // Expand
+];
 
 InvarWrapper[invarFunction_, g_?MetricQ][expr_, otherargs___] := 
   Module[{cd, tangent, i1, i2, i3, ricciscalar, ricci, riemann, rules,
