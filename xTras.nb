@@ -19,12 +19,12 @@ Cell["Load the package.", "Text"],
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"Block", "[", 
-   RowBox[{
-    RowBox[{"{", "Print", "}"}], ",", "\[IndentingNewLine]", 
-    RowBox[{"Quiet", "[", "\[IndentingNewLine]", 
-     RowBox[{"<<", "xAct`xTras`"}], "\[IndentingNewLine]", "]"}]}], 
-   "\[IndentingNewLine]", "]"}], ";"}]], "Input"],
+  RowBox[{"Quiet", "@", 
+   RowBox[{"Block", "[", 
+    RowBox[{
+     RowBox[{"{", "Print", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"<<", "xAct`xTras`"}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]], "Input"],
 
 Cell[CellGroupData[{
 
@@ -34,7 +34,7 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["xAct`xTras`$Version", "Print", "PrintUsage",
- CellTags->"Info3559057122-4491535"],
+ CellTags->"Info3559127041-3265995"],
 
 Cell[BoxData[
  InterpretationBox[GridBox[{
@@ -56,7 +56,7 @@ Cell[BoxData[
      "RowsIndexed" -> {}}],
   Definition[xAct`xTras`$Version],
   Editable->False]], "Print",
- CellTags->"Info3559057122-4491535"]
+ CellTags->"Info3559127041-3265995"]
 }, Open  ]]
 }, Open  ]],
 
@@ -254,6 +254,7 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["SchoutenToRicci",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
            "Info3559053342-9423661", {"SchoutenToRicci", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
@@ -309,6 +310,7 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["SingleInvariants",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
            "Info3559053342-9423661", {"SingleInvariants", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
@@ -365,6 +367,7 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["SymmetricSpaceRules",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
            "Info3559053342-9423661", {"SymmetricSpaceRules", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
@@ -15870,12 +15873,6 @@ Cell["\<\
 The Riemann tensor \[OpenCurlyQuote]lives\[CloseCurlyQuote] in the \
 {{1,3},{2,4}} Young tableau. We can explicitly project onto this:\
 \>", "Text"],
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"$DefInfoQ", "=", "False"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"$UndefInfoQ", "=", "False"}], ";"}]}], "Input"],
 
 Cell[CellGroupData[{
 

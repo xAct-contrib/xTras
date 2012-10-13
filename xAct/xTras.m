@@ -1213,7 +1213,9 @@ DefMetricVariation[metric_?MetricQ, per_, param_, options___?OptionQ] := Module[
    (* First we define a metric perturbation for the xPert package and \
       a tensor that represents an infinitessimal variation of the metric. *)
    DefMetricPerturbation[metric, per, param];
-   DefTensor[var[-a, -b], M, Symmetric[{-a, -b}],DefInfo->False];
+   Block[{$DefInfoQ = False},
+   	DefTensor[var[-a, -b], M, Symmetric[{-a, -b}]];
+   ];
    
    If[print =!= "", PrintAs[per] ^= print];
    
@@ -1478,6 +1480,8 @@ YoungSymmetrize[tensor_?xTensorQ] :=
 YoungProject[expr_, tableau_?YoungTableauQ] /; 
    Sort@IndicesOf[Free][expr] === IndexList @@ Sort@Flatten[tableau] :=
    Module[{sym1, sym2, n, result},
+   Block[{$DefInfoQ = False, $UndefInfoQ = False},
+   (* TODO: compute the overall factor n from group-theoretical arguments instead of symmetrizing twice *)
    DefConstantSymbol[n];
    sym1 = YoungSymmetrize[expr, tableau];
    sym2 = YoungSymmetrize[sym1, tableau];
@@ -1485,6 +1489,7 @@ YoungProject[expr_, tableau_?YoungTableauQ] /;
     n sym1 /. First@SolveConstants[sym1 == n sym2, n] //
       ToCanonical;
    UndefConstantSymbol[n];
+   ];
    result
    ];
 
