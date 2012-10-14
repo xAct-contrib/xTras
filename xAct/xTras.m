@@ -708,12 +708,13 @@ RiemannSimplification[metric_?MetricQ, level_Integer][expr_] := Module[
 	
 	(* TODO: if the result contains Cycles something went wrong, and we should return the original expression. *)
 	NoScalar[scalar /. 
-		Scalar[subexpr_] /; (
-			{} === Complement[
+		Scalar[subexpr_] /; SameQ[
+			{},
+			Complement[
 				FindAllOfType[subexpr, Tensor] /. t_?xTensorQ[___] :> t, 
 	     		curvatureTensors
 	     	] 
-     	) :> InvarWrapper[RiemannSimplify[#2, Release@level, True, #1] &, metric][ContractMetric@subexpr]
+		] :> InvarWrapper[RiemannSimplify[#2, Release@level, True, #1] &, metric][ContractMetric@subexpr]
 	]
 ];
 
@@ -723,120 +724,129 @@ CurvatureTensors[] := Flatten[CurvatureTensors /@ $CovDs];
 
 Options[SingleInvariants] ^= {IncludeDuals -> False};
 
-SingleInvariants[metric_?MetricQ, maxOrder_Integer, 
-   options___?OptionQ] := 
-  SingleInvariants[metric, {0, maxOrder}, options];
-SingleInvariants[
-    metric_?MetricQ, {minOrder_Integer, maxOrder_Integer}, 
-    options___?OptionQ] /; minOrder <= maxOrder := 
-  SingleInvariants[metric, {#}, options] & /@ 
-   Range[minOrder, maxOrder];
-SingleInvariants[metric_?MetricQ, {order_Integer}, 
-    options___?OptionQ] /; order > 0 := 
-  Module[{duals, dim, cases, steps, dcases, invs, dinvs},
-   duals = 
-    IncludeDuals /. CheckOptions[options] /. Options[SingleInvariants];
-   If[OddQ[order],
-    Message[SingleInvariants::oddorder];
-    Return[{}];
-    ];
-   dim = DimOfManifold /@ Select[HostsOf[metric], ManifoldQ] // 
-     First;
-   steps = If[dim === 4, 6, 4];
-   cases = InvarCases[order];
-   invs = RInvs[metric][4, #] & /@ cases;
-   If[duals,
-    If[dim === 4,
-     dcases = InvarDualCases[order];
-     dinvs = DualRInvs[metric][steps, #] & /@ dcases;
-     invs = Join[invs, dinvs];
-     ,
-     Message[SingleInvariants::noduals];
-     ]
-    ];
-   Flatten[InvToRiemann[invs]]
-   ];
+SingleInvariants[metric_?MetricQ, maxOrder_Integer, options___?OptionQ] := 
+	SingleInvariants[metric, {0, maxOrder}, options];
+	
+SingleInvariants[metric_?MetricQ, {minOrder_Integer, maxOrder_Integer}, options___?OptionQ] /; minOrder <= maxOrder := 
+	SingleInvariants[metric, {#}, options] & /@ Range[minOrder, maxOrder];
+	
+SingleInvariants[metric_?MetricQ, {order_Integer}, options___?OptionQ] /; order > 0 := Module[
+	{duals, dim, cases, steps, dcases, invs, dinvs},
+	
+	duals = IncludeDuals /. CheckOptions[options] /. Options[SingleInvariants];
+	
+	If[OddQ[order],
+		Message[SingleInvariants::oddorder]; Return[{}];
+	];
+	
+	dim 	= DimOfManifold@ManifoldOfCovD@CovDOfMetric@metric;
+	steps 	= If[dim === 4, 6, 4];
+	cases 	= InvarCases[order];
+	invs 	= RInvs[metric][4, #] & /@ cases;
+	If[duals,
+		If[dim === 4,
+			dcases 	= InvarDualCases[order];
+			dinvs 	= DualRInvs[metric][steps, #] & /@ dcases;
+			invs = Join[invs, dinvs];
+		,
+			Message[SingleInvariants::noduals];
+		]
+	];
+	Flatten[InvToRiemann[invs]]
+];
+
 SingleInvariants[_?MetricQ, {0}, ___?OptionQ] := {1};
 
-ProductInvariants[metric_?MetricQ, maxOrder_Integer, 
-   options___?OptionQ] := 
-  ProductInvariants[metric, {0, maxOrder}, options];
-ProductInvariants[
-    metric_?MetricQ, {minOrder_Integer, maxOrder_Integer}, 
-    options___?OptionQ] /; minOrder <= maxOrder := 
-  ProductInvariants[metric, {#}, options] & /@ 
-   Range[minOrder, maxOrder];
-ProductInvariants[metric_?MetricQ, {order_Integer}, 
-    options___?OptionQ] /; order > 0 := 
-  Module[{partitions, npinvs, combine},
-   (* note we can only partition into even integers, 
-   because the Invar package does not give odd invariants *)
-   
-   partitions = IntegerPartitions[order];
-   npinvs = 
-    Quiet[SingleInvariants[metric, {#}, options] & /@ 
-      Range[order], {SingleInvariants::oddorder}];
-   
-   combine[partition_] := 
-    Flatten[Outer[Times, Sequence @@ npinvs[[partition]]], 1] // 
-     DeleteDuplicates;
-   combine /@ partitions // Flatten // DeleteDuplicates // Sort
-   ];
+ProductInvariants[metric_?MetricQ, maxOrder_Integer, options___?OptionQ] := 
+	ProductInvariants[metric, {0, maxOrder}, options];
+	
+ProductInvariants[metric_?MetricQ, {minOrder_Integer, maxOrder_Integer}, options___?OptionQ] /; minOrder <= maxOrder := 
+	ProductInvariants[metric, {#}, options] & /@ Range[minOrder, maxOrder];
+	
+ProductInvariants[metric_?MetricQ, {order_Integer}, options___?OptionQ] /; order > 0 := Module[
+	{partitions, npinvs, combine},
+	
+	(* Note we can only partition into even integers, 
+	   because the Invar package does not give odd invariants *)
+	partitions 	= IntegerPartitions[order];
+	npinvs 		= Quiet[
+		SingleInvariants[metric, {#}, options] & /@ Range[order],
+		{SingleInvariants::oddorder}
+	];
+
+	combine[partition_] := DeleteDuplicates@Flatten[Outer[Times, Sequence @@ npinvs[[partition]]], 1];
+	combine /@ partitions // Flatten // DeleteDuplicates // Sort
+];
+
 ProductInvariants[_?MetricQ, {0}, ___?OptionQ] := {1};
 
-Options[InvarLagrangian] ^= {Coefficients -> OrderCoefficient, 
-   OrderParameter -> 1};
+Options[InvarLagrangian] ^= {
+	Coefficients -> OrderCoefficient, 
+	OrderParameter -> 1
+};
 
-InvarLagrangian[metric_?MetricQ, maxOrder_Integer, 
-   options___?OptionQ] := 
-  InvarLagrangian[metric, {0, maxOrder}, options];
-InvarLagrangian[metric_?MetricQ, {minOrder_Integer, maxOrder_Integer},
-     options___?OptionQ] /; minOrder <= maxOrder := Module[{i},
-   Sum[InvarLagrangian[metric, {i}, options], {i, minOrder, 
-     maxOrder}]
-   ];
-InvarLagrangian[metric_?MetricQ, {order_Integer}, 
-   options___?OptionQ] := 
-  Module[{coefPar, orderPar, NoCoeff, invariants, q, Defconstant},
-   {orderPar, 
-     coefPar} = {OrderParameter, Coefficients} /. 
-      CheckOptions[options] /. Options[InvarLagrangian];
-   If[coefPar === None,
-    coefPar = NoCoeff
-    ];
-   NoCoeff[__] := 1;
+InvarLagrangian[metric_?MetricQ, maxOrder_Integer, options___?OptionQ] := 
+	InvarLagrangian[metric, {0, maxOrder}, options];
+	
+InvarLagrangian[metric_?MetricQ, {minOrder_Integer, maxOrder_Integer}, options___?OptionQ] /; minOrder <= maxOrder := Module[{i},
+	Sum[
+		InvarLagrangian[metric, {i}, options],
+		{i, minOrder, maxOrder}
+	]
+];
+
+InvarLagrangian[metric_?MetricQ, {order_Integer}, options___?OptionQ] := Module[
+	{coefPar, orderPar, NoCoeff, invariants, q, Defconstant},
+
+	{orderPar, coefPar} = {OrderParameter, Coefficients} /. CheckOptions[options] /. Options[InvarLagrangian];
+
+	If[coefPar === None,
+		coefPar = NoCoeff
+	];
+	NoCoeff[__] := 1;
    
-   Defconstant[par_Symbol] := 
-    If[! ConstantSymbolQ[#], DefConstantSymbol[#]] & /@ Variables[par];
-   Defconstant[orderPar];
-   
-   invariants = ProductInvariants[metric, {order}, options];
-   q = Flatten[Array[coefPar, {1, Length[invariants]}, {order, 1}]];
-   Defconstant /@ q;
-   orderPar^order * 
-     q.Sort[invariants //. CurvatureRelations[CovDOfMetric[metric]]] //
-     NoScalar   
-   ];
+	Defconstant[par_Symbol] := If[!ConstantSymbolQ[#], DefConstantSymbol[#]] & /@ Variables[par];
+	Defconstant[orderPar];
+	
+	invariants 	= ProductInvariants[metric, {order}, options];
+	q			= Flatten[Array[coefPar, {1, Length[invariants]}, {order, 1}]];
+	Defconstant /@ q;
+	
+	NoScalar[
+		orderPar^order * q.Sort[invariants //. CurvatureRelations@CovDOfMetric@metric] 
+	]   
+];
 
 OrderCoefficientString[o_, n_] := \!\(\*
-TagBox[
-StyleBox[
-RowBox[{"\"\<\\!\\(\\*SubsuperscriptBox[\\(c\\), \\(\>\"", "<>", 
-RowBox[{"ToString", "[", "n", "]"}], "<>", "\"\<\\), \\(\>\"", "<>", 
-RowBox[{"ToString", "[", "o", "]"}], "<>", "\"\<\\)]\\)\>\""}],
-ShowSpecialCharacters->False,
-ShowStringCharacters->True,
-NumberMarks->True],
-FullForm]\)
+	TagBox[
+		StyleBox[
+			RowBox[{
+				"\"\<\\!\\(\\*SubsuperscriptBox[\\(c\\), \\(\>\"", 
+				"<>", 
+				RowBox[{"ToString", "[", "n", "]"}],
+				"<>", 
+				"\"\<\\), \\(\>\"", 
+				"<>", 
+				RowBox[{"ToString", "[", "o", "]"}], 
+				"<>", 
+				"\"\<\\)]\\)\>\""
+			}],
+			ShowSpecialCharacters -> False,
+			ShowStringCharacters -> True,
+			NumberMarks -> True
+		],
+		FullForm
+	]
+\)
 
 OrderCoefficient[o_, n_] := Module[{symbol},
-   symbol = GiveSymbol["o", o/2, "n", n];
-   If[! ConstantSymbolQ[symbol],
-    DefConstantSymbol[symbol]
-    ];
-   PrintAs[symbol] ^= OrderCoefficientString[o/2, n];
-   symbol
-   ];
+	symbol = GiveSymbol["Co", o/2, "n", n];
+	If[!ConstantSymbolQ[symbol],
+		DefConstantSymbol[symbol]
+	];
+	PrintAs[symbol] ^= OrderCoefficientString[o/2, n];
+	symbol
+];
 
 
 
@@ -846,30 +856,32 @@ OrderCoefficient[o_, n_] := Module[{symbol},
 
 TimeString[0] = "0 seconds";
 TimeString[seconds_] := Module[{s, m, h, d, M, y, list},
-   s = Ceiling[seconds];
-   y = Floor[s/31536000];
-   s = s - y*31536000;
-   M = Floor[s/2628000];
-   s = s - M*2628000;
-   d = Floor[s/86400];
-   s = s - d*86400;
-   h = Floor[s/3600];
-   s = s - h*3600;
-   m = Floor[s/60];
-   s = s - m*60;
-   list = Transpose[{
-      {y, M, d, h, m, s},
-      {"year", "month", "day", "hour", "minute", "second"}
-      }];
-   StringJoin[Riffle[ReleaseHold /@ Map[
-       If[First@# > 0,
-         ToString@First@#  <> " " <> Last@# <> 
-          If[First@# > 1, "s", ""],
-         HoldComplete[Sequence[]]
-         ] &,
-       list
-       ], ", "]]
-   ];
+	s = Ceiling[seconds];
+	y = Floor[s/31536000];
+	s = s - y*31536000;
+	M = Floor[s/2628000];
+	s = s - M*2628000;
+	d = Floor[s/86400];
+	s = s - d*86400;
+	h = Floor[s/3600];
+	s = s - h*3600;
+	m = Floor[s/60];
+	s = s - m*60;
+	list = Transpose[{
+		{y, M, d, h, m, s},
+		{"year", "month", "day", "hour", "minute", "second"}
+	}];
+	StringJoin@Riffle[
+		ReleaseHold /@ Map[
+			If[First@# > 0,
+				ToString@First@# <> " " <> Last@# <> If[First@# > 1, "s", ""],
+				HoldComplete[Sequence[]]
+			] &,
+			list
+		],
+		", "
+	]
+];
 
 LevelSpecQ[{x_Integer, y_Integer}] /; x >= 0 && y >= x := True
 LevelSpecQ[x_Integer] /; x >= 0 := True
@@ -884,33 +896,47 @@ Options[MapTimed] ^= {
 	DoTensorCollect -> False 
 };
 
-MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; 
-   LevelSpecQ[levelspec] := 
-  Module[{begintime, desc, ms, length, stringlength, timer, mon, ETA, steps, dtc, position}, 
-   (* Determine the options *)
-   {desc, ms, dtc} = {Description, MonitorSteps, DoTensorCollect} /. CheckOptions[options] /. Options[MapTimed];
-   desc = ToString[desc];
-   (* Initialize variables *)
-   length = 0;
-   position = 0;
-   (* Do a test run to determine the length of the map. *)
-   Map[(length++) &, expr, levelspec];
-   stringlength = ToString[length];
-   steps = If[ms === All, 1, Ceiling[length/ms]];
-   begintime = AbsoluteTime[];
-   mon = desc <> " " <> stringlength <> " parts.";
-   ETA[pos_] := 
-    Ceiling[(AbsoluteTime[] - begintime)*(length - pos)/pos];
-   timer[part_] := Module[{result},
-     result = If[dtc, DoTensorCollect[func][part], func@part];
-     position++;
-     If[ms === All || Mod[position, steps] == 0, 
-      mon = desc <> " Parts " <> ToString@position <> "/" <> 
-        stringlength <> " done. ETA in " <> TimeString@ETA@position <>
-         "."];
-     result
-   ];
-   Monitor[Map[timer, expr, levelspec], mon]
+MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; LevelSpecQ[levelspec] := Module[
+	{begintime, desc, ms, length, stringlength, timer, mon, ETA, steps, dtc, position},
+	 
+	(* Determine the options *)
+	{desc, ms, dtc} = {Description, MonitorSteps, DoTensorCollect} /. CheckOptions[options] /. Options[MapTimed];
+	desc 			= ToString[desc];
+	(* Initialize variables *)
+	length 		= 0;
+	position 	= 0;
+	(* Do a test run to determine the length of the map. *)
+	Map[(length++) &, expr, levelspec];
+	stringlength = ToString[length];
+	steps = If[
+		ms === All, 
+		1, 
+		Ceiling[length/ms]
+	];
+	begintime 	= AbsoluteTime[];
+	mon 		= desc <> " " <> stringlength <> " parts.";
+	
+	ETA[pos_] 		:= Ceiling[(AbsoluteTime[] - begintime)*(length - pos)/pos];
+	timer[part_] 	:= Module[{result},
+		result = If[
+			dtc, 
+			DoTensorCollect[func][part], 
+			func@part
+		];
+		position++;
+		If[
+			ms === All || Mod[position, steps] == 0, 
+			mon = desc <> " Parts " 
+				<> ToString@position <> "/" <> stringlength 
+				<> " done. ETA in " <> TimeString@ETA@position <> "."
+		];
+		result
+	];
+	
+	Monitor[
+		Map[timer, expr, levelspec], 
+		mon
+	]
 ];
 
 
@@ -920,29 +946,39 @@ MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /;
 (************************)
 
 (* ConstantExprQ simply checks if there are no tensors or parameters in the expression,
-   and returns true if there are none. A better way would be to list all variables
-   in the expression and then check if they are all constants, but the built-in
-   function Variables only works on polynomials (alas). *)
+   and returns true if there are none. *)
+ConstantExprQ[expr_] := Apply[
+	And, 
+	Map[
+		(ConstantQ[#] || ScalarFunctionQ[#]) &, 
+  		DeleteCases[
+  			Cases[expr, _?AtomQ, Infinity, Heads -> True], 
+   			Times | Plus | List
+  		]
+   	]
+];
 
-ConstantExprQ[expr_] /; FreeQ[expr, List] :=
- FreeQ[expr, _?xTensorQ | _?ParameterQ] 
- (*And @@ (ConstantQ /@ Variables[expr])*)
-ConstantExprQ[expr_] := False
-
+Block[{$DefInfoQ=False},
+	DefInertHead[
+		TensorCollector,
+		LinearQ -> True,
+		PrintAs -> "TC"
+	];
+];
 TensorCollector[x_List] := TensorCollector /@ x;
-TensorCollector[x_ + y_] := TensorCollector[x] + TensorCollector[y];
-TensorCollector[x_?ConstantExprQ * y_] := x TensorCollector[y];
-TensorCollector[x_?ConstantExprQ] := x;
+TensorCollector[x_ * y_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x TensorCollector[y];
+TensorCollector[x_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x;
 
-RemoveConstants[expr_] := 
- expr /. x_?ConstantExprQ *y_ /; ! FreeQ[y, _?xTensorQ] :> y
+RemoveConstants[expr_] := expr /. x_?ConstantExprQ *y_ /; ! FreeQ[y, _?xTensorQ | _?ParameterQ] :> y
 SetAttributes[RemoveConstants, Listable]
 
-RemoveTensors[expr_] := 
- TensorCollector[expr] /. HoldPattern[TensorCollector[___]] -> 1
+RemoveTensors[expr_] := TensorCollector[expr] /. HoldPattern[TensorCollector[___]] -> 1
 SetAttributes[RemoveTensors, Listable]
 
-Options[TensorCollect] ^= {CollectMethod -> Default, SimplifyMethod -> Simplify};
+Options[TensorCollect] ^= {
+	CollectMethod -> Default, 
+	SimplifyMethod -> Simplify
+};
 
 TensorCollect[expr_, options___?OptionQ] := expr;
 TensorCollect[expr_, options___?OptionQ] /; !FreeQ[expr, Plus | _?xTensorQ] := 
@@ -978,12 +1014,12 @@ Module[{method, simplify, mod, notensormod, tensormod, tensors},
 ];
 
 DoTensorCollect[func_][expr_] := Module[{collected, map},
-   collected = TensorCollector[expr];
-   map[subexpr_] := If[FreeQ[subexpr, TensorCollector],
-     func[subexpr],
-     subexpr /. HoldPattern[TensorCollector[p___]] :> func[p]
-     ];
-   MapIfPlus[map,collected]
+	collected = TensorCollector[expr];
+	map[subexpr_] := If[FreeQ[subexpr, TensorCollector],
+		func[subexpr],
+		subexpr /. HoldPattern[TensorCollector[p___]] :> func[p]
+ 	];
+	MapIfPlus[map,collected]
 ];
 
 
@@ -1029,48 +1065,49 @@ SetAttributes[MakeEquationRule,HoldFirst];
 
 
 (* This code comes from JMM. See http://groups.google.com/group/xact/browse_thread/thread/8d687342a34e033c/7d79f11620a7d866 *)
+xAct`xPert`Private`DefGenPertDet[vbundle_, metric_, pert_] := With[
+	{
+		dim 			= DimOfVBundle[vbundle], 
+		metricepsilon 	= epsilon[metric], 
+		mdet 			= Determinant[metric][]
+	},
 
-xAct`xPert`Private`DefGenPertDet[vbundle_, metric_, pert_] := 
-  With[{dim = DimOfVBundle[vbundle], metricepsilon = epsilon[metric], 
-    mdet = Determinant[metric][]},
-   
-   If[IntegerQ[dim],
-    (* Old xPert code, works only for non-generic dimensions *)
-    
-    xAct`xPert`Private`ExpandPerturbation1[
-      Perturbation[mdet, order_.]] := 
-     With[{inds = Table[DummyIn[vbundle], {2 dim}]},
-      With[{inds1 = inds[[Range[dim]]], 
-        inds2 = inds[[Range[dim + 1, 2 dim]]]}, 
-       ContractMetric[
-        mdet/dim! SignDetOfMetric[metric] metricepsilon @@ 
-          inds1 metricepsilon @@ inds2 Perturbation[
-          Times @@ Apply[metric, Transpose[-{inds1, inds2}], {1}], 
-          order]]
-       ]
-      ],
-    (* 'New' code, works for any dimension, but is slower. *)
-    
-    xAct`xPert`Private`ExpandPerturbation1[
-       Perturbation[mdet, order_.]] := Module[{ind},
-       If[order === 1,
-        ind = DummyIn[vbundle]; mdet pert[LI[1], ind, -ind],
-        Perturbation[ExpandPerturbation[Perturbation[mdet]], 
-          order - 1] /. expr_Perturbation :> ExpandPerturbation[expr]
-        ]
-       ];
-    ];
-   
-   xAct`xPert`Private`ExpandPerturbation1[
-     Perturbation[metricepsilon[superinds__?UpIndexQ], order_.]] := 
-    metricepsilon[superinds] Sqrt[mdet] ExpandPerturbation[
-      Perturbation[1/Sqrt[mdet], order]];
-   xAct`xPert`Private`ExpandPerturbation1[
-     Perturbation[metricepsilon[subinds__?DownIndexQ], order_.]] := 
-    metricepsilon[subinds]/Sqrt[mdet] ExpandPerturbation[
-      Perturbation[Sqrt[mdet], order]];
-   
-   ];
+	If[IntegerQ[dim],
+		(* Old xPert code, works only for non-generic dimensions *)
+		xAct`xPert`Private`ExpandPerturbation1[ Perturbation[mdet, order_.] ] := With[
+			{inds = Table[DummyIn[vbundle], {2 dim}]},
+  			With[
+				{
+					inds1 = inds[[Range[dim]]], 
+					inds2 = inds[[Range[dim + 1, 2 dim]]]
+				}, 
+				ContractMetric[
+					Perturbation[Times @@ Apply[metric, Transpose[-{inds1, inds2}], {1}], order] *
+					mdet/dim! SignDetOfMetric[metric] metricepsilon@@inds1 metricepsilon@@inds2
+				]
+			]
+		]
+	,
+		(* 'New' code, works for any dimension, but is slower. *)
+		xAct`xPert`Private`ExpandPerturbation1[ Perturbation[mdet, order_.] ] := Module[{ind},
+			If[order === 1,
+				ind = DummyIn[vbundle]; 
+				mdet pert[LI[1], ind, -ind]
+			,
+				Perturbation[
+					ExpandPerturbation@Perturbation@mdet, 
+					order - 1
+				] /. expr_Perturbation :> ExpandPerturbation[expr]
+			]
+		];
+	];
+
+	xAct`xPert`Private`ExpandPerturbation1[ Perturbation[metricepsilon[superinds__?UpIndexQ], order_.] ] := 
+		metricepsilon[superinds] Sqrt[mdet] ExpandPerturbation[Perturbation[1/Sqrt[mdet], order]];
+	
+	xAct`xPert`Private`ExpandPerturbation1[ Perturbation[metricepsilon[subinds__?DownIndexQ], order_.] ] := 
+		metricepsilon[subinds]/Sqrt[mdet] ExpandPerturbation[Perturbation[Sqrt[mdet], order]];
+];
 
 
 
