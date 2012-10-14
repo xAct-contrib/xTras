@@ -34,7 +34,7 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["xAct`xTras`$Version", "Print", "PrintUsage",
- CellTags->"Info3559127041-3265995"],
+ CellTags->"Info3559193756-5264236"],
 
 Cell[BoxData[
  InterpretationBox[GridBox[{
@@ -56,7 +56,7 @@ Cell[BoxData[
      "RowsIndexed" -> {}}],
   Definition[xAct`xTras`$Version],
   Editable->False]], "Print",
- CellTags->"Info3559127041-3265995"]
+ CellTags->"Info3559193756-5264236"]
 }, Open  ]]
 }, Open  ]],
 
@@ -4715,7 +4715,7 @@ $CellContext`d],
 }, Open  ]],
 
 Cell["\<\
-MyRiemannSimplify essentially wraps RiemannSimplify in an InvarWrapper, \
+RiemannSimplification essentially wraps RiemannSimplify in an InvarWrapper, \
 making sure it has the correct global options (ToCanonical, \
 CurvatureRelations, etc).\
 \>", "Text"],
@@ -4724,11 +4724,11 @@ Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"MyRiemannSimplify", "[", "4", "]"}], "[", 
+  RowBox[{"RiemannSimplification", "[", "4", "]"}], "[", 
   RowBox[{"EulerDensity", "[", 
    RowBox[{"CD", ",", "4"}], "]"}], "]"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"MyRiemannSimplify", "[", "]"}], "[", 
+  RowBox[{"RiemannSimplification", "[", "]"}], "[", 
   RowBox[{
    RowBox[{"CD", "[", "b", "]"}], "@", 
    RowBox[{
@@ -5408,74 +5408,6 @@ Cell[BoxData[
    "\[InvisibleSpace]", 
    RowBox[{"{", "0", "}"}]}],
   SequenceForm["Reading InvRules for step 4 and case ", {0}],
-  Editable->False]], "Print"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Reading InvRules for step 2 and case \"\>", 
-   "\[InvisibleSpace]", 
-   RowBox[{"{", 
-    RowBox[{"0", ",", "0"}], "}"}]}],
-  SequenceForm["Reading InvRules for step 2 and case ", {0, 0}],
-  Editable->False]], "Print"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Reading InvRules for step 3 and case \"\>", 
-   "\[InvisibleSpace]", 
-   RowBox[{"{", 
-    RowBox[{"0", ",", "0"}], "}"}]}],
-  SequenceForm["Reading InvRules for step 3 and case ", {0, 0}],
-  Editable->False]], "Print"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Reading InvRules for step 4 and case \"\>", 
-   "\[InvisibleSpace]", 
-   RowBox[{"{", 
-    RowBox[{"0", ",", "0"}], "}"}]}],
-  SequenceForm["Reading InvRules for step 4 and case ", {0, 0}],
-  Editable->False]], "Print"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Reading InvRules for step 2 and case \"\>", 
-   "\[InvisibleSpace]", 
-   RowBox[{"{", "2", "}"}]}],
-  SequenceForm["Reading InvRules for step 2 and case ", {2}],
-  Editable->False]], "Print"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Reading InvRules for step 3 and case \"\>", 
-   "\[InvisibleSpace]", 
-   RowBox[{"{", "2", "}"}]}],
-  SequenceForm["Reading InvRules for step 3 and case ", {2}],
-  Editable->False]], "Print"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Reading InvRules for step 4 and case \"\>", 
-   "\[InvisibleSpace]", 
-   RowBox[{"{", "2", "}"}]}],
-  SequenceForm["Reading InvRules for step 4 and case ", {2}],
-  Editable->False]], "Print"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Reading InvRules for step 1 and case \"\>", 
-   "\[InvisibleSpace]", 
-   RowBox[{"{", 
-    RowBox[{"0", ",", "0"}], "}"}]}],
-  SequenceForm["Reading InvRules for step 1 and case ", {0, 0}],
-  Editable->False]], "Print"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Reading InvRules for step 1 and case \"\>", 
-   "\[InvisibleSpace]", 
-   RowBox[{"{", "2", "}"}]}],
-  SequenceForm["Reading InvRules for step 1 and case ", {2}],
   Editable->False]], "Print"]
 }, Open  ]],
 

@@ -97,8 +97,8 @@ InvarWrapper::usage =
 function specified by invarFunction s.t. you can use your own options \
 for ToCanonical, ContractMetric, and CurvatureRelations.";
 
-MyRiemannSimplify::usage = 
-  "MyRiemannSimplify[metric,level][expr] works similarly to \
+RiemannSimplification::usage = 
+  "RiemannSimplification[metric,level][expr] works similarly to \
 RiemannSimplify, except that it also works for generic options for \
 ToCanonical etc, and works on more general expressions. \
 \nNote that it only simplifies expression consisting of Riccis and Riemanns, \
@@ -612,84 +612,113 @@ EulerDensity[cd_?CovDQ, D_?EvenQ] := Module[{indices, e1, e2, riemann, n, e},
 	1/2^(D/2) e1 e2 Product[riemann[n], {n, 1, D/2}] // ContractMetric // ToCanonical // Expand
 ];
 
-InvarWrapper[invarFunction_, g_?MetricQ][expr_, otherargs___] := 
-  Module[{cd, tangent, i1, i2, i3, ricciscalar, ricci, riemann, rules,
-     result, curvrel, monvb, uppder,commutescalars},
-   (* Initialize *)
-   cd = CovDOfMetric[g];
-   tangent = VBundleOfMetric[g];
-   i1 = DummyIn[tangent];
-   i2 = DummyIn[tangent];
-   i3 = DummyIn[tangent];
-   ricci = GiveSymbol[Ricci, cd];
-   ricciscalar = GiveSymbol[RicciScalar, cd];
-   riemann = GiveSymbol[Riemann, cd];
+InvarWrapper[invarFunction_, g_?MetricQ][expr_, otherargs___] := Module[
+	{
+		cd, i1, i2, i3, ricciscalar, ricci, riemann, rules,
+		result, curvrel, monvb, uppder,commutescalars
+	},
+	
+	(* Initialize *)
+	cd 			= CovDOfMetric[g];
+	{i1,i2,i3} 	= Table[DummyIn@VBundleOfMetric@g, {3}];
+	ricci 		= GiveSymbol[Ricci, cd];
+	ricciscalar = GiveSymbol[RicciScalar, cd];
+	riemann 	= GiveSymbol[Riemann, cd];
    
-   (* Store old config values *)
-   curvrel = CurvatureRelationsQ[cd];
-   monvb = Options[ToCanonical, UseMetricOnVBundle];
-   uppder = Options[ContractMetric, AllowUpperDerivatives];
-   commutescalars = xAct`xTensor`$CommuteCovDsOnScalars;
+	(* Store old config values *)
+	curvrel 		= CurvatureRelationsQ[cd];
+	monvb 			= Options[ToCanonical, UseMetricOnVBundle];
+	uppder 			= Options[ContractMetric, AllowUpperDerivatives];
+	commutescalars 	= xAct`xTensor`$CommuteCovDsOnScalars;
    
-   (* Set config values to Invar compatible settings *)
-   SetOptions[ToCanonical, UseMetricOnVBundle -> All];
-   SetOptions[ContractMetric, AllowUpperDerivatives -> True];
-   ClearCurvatureRelations[cd, Verbose -> False];
-   xAct`xTensor`$CommuteCovDsOnScalars = False;
+	(* Set config values to Invar compatible settings *)
+	SetOptions[
+		ToCanonical, 
+		UseMetricOnVBundle -> All
+	];
+	SetOptions[
+		ContractMetric, 
+		AllowUpperDerivatives -> True
+	];
+	ClearCurvatureRelations[cd, Verbose -> False];
+	xAct`xTensor`$CommuteCovDsOnScalars = False;
    
-   (* Make rules to convert the Ricci scalar and Ricci tensor to Riemanns *)
-   rules = Join[
-     MakeRule[
-      Evaluate[{ricciscalar[], Scalar[riemann[i1, i2, -i1, -i2]]}], 
-      MetricOn -> All],
-     MakeRule[Evaluate[{ricci[i1, i2], riemann[i1, i3, i2, -i3]}], 
-      MetricOn -> All]
-     ];
-   (* Apply them to the expression and run RiemannSimplify *)
-   result = invarFunction[g, expr /. rules, otherargs];
-   
-   (* Reapply the settings as they were before *)
-   xAct`xTensor`$CommuteCovDsOnScalars = commutescalars;
-   SetOptions[ToCanonical, monvb // First];
-   SetOptions[ContractMetric, uppder // First];
-   If[curvrel, SetCurvatureRelations[cd, Verbose -> False]];
-   (* Return *)
-   result
-   ];
+	(* Make rules to convert the Ricci scalar and Ricci tensor to Riemanns *)
+	rules = Join[
+		MakeRule[
+			Evaluate@
+			{
+				ricciscalar[], 
+				$RicciSign * Scalar@riemann[i1, i2, -i1, -i2]
+			},	
+			MetricOn -> All
+		],
+		MakeRule[
+			Evaluate@
+			{
+				ricci[i1, i2], 
+				$RicciSign * riemann[i1, i3, i2, -i3]
+			},	
+			MetricOn -> All
+		]
+	];
+	
+	(* Apply them to the expression and run the Invar function *)
+	result = invarFunction[g, expr /. rules, otherargs];
 
-MyRiemannSimplify[level_Integer][expr_] := 
-  Fold[MyRiemannSimplify[#2,level][#1] &, expr, $Metrics];
-MyRiemannSimplify[][expr_] := 
-  Fold[MyRiemannSimplify[#2][#1] &, expr, $Metrics];
-MyRiemannSimplify[metric_?MetricQ][expr_] := 
-	If[MemberQ[Range[6],$InvSimplifyLevel] && !(DimOfManifold@ManifoldOfCovD@CovDOfMetric@metric =!= 4 && $InvSimplifyLevel > 4),
-		MyRiemannSimplify[metric, $InvSimplifyLevel][expr],
-		MyRiemannSimplify[metric, 4][expr]
-	]; 
-MyRiemannSimplify[metric_?MetricQ, level_Integer][expr_] := 
- Module[{scalar, curvatureTensors,cd},
-  cd = CovDOfMetric@metric;
-  curvatureTensors = {
-  	metric,
-  	GiveSymbol[Ricci,cd],
-  	GiveSymbol[RicciScalar,cd],
-  	GiveSymbol[Riemann,cd]
-  };
-  scalar = PutScalar[expr];
-  (* TODO: if the result contains Cycles something went wrong, and we should return the original expression. *)
-  NoScalar[
-   scalar /. 
-    Scalar[subexpr_] /; (Complement[
-         FindAllOfType[subexpr, Tensor] /. t_?xTensorQ[___] :> t, 
-         curvatureTensors] === {}) :> 
-     InvarWrapper[RiemannSimplify[#2, Release[level], True, #1] &, 
-       metric][ContractMetric[subexpr]]
-   ]
-  ];
+	(* Reapply the settings as they were before *)
+	xAct`xTensor`$CommuteCovDsOnScalars = commutescalars;
+	SetOptions[
+		ToCanonical, 
+		monvb // First
+	];
+	SetOptions[
+		ContractMetric, 
+		uppder // First
+	];
+	If[curvrel, SetCurvatureRelations[cd, Verbose -> False]];
+	
+	(* Return *)
+	result
+];
+
+RiemannSimplification[level_Integer][expr_] := 
+	Fold[RiemannSimplification[#2,level][#1] &, expr, $Metrics];
+	
+RiemannSimplification[][expr_] := 
+	Fold[RiemannSimplification[#2][#1] &, expr, $Metrics];
+	
+RiemannSimplification[metric_?MetricQ][expr_] := If[
+	MemberQ[Range[6],$InvSimplifyLevel] && !(DimOfManifold@ManifoldOfCovD@CovDOfMetric@metric =!= 4 && $InvSimplifyLevel > 4),
+	RiemannSimplification[metric, $InvSimplifyLevel][expr],
+	RiemannSimplification[metric, 4][expr]
+];
+
+RiemannSimplification[metric_?MetricQ, level_Integer][expr_] := Module[
+	{scalar, curvatureTensors,cd},
+	
+	cd = CovDOfMetric@metric;
+	curvatureTensors = {
+  		metric,
+		GiveSymbol[Ricci,cd],
+ 		GiveSymbol[RicciScalar,cd],
+ 		GiveSymbol[Riemann,cd]
+	};
+	scalar = PutScalar[expr];
+	
+	(* TODO: if the result contains Cycles something went wrong, and we should return the original expression. *)
+	NoScalar[scalar /. 
+		Scalar[subexpr_] /; (
+			{} === Complement[
+				FindAllOfType[subexpr, Tensor] /. t_?xTensorQ[___] :> t, 
+	     		curvatureTensors
+	     	] 
+     	) :> InvarWrapper[RiemannSimplify[#2, Release@level, True, #1] &, metric][ContractMetric@subexpr]
+	]
+];
 
 
-CurvatureTensors[cd_?CovDQ] := 
-  Flatten[{MetricOfCovD[cd], ServantsOf[cd]}] /. Null -> Sequence[];
+CurvatureTensors[cd_?CovDQ] := Flatten[{MetricOfCovD[cd], ServantsOf[cd]}] /. Null -> Sequence[];
 CurvatureTensors[] := Flatten[CurvatureTensors /@ $CovDs];
 
 Options[SingleInvariants] ^= {IncludeDuals -> False};
@@ -1124,7 +1153,7 @@ FullSimplification[metric_?MetricQ, options___?OptionQ][expr_] :=
    SetOptions[ContractMetric, AllowUpperDerivatives -> True];
    
    tmp = expr // ContractMetric // ToCanonical;
-   tmp = MyRiemannSimplify[metric][tmp];
+   tmp = RiemannSimplification[metric][tmp];
    
    (* TODO: Apply dimensional dependent identities *)
    
