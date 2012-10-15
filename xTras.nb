@@ -34,7 +34,7 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["xAct`xTras`$Version", "Print", "PrintUsage",
- CellTags->"Info3559193756-5264236"],
+ CellTags->"Info3559298259-5193900"],
 
 Cell[BoxData[
  InterpretationBox[GridBox[{
@@ -56,7 +56,7 @@ Cell[BoxData[
      "RowsIndexed" -> {}}],
   Definition[xAct`xTras`$Version],
   Editable->False]], "Print",
- CellTags->"Info3559193756-5264236"]
+ CellTags->"Info3559298259-5193900"]
 }, Open  ]]
 }, Open  ]],
 
@@ -3960,6 +3960,19 @@ and dimension. \
 Cell[CellGroupData[{
 
 Cell[BoxData[
+ RowBox[{"?", "EulerDensity"}]], "Input"],
+
+Cell[BoxData[
+ StyleBox["\<\"EulerDensity[CD] give the Euler density of the curvature \
+tensor of the covariant derivative CD. If the manifold has generic dimension, \
+you can use EulerDensity[CD,dim] to specify a dimension.\"\>", 
+  "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3559298387-5193900"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
  RowBox[{"EulerDensity", "[", 
   RowBox[{"CD", ",", "2"}], "]"}]], "Input"],
 
@@ -4722,6 +4735,20 @@ CurvatureRelations, etc).\
 
 Cell[CellGroupData[{
 
+Cell[BoxData[
+ RowBox[{"?", "RiemannSimplification"}]], "Input"],
+
+Cell[BoxData[
+ StyleBox["\<\"RiemannSimplification[metric,level][expr] works similarly to \
+RiemannSimplify, except that it also works for generic options for \
+ToCanonical etc, and works on more general expressions. \\nNote that it only \
+simplifies expression consisting of Riccis and Riemanns, and not of other \
+curvature tensors.\"\>", "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3559298378-5193900"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
 Cell[BoxData[{
  RowBox[{
   RowBox[{"RiemannSimplification", "[", "4", "]"}], "[", 
@@ -4969,6 +4996,18 @@ easy access to the Invar database:\
 Cell[CellGroupData[{
 
 Cell[BoxData[
+ RowBox[{"?", "SingleInvariants"}]], "Input"],
+
+Cell[BoxData[
+ StyleBox["\<\"SingleInvariants[metric,order] gives the single invariants of \
+the Riemann tensor at that given order (which has the standard level \
+specification)\"\>", "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3559298363-5193900"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
  RowBox[{"SingleInvariants", "[", 
   RowBox[{"metric", ",", 
    RowBox[{"{", "4", "}"}]}], "]"}]], "Input"],
@@ -5152,6 +5191,18 @@ $CellContext`d]],
       $CellContext`CD[$CellContext`c][
        $CellContext`RicciScalarCD[]]]],
     Editable->False]}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "ProductInvariants"}]], "Input"],
+
+Cell[BoxData[
+ StyleBox["\<\"ProductInvariants[metric,order] gives all product invariants \
+of the Riemann tensor at that given order (which has the standard level \
+specification)\"\>", "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3559298352-5193900"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -5380,6 +5431,18 @@ $CellContext`d]],
 Cell[CellGroupData[{
 
 Cell[BoxData[
+ RowBox[{"?", "InvarLagrangian"}]], "Input"],
+
+Cell[BoxData[
+ StyleBox["\<\"InvarLagrangian[metric, maxorder] gives the most general \
+Lagrangian up to maxorder in derivatives of the metric, consisting solely of \
+curvature tensors.\"\>", "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3559298310-5193900"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
  RowBox[{"L", " ", "=", " ", 
   RowBox[{"InvarLagrangian", "[", 
    RowBox[{"metric", ",", "4"}], "]"}]}]], "Input"],
@@ -5408,6 +5471,74 @@ Cell[BoxData[
    "\[InvisibleSpace]", 
    RowBox[{"{", "0", "}"}]}],
   SequenceForm["Reading InvRules for step 4 and case ", {0}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 2 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0"}], "}"}]}],
+  SequenceForm["Reading InvRules for step 2 and case ", {0, 0}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 3 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0"}], "}"}]}],
+  SequenceForm["Reading InvRules for step 3 and case ", {0, 0}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 4 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0"}], "}"}]}],
+  SequenceForm["Reading InvRules for step 4 and case ", {0, 0}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 2 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", "2", "}"}]}],
+  SequenceForm["Reading InvRules for step 2 and case ", {2}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 3 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", "2", "}"}]}],
+  SequenceForm["Reading InvRules for step 3 and case ", {2}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 4 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", "2", "}"}]}],
+  SequenceForm["Reading InvRules for step 4 and case ", {2}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 1 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0"}], "}"}]}],
+  SequenceForm["Reading InvRules for step 1 and case ", {0, 0}],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Reading InvRules for step 1 and case \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", "2", "}"}]}],
+  SequenceForm["Reading InvRules for step 1 and case ", {2}],
   Editable->False]], "Print"]
 }, Open  ]],
 
@@ -5418,7 +5549,7 @@ Cell[BoxData[
     SubsuperscriptBox["c", "1", "0"],
     ShowAutoStyles->False,
     AutoSpacing->False],
-   $CellContext`o0n1,
+   $CellContext`Co0n1,
    Editable->False], "+", 
   RowBox[{
    InterpretationBox[
@@ -5426,7 +5557,7 @@ Cell[BoxData[
      SubsuperscriptBox["c", "2", "2"],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    $CellContext`o2n2,
+    $CellContext`Co2n2,
     Editable->False], " ", 
    InterpretationBox[
     StyleBox[GridBox[{
@@ -5492,7 +5623,7 @@ Cell[BoxData[
      SubsuperscriptBox["c", "1", "1"],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    $CellContext`o1n1,
+    $CellContext`Co1n1,
     Editable->False], " ", 
    InterpretationBox[
     StyleBox[
@@ -5507,7 +5638,7 @@ Cell[BoxData[
      SubsuperscriptBox["c", "1", "2"],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    $CellContext`o2n1,
+    $CellContext`Co2n1,
     Editable->False], " ", 
    SuperscriptBox[
     InterpretationBox[
@@ -5523,7 +5654,7 @@ Cell[BoxData[
      SubsuperscriptBox["c", "3", "2"],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    $CellContext`o2n3,
+    $CellContext`Co2n3,
     Editable->False], " ", 
    InterpretationBox[
     StyleBox[GridBox[{
@@ -5591,7 +5722,7 @@ $CellContext`d],
      SubsuperscriptBox["c", "4", "2"],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    $CellContext`o2n4,
+    $CellContext`Co2n4,
     Editable->False], " ", 
    RowBox[{"(", 
     InterpretationBox[

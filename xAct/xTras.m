@@ -1105,119 +1105,116 @@ xAct`xPert`Private`DefGenPertDet[vbundle_, metric_, pert_] := With[
 (* Simplifying *)
 (***************)
 
-PreferBoxOfRule[tensor_] := 
-  Flatten[PreferBoxOfRule[tensor, #] & /@ $CovDs];
-PreferBoxOfRule[tensor_, CD_?CovDQ] := {
-  bigexpr : 
-     CD[-b_]@CD[b_]@CD[a_][expr_] /; (! FreeQ[expr, tensor] && 
-      FreeQ[expr, CD[ChangeIndex[a]][_]]) :> 
-   CommuteCovDs[bigexpr, CD, {a, b}],
-  bigexpr : 
-     CD[b_]@CD[-b_]@CD[a_][expr_] /; (! FreeQ[expr, tensor] && 
-      FreeQ[expr, CD[ChangeIndex[a]][_]]) :> 
-   CommuteCovDs[bigexpr, CD, {a, -b}],
-  bigexpr : 
-     CD[b_]@CD[a_][expr_] /; (! FreeQ[expr, tensor] && 
-      FreeQ[expr, CD[ChangeIndex[a]][_]] && !FreeQ[expr, CD[ChangeIndex[b]][_]]) :> 
-   CommuteCovDs[bigexpr, CD, {a, b}]
-  }
+PreferBoxOfRule[tensor_] := Flatten[PreferBoxOfRule[tensor, #] & /@ DeleteCases[$CovDs,PD] ];
+PreferBoxOfRule[tensor_, CD_?CovDQ] := 
+{
+	bigexpr : CD[-b_]@CD[b_]@CD[a_][expr_] /; (! FreeQ[expr, tensor] && FreeQ[expr, CD[ChangeIndex[a]][_]]) :> 
+		CommuteCovDs[bigexpr, CD, {a, b}],
+	bigexpr : CD[b_]@CD[-b_]@CD[a_][expr_] /; (! FreeQ[expr, tensor] && FreeQ[expr, CD[ChangeIndex[a]][_]]) :> 
+		CommuteCovDs[bigexpr, CD, {a, -b}],
+	bigexpr : CD[b_]@CD[a_][expr_] /; (! FreeQ[expr, tensor] && FreeQ[expr, CD[ChangeIndex[a]][_]] && !FreeQ[expr, CD[ChangeIndex[b]][_]]) :> 
+		CommuteCovDs[bigexpr, CD, {a, b}]
+};
 
 
-(* The next bit is thanks to Leo Stein, see http://groups.google.com/group/xact/browse_thread/thread/31e959cbee8d1848/690def9618ff519c *)
-PreferDivOfRule[tens_] := Flatten[PreferDivOfRule[tens, #] &/$CovDs];
-PreferDivOfRule[tens_, 
-   CD_?CovDQ] := (bigexpr : (CD[b_]@
-        CD[a_][expr_] /; (!FreeQ[expr, tens[___, ChangeIndex[b], ___]] && 
-         FreeQ[expr, tens[___, ChangeIndex[a], ___]]))) :> 
-   CommuteCovDs[bigexpr, CD, {a, b}];
+(* The next bit is thanks to Leo Stein, 
+   see http://groups.google.com/group/xact/browse_thread/thread/31e959cbee8d1848/690def9618ff519c *)
+PreferDivOfRule[tens_] := Flatten[PreferDivOfRule[tens, #] & /@ DeleteCases[$CovDs,PD] ];
+PreferDivOfRule[tens_, CD_?CovDQ] := 
+	(bigexpr : (CD[b_]@CD[a_][expr_] /; (!FreeQ[expr, tens[___, ChangeIndex[b], ___]] && FreeQ[expr, tens[___, ChangeIndex[a], ___]]))) :> 
+		CommuteCovDs[bigexpr, CD, {a, b}];
 
 DivFreeQ[expr_, tens_] := And @@ (DivFreeQ[expr, tens, #] & /@ $CovDs);
 DivFreeQ[expr_, tens_, CD_?CovDQ] := FreeQ[expr, CD[a_][inner_] /; ! FreeQ[inner, tens[___, ChangeIndex[a], ___]]];
 
 RicciDivRule[cd_?CovDQ] := Module[{ricci, rs, a, b},
-   ricci = GiveSymbol[Ricci, cd];
-   rs = GiveSymbol[RicciScalar, cd];
-   {a, b} = Table[DummyIn@First@VBundlesOfCovD@cd, {2}];
-   
-    FoldedRule[
-    PreferDivOfRule[ricci, cd],
-    MakeRule[Evaluate[{cd[a]@ricci[-a, -b], 1/2 cd[-b]@rs[]}], 
-     MetricOn -> All, UseSymmetries -> True]
-    ]
-   ];
+	ricci 	= GiveSymbol[Ricci, cd];
+	rs 		= GiveSymbol[RicciScalar, cd];
+	{a, b} 	= Table[DummyIn@First@VBundlesOfCovD@cd, {2}];
+
+	FoldedRule[
+		PreferDivOfRule[ricci, cd],
+		MakeRule[
+			Evaluate@{
+				cd[a]@ricci[-a, -b], 
+				1/2 cd[-b]@rs[]
+			}, 
+			MetricOn -> All, UseSymmetries -> True
+	 	]
+	]
+];
 
 RiemannDivRule[cd_?CovDQ] := Module[{ricci, riemann, a, b, c, d},
-   ricci = GiveSymbol[Ricci, cd];
-   riemann = GiveSymbol[Riemann, cd];
-   {a, b, c, d} = Table[DummyIn@First@VBundlesOfCovD@cd, {4}];
-   
-    FoldedRule[
-    PreferDivOfRule[riemann, cd],
-    MakeRule[
-     Evaluate[{cd[-d]@riemann[d, -a, -b, -c], 
-       cd[-b]@ricci[-a, -c] - cd[-c]@ricci[-a, -b]}], MetricOn -> All,
-      UseSymmetries -> True]
-    ]
-   ];
+	ricci 			= GiveSymbol[Ricci, cd];
+	riemann 		= GiveSymbol[Riemann, cd];
+	{a, b, c, d} 	= Table[DummyIn@First@VBundlesOfCovD@cd, {4}];
+
+	FoldedRule[
+		PreferDivOfRule[riemann, cd],
+		MakeRule[
+			Evaluate@{
+				cd[-d]@riemann[d, -a, -b, -c], 
+				$RicciSign * ( cd[-b]@ricci[-a, -c] - cd[-c]@ricci[-a, -b] )
+			}, 
+			MetricOn -> All, UseSymmetries -> True
+		]
+	]
+];
 
 FS = FullSimplification;
 
 Options[FullSimplification] ^= {SortCovDs -> True};
 
-FullSimplification[options___?OptionQ][expr_] := 
-  Fold[FullSimplification[#2, options][#1] &, expr, $Metrics];
-FullSimplification[metric_?MetricQ, options___?OptionQ][expr_] := 
-  Module[{cd, oldmonv, olduppder, tmp, sortcd, riemannDivRule, 
-    ricciDivRule},
-   {sortcd} = {SortCovDs} /. CheckOptions[options] /. Options[FullSimplification];
+FullSimplification[options___?OptionQ][expr_] := Fold[FullSimplification[#2, options][#1] &, expr, $Metrics];
+FullSimplification[metric_?MetricQ, options___?OptionQ][expr_] := Module[
+	{cd, oldmonv, olduppder, tmp, sortcd, riemannDivRule, ricciDivRule},
+
+	{sortcd} 	= {SortCovDs} /. CheckOptions[options] /. Options[FullSimplification];
+	cd 			= CovDOfMetric[metric];
+	oldmonv 	= Options[ToCanonical, UseMetricOnVBundle];
+	olduppder 	= Options[ContractMetric, AllowUpperDerivatives];
+	SetOptions[
+		ToCanonical,  
+		UseMetricOnVBundle -> If[FreeQ[expr, PD], All, None]
+	];
+	SetOptions[
+		ContractMetric,
+		AllowUpperDerivatives -> True
+	];
+	
+	tmp = ToCanonical@ContractMetric[expr, metric];
+	tmp = RiemannSimplification[metric][tmp];
+	
+	(* TODO: Apply dimensional dependent identities *)
+
+	(* Sort covariant derivatives *)
+	If[sortcd,
+		riemannDivRule 	= RiemannDivRule[cd];
+		ricciDivRule 	= RicciDivRule[cd];
+		While[!DivFreeQ[tmp, GiveSymbol[Riemann, cd]], 
+			tmp = ContractMetric[tmp //. riemannDivRule, metric]
+		];
+		While[!DivFreeQ[tmp, GiveSymbol[Ricci, cd]], 
+			tmp = ContractMetric[tmp //. ricciDivRule, metric]
+		];
+		tmp = SortCovDs[tmp];
+	];
    
-   cd = CovDOfMetric[metric];
-   
-   oldmonv = Options[ToCanonical, UseMetricOnVBundle];
-   olduppder = Options[ContractMetric, AllowUpperDerivatives];
-   SetOptions[ToCanonical, 
-    UseMetricOnVBundle -> If[FreeQ[expr, PD], All, None]];
-   SetOptions[ContractMetric, AllowUpperDerivatives -> True];
-   
-   tmp = expr // ContractMetric // ToCanonical;
-   tmp = RiemannSimplification[metric][tmp];
-   
-   (* TODO: Apply dimensional dependent identities *)
-   
-   (* Sort covariant derivatives *)
-   If[sortcd,
-    (* TODO: cache these rules one way or another *)
-    
-    riemannDivRule = RiemannDivRule[cd];
-    ricciDivRule = RicciDivRule[cd];
-    While[! DivFreeQ[tmp, GiveSymbol[Riemann, cd]], 
-     tmp = ContractMetric[tmp //. riemannDivRule]];
-    While[! DivFreeQ[tmp, GiveSymbol[Ricci, cd]], 
-     tmp = ContractMetric[tmp //. ricciDivRule]];
-    tmp = tmp // SortCovDs;
-    ];
-   
-   (* TODO: Apply dimensional dependent identities again *)
-   
-   (* TODO: Apply bianchi identities *)
-   
-   SetOptions[ToCanonical, oldmonv // First];
-   SetOptions[ContractMetric, olduppder // First];
-   TensorCollect[tmp]
-   ];
+	(* TODO: Apply dimensional dependent identities again *)
+	(* TODO: Apply bianchi identities *)
+	SetOptions[ToCanonical, oldmonv // First];
+	SetOptions[ContractMetric, olduppder // First];
+	
+	TensorCollect[tmp]
+];
 
 (**************)
 (* Variations *)
 (**************)
 
-ExpandPerturbationDer[expr_] := 
- SeparateMetric[][expr] //. 
-  subexpr : 
-    Perturbation[_Symbol?CovDQ[_][_] | LieD[_][_] | 
-      Bracket[_][_, _], _.] :> 
-   xAct`xPert`Private`ExpandPerturbationDer[subexpr]
-
-
+ExpandPerturbationDer[expr_] := SeparateMetric[][expr] //. 
+	subexpr : Perturbation[_Symbol?CovDQ[_][_] | LieD[_][_] | Bracket[_][_, _], _.] :> 
+		xAct`xPert`Private`ExpandPerturbationDer[subexpr]
 (* 
 	The xTensor VarD works fine, but there's a better method using the xPert 
 	package. This is due to Cyril Pitrou. See
@@ -1226,67 +1223,68 @@ ExpandPerturbationDer[expr_] :=
 
 Unprotect[xAct`xTensor`DefMetric];
 If[FreeQ[Options[xAct`xTensor`DefMetric], DefVariation], 
- Options[xAct`xTensor`DefMetric] ^= Append[Options[xAct`xTensor`DefMetric], DefVariation -> True];
+	Options[xAct`xTensor`DefMetric] ^= Append[Options[xAct`xTensor`DefMetric], DefVariation -> True];
 ];
 Protect[xAct`xTensor`DefMetric];
 
 Options[DefMetricVariation] ^= {PrintAs -> ""};
 
-DefMetricVariation[metric_?MetricQ, per_, param_, options___?OptionQ] := Module[{var, M, vb, a, b, print, def},
+DefMetricVariation[metric_?MetricQ, per_, param_, options___?OptionQ] := Module[
+	{var, M, vb, a, b, print, def},
+	
+	{print} = {PrintAs} /. CheckOptions[options] /. Options[DefMetricVariation];
+	M 		= ManifoldOfCovD@CovDOfMetric@metric;
+	vb 		= VBundleOfMetric[metric];
+	a 		= DummyIn[vb];
+	b 		= DummyIn[vb];
+
+	(* First we define a metric perturbation for the xPert package and \
+	   a tensor that represents an infinitessimal variation of the metric. *)
+	DefMetricPerturbation[metric, per, param];
+	Block[{$DefInfoQ = False},
+		DefTensor[var[-a, -b], M, Symmetric[{-a, -b}]];
+	];
+
+	If[print =!= "", PrintAs[per] ^= print];
    
-   {print} = {PrintAs} /. CheckOptions[options] /. Options[DefMetricVariation];
-   
-   M = First@Select[HostsOf[metric], ManifoldQ];
-   vb = VBundleOfMetric[metric];
-   a = DummyIn[vb];
-   b = DummyIn[vb];
-   
-   (* First we define a metric perturbation for the xPert package and \
-      a tensor that represents an infinitessimal variation of the metric. *)
-   DefMetricPerturbation[metric, per, param];
-   Block[{$DefInfoQ = False},
-   	DefTensor[var[-a, -b], M, Symmetric[{-a, -b}]];
-   ];
-   
-   If[print =!= "", PrintAs[per] ^= print];
-   
-   (* The stuff below is wrapped in a function because SetDelayed has \
-      the HoldAll attribute. *)
-   def[cd_, sqrt_] := (
-   
-     (* We can now define a total variation (w.r.t.to metric) as \
-        follows.Note that we're only varying the metric and hence set \
-        variations of any other tensors to zero. *)
-     VarDt[metric, expr_] := Module[{mod},
-     	mod = MapIfPlus[ContractMetric,Expand@Perturbation[expr]];
-     	ExpandPerturbation@SameDummies@mod /. {
-        	per[LI[1], inds__] :> var[inds],
-        	p:(tensor_[LI[1], ___]) /; (xTensorQ[tensor] && tensor =!= per && PerturbationOrder[p]===1) -> 0
-        }
-     ];
-     
-     (* The functional derivation is then defined as ... *)
-     VarD[metric[-c_Symbol, -d_Symbol], cd][expr_] := Module[{mod,withvar,novar},
-       mod = TensorCollect@VarDt[metric, expr];
-       novar = mod /. var[__]->0;
-       withvar = mod - novar;
-       VarD[var[-c, -d], cd][withvar]
-     ];
-     VarD[metric[+c_Symbol, +d_Symbol], cd][expr_] := Module[{mod,withvar,novar},
-       mod = TensorCollect@VarDt[metric, expr];
-       novar = mod /. var[__]->0;
-       withvar = mod - novar;
-       -VarD[var[c, d], cd][withvar]
-     ];
-       
-     (* And one handy function that varies Lagrangians, 
-     and thus takes care of the square root of the determinant. *)
-     VarL[metric[inds__]][L_] := VarL[metric[inds], cd][L];
-     VarL[metric[inds__], cd][L_] := VarD[metric[inds], cd][sqrt L]/sqrt;
-   
-   );
-   
-   def[CovDOfMetric[metric],Sqrt[SignDetOfMetric[metric] Determinant[metric][]]];
+	(* The stuff below is wrapped in a function because SetDelayed has the HoldAll attribute. *)
+	def[cd_, sqrt_] :=
+	(
+		(* We can now define a total variation (w.r.t.to metric) as \
+		   follows.Note that we're only varying the metric and hence set \
+		   variations of any other tensors to zero. *)
+		VarDt[metric, expr_] := Module[{mod},
+			mod = MapIfPlus[ContractMetric,Expand@Perturbation[expr]];
+			ExpandPerturbation@SameDummies@mod /. {
+				per[LI[1], inds__] :> var[inds],
+				p:(tensor_[LI[1], ___]) /; (xTensorQ[tensor] && tensor =!= per && PerturbationOrder[p]===1) -> 0
+			}
+		];
+
+		(* The functional derivation is then defined as ... *)
+		VarD[metric[-c_Symbol, -d_Symbol], cd][expr_] := Module[{mod,withvar,novar},
+			mod 	= TensorCollect@VarDt[metric, expr];
+			novar 	= mod /. var[__]->0;
+			withvar	= mod - novar;
+			VarD[var[-c, -d], cd][withvar]
+		];
+		VarD[metric[+c_Symbol, +d_Symbol], cd][expr_] := Module[{mod,withvar,novar},
+			mod 	= TensorCollect@VarDt[metric, expr];
+			novar 	= mod /. var[__]->0;
+			withvar = mod - novar;
+			-VarD[var[c, d], cd][withvar]
+		];
+
+		(* And finally one handy function that varies Lagrangians, 
+		   and thus takes care of the square root of the determinant. *)
+		VarL[metric[inds__]][L_] := VarL[metric[inds], cd][L];
+		VarL[metric[inds__], cd][L_] := VarD[metric[inds], cd][sqrt L]/sqrt;  
+	);
+	
+	def[
+		CovDOfMetric[metric],
+		Sqrt[SignDetOfMetric[metric] Determinant[metric][]]
+	];
 ];
 
 
@@ -1296,16 +1294,16 @@ DefMetricVariation[metric_?MetricQ, per_, param_, options___?OptionQ] := Module[
 (*************************)
 
 
-Options[ToBackground] ^= {BackgroundSolution -> {}, 
-   ExtraRules -> {}};
+Options[ToBackground] ^= {
+	BackgroundSolution -> {}, 
+	ExtraRules -> {}
+};
 
 ExpandBackground[expr_, order_Integer: 1, options___?OptionQ] := 
-  ToBackground[
-   ExpandPerturbation@PerturbBackground[expr, order, options], 
-   options];
+	ToBackground[ExpandPerturbation@PerturbBackground[expr, order, options], options];
 
 PerturbBackground[expr_, order_Integer: 1, options___?OptionQ] := 
-  ToBackground[Perturbation[expr, order], options];
+	ToBackground[Perturbation[expr, order], options];
 
 ToBackground[expr_, options___?OptionQ] := 
   Module[{bgRules, extraRules, temp, temprules, CreateSymbol, modexpr},
