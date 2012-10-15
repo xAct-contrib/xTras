@@ -714,7 +714,7 @@ RiemannSimplification[metric_?MetricQ, level_Integer][expr_] := Module[
 				FindAllOfType[subexpr, Tensor] /. t_?xTensorQ[___] :> t, 
 	     		curvatureTensors
 	     	] 
-		] :> InvarWrapper[RiemannSimplify[#2, Release@level, True, #1] &, metric][ContractMetric@subexpr]
+		] :> InvarWrapper[RiemannSimplify[#2, Release@level, CurvatureRelationsQ@cd, #1] &, metric][ContractMetric@subexpr]
 	]
 ];
 
@@ -945,18 +945,8 @@ MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; LevelSpecQ[levels
 (* TensorCollet et. al. *)
 (************************)
 
-(* ConstantExprQ simply checks if there are no tensors or parameters in the expression,
-   and returns true if there are none. *)
-ConstantExprQ[expr_] := Apply[
-	And, 
-	Map[
-		(ConstantQ[#] || ScalarFunctionQ[#]) &, 
-  		DeleteCases[
-  			Cases[expr, _?AtomQ, Infinity, Heads -> True], 
-   			Times | Plus | List
-  		]
-   	]
-];
+ConstantExprQ[(Plus | Times | _?ScalarFunctionQ)[args__]] := And @@ Map[ConstantExprQ, List@args];
+ConstantExprQ[x_] := ConstantQ[x];
 
 Block[{$DefInfoQ=False},
 	DefInertHead[
