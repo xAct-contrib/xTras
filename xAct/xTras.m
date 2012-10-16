@@ -48,7 +48,12 @@ License for details."];
 AllContractions::usage =
 	"AllContractions[metric,indices][expr] gives all possible contractions of \
 expr (which can also be a list of expressions with the same free indices) \
-with metrics with the given indices.";
+with metrics with the given indices.\
+\nBoth metric and indices are optional. If indices is omitted, all free indices \
+are contracted. When the number of free indices if odd, one extra index is contracted \
+over, such that one free index ends up in all possible positions. \
+If metric is omitted, the first metric of the manifold of the \
+tensors of the expression is used.";
 
 
 MetricPermutations::usage =
@@ -1327,6 +1332,20 @@ PerturbFlat[expr_, order_Integer: 1, options___?OptionQ] :=
 ToFlat[expr_, order_Integer: 1, options___?OptionQ] := 
 	ToBackground[expr, BackgroundSolution -> FlatRules[expr], options];
 
+FindAllMetrics[expr_] := Module[{tensors, manifolds, vbundles,metrics},
+	tensors 	= DeleteDuplicates[FindAllOfType[expr, Tensor] /. t_[___] /; xTensorQ[t] :> t];
+	manifolds 	= Flatten[Select[HostsOf[#], ManifoldQ] & /@ tensors] // DeleteDuplicates;
+	vbundles 	= Union[
+		Flatten[Select[HostsOf[#], VBundleQ] & /@ tensors], 
+		Flatten[TangentBundleOfManifold /@ manifolds]
+	];
+	metrics = Union[
+		Flatten[MetricsOfVBundle /@ vbundles], 
+		Flatten[Select[MasterOf /@ tensors, MetricQ]]
+	]
+];
+
+
 FlatRules[expr_] := Module[{tensors, manifolds, vbundles, metrics, cds},
 	(* First determine what all the covariant derivatives of the expression are. *)
 	tensors 	= DeleteDuplicates[FindAllOfType[expr, Tensor] /. t_[___] /; xTensorQ[t] :> t];
@@ -1343,6 +1362,8 @@ FlatRules[expr_] := Module[{tensors, manifolds, vbundles, metrics, cds},
 	(* Create rules that set the curvature tensors of the CDs to zero. *)
 	Flatten[FlatRules /@ cds]
 ];
+
+FlatRules[expr_] := Flatten[ FlatRules[CovDOfMetric[#]]& /@ FindAllMetrics[expr] ];
 
 FlatRules[CD_?CovDQ] := Module[{metric 	= MetricOfCovD[CD],	a,b,c},
 	{a,b,c}	= Table[DummyIn@First@VBundlesOfCovD@CD,{3}];
@@ -1569,14 +1590,35 @@ DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], me
 ] /; AIndexQ[ind, VBundleOfMetric@metric];
 
 
-(***********************)
-(* Metric permutations *)
-(***********************)
+(**************************************)
+(* Metric contractions & permutations *)
+(**************************************)
 
-AllContractions[metric_?MetricQ, indexList_][expr_] /; FreeQ[expr, List] := 
+AllContractions[][expr_] := AllContractions[First@FindAllMetrics@expr][expr];
+
+AllContractions[metric_?MetricQ][expr_] := 
+	AllContractions[metric][{expr}];
+
+AllContractions[metric_?MetricQ][expr_List] := Module[
+	{frees,vb,newindex,complement},
+	
+	vb 		= VBundleOfMetric[metric];
+	frees	= List@@IndicesOf[Free][First@expr];
+	If[Mod[Length@frees,2]=!=0,
+		complement 	= Complement[Flatten[IndicesOfVBundle@vb],UpIndex/@frees];
+		newindex 	= If[complement === {},
+			NewIndexIn[vb],
+			First@complement
+		];
+		frees = Append[frees,newindex];
+	];
+	AllContractions[metric,ChangeIndex/@frees][ReplaceDummies@expr]
+];
+
+AllContractions[metric_?MetricQ, indexList:(IndexList|List)[___]][expr_] := 
 	AllContractions[metric, indexList][{expr}];
 
-AllContractions[metric_?MetricQ, indexList_][exprs_List] := Module[{metrics, dummies},
+AllContractions[metric_?MetricQ, indexList:(IndexList|List)[___]][exprs_List] := Module[{metrics, dummies},
 	metrics = MetricPermutations[metric,indexList];
 	dummies = Intersection[
 		UpIndex /@ (IndexList@@indexList), 

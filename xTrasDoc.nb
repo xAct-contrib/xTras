@@ -39,7 +39,7 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["xAct`xTras`$Version", "Print", "PrintUsage",
- CellTags->"Info3559379229-7728067"],
+ CellTags->"Info3559405569-6515348"],
 
 Cell[BoxData[
  InterpretationBox[GridBox[{
@@ -61,7 +61,7 @@ Cell[BoxData[
      "RowsIndexed" -> {}}],
   Definition[xAct`xTras`$Version],
   Editable->False]], "Print",
- CellTags->"Info3559379229-7728067"]
+ CellTags->"Info3559405569-6515348"]
 }, Open  ]]
 }, Open  ]],
 
@@ -11602,9 +11602,7 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["\<\
-Symmetric space rules & background perturbations\
-\>", "Subsection"],
+Cell["Symmetric space rules & background perturbations", "Subsection"],
 
 Cell["\<\
 SymmetricSpaceRules give rule for a symmetric space background:\
@@ -13519,9 +13517,7 @@ Cell[BoxData[
       Editable->False]}]}]}], "}"}]], "Output"]
 }, Open  ]],
 
-Cell["\<\
-Below we test some of the rule for symmetric spaces.\
-\>", "Text"],
+Cell["Below we test some of the rule for symmetric spaces.", "Text"],
 
 Cell[CellGroupData[{
 
@@ -23908,12 +23904,14 @@ Cell[BoxData[
 Cell[BoxData[
  StyleBox["\<\"AllContractions[metric,indices][expr] gives all possible \
 contractions of expr (which can also be a list of expressions with the same \
-free indices) with metrics with the given indices.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3558422039-6401971"]
+free indices) with metrics with the given indices.\\nBoth metric and indices \
+are optional. If indices is omitted, all free indices are contracted. When \
+the number of free indices if odd, one extra index is contracted over, such \
+that one free index ends up in all possible positions. If metric is omitted, \
+the first metric of the manifold of the tensors of the expression is \
+used.\"\>", "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3559405575-6515348"]
 }, Open  ]],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{"DefTensor", "[", 
@@ -23929,15 +23927,198 @@ Cell[BoxData[{
      RowBox[{"-", "a"}], ",", 
      RowBox[{"-", "b"}]}], "]"}], ",", "M"}], "]"}]}], "Input"],
 
+Cell["No free indices.", "Text"],
+
+Cell[CellGroupData[{
+
 Cell[BoxData[
  RowBox[{
-  StyleBox[
-   RowBox[{"ValidateSymbol", "::", "used"}], "MessageName"], ":", 
-  " ", "\<\"Symbol \[NoBreak]\\!\\(\\\"T\\\"\\)\[NoBreak] is already used \
-\[NoBreak]\\!\\(\\\"as a tensor\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG"]
-}, Open  ]],
+  RowBox[{"AllContractions", "[", "]"}], "[", 
+  RowBox[{
+   RowBox[{"T", "[", 
+    RowBox[{
+     RowBox[{"-", "c"}], ",", 
+     RowBox[{"-", "d"}]}], "]"}], 
+   RowBox[{"S", "[", 
+    RowBox[{
+     RowBox[{"-", "e"}], ",", 
+     RowBox[{"-", "f"}]}], "]"}]}], "]"}]], "Input"],
 
-Cell["No free indices.", "Text"],
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"S", 
+         StyleBox[GridBox[{
+            {"c", " "},
+            {" ", "c"}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`S[$CellContext`c, -$CellContext`c],
+     Editable->False], " ", 
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"T", 
+         StyleBox[GridBox[{
+            {"d", " "},
+            {" ", "d"}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`T[$CellContext`d, -$CellContext`d],
+     Editable->False]}], ",", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"S", 
+         StyleBox[GridBox[{
+            {"c", "d"},
+            {" ", " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`S[$CellContext`c, $CellContext`d],
+     Editable->False], " ", 
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"T", 
+         StyleBox[GridBox[{
+            {" ", " "},
+            {"c", "d"}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`T[-$CellContext`c, -$CellContext`d],
+     Editable->False]}], ",", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"S", 
+         StyleBox[GridBox[{
+            {"c", "d"},
+            {" ", " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`S[$CellContext`c, $CellContext`d],
+     Editable->False], " ", 
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"T", 
+         StyleBox[GridBox[{
+            {" ", " "},
+            {"d", "c"}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`T[-$CellContext`d, -$CellContext`c],
+     Editable->False]}]}], "}"}]], "Output"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -25810,10 +25991,7 @@ Cell[BoxData[{
       RowBox[{"-", "e"}], ",", 
       RowBox[{"-", "f"}]}], "]"}]}], "]"}]}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"AllContractions", "[", 
-   RowBox[{"metric", ",", 
-    RowBox[{"IndexRange", "[", 
-     RowBox[{"a", ",", "f"}], "]"}]}], "]"}], "[", 
+  RowBox[{"AllContractions", "[", "]"}], "[", 
   RowBox[{"List", "@@", "%"}], "]"}]}], "Input"],
 
 Cell[BoxData[
@@ -28183,7 +28361,8 @@ Cell[BoxData[
          GridBoxSpacings->{"Columns" -> {
              Offset[0.27999999999999997`], {
               Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> 
+           {
              Offset[0.2], {
               Offset[0.4]}, 
              Offset[0.2]}, "RowsIndexed" -> {}}]}],
