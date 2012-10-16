@@ -104,10 +104,6 @@ ToCanonical etc, and works on more general expressions. \
 \nNote that it only simplifies expression consisting of Riccis and Riemanns, \
 and not of other curvature tensors.";
 
-CurvatureTensors::usage = 
-  "CurvatureTensors[CD] gives the list of all the curvature tensors \
-of CD.";
-
 IncludeDuals::usage = 
   "Option for SingleInvariants, ProductInvariants, RangeInvariants, \
 and InvarLagrangian whether to include dual invariants or not.";
@@ -292,9 +288,9 @@ ToFlat::usage =
 unperturbed curvature tensors to zero, etc.";
 
 FlatRules::usage = 
-  "FlatRules[expr] produces rules for a covariant derivative CD such \
-that, when applied to an expression, the expression is effectively on \
-a flat background.";
+  "FlatRules[expr] produces produces replacement rules for the \
+curvature tensors of CD on a symmetric space of zero curvature. \
+Additionally, partial derivatives of metric are also zero.";
 
 BackgroundSolution::usage = 
   "BackgroundSolution is an option for ToBackground. It should be (a list of) replacement rule(s).";
@@ -307,7 +303,7 @@ curvature tensors of CD on a symmetric space of constant curvature K.";
 
 EinsteinSpaceRules::usage = 
   "EinsteinSpaceRules[CD,K] produces replacement rules for the \
-curvature tensors of CD (except the Riemann) on an Einstein space of \
+curvature tensors of CD (except the Riemann and Weyl) on an Einstein space of \
 curvature K.";
 
 
@@ -718,9 +714,6 @@ RiemannSimplification[metric_?MetricQ, level_Integer][expr_] := Module[
 	]
 ];
 
-
-CurvatureTensors[cd_?CovDQ] := Flatten[{MetricOfCovD[cd], ServantsOf[cd]}] /. Null -> Sequence[];
-CurvatureTensors[] := Flatten[CurvatureTensors /@ $CovDs];
 
 Options[SingleInvariants] ^= {IncludeDuals -> False};
 
@@ -1305,175 +1298,130 @@ ExpandBackground[expr_, order_Integer: 1, options___?OptionQ] :=
 PerturbBackground[expr_, order_Integer: 1, options___?OptionQ] := 
 	ToBackground[Perturbation[expr, order], options];
 
-ToBackground[expr_, options___?OptionQ] := 
-  Module[{bgRules, extraRules, temp, temprules, CreateSymbol, modexpr},
-   {bgRules, 
-     extraRules} = {BackgroundSolution, ExtraRules} /. 
-      CheckOptions[options] /. Options[ToBackground];
-   
-   (* This stores the unexpanded perturbations in the expression. *)
- 
-     temprules = {};
-   
-   CreateSymbol[p_] := Module[{symbol},
-     symbol = Unique[temp];
-     AppendTo[temprules, symbol -> p];
-     symbol
-     ];
-   
-   (* Replace the unexpanded perturbations in the expression, 
-   such that we won't set unexpanded perturbation of curvature \
-tensors to background values later on. *)
-   
-   modexpr = expr /. p : Perturbation[___] :> CreateSymbol[p];
-   (* Set curvature tensors to zero and apply optional extra rules. *)
+ToBackground[expr_, options___?OptionQ] := Module[
+	{bgRules, extraRules, temp, temprules, CreateSymbol, modexpr},
 
-      modexpr = modexpr /. bgRules /. extraRules;
-   (* Re-insert the unexpanded pertubations. *)
-   
-   modexpr = modexpr /. temprules 
-   ];
+	{bgRules, extraRules} = {BackgroundSolution, ExtraRules} /. CheckOptions[options] /. Options[ToBackground];
+	(* Replace the unexpanded perturbations in the expression, 
+	   such that we won't set unexpanded perturbation of curvature \
+	   tensors to background values later on. *)
+	temprules = {};
+	CreateSymbol[p_] := Module[{symbol},
+		symbol = Unique[temp];
+		AppendTo[temprules, symbol -> p];
+		symbol
+	];
+	modexpr = expr /. p : Perturbation[___] :> CreateSymbol[p];
+	(* Set curvature tensors to zero and apply optional extra rules. *)
+	modexpr = modexpr /. bgRules /. extraRules;
+	(* Re-insert the unexpanded pertubations. *)
+	modexpr = modexpr /. temprules 
+];
 
 ExpandFlat[expr_, order_Integer: 1, options___?OptionQ] := 
-  ExpandBackground[expr, order, BackgroundSolution -> FlatRules[expr],
-    options];
+	ExpandBackground[expr, order, BackgroundSolution -> FlatRules[expr], options];
 
 PerturbFlat[expr_, order_Integer: 1, options___?OptionQ] := 
-  PerturbBackground[expr, order, 
-   BackgroundSolution -> FlatRules[expr], options];
+	PerturbBackground[expr, order, BackgroundSolution -> FlatRules[expr], options];
 
 ToFlat[expr_, order_Integer: 1, options___?OptionQ] := 
-  ToBackground[expr, BackgroundSolution -> FlatRules[expr], options];
+	ToBackground[expr, BackgroundSolution -> FlatRules[expr], options];
 
-FlatRules[expr_] := 
-  Module[{tensors, manifolds, vbundles, metrics, cds},
-   (* First determine what all the covariant derivatives of the \
-expression are. *)
-   
-   tensors = 
-    DeleteDuplicates[
-     FindAllOfType[expr, Tensor] /. t_[___] /; xTensorQ[t] :> t];
-   manifolds = 
-    Flatten[Select[HostsOf[#], ManifoldQ] & /@ tensors] // 
-     DeleteDuplicates;
-   vbundles = 
-    Union[Flatten[Select[HostsOf[#], VBundleQ] & /@ tensors], 
-     Flatten[TangentBundleOfManifold /@ manifolds]];
-   metrics = 
-    Union[Flatten[MetricsOfVBundle /@ vbundles], 
-     Flatten[Select[MasterOf /@ tensors, MetricQ]]];
-   cds = CovDOfMetric /@ metrics;
-   (* Create rules that set the curvature tensors of the CDs to zero. \
-*)
-   Flatten[FlatRules /@ cds]
-   ];
+FlatRules[expr_] := Module[{tensors, manifolds, vbundles, metrics, cds},
+	(* First determine what all the covariant derivatives of the expression are. *)
+	tensors 	= DeleteDuplicates[FindAllOfType[expr, Tensor] /. t_[___] /; xTensorQ[t] :> t];
+	manifolds 	= Flatten[Select[HostsOf[#], ManifoldQ] & /@ tensors] // DeleteDuplicates;
+	vbundles 	= Union[
+		Flatten[Select[HostsOf[#], VBundleQ] & /@ tensors], 
+		Flatten[TangentBundleOfManifold /@ manifolds]
+	];
+	metrics = Union[
+		Flatten[MetricsOfVBundle /@ vbundles], 
+		Flatten[Select[MasterOf /@ tensors, MetricQ]]
+	];
+	cds = CovDOfMetric /@ metrics;
+	(* Create rules that set the curvature tensors of the CDs to zero. *)
+	Flatten[FlatRules /@ cds]
+];
 
-FlatRules[CD_?CovDQ] := Module[{metric},
-  metric = MetricOfCovD[CD];
-  {
-   GiveSymbol[Christoffel, CD][__] -> 0,
-   GiveSymbol[Riemann, CD][__] -> 0,
-   GiveSymbol[Ricci, CD][__] -> 0,
-   GiveSymbol[RicciScalar, CD][] -> 0,
-   GiveSymbol[Einstein, CD][__] -> 0,
-   CD -> PD,
-   PD[_][metric[__]] -> 0,
-   GiveSymbol[Det, metric][] -> SignDetOfMetric[metric]
-   }
-  ]
-
-SymmetricSpaceRules[CD_?CovDQ, K_?ConstantExprQ] := 
-  Module[{MR, D, vb, metric, a, b, c, d, rules,L,LL},
-   MR[lhs_, rhs_] := MakeRule[Evaluate[{lhs, rhs}], MetricOn -> All];
-   
-   D = DimOfManifold[ManifoldOfCovD[CD]];
-   vb = First@VBundlesOfCovD[CD];
-   metric = MetricOfCovD[CD];
-   a = DummyIn[vb];
-   b = DummyIn[vb];
-   d = DummyIn[vb];
-   c = DummyIn[vb];
-   
-   rules = Join[
-     MR[GiveSymbol[Riemann, CD][a, b, c, d], 
-      K (metric[a, c] metric[b, d] - 
-         metric[a, d] metric[b, c])],
-     MR[GiveSymbol[Ricci, CD][a, b], K (D-1) metric[a, b]],
-     MR[GiveSymbol[RicciScalar, CD][], D*(D-1) K ],
-     MR[GiveSymbol[TFRicci, CD][a,b], 0],
-     If[xTensorQ@GiveSymbol[Schouten, CD],
-     	MR[GiveSymbol[Schouten, CD][a,b], 1/2 K metric[a,b]],
-     	{}
-     ],
-     If[xTensorQ@GiveSymbol[SchoutenCC, CD],
-     	 MR[GiveSymbol[SchoutenCC,CD][LI[L],a,b], 1/2 (K-LL)metric[a,b]]/.L->L_/.LL->L,
-     	{}
-     ]
-   ];
-   If[D =!= 2, 
-    rules = Join[rules, 
-      MR[GiveSymbol[Einstein, CD][a, b], K (D-1) (1 - D/2) metric[a, b]],
-      If[xTensorQ@GiveSymbol[EinsteinCC, CD],
-     	MR[GiveSymbol[EinsteinCC,CD][LI[L],a,b], 1/2 (D-2)(D-1)(LL-K)metric[a,b]]/.L->L_/.LL->L,
-     	{}
-      ]      
-    ];
-   ];
-   If[D =!= 3 && D =!= 2, 
-    rules = Join[rules, MR[GiveSymbol[Weyl, CD][a, b, c, d], 0]]];
-   rules
-   ];
-
-(* TODO: remove duplicate code *)
-EinsteinSpaceRules[CD_?CovDQ, K_?ConstantExprQ] := 
-  Module[{MR, D, vb, metric, a, b, c, d, rules,L,LL},
-   MR[lhs_, rhs_] := MakeRule[Evaluate[{lhs, rhs}], MetricOn -> All];
-   
-   D = DimOfManifold[ManifoldOfCovD[CD]];
-   vb = First@VBundlesOfCovD[CD];
-   metric = MetricOfCovD[CD];
-   a = DummyIn[vb];
-   b = DummyIn[vb];
-   d = DummyIn[vb];
-   c = DummyIn[vb];
-   
-   rules = Join[
-     MR[GiveSymbol[Ricci, CD][a, b], K (D-1) metric[a, b]],
-     MR[GiveSymbol[RicciScalar, CD][], D*(D-1)  K ],
-     MR[GiveSymbol[TFRicci, CD][a,b], 0],
-     If[xTensorQ@GiveSymbol[Schouten, CD],
-     	MR[GiveSymbol[Schouten, CD][a,b], 1/2 K metric[a,b]],
-     	{}
-     ],
-     If[xTensorQ@GiveSymbol[SchoutenCC, CD],
-     	 MR[GiveSymbol[SchoutenCC,CD][LI[L],a,b], 1/2 (K-LL)metric[a,b]]/.L->L_/.LL->L,
-     	{}
-     ]
-   ];
-   If[D =!= 2, 
-    rules = Join[rules, 
-      MR[GiveSymbol[Einstein, CD][a, b], K (D-1) (1 - D/2) metric[a, b]],
-      If[xTensorQ@GiveSymbol[EinsteinCC, CD],
-     	MR[GiveSymbol[EinsteinCC,CD][LI[L],a,b], 1/2 (D-2)(D-1)(LL-K)metric[a,b]]/.L->L_/.LL->L,
-     	{}
-      ]      
-    ];
-   ];
-   If[D =!= 3 && D =!= 2, 
-    rules = Join[rules, 
-      MR[GiveSymbol[Weyl, CD][a, b, c, d], 
-       GiveSymbol[Riemann, CD][a, b, c, d] - 
-        K (metric[a, c] metric[b, d] - 
-           metric[a, d] metric[b, c])]
-      ]];
-   rules
-   ];
+FlatRules[CD_?CovDQ] := Module[{metric 	= MetricOfCovD[CD],	a,b,c},
+	{a,b,c}	= Table[DummyIn@First@VBundlesOfCovD@CD,{3}];
+	Join[
+		SymmetricSpaceRules[CD, 0],
+		Block[{Print}, MakeRule[{PD[a]@metric[b, c], 0}, MetricOn -> All]]
+	]
+];
 
 
+SymmetricSpaceRules[CD_?CovDQ, K_?ConstantExprQ] := Module[
+	{
+		a,b,c,d, pa,pb,pc,pd, L, MR, 
+		D		= DimOfManifold[ManifoldOfCovD[CD]],
+		metric	= MetricOfCovD[CD],
+		vb 		= First@VBundlesOfCovD[CD]
+	},
+	{a,b,c,d}		= Table[DummyIn[vb],{4}];
+	{pa,pb,pc,pd}	= PatternTest[Pattern[#,Blank[]],GiveSymbol[vb,"`pmQ"]]& /@ {a,b,c,d};
+	
+	(* The reason for this funny construction is that we don't want to evaluate
+	   curvature tensors with brackets, because some might be zero 
+	   (e.g. the Weyl tensor in three dimension) and some might have other
+	   downvalues associated to them by the user.
+	   We want to return rules of the form
+	   
+	       HoldPattern[ RicciCD[a_?TangentM`pmQ,b_?TangentM`pmQ] ] :> RHS
+	  
+	  The problem is to get the tensor heads, for which we need to do some evaluating. 
+	  That's why we wrap stuff in the MR function, because its arguments
+	  will get evaluated but the complete thing in HoldPattern[] won't. *) 
+	MR[head_,inds___][rhs_] := RuleDelayed[HoldPattern[head[inds]], rhs];
 
-(*************************)
-(* Young projects et al. *)
-(*************************)
+	List[
+		MR
+			[GiveSymbol[Riemann, CD], pa, pb, pc, pd]
+			[K (metric[a, c] metric[b, d] - metric[a, d] metric[b, c])]
+		,
+		MR
+			[GiveSymbol[Weyl, CD], pa, pb, pc, pd]
+			[0],
+		MR
+			[GiveSymbol[Ricci, CD], pa, pb]
+			[$RicciSign K (D-1) metric[a, b]]
+		,
+		MR
+			[GiveSymbol[TFRicci, CD],pa,pb] 
+			[0]
+		,
+		MR
+			[GiveSymbol[RicciScalar, CD]] 
+			[$RicciSign D*(D-1) K ] 
+		,
+		MR
+			[GiveSymbol[Schouten, CD],pa,pb] 
+			[$RicciSign 1/2 K metric[a,b] ]
+		,
+		MR
+			[GiveSymbol[SchoutenCC,CD],LI[L_],pa,pb]
+			[1/2 ($RicciSign*K - L)metric[a,b] ]
+		,
+		MR
+			[GiveSymbol[Einstein, CD], pa, pb] 
+			[$RicciSign K (D-1) (1 - D/2) metric[a, b] ]
+		,
+		MR
+			[GiveSymbol[EinsteinCC,CD], LI[L_], pa, pb] 
+			[1/2 (D-2)(D-1)(L-$RicciSign*K)metric[a,b]]
+	]
+];
+
+EinsteinSpaceRules[CD_?CovDQ, K_?ConstantExprQ] :=
+	(* We just remove the Riemmann and Weyl rules, which are the first two. *)
+	Part[SymmetricSpaceRules[CD,K], Span[3, -1]];
+
+
+(***************************)
+(* Young projectors et al. *)
+(***************************)
 
 (* 
 	I got the idea of using Young projectors from Guillaume Faye and Kaspar Peeters.
