@@ -195,7 +195,8 @@ with lots of different constants.";
 
 MakeEquationRule::usage = 
   "MakeEquationRule[{equation,pattern,cond}] returns rules for \
-tensors matching pattern in the given equation.";
+tensors matching pattern in the given equation.\
+\n\nNote that is extremely similar to IndexSolve.";
 
 ToConstantSymbolEquations::usage =
 	"ToConstantSymbolEquations[eq] takes the tensorial equation eq \
