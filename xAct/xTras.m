@@ -1428,55 +1428,47 @@ EinsteinSpaceRules[CD_?CovDQ, K_?ConstantExprQ] :=
  	See http://groups.google.com/group/xact/browse_thread/thread/d19247526163ed62/986a5b04d4fa19f4 .
 *)
 
-YoungTableauQ[tableau:{{___Integer}...}|{{(-_Symbol|_Symbol)...}...}] := 
- Reverse[Length /@ tableau] === Sort[Length /@ tableau] && 
-  If[Length@tableau > 1, Intersection @@ tableau === {}, True]
-YoungTableauQ[_] := False
+YoungTableauQ[tableau:{{___Integer}...}|{{(-_Symbol|_Symbol)...}...}] := And[
+	Reverse[Length /@ tableau] === Sort[Length /@ tableau],
+	If[Length@tableau > 1, 
+		Intersection @@ tableau === {}, 
+		True
+	]
+];
+YoungTableauQ[_] := False;
 
+ExprYoungQ[expr_,tableau_] := YoungTableauQ[tableau] && (Sort@IndicesOf[Free][expr] === IndexList @@ Sort@Flatten[tableau]);
+TnsrYoungQ[tnsr_,tableau_] := YoungTableauQ[tableau] && (Total[Length /@ tableau] === Length[SlotsOfTensor@tnsr]);
 
-YoungSymmetrize[expr_, tableau_?YoungTableauQ] /; 
-  Sort@IndicesOf[Free][expr] === IndexList @@ Sort@Flatten[tableau] :=
-  Module[{transpose, sym},
-  transpose = Transpose@PadRight@tableau /. 0 -> Sequence[];
-  sym   = Fold[ToCanonical[Symmetrize[#1, #2]] &, expr, tableau];
-  Fold[ToCanonical[Antisymmetrize[#1, #2]] &, sym, transpose]
-  ]
+YoungSymmetrize[expr_, tableau_] := Module[{transpose, sym},
+	transpose 	= Transpose@PadRight@tableau /. 0 -> Sequence[];
+	sym 		= Fold[ToCanonical[Symmetrize[#1, #2]] &, expr, tableau];
+	Fold[ToCanonical[Antisymmetrize[#1, #2]] &, sym, transpose]
+] /; ExprYoungQ[expr,tableau];
 
-YoungSymmetrize[tensor_?xTensorQ, 
-    tableau : {{___Integer} ...}] /; (YoungTableauQ[
-      tableau] && (Total[Length /@ tableau] === 
-       Length[SlotsOfTensor@tensor])) := Module[{indices},
-   indices = DummyIn /@ SlotsOfTensor@tensor;
-   YoungSymmetrize[tensor @@ indices, indices[[#]] & /@ tableau]
-   ];
+YoungSymmetrize[tensor_?xTensorQ, tableau : {{___Integer} ...}] := Module[{indices},
+	indices = DummyIn /@ SlotsOfTensor@tensor;
+	YoungSymmetrize[tensor @@ indices, indices[[#]] & /@ tableau]
+] /; TnsrYoungQ[tensor,tableau];
 
-YoungSymmetrize[tensor_?xTensorQ] := 
- Total[YoungSymmetrize[tensor, #] & /@ 
-   SymmetryTableauxOfTensor[tensor]]
+YoungSymmetrize[tensor_?xTensorQ] := Total[YoungSymmetrize[tensor, #] & /@ SymmetryTableauxOfTensor[tensor]];
 
-YoungProject[expr_, tableau_?YoungTableauQ] /; 
-   Sort@IndicesOf[Free][expr] === IndexList @@ Sort@Flatten[tableau] :=
-   Module[{sym1, sym2, n, result},
-   Block[{$DefInfoQ = False, $UndefInfoQ = False},
-   (* TODO: compute the overall factor n from group-theoretical arguments instead of symmetrizing twice *)
-   DefConstantSymbol[n];
-   sym1 = YoungSymmetrize[expr, tableau];
-   sym2 = YoungSymmetrize[sym1, tableau];
-   result = 
-    n sym1 /. First@SolveConstants[sym1 == n sym2, n] //
-      ToCanonical;
-   UndefConstantSymbol[n];
-   ];
-   result
-   ];
+YoungProject[expr_, tableau_] := Module[{sym1, sym2, n, result},
+	sym1 = YoungSymmetrize[expr, tableau];
+	sym2 = YoungSymmetrize[sym1, tableau];
+	Block[{$DefInfoQ = False, $UndefInfoQ = False},
+		(* TODO: compute the overall factor n from group-theoretical arguments instead of symmetrizing twice *)
+		DefConstantSymbol[n];
+		result = n sym1 /. First@SolveConstants[sym1 == n sym2, n] // ToCanonical;
+		UndefConstantSymbol[n];
+	];
+	result
+] /; ExprYoungQ[expr,tableau];
 
-YoungProject[tensor_?xTensorQ, 
-    tableau : {{___Integer} ...}] /; (YoungTableauQ[
-      tableau] && (Total[Length /@ tableau] === 
-       Length[SlotsOfTensor@tensor])) := Module[{indices},
+YoungProject[tensor_?xTensorQ, tableau : {{___Integer} ...}] := Module[{indices},
    indices = DummyIn /@ SlotsOfTensor@tensor;
    YoungProject[tensor @@ indices, indices[[#]] & /@ tableau]
-   ];
+] /; TnsrYoungQ[tensor,tableau];
 
 
 RiemannYoungRule[cd_?CovDQ] := RiemannYoungRule[cd,{0}];
@@ -1487,15 +1479,14 @@ RiemannYoungRule[cd_?CovDQ, numcds_Integer] /; numcds >= 0 :=
 RiemannYoungRule[cd_?CovDQ, {min_Integer,max_Integer}] /; max >= min && min >=0 :=
 	Flatten[RiemannYoungRule[cd,{#}]&/@Range[min,max]];
 
-RiemannYoungRule[cd_?CovDQ, {numcds_Integer}] /; numcds >= 0 := 
- Module[{riemann, indrie, indcds, tableau, expr},
-  riemann = GiveSymbol[Riemann, cd];
-  indrie = DummyIn /@ SlotsOfTensor@riemann;
-  indcds = -Table[DummyIn@First@VBundlesOfCovD[cd], {numcds}];
-  tableau = {Join[indrie[[{1, 3}]], indcds], indrie[[{2, 4}]]};
-  expr = Fold[cd[#2][#1] &, riemann @@ indrie, indcds];
-  MakeRule[Evaluate[{expr, YoungProject[expr, tableau]}]]
-  ]
+RiemannYoungRule[cd_?CovDQ, {numcds_Integer}] /; numcds >= 0 := Module[{riemann, indrie, indcds, tableau, expr},
+	riemann	= GiveSymbol[Riemann, cd];
+	indrie	= DummyIn /@ SlotsOfTensor@riemann;
+	indcds 	= -Table[DummyIn@First@VBundlesOfCovD[cd], {numcds}];
+	tableau = {Join[indrie[[{1, 3}]], indcds], indrie[[{2, 4}]]};
+	expr 	= Fold[cd[#2][#1] &, riemann @@ indrie, indcds];
+	MakeRule[Evaluate[{expr, YoungProject[expr, tableau]}]]
+];
 
 
 
@@ -1503,20 +1494,18 @@ RiemannYoungRule[cd_?CovDQ, {numcds_Integer}] /; numcds >= 0 :=
 (* Other stuff  *)
 (****************)
 
-SortedCovDsQ[expr_,cd_?CovDQ] := 
- FreeQ[expr, cd[b_]@cd[a_]@_ /; DisorderedPairQ[a, b]];
+SortedCovDsQ[expr_,cd_?CovDQ] := FreeQ[expr, cd[b_]@cd[a_]@_ /; DisorderedPairQ[a, b]];
 
 SortedCovDsQ[expr_] := And @@ ( SortedCovDsQ[expr, #]& /@ DeleteCases[$CovDs,PD] );
 
 
-DerivativeOrder[expr_] := 
- Total[DerivativeOrder[expr, #] & /@ $CovDs];
+DerivativeOrder[expr_] := Total[DerivativeOrder[expr, #] & /@ $CovDs];
 
-DerivativeOrder[expr_,cd_?CovDQ] /; FreeQ[expr, Plus | Power] :=
-Module[{ordertwo,christoffel},
-	ordertwo 		= GiveSymbol[#,cd]& /@ {Riemann,Ricci,RicciScalar,Einstein,Weyl,Schouten,EinsteinCC,SchoutenCC};
-	christoffel 	= GiveSymbol[Christoffel,cd];
-	
+DerivativeOrder[expr_,cd_?CovDQ] /; FreeQ[expr, Plus | Power] := Module[
+	{
+		ordertwo 	= GiveSymbol[#,cd]& /@ {Riemann,Ricci,RicciScalar,Einstein,Weyl,Schouten,EinsteinCC,SchoutenCC},
+		christoffel = GiveSymbol[Christoffel,cd]
+	},	
  	2 Count[expr, (Alternatives@@ordertwo)[___], {0, Infinity}, Heads -> True] 
  		+ Count[expr, (cd[_][_])|(christoffel[___]), {0, Infinity}, Heads -> True]
 ];
@@ -1539,9 +1528,9 @@ KillingVectorOf[expr_] := None
 
 Unprotect[xAct`xTensor`DefTensor];
 If[FreeQ[Options[xAct`xTensor`DefTensor], KillingVectorOf], 
- Options[xAct`xTensor`DefTensor] ^= Append[Options[xAct`xTensor`DefTensor], KillingVectorOf -> None];
- , 
- Null;
+	Options[xAct`xTensor`DefTensor] ^= Append[Options[xAct`xTensor`DefTensor], KillingVectorOf -> None];
+, 
+	Null;
 ];
 Protect[xAct`xTensor`DefTensor];
 
@@ -1550,82 +1539,81 @@ xTension["xTras`", DefTensor, "End"] := xTrasDefTensor;
 
 
 xTrasDefTensor[head_[indices___], dependencies_, sym_, options___] :=
-    DefKillingVector[head[indices], KillingVectorOf /. CheckOptions[options] /. Options[DefTensor]];
+	DefKillingVector[head[indices], KillingVectorOf /. CheckOptions[options] /. Options[DefTensor]];
 
 (* The pattern only matches if the index belongs to the correct tangent bundle. *)
-DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], metric_?MetricQ] /; AIndexQ[ind, VBundleOfMetric@metric] :=
-  Module[{vb, cd,riemann,l1patt,l2patt},
-  	
-  	If[$DefInfoQ,Print["** Defining " <> PrintAs@xi <> " to be a Killing vector of the metric " <> PrintAs@metric <> "."]];
-   
-   (* Set up some variables. *)
-   vb = VBundleOfMetric@metric;
-   cd = CovDOfMetric[metric];
-   riemann = GiveSymbol[Riemann, cd];
-   l1patt = PatternSequence[L1]/.LI[___]->LI[___];
-   l2patt = PatternSequence[L2]/.LI[___]->LI[___];
-   
-   (* Set the symmetry. Thanks to JMM for pointing out of this works. *)
-   SymmetryOf[cd[x_][xi[l1:l1patt,y_,l2:l2patt]]] ^:= Symmetry[2, cd[slot[2]][xi[l1,slot[1],l2]], {slot[1] -> y, slot[2] -> x}, Antisymmetric[{1, 2}]]; 
-    
-   (* Attach the rules and the rest. *)
-   cd[c_]@cd[b_]@xi[l1:l1patt,a_,l2:l2patt] := Module[{d = DummyIn@vb}, riemann[a,b,c,d] xi[l1,-d,l2]];
-   Unprotect[xAct`xTensor`LieD];
-   LieD[xi[l1patt,_,l2patt]][metric[__]] = 0;
-   LieD[xi[l1patt,_,l2patt],_][metric[__]] = 0;
-   Protect[xAct`xTensor`LieD];
-   
-   KillingVectorOf[xi] ^= metric;
-   KillingVectorQ[xi] ^= True;
-];
+DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], metric_?MetricQ] := Module[
+	{vb, cd,riemann,l1patt,l2patt},
+
+	If[$DefInfoQ,Print["** Defining " <> PrintAs@xi <> " to be a Killing vector of the metric " <> PrintAs@metric <> "."]];
+
+	(* Set up some variables. *)
+	vb 		= VBundleOfMetric@metric;
+	cd 		= CovDOfMetric[metric];
+	riemann = GiveSymbol[Riemann, cd];
+	l1patt 	= PatternSequence[L1]/.LI[___]->LI[___];
+	l2patt 	= PatternSequence[L2]/.LI[___]->LI[___];
+
+	(* Set the symmetry. Thanks to JMM for pointing out how this works. *)
+	SymmetryOf[cd[x_][xi[l1:l1patt,y_,l2:l2patt]]] ^:= Symmetry[2, cd[slot[2]][xi[l1,slot[1],l2]], {slot[1] -> y, slot[2] -> x}, Antisymmetric[{1, 2}]]; 
+
+	(* Attach the rules and the rest. *)
+	cd[c_]@cd[b_]@xi[l1:l1patt,a_,l2:l2patt] := Module[{d = DummyIn@vb}, riemann[a,b,c,d] xi[l1,-d,l2]];
+	Unprotect[xAct`xTensor`LieD];
+	LieD[xi[l1patt,_,l2patt]][metric[__]] = 0;
+	LieD[xi[l1patt,_,l2patt],_][metric[__]] = 0;
+	Protect[xAct`xTensor`LieD];
+ 
+	KillingVectorOf[xi] ^= metric;
+	KillingVectorQ[xi] ^= True;
+] /; AIndexQ[ind, VBundleOfMetric@metric];
+
 
 (***********************)
 (* Metric permutations *)
 (***********************)
 
+AllContractions[metric_?MetricQ, indexList_][expr_] /; FreeQ[expr, List] := 
+	AllContractions[metric, indexList][{expr}];
 
-AllContractions[metric_?MetricQ, indexList_][expr_] /; 
-   FreeQ[expr, List] := AllContractions[metric, indexList][{expr}];
-AllContractions[metric_?MetricQ, indexList_][exprs_List] := 
-  Module[{metrics, dummies},
-   metrics = MetricPermutations[metric,indexList];
-   dummies = Intersection[
-   	UpIndex /@ (IndexList@@indexList), 
-    UpIndex /@ (IndicesOf[Free][First@exprs])
-   ];
-   DeleteDuplicates@MapTimed[
-     ReplaceDummies[ToCanonical@ContractMetric[# ], dummies]&, 
-     Flatten@Outer[Times[#1, #2] &, exprs, metrics], 
-     Description -> "Contracting indices."]
-   ];
+AllContractions[metric_?MetricQ, indexList_][exprs_List] := Module[{metrics, dummies},
+	metrics = MetricPermutations[metric,indexList];
+	dummies = Intersection[
+		UpIndex /@ (IndexList@@indexList), 
+		UpIndex /@ (IndicesOf[Free][First@exprs])
+	];
+	DeleteDuplicates@MapTimed[
+		ReplaceDummies[ToCanonical@ContractMetric[# ], dummies]&, 
+		Flatten@Outer[Times[#1, #2] &, exprs, metrics], 
+		Description -> "Contracting indices."
+	]
+];
 
 MetricPermutations[metric_?MetricQ, list_] /; EvenQ@Length@list := 
- Map[Times @@ Map[metric @@ # &, #] &, UnorderedPairsPermutations[list]];
+	Map[Times @@ Map[metric @@ # &, #] &, UnorderedPairsPermutations[list]];
 
 UnorderedPairsPermutations[list_] /; EvenQ@Length@list := 
- Partition[#, 2] & /@ UnorderedPairsPermutations1[list];
+	Partition[#, 2] & /@ UnorderedPairsPermutations1[list];
 
 (* The actual workhorse. *)
 UnorderedPairsPermutations1[list_] /; Length[list] == 2 := {list}
-UnorderedPairsPermutations1[list_] /; Length[list] > 2 && EvenQ[Length[list]] := 
-  Module[{previous, last},
-   last = list[[-2 ;; -1]];
-   previous = UnorderedPairsPermutations1[list[[1 ;; -3]]];
-   Flatten[Map[PairPermuteJoin[#, last] &, previous], 1]
+UnorderedPairsPermutations1[list_] /; Length[list] > 2 && EvenQ[Length[list]] := Module[{previous, last},
+	last 		= list[[-2 ;; -1]];
+	previous 	= UnorderedPairsPermutations1[list[[1 ;; -3]]];
+	Flatten[Map[PairPermuteJoin[#, last] &, previous], 1]
 ];
 
 (* Internal function. *)
-PairPermuteJoin[list_, newPair_] := 
-  Module[{joined1, joined2, cycles, positions},
-   joined1 = Join[list, newPair];
-   joined2 = Join[list, Reverse@newPair];
-   positions = 2 Range[Length[list]/2]; 
-   cycles = xAct`xPerm`Cycles[{#, Length[list] + 1}] & /@ positions;
-   Join[
-    {joined1},
-    xAct`xPerm`PermuteList[joined1, #] & /@ cycles,
-    xAct`xPerm`PermuteList[joined2, #] & /@ cycles
-    ]
+PairPermuteJoin[list_, newPair_] := Module[{joined1, joined2, cycles, positions},
+	joined1 	= Join[list, newPair];
+	joined2 	= Join[list, Reverse@newPair];
+	positions 	= 2 Range[Length[list]/2]; 
+	cycles 		= xAct`xPerm`Cycles[{#, Length[list] + 1}] & /@ positions;
+	Join[
+		{joined1},
+		xAct`xPerm`PermuteList[joined1, #] & /@ cycles,
+		xAct`xPerm`PermuteList[joined2, #] & /@ cycles
+	]
 ];
 
 
