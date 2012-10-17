@@ -11,7 +11,14 @@ If[Unevaluated[xAct`xCore`Private`$LastPackage] === xAct`xCore`Private`$LastPack
 	xAct`xCore`Private`$LastPackage = "xAct`xTras`"
 ];
 
-BeginPackage["xAct`xTras`",{"xAct`xCore`","xAct`xPerm`","xAct`xTensor`","xAct`xPert`", "xAct`Invar`"}]
+BeginPackage["xAct`xTras`",{
+	"xAct`xCore`",
+	"xAct`xPerm`",
+	"xAct`xTensor`",
+	"xAct`xPert`", 
+	"xAct`Invar`",
+	"xAct`xCoba`"
+}]
 
 (* Check if we have the correct version of xAct. *)
 If[Not@OrderedQ@Map[Last, {xAct`xTras`$xTensorVersionExpected, xAct`xTensor`$Version}], 
@@ -42,6 +49,21 @@ License for details."];
 (*                   *)
 (*********************)
 
+
+(* xCoba extensions *)
+
+ComputeBasisValues::usage =
+	"ComputeBasisValues[chart1,chart2] computes and stores the values of the \
+basis elements relating chart1 to chart2 and vice versa. Thus it computes \
+Basis[-chart1,chart2] and Basis[-chart2,chart1]. \
+\n\nNote that ComputeBasisValues internally uses InChart, so it is preferable \
+to define the transformations of the coordinates from chart1 to chart2 and vice versa \
+with InChart before using ComputeBasisValues."; 
+
+CovDTensorValues::usage =
+	"CovDTensorValues[CD, T, basis] computes the values \
+of the covariant derivative CD of the tensor T in the given basis, and stores the values \
+in the imploded tensor CDT.\nBoth CD and T do not take indices."
 
 (* MetricPermutations *)
 
@@ -1659,6 +1681,50 @@ PairPermuteJoin[list_, newPair_] := Module[{joined1, joined2, cycles, positions}
 	]
 ];
 
+(********************)
+(* xCoba extensions *)
+(********************)
+
+ComputeBasisValues[B1_?ChartQ,B2_?ChartQ] := ComputeBasisValues1@@#& /@ {{B1,B2},{B2,B1}};
+
+ComputeBasisValues1[B1_?ChartQ,B2_?ChartQ] := Module[{C1,C2,basisArray,values},
+	values = Outer[
+		Simplify@D[#1,#2]&,
+		InChart[B2]@ScalarsOfChart@B1,
+		ScalarsOfChart@B2
+	];
+	{C1,C2} 	= CNumbersOf[#,VBundleOfBasis@#]&/@{B1,B2};
+	basisArray	= Outer[Basis[{#1,B1},{#2,-B2}]&,C1,C2];
+	ComponentValue[basisArray,values]
+];
+
+
+CovDTensorValues[der_?CovDQ, T_?xTensorQ, B_?BasisQ] := Module[
+	{derT,basisList,implodedArray,implodedList,picker,valueList},
+	
+	(* Construct the expression with derivative and indices. *)
+	derT = der[DownIndex@DummyIn@First@VBundlesOfCovD@der]@Apply[T,DummyIn/@SlotsOfTensor[T]];
+	(* Implode derT, go to the basis, and give a component list. *)
+	implodedArray 	= derT//Implode//ToBasis[B]//ComponentArray;
+	implodedList 	= implodedArray//Flatten;
+	(* See which components are dependent. *)
+	picker 			= ToCanonical[#]===#& /@ implodedList;
+	(* Assign dependent values for the dependent components. *)
+	ComponentValue /@ Pick[implodedList,picker,False];
+	(* Construct the component list of the unimploded cdT. *)
+	(* Note that we have to use ToBasis twice because there is one derivative. *)
+	basisList 		= Pick[derT//ToBasis[B]//ToBasis[B]//TraceBasisDummy//ComponentArray//Flatten,picker];
+	(* Convert to values. *)
+	valueList 		= MapTimed[
+		Simplify@ToValues[#]&,
+		basisList,
+		Description->"Computing component values of " <> ToString@GiveSymbol[der,T] <> "."
+	];
+	(* Assign values. *)
+	ComponentValue[Pick[implodedList,picker],valueList];
+	(* Return as expected. Not necessary, but nice. *)
+	implodedArray/.(TensorValues[GiveSymbol[der,T]]/.HoldPattern[lhs_->rhs_]:>lhs->(lhs->rhs))
+];
 
 
 (*********************)
