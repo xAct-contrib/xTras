@@ -60,10 +60,10 @@ Basis[-chart1,chart2] and Basis[-chart2,chart1]. \
 to define the transformations of the coordinates from chart1 to chart2 and vice versa \
 with InChart before using ComputeBasisValues."; 
 
-CovDTensorValues::usage =
-	"CovDTensorValues[CD, T, basis] computes the values \
+ImplodedTensorValues::usage =
+	"ImplodedTensorValues[CD, T, basis] computes the values \
 of the covariant derivative CD of the tensor T in the given basis, and stores the values \
-in the imploded tensor CDT.\nBoth CD and T do not take indices."
+in the imploded tensor CDT. Both CD and T do not take indices."
 
 (* MetricPermutations *)
 
@@ -935,7 +935,7 @@ MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; LevelSpecQ[levels
 		Ceiling[length/ms]
 	];
 	begintime 	= AbsoluteTime[];
-	mon 		= desc <> " " <> stringlength <> " parts.";
+	mon 		= "** " <> desc <> " " <> stringlength <> " parts.";
 	
 	ETA[pos_] 		:= Ceiling[(AbsoluteTime[] - begintime)*(length - pos)/pos];
 	timer[part_] 	:= Module[{result},
@@ -947,7 +947,7 @@ MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; LevelSpecQ[levels
 		position++;
 		If[
 			ms === All || Mod[position, steps] == 0, 
-			mon = desc <> " Parts " 
+			mon = "** " <> desc <> " Parts " 
 				<> ToString@position <> "/" <> stringlength 
 				<> " done. ETA in " <> TimeString@ETA@position <> "."
 		];
@@ -1699,31 +1699,27 @@ ComputeBasisValues1[B1_?ChartQ,B2_?ChartQ] := Module[{C1,C2,basisArray,values},
 ];
 
 
-CovDTensorValues[der_?CovDQ, T_?xTensorQ, B_?BasisQ] := Module[
-	{derT,basisList,implodedArray,implodedList,picker,valueList},
-	
+ImplodedTensorValues[cd_?CovDQ, T_?xTensorQ, B_?BasisQ, f_:Identity] := Module[
+	{cdT,valueArray,implodedArray},
+
 	(* Construct the expression with derivative and indices. *)
-	derT = der[DownIndex@DummyIn@First@VBundlesOfCovD@der]@Apply[T,DummyIn/@SlotsOfTensor[T]];
-	(* Implode derT, go to the basis, and give a component list. *)
-	implodedArray 	= derT//Implode//ToBasis[B]//ComponentArray;
-	implodedList 	= implodedArray//Flatten;
-	(* See which components are dependent. *)
-	picker 			= ToCanonical[#]===#& /@ implodedList;
-	(* Assign dependent values for the dependent components. *)
-	ComponentValue /@ Pick[implodedList,picker,False];
-	(* Construct the component list of the unimploded cdT. *)
-	(* Note that we have to use ToBasis twice because there is one derivative. *)
-	basisList 		= Pick[derT//ToBasis[B]//ToBasis[B]//TraceBasisDummy//ComponentArray//Flatten,picker];
-	(* Convert to values. *)
-	valueList 		= MapTimed[
-		Simplify@ToValues[#]&,
-		basisList,
-		Description->"Computing component values of " <> ToString@GiveSymbol[der,T] <> "."
+	cdT = cd[DownIndex@DummyIn@First@VBundlesOfCovD@cd]@Apply[T,DummyIn/@SlotsOfTensor[T]];
+	(* Implode cdT, go to the basis, and give a component list. *)
+	implodedArray = cdT//Implode//ToBasis[B]//ComponentArray;
+	valueArray = ToValues[
+		(* Construct the component array of the unimploded cdT. *)
+		(* Note that we have to use ToBasis twice because there is one derivative. *)
+		cdT//ToBasis[B]//ToBasis[B]//TraceBasisDummy//ComponentArray,
+		(* Get a list of all the tensors in the problem, which are just the tensor T and the relevant Christoffel *)
+		{T, GiveSymbol[Christoffel,cd,PDOfBasis@B]},
+		(* Use a simplification function *)
+		f
 	];
-	(* Assign values. *)
-	ComponentValue[Pick[implodedList,picker],valueList];
-	(* Return as expected. Not necessary, but nice. *)
-	implodedArray/.(TensorValues[GiveSymbol[der,T]]/.HoldPattern[lhs_->rhs_]:>lhs->(lhs->rhs))
+	(* Assign values and return. *)
+	(* Note that this is the main bottleneck for large tensors, because ComponentValue
+	   first checks for dependencies and modifies the TensorValues list for each component.
+	   It would be much faster to replace the TensorValues list in one go. *)
+	ComponentValue[implodedArray, valueArray]
 ];
 
 
