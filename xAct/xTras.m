@@ -1708,8 +1708,10 @@ ImplodedTensorValues[cd_?CovDQ, T_?xTensorQ, B_?BasisQ, f_:Identity] := Module[
 	implodedArray = cdT//Implode//ToBasis[B]//ComponentArray;
 	valueArray = ToValues[
 		(* Construct the component array of the unimploded cdT. *)
-		(* Note that we have to use ToBasis twice because there is one derivative. *)
-		cdT//ToBasis[B]//ToBasis[B]//TraceBasisDummy//ComponentArray,
+		(* Note that we once use FreeToBasis for the free indices and once  
+		   DummyToBasis for the contraction with the Christoffels. *)
+		(* Doing the ChangeCovD is not strictly necessary, but it is 'more correct' to change to the PD of the basis. *) 
+		cdT // FreeToBasis[B] // DummyToBasis[B] // ChangeCovD[#, cd, PDOfBasis@B]& // TraceBasisDummy // ComponentArray,
 		(* Get a list of all the tensors in the problem, which are just the tensor T and the relevant Christoffel *)
 		{T, GiveSymbol[Christoffel,cd,PDOfBasis@B]},
 		(* Use a simplification function *)
