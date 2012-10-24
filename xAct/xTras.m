@@ -1,5 +1,19 @@
 (*********************)
 (*                   *)
+(*    To-do list     *)
+(*                   *)
+(*********************)
+
+(*
+
+ * Change most DummyIn to GetIndicesOfVBundle.
+ * Switch Modules to With's where approriate.
+
+*)
+
+
+(*********************)
+(*                   *)
 (*   Package setup   *)
 (*                   *)
 (*********************)
@@ -265,6 +279,13 @@ Riccis and Riemanns (but not of other curvature tensors like the Weyl tensor).";
 
 (* Variational calculus *)
 
+PerturbationParameterOfMetric::usage =
+	"PerturbationParameterOfMetric[metric] gives the perturbation expansion \
+parametric of the metric.";
+
+PerturbationOfMetric::usage =
+	"PerturbationOfMetric[metric] gives the perturbation tensor of the metric.";
+
 DefVariation::usage =
 	"DefVariation is an option for DefMetric. If True, DefMetric automatically \
 defines a covariant metric variation.";
@@ -469,8 +490,8 @@ xTrasDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[{M,D,einst
 	einsteincc[LI[K_], c_, d_] /; c === ChangeIndex[d] := (1/ 2 (D-2)(D-1) D K + (1-D/2) rs[]);
 	
 	If[defvar,
-		metricPert = GiveSymbol[metric,Perturbation];
-		metricPar  = GiveSymbol[metric,"\[Epsilon]"];
+		metricPert = GiveSymbol[Perturbation,metric];
+		metricPar  = GiveSymbol["\[Epsilon]",metric];
 		DefMetricVariation[metric,metricPert,metricPar];
 	];
 
@@ -1219,6 +1240,13 @@ FullSimplification[metric_?MetricQ, options___?OptionQ][expr_] := Module[
 			tmp = ContractMetric[tmp //. ricciDivRule, metric]
 		];
 		tmp = SortCovDs[tmp];
+		(* Question: why do we need to do this twice? *)
+		While[!DivFreeQ[tmp, GiveSymbol[Riemann, cd]], 
+			tmp = ContractMetric[tmp //. riemannDivRule, metric]
+		];
+		While[!DivFreeQ[tmp, GiveSymbol[Ricci, cd]], 
+			tmp = ContractMetric[tmp //. ricciDivRule, metric]
+		];
 	];
    
 	(* TODO: Apply dimensional dependent identities again *)
@@ -1248,6 +1276,9 @@ If[FreeQ[Options[xAct`xTensor`DefMetric], DefVariation],
 ];
 Protect[xAct`xTensor`DefMetric];
 
+PerturbationOfMetric[metric_] := Throw@Message[PerturbationOfMetric::unknown, "metric perturbation of metric", metric];
+PerturbationParameterOfMetric[metric_] := Throw@Message[PerturbationParameterOfMetric::unknown, "metric perturbation parameter of metric", metric];
+
 Options[DefMetricVariation] ^= {PrintAs -> ""};
 
 DefMetricVariation[metric_?MetricQ, per_, param_, options___?OptionQ] := Module[
@@ -1258,6 +1289,10 @@ DefMetricVariation[metric_?MetricQ, per_, param_, options___?OptionQ] := Module[
 	vb 		= VBundleOfMetric[metric];
 	a 		= DummyIn[vb];
 	b 		= DummyIn[vb];
+
+	(* TODO: this should go to DefMetricPerturbation with an xTension hook. *)
+	PerturbationOfMetric[metric] ^= per;
+	PerturbationParameterOfMetric[metric] ^= param;
 
 	(* First we define a metric perturbation for the xPert package and \
 	   a tensor that represents an infinitessimal variation of the metric. *)
@@ -1724,6 +1759,14 @@ ImplodedTensorValues[cd_?CovDQ, T_?xTensorQ, B_?BasisQ, f_:Identity] := Module[
 	ComponentValue[implodedArray, valueArray]
 ];
 
+(*
+ToBasis[basis_][expr_] /; Apply[And, AIndexQ /@ IndicesOf[][expr]] :=
+	ChangeCovD[
+		expr,
+		$CovDs,
+		PDOfBasis[basis]
+	] /. i_?AbstractIndexQ :> {i, basis}
+*)
 
 (*********************)
 (*                   *)
