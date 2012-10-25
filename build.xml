@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="xTras" default="zip" basedir="."> 
+  <target name="zip">
+  	<zip destfile="dist/xTras.vX.X.X.zip"
+	       basedir="."
+  	       includes="install.txt,xTrasDoc.nb,xAct/xTras.m"
+	       update="true"
+  	  />
+  </target>
+</project>

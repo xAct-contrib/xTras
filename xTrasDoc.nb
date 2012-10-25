@@ -1,17 +1,32 @@
 Notebook[{
 Cell[TextData[{
  StyleBox["The ",
-  FontSize->16],
+  FontSize->24],
  StyleBox["xTras",
-  FontSize->16,
+  FontSize->24,
   FontSlant->"Italic"],
  StyleBox[" package",
-  FontSize->16]
-}], "Text"],
+  FontSize->24]
+}], "Text",
+ FontSize->18],
+
+Cell[TextData[StyleBox["Some extra functionality for xAct. ",
+ FontSize->16]], "Text"],
+
+Cell["Teake Nutma", "Text"],
+
+Cell[CellGroupData[{
 
 Cell["\<\
-Some extra functionality for xAct. By Teake Nutma.
+Max Planck Institute for Gravitational Physics\
+\>", "ItemParagraph"],
 
+Cell["(Albert Einstein Institute)", "ItemParagraph"],
+
+Cell["teake.nutma@aei.mpg.de", "ItemParagraph"]
+}, Open  ]],
+
+Cell["\<\
 This notebook documents the new functions in xTras. It is not the package \
 itself!\
 \>", "Text"],
@@ -39,13 +54,13 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["xAct`xTras`$Version", "Print", "PrintUsage",
- CellTags->"Info3559627146-7343417"],
+ CellTags->"Info3560182329-6036515"],
 
 Cell[BoxData[
  InterpretationBox[GridBox[{
     {GridBox[{
        {
-        RowBox[{"$Version", "=", "\<\"1.0.4pre\"\>"}]}
+        RowBox[{"$Version", "=", "\<\"1.0.4\"\>"}]}
       },
       BaselinePosition->{Baseline, {1, 1}},
       GridBoxAlignment->{
@@ -61,7 +76,7 @@ Cell[BoxData[
      "RowsIndexed" -> {}}],
   Definition[xAct`xTras`$Version],
   Editable->False]], "Print",
- CellTags->"Info3559627146-7343417"]
+ CellTags->"Info3560182329-6036515"]
 }, Open  ]]
 }, Open  ]],
 
@@ -154,472 +169,489 @@ Cell[BoxData[
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"AllContractions", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"AllContractions", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["ImplodedTensorValues",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"ImplodedTensorValues", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"ImplodedTensorValues", "xAct`xTras`"}},
           
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["RiemannYoungRule",
+         ButtonBox["RiemannDivRule",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"RiemannYoungRule", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"RiemannDivRule", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["BackgroundSolution",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"BackgroundSolution", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"BackgroundSolution", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["IncludeDuals",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"IncludeDuals", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"IncludeDuals", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["Schouten",
+         ButtonBox["RiemannSimplification",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3559540893-1263435", {"Schouten", "xAct`xTras`"}},
           
+          ButtonData:>{
+           "Info3560182336-6036515", {"RiemannSimplification", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["ClearAutomaticRules",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"ClearAutomaticRules", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"ClearAutomaticRules", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["InvarLagrangian",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"InvarLagrangian", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"InvarLagrangian", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["SchoutenCC",
+         ButtonBox["RiemannYoungRule",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
-           "Info3559540893-1263435", {"SchoutenCC", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"RiemannYoungRule", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["ClearCurvatureRelations",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {
+           "Info3560182336-6036515", {
             "ClearCurvatureRelations", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["InvarWrapper",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"InvarWrapper", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"InvarWrapper", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["SchoutenCCToRicci",
+         ButtonBox["Schouten",
           BaseStyle->"InformationLink",
+          ButtonData:>{"Info3560182336-6036515", {"Schouten", "xAct`xTras`"}},
           
-          ButtonData:>{
-           "Info3559540893-1263435", {"SchoutenCCToRicci", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["Coefficients",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"Coefficients", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"Coefficients", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["KillingVectorOf",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"KillingVectorOf", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"KillingVectorOf", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["SchoutenToRicci",
+         ButtonBox["SchoutenCC",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"SchoutenToRicci", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"SchoutenCC", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["CollectMethod",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"CollectMethod", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"CollectMethod", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["KillingVectorQ",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"KillingVectorQ", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"KillingVectorQ", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["SetCurvatureRelations",
+         ButtonBox["SchoutenCCToRicci",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
-           "Info3559540893-1263435", {"SetCurvatureRelations", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"SchoutenCCToRicci", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["ComputeBasisValues",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"ComputeBasisValues", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"ComputeBasisValues", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["LevelSpecQ",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"LevelSpecQ", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"LevelSpecQ", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["SimplifyMethod",
+         ButtonBox["SchoutenToRicci",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"SimplifyMethod", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"SchoutenToRicci", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["ConstantExprQ",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"ConstantExprQ", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"ConstantExprQ", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["MakeEquationRule",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"MakeEquationRule", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"MakeEquationRule", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["SingleInvariants",
+         ButtonBox["SetCurvatureRelations",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"SingleInvariants", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"SetCurvatureRelations", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["CurvatureRelationsQ",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"CurvatureRelationsQ", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"CurvatureRelationsQ", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["MapTimed",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3559540893-1263435", {"MapTimed", "xAct`xTras`"}},
+          ButtonData:>{"Info3560182336-6036515", {"MapTimed", "xAct`xTras`"}},
           
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["SolveConstants",
+         ButtonBox["SimplifyMethod",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
-           "Info3559540893-1263435", {"SolveConstants", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"SimplifyMethod", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["DefMetricVariation",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"DefMetricVariation", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"DefMetricVariation", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["MetricPermutations",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"MetricPermutations", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"MetricPermutations", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["SortedCovDsQ",
+         ButtonBox["SingleInvariants",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"SortedCovDsQ", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"SingleInvariants", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["DefVariation",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"DefVariation", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"DefVariation", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["MonitorSteps",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"MonitorSteps", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"MonitorSteps", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["SymmetricSpaceRules",
+         ButtonBox["SolveConstants",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"SymmetricSpaceRules", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"SolveConstants", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["DerivativeOrder",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"DerivativeOrder", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"DerivativeOrder", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["OrderCoefficient",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"OrderCoefficient", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"OrderCoefficient", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["TensorCollect",
+         ButtonBox["SortedCovDsQ",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
-           "Info3559540893-1263435", {"TensorCollect", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"SortedCovDsQ", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["Description",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"Description", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"Description", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["OrderParameter",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"OrderParameter", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"OrderParameter", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["TensorCollector",
+         ButtonBox["SymmetricSpaceRules",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"TensorCollector", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"SymmetricSpaceRules", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["DivFreeQ",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3559540893-1263435", {"DivFreeQ", "xAct`xTras`"}},
+          ButtonData:>{"Info3560182336-6036515", {"DivFreeQ", "xAct`xTras`"}},
           
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["PerturbBackground",
+         ButtonBox["PerturbationOfMetric",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"PerturbBackground", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"PerturbationOfMetric", "xAct`xTras`"}},
+          
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["TimeString",
+         ButtonBox["TensorCollect",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"TimeString", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"TensorCollect", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["DoTensorCollect",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"DoTensorCollect", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"DoTensorCollect", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["PerturbFlat",
+         ButtonBox["PerturbationParameterOfMetric",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"PerturbFlat", "xAct`xTras`"}},
+           "Info3560182336-6036515", {
+            "PerturbationParameterOfMetric", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["ToBackground",
+         ButtonBox["TensorCollector",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"ToBackground", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"TensorCollector", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["EinsteinCC",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"EinsteinCC", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"EinsteinCC", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["PreferBoxOfRule",
+         ButtonBox["PerturbBackground",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"PreferBoxOfRule", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"PerturbBackground", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["ToConstantSymbolEquations",
+         ButtonBox["TimeString",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {
-            "ToConstantSymbolEquations", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"TimeString", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["EinsteinCCToRicci",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"EinsteinCCToRicci", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"EinsteinCCToRicci", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["PreferDivOfRule",
+         ButtonBox["PerturbFlat",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"PreferDivOfRule", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"PerturbFlat", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["ToFlat",
+         ButtonBox["ToBackground",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3559540893-1263435", {"ToFlat", "xAct`xTras`"}},
+          
+          ButtonData:>{
+           "Info3560182336-6036515", {"ToBackground", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["EinsteinSpaceRules",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"EinsteinSpaceRules", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"EinsteinSpaceRules", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["ProductInvariants",
+         ButtonBox["PreferBoxOfRule",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"ProductInvariants", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"PreferBoxOfRule", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["UnorderedPairsPermutations",
+         ButtonBox["ToConstantSymbolEquations",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {
-            "UnorderedPairsPermutations", "xAct`xTras`"}},
+           "Info3560182336-6036515", {
+            "ToConstantSymbolEquations", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["EulerDensity",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"EulerDensity", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"EulerDensity", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["RemoveConstants",
+         ButtonBox["PreferDivOfRule",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"RemoveConstants", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"PreferDivOfRule", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["VarL",
+         ButtonBox["ToFlat",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3559540893-1263435", {"VarL", "xAct`xTras`"}},
+          ButtonData:>{"Info3560182336-6036515", {"ToFlat", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["ExpandBackground",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"ExpandBackground", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"ExpandBackground", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["RemoveTensors",
+         ButtonBox["ProductInvariants",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"RemoveTensors", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"ProductInvariants", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["YoungProject",
+         ButtonBox["UnorderedPairsPermutations",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"YoungProject", "xAct`xTras`"}},
+           "Info3560182336-6036515", {
+            "UnorderedPairsPermutations", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["ExpandFlat",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"ExpandFlat", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"ExpandFlat", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["RicciDivRule",
+         ButtonBox["RemoveConstants",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"RicciDivRule", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"RemoveConstants", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["YoungSymmetrize",
+         ButtonBox["VarL",
           BaseStyle->"InformationLink",
-          
-          ButtonData:>{
-           "Info3559540893-1263435", {"YoungSymmetrize", "xAct`xTras`"}},
+          ButtonData:>{"Info3560182336-6036515", {"VarL", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["ExpandPerturbationDer",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"ExpandPerturbationDer", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"ExpandPerturbationDer", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["RicciToEinsteinCC",
+         ButtonBox["RemoveTensors",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"RicciToEinsteinCC", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"RemoveTensors", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["YoungTableauQ",
+         ButtonBox["YoungProject",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"YoungTableauQ", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"YoungProject", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"]},
         {
          ButtonBox["ExtraRules",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"ExtraRules", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"ExtraRules", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["RicciDivRule",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3560182336-6036515", {"RicciDivRule", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["YoungSymmetrize",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3560182336-6036515", {"YoungSymmetrize", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["FlatRules",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3560182336-6036515", {"FlatRules", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["RicciToEinsteinCC",
+          BaseStyle->"InformationLink",
+          ButtonData:>{
+           "Info3560182336-6036515", {"RicciToEinsteinCC", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["YoungTableauQ",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3560182336-6036515", {"YoungTableauQ", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]},
+        {
+         ButtonBox["FS",
+          BaseStyle->"InformationLink",
+          ButtonData:>{"Info3560182336-6036515", {"FS", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["RicciToSchouten",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"RicciToSchouten", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"RicciToSchouten", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
          ButtonBox["$Version",
           BaseStyle->"InformationLink",
-          ButtonData:>{"Info3559540893-1263435", {"$Version", "xAct`xTras`"}},
+          ButtonData:>{"Info3560182336-6036515", {"$Version", "xAct`xTras`"}},
           
           ButtonNote->"xAct`xTras`"]},
-        {
-         ButtonBox["FlatRules",
-          BaseStyle->"InformationLink",
-          ButtonData:>{"Info3559540893-1263435", {"FlatRules", "xAct`xTras`"}},
-          ButtonNote->"xAct`xTras`"], 
-         ButtonBox["RicciToSchoutenCC",
-          BaseStyle->"InformationLink",
-          
-          ButtonData:>{
-           "Info3559540893-1263435", {"RicciToSchoutenCC", "xAct`xTras`"}},
-          ButtonNote->"xAct`xTras`"], 
-         ButtonBox["$xTensorVersionExpected",
-          BaseStyle->"InformationLink",
-          
-          ButtonData:>{
-           "Info3559540893-1263435", {
-            "$xTensorVersionExpected", "xAct`xTras`"}},
-          ButtonNote->"xAct`xTras`"]},
-        {
-         ButtonBox["FS",
-          BaseStyle->"InformationLink",
-          ButtonData:>{"Info3559540893-1263435", {"FS", "xAct`xTras`"}},
-          ButtonNote->"xAct`xTras`"], 
-         ButtonBox["RiemannDivRule",
-          BaseStyle->"InformationLink",
-          
-          ButtonData:>{
-           "Info3559540893-1263435", {"RiemannDivRule", "xAct`xTras`"}},
-          ButtonNote->"xAct`xTras`"], ""},
         {
          ButtonBox["FullSimplification",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"FullSimplification", "xAct`xTras`"}},
+           "Info3560182336-6036515", {"FullSimplification", "xAct`xTras`"}},
           ButtonNote->"xAct`xTras`"], 
-         ButtonBox["RiemannSimplification",
+         ButtonBox["RicciToSchoutenCC",
           BaseStyle->"InformationLink",
           
           ButtonData:>{
-           "Info3559540893-1263435", {"RiemannSimplification", "xAct`xTras`"}},
-          ButtonNote->"xAct`xTras`"], ""}
+           "Info3560182336-6036515", {"RicciToSchoutenCC", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"], 
+         ButtonBox["$xTensorVersionExpected",
+          BaseStyle->"InformationLink",
+          
+          ButtonData:>{
+           "Info3560182336-6036515", {
+            "$xTensorVersionExpected", "xAct`xTras`"}},
+          ButtonNote->"xAct`xTras`"]}
        },
        DefaultBaseStyle->"InfoGrid",
        GridBoxItemSize->{"Columns" -> {{
@@ -46001,7 +46033,7 @@ Cell[BoxData["0"], "Output"]
 }, Closed]]
 },
 WindowSize->{1118, 759},
-WindowMargins->{{220, Automatic}, {Automatic, 182}},
+WindowMargins->{{113, Automatic}, {37, Automatic}},
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 ShowSelection->True,
 TrackCellChangeTimes->False,

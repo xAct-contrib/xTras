@@ -2,42 +2,31 @@
 INSTALLATION NOTES FOR THE xTras PACKAGE
 ****************************************
 
-xTras consists of a single package file, "xTras.m", and notebook "xTras.nb"
-containing some documentation. The file "xTras.m" must be placed at
-(or linked from) where you've installed xAct.
+xTras consists of a single package file, "xTras.m". Besides the package
+there is documentation available in the notebook "xTrasDoc.nb". This notebook
+does not need to be copied somewhere.
+The file "xTras.m" must be copied to the directory where you've installed xAct.
+This location is most likely the following on the respective operating systems:
 
 Linux:
-
    - system-wide installation (requires root priviledges):
-
         /usr/share/Mathematica/Applications/xAct/
-
    - single-user installation:
-
         $HOME/.Mathematica/Applications/xAct/
 
 Mac OS:
-
    - system-wide installation (requires root priviledges):
-
         /Library/Mathematica/Applications/xAct/
-
    - single-user installation:
-
         /Users/<user>/Library/Mathematica/Applications/xAct/
 
 MSWindows:
-
    - system-wide installation:
-
         C:\Documents and settings\All Users\Application data\Mathematica\Applications\xAct\
-
    - single-user installation:
-
         C:\Documents and settings\<user>\Application Data\Mathematica\Applications\xAct\
 
 Beware that in Windows these directories might be hidden!
-
 Then the package can be loaded using unix style
 
         <<xAct/xTras.m
@@ -45,3 +34,6 @@ Then the package can be loaded using unix style
 or Mathematica style
 
         <<xAct`xTras`
+
+Note that some functionality of xTras requires the presence of the Invar database.
+This database can be downloaded from www.xact.es.

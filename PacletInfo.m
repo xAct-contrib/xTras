@@ -1,10 +1,10 @@
 (* Paclet Info File *)
 
-(* created 2012/01/24*)
+(* created 2012/10/25*)
 
 Paclet[
     Name -> "xTras",
-    Version -> "0.0.1",
+    Version -> "1.0.4",
     MathematicaVersion -> "6+",
     Creator -> "Teake Nutma",
     Extensions -> 
