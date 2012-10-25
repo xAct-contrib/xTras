@@ -85,11 +85,12 @@ AllContractions::usage =
 	"AllContractions[metric,indices][expr] gives all possible contractions of \
 expr (which can also be a list of expressions with the same free indices) \
 with metrics with the given indices.\
-\nBoth metric and indices are optional. If indices is omitted, all free indices \
+\n\nBoth metric and indices are optional. If indices is omitted, all free indices \
 are contracted. When the number of free indices if odd, one extra index is contracted \
 over, such that one free index ends up in all possible positions. \
 If metric is omitted, the first metric of the manifold of the \
-tensors of the expression is used.";
+tensors of the expression is used.\
+\n\nVanishing contractions (if any) are removed from the final result.";
 
 
 MetricPermutations::usage =
@@ -1169,37 +1170,69 @@ PreferDivOfRule[tens_, CD_?CovDQ] :=
 DivFreeQ[expr_, tens_] := And @@ (DivFreeQ[expr, tens, #] & /@ $CovDs);
 DivFreeQ[expr_, tens_, CD_?CovDQ] := FreeQ[expr, CD[a_][inner_] /; ! FreeQ[inner, tens[___, ChangeIndex[a], ___]]];
 
-RicciDivRule[cd_?CovDQ] := Module[{ricci, rs, a, b},
-	ricci 	= GiveSymbol[Ricci, cd];
-	rs 		= GiveSymbol[RicciScalar, cd];
-	{a, b} 	= Table[DummyIn@First@VBundlesOfCovD@cd, {2}];
-
+RicciDivRule[cd_?CovDQ] := Module[
+	{
+		ricci	= GiveSymbol[Ricci,cd],
+		rs		= GiveSymbol[RicciScalar,cd],
+		vb		= First@VBundlesOfCovD[cd],
+		a,b,pa,pb,MR
+	},
+	{a,b}	= Table[DummyIn[vb],{2}];
+	pb = With[{vbpmq=GiveSymbol[vb,"`pmQ"]},
+		PatternTest[Pattern[Evaluate@b,Blank[]],vbpmq]
+	];
+	pa = With[{vbq=GiveSymbol[vb,"`Q"]},
+		PatternTest[Pattern[Evaluate@a,Blank[Symbol]],vbq]
+	];
+	
+	MR[der_,head_,i1_,i2_,i3_] := RuleDelayed[
+		HoldPattern[der[i1]@head[i2,i3]],
+		Evaluate[1/2 cd[b]@rs[]]
+	];
 	FoldedRule[
 		PreferDivOfRule[ricci, cd],
-		MakeRule[
-			Evaluate@{
-				cd[a]@ricci[-a, -b], 
-				1/2 cd[-b]@rs[]
-			}, 
-			MetricOn -> All, UseSymmetries -> True
-	 	]
+		{
+			MR[cd,ricci,pa,-pa,pb],
+			MR[cd,ricci,-pa,pa,pb],
+			MR[cd,ricci,pa,pb,-pa],
+			MR[cd,ricci,-pa,pb,pa]
+		}
 	]
 ];
 
-RiemannDivRule[cd_?CovDQ] := Module[{ricci, riemann, a, b, c, d},
-	ricci 			= GiveSymbol[Ricci, cd];
-	riemann 		= GiveSymbol[Riemann, cd];
-	{a, b, c, d} 	= Table[DummyIn@First@VBundlesOfCovD@cd, {4}];
 
+RiemannDivRule[cd_?CovDQ] := Module[
+	{
+		ricci	= GiveSymbol[Ricci,cd],
+		riemann	= GiveSymbol[Riemann,cd],
+		vb		= First@VBundlesOfCovD[cd],
+		a,b,c,d,pa,pb,pc,pd,MR
+	},
+	
+	{a,b,c,d}	= Table[DummyIn[vb],{4}];
+	{pa,pb,pc}	= With[{vbpmq=GiveSymbol[vb,"`pmQ"]},
+		PatternTest[Pattern[#,Blank[]],vbpmq]&/@{a,b,c}
+	];
+	pd = With[{vbq=GiveSymbol[vb,"`Q"]},
+		PatternTest[Pattern[Evaluate@d,Blank[Symbol]],vbq]
+	];
+	
+	MR[der_,head_,i1_,i2_,i3_,i4_,i5_,sign_] := RuleDelayed[
+		HoldPattern[der[i1]@head[i2,i3,i4,i5]],
+		Evaluate[sign*$RicciSign*(cd[b]@ricci[a,c]-cd[c]@ricci[a,b])]
+	];
 	FoldedRule[
 		PreferDivOfRule[riemann, cd],
-		MakeRule[
-			Evaluate@{
-				cd[-d]@riemann[d, -a, -b, -c], 
-				$RicciSign * ( cd[-b]@ricci[-a, -c] - cd[-c]@ricci[-a, -b] )
-			}, 
-			MetricOn -> All, UseSymmetries -> True
-		]
+		{
+			MR[cd,riemann,-pd,pd,pa,pb,pc,1],
+			MR[cd,riemann,pd,-pd,pa,pb,pc,1],
+			MR[cd,riemann,-pd,pa,pd,pb,pc,-1],
+			MR[cd,riemann,pd,pa,-pd,pb,pc,-1],
+			MR[cd,riemann,-pd,pb,pc,pd,pa,1],
+			MR[cd,riemann,pd,pb,pc,-pd,pa,1],
+			MR[cd,riemann,-pd,pb,pc,pa,pd,-1],
+			MR[cd,riemann,pd,pb,pc,pa,-pd,-1]
+		}
 	]
 ];
 
@@ -1440,7 +1473,9 @@ SymmetricSpaceRules[CD_?CovDQ, K_?ConstantExprQ] := Module[
 		vb 		= First@VBundlesOfCovD[CD]
 	},
 	{a,b,c,d}		= Table[DummyIn[vb],{4}];
-	{pa,pb,pc,pd}	= PatternTest[Pattern[#,Blank[]],GiveSymbol[vb,"`pmQ"]]& /@ {a,b,c,d};
+	{pa,pb,pc,pd}	= With[{vbpmq = GiveSymbol[vb,"`pmQ"]},
+		PatternTest[Pattern[#,Blank[]],vbpmq]& /@ {a,b,c,d}
+	];
 	
 	(* The reason for this funny construction is that we don't want to evaluate
 	   curvature tensors with brackets, because some might be zero 
@@ -1452,7 +1487,11 @@ SymmetricSpaceRules[CD_?CovDQ, K_?ConstantExprQ] := Module[
 	  
 	  The problem is to get the tensor heads, for which we need to do some evaluating. 
 	  That's why we wrap stuff in the MR function, because its arguments
-	  will get evaluated but the complete thing in HoldPattern[] won't. *) 
+	  will get evaluated but the complete thing in HoldPattern[] won't.
+	  
+	  Note that using a With + MakeRule construction won't help,
+	  because even though MakeRule has the attribute HoldFirst, it does evaluate
+	  its LHS along the way. *) 
 	MR[head_,inds___][rhs_] := RuleDelayed[HoldPattern[head[inds]], rhs];
 
 	List[
@@ -1682,11 +1721,11 @@ AllContractions[metric_?MetricQ, indexList:(IndexList|List)[___]][exprs_List] :=
 		UpIndex /@ (IndexList@@indexList), 
 		UpIndex /@ (IndicesOf[Free][First@exprs])
 	];
-	DeleteDuplicates@MapTimed[
+	DeleteCases[DeleteDuplicates@MapTimed[
 		ReplaceDummies[ToCanonical@ContractMetric[# ], dummies]&, 
 		Flatten@Outer[Times[#1, #2] &, exprs, metrics], 
 		Description -> "Contracting indices."
-	]
+	],0]
 ];
 
 MetricPermutations[metric_?MetricQ, list_] /; EvenQ@Length@list := 
