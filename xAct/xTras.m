@@ -6,7 +6,7 @@
 
 (*
 
- * Change most DummyIn to GetIndicesOfVBundle.
+ * Change DummyIn to GetIndicesOfVBundle where appropriate (not everywhere!).
  * Switch Modules to With's where approriate.
 
 *)
@@ -18,7 +18,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = "1.0.4pre";
+xAct`xTras`$Version = "1.0.4";
 xAct`xTras`$xTensorVersionExpected = {"1.0.4", {2012, 5, 5}};
 
 If[Unevaluated[xAct`xCore`Private`$LastPackage] === xAct`xCore`Private`$LastPackage, 
