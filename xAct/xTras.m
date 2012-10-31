@@ -18,7 +18,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = "1.0.4";
+xAct`xTras`$Version = "1.0.5pre";
 xAct`xTras`$xTensorVersionExpected = {"1.0.4", {2012, 5, 5}};
 
 If[Unevaluated[xAct`xCore`Private`$LastPackage] === xAct`xCore`Private`$LastPackage, 
@@ -31,7 +31,8 @@ BeginPackage["xAct`xTras`",{
 	"xAct`xTensor`",
 	"xAct`xPert`", 
 	"xAct`Invar`",
-	"xAct`xCoba`"
+	"xAct`xCoba`",
+	"xAct`SymManipulator`"
 }]
 
 (* Check if we have the correct version of xAct. *)
@@ -82,15 +83,15 @@ in the imploded tensor CDT. Both CD and T do not take indices."
 (* MetricPermutations *)
 
 AllContractions::usage =
-	"AllContractions[metric,indices][expr] gives all possible contractions of \
-expr (which can also be a list of expressions with the same free indices) \
-with metrics with the given indices.\
-\n\nBoth metric and indices are optional. If indices is omitted, all free indices \
-are contracted. When the number of free indices if odd, one extra index is contracted \
-over, such that one free index ends up in all possible positions. \
-If metric is omitted, the first metric of the manifold of the \
-tensors of the expression is used.\
-\n\nVanishing contractions (if any) are removed from the final result.";
+	"AllContractions[expr] gives all possible full contractions of \
+expr over its free indices. The free indices have to belong to the same \
+tangent bundle, which also has to have a metric. \n\
+\n\
+AllContractions[expr, indexList] gives all possible contractions of expr that \
+have free indices specified by indexList. \n\
+\n\
+AllContractions[expr, indexList, symm] gives all possible contractions of expr \
+with free indices indexList and the symmetry symm imposed on the free indices.";
 
 
 MetricPermutations::usage =
@@ -1691,42 +1692,128 @@ DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], me
 (* Metric contractions & permutations *)
 (**************************************)
 
-AllContractions[][expr_] := AllContractions[First@FindAllMetrics@expr][expr];
+(* 
+ *	AllContractions currently only takes the symmetries G of the dummies
+ *  into account, i.e. the symmetries of n/2 metrics if there are n indices
+ *  to be contracted. Thus it uses a (right) transversal of the coset
+ *  S_n / G, with S_n the rank n symmetric group.
+ *
+ *  We should also take the symmetries H of the expression that is to be contracted
+ *  into account, and then do a transversal of the double coset H \ S_n / G.
+ *  But at the moment xAct doesn't have a algorithm to do this. 
+ *)
 
-AllContractions[metric_?MetricQ][expr_] := 
-	AllContractions[metric][{expr}];
+Options[AllContractions] ^= {Verbose->False};
 
-AllContractions[metric_?MetricQ][expr_List] := Module[
-	{frees,vb,newindex,complement},
+AllContractions[expr_,options___?OptionQ] := 
+	AllContractions[expr, IndexList[], options];
+
+AllContractions[expr_,freeIndices:IndexList[___?AIndexQ],options___?OptionQ] := 
+	AllContractions[expr, freeIndices, StrongGenSet[{},GenSet[]], options];
+
+AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,options___?OptionQ] := Module[
+	{
+		verbose,map,allIndices,exprIndices,numIndices,slotExpr,VB,metric,
+		auxT,dummies,metrics,metricSym,contractions,M,slotRules
+	},
+
+	(* Set the verbosity *)
+	verbose = Verbose /. CheckOptions[options] /. Options[AllContractions];
+	If[TrueQ[verbose],
+		map = MapTimed,
+		map = Map[#1,#2]&
+	];
 	
-	vb 		= VBundleOfMetric[metric];
-	frees	= List@@IndicesOf[Free][First@expr];
-	If[Mod[Length@frees,2]=!=0,
-		complement 	= Complement[Flatten[IndicesOfVBundle@vb],UpIndex/@frees];
-		newindex 	= If[complement === {},
-			NewIndexIn[vb],
-			First@complement
-		];
-		frees = Append[frees,newindex];
+	(* Get the indices of the problem *)
+	exprIndices = IndicesOf[Free][expr];
+	allIndices	= Join[freeIndices,exprIndices];
+	numIndices 	= Length[allIndices];
+	
+	(* Do some checks *)
+	If[OddQ@numIndices,
+		Throw@Message[AllContractions::error, "Attempting to contract an odd number of indices."];
 	];
-	AllContractions[metric,ChangeIndex/@frees][ReplaceDummies@expr]
+	If[Length@Union[VBundleOfIndex/@allIndices] =!= 1,
+		Throw@Message[AllContractions::error, "More than one tangent bundle detected."];
+	];
+	If[Length@MetricsOfVBundle@VBundleOfIndex@First@allIndices === 0,
+		Throw@Message[AllContractions::error, "No metric found in tangent bundle."];
+	];
+	
+	(* Init geometric variables. *)
+	VB 		= VBundleOfIndex@First@allIndices;
+	M 		= BaseOfVBundle@VB;
+	metric 	= First@MetricsOfVBundle@VB;
+	
+	(* Define an auxilary tensor. We vary w.r.t. to this tensor afterwards to free the indices. *)
+	Block[{$DefInfoQ=False},DefTensor[auxT@@freeIndices,M,symmetry]];
+	
+	(* Get a list of dummy indices *)
+	dummies = Riffle[#,-#]&@GetIndicesOfVBundle[VB,numIndices/2];
+	
+	(* Construct a pure function that, when acting on a (permutation of) the
+	   dummy indices of the previous line, gives a contraction we're after.
+	   We need to replace the indices with Slots, so let's make rules for that. *)
+	slotRules = Inner[
+		Rule, 
+		List @@ exprIndices, 
+		Slot /@ (Range@Length@exprIndices + Length@freeIndices), 
+		List
+	];
+	slotExpr = Evaluate[
+		Times[
+			(* The auxiliary tensor *)
+			auxT @@ ( Slot /@ Range@Length@freeIndices ),
+			(* The expr as given by the user *)
+			expr /. slotRules
+		]
+	]&;
+	
+	(* Construct a product of metrics and determine its symmetry. *)
+	metrics 	= Times @@ ( metric@@#& /@ Partition[GetIndicesOfVBundle[VB,numIndices], 2] );
+	metricSym 	= Last@SymmetryOf@metrics;
+	
+	(* Compute the transversal of the right cosets of S_numIndices / metricSym.
+	  This gives the right coset representatives of the conjugacy classes that
+	  are not related to each other via the group metricSym (i.e. permutations
+	  of the indices on the metrics). *)
+	contractions = map[
+		(* Act with slotExpr on action of the coset rep on dummies in order to get the full expression *)
+		slotExpr@@PermuteList[dummies,#]&,
+		(* Computation of the coset reps. *)
+		xAct`SymManipulator`Private`TransversalComputation[metricSym,Symmetric@Range@numIndices],
+		(* Print some info *)
+		Description -> "Computing permutations."
+	];
+	(* Canonicalize and delete duplicates and zeros. *)
+	contractions = DeleteCases[
+		DeleteDuplicates@map[
+			ToCanonical,
+			contractions,
+			Description -> "Canonicalizing."
+		]
+	,
+		0
+	];
+	(* Vary w.r.t. the auxiliary tensor to free the indices. The free indices
+	   then automatically have the symmetry structure the user wanted. *)
+	contractions = map[
+		VarD[auxT@@freeIndices, PD],
+		contractions,
+		Description -> "Freeing indices."
+	];
+	
+	(* Lastly, undefine the auxiliary tensor. *)
+	Block[{$UndefInfoQ=False},UndefTensor[auxT]];
+	
+	(* Return result. *)
+	contractions
 ];
 
-AllContractions[metric_?MetricQ, indexList:(IndexList|List)[___]][expr_] := 
-	AllContractions[metric, indexList][{expr}];
-
-AllContractions[metric_?MetricQ, indexList:(IndexList|List)[___]][exprs_List] := Module[{metrics, dummies},
-	metrics = MetricPermutations[metric,indexList];
-	dummies = Intersection[
-		UpIndex /@ (IndexList@@indexList), 
-		UpIndex /@ (IndicesOf[Free][First@exprs])
-	];
-	DeleteCases[DeleteDuplicates@MapTimed[
-		ReplaceDummies[ToCanonical@ContractMetric[# ], dummies]&, 
-		Flatten@Outer[Times[#1, #2] &, exprs, metrics], 
-		Description -> "Contracting indices."
-	],0]
-];
+(* 
+ *	MetricPermutations is no longer used by AllContractions, 
+ *  but let's keep it anyhow.
+ *)
 
 MetricPermutations[metric_?MetricQ, list_] /; EvenQ@Length@list := 
 	Map[Times @@ Map[metric @@ # &, #] &, UnorderedPairsPermutations[list]];
