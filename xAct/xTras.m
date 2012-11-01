@@ -82,6 +82,12 @@ in the imploded tensor CDT. Both CD and T do not take indices."
 
 (* MetricPermutations *)
 
+SymmetrizeMethod::usage =
+	"SymmetrizeMethod is an options for AllContractions. Its values can be \
+'ImposeSymmetry' (default) or 'ImposeSym'. The former uses xTensor's explicit \
+symmetrization to symmetrize the free indices, whereas the latter uses \
+SymManipulator's implicit ImposeSym to symmetrize the free indices.";
+
 AllContractions::usage =
 	"AllContractions[expr] gives all possible full contractions of \
 expr over its free indices. The free indices have to belong to the same \
@@ -1703,7 +1709,10 @@ DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], me
  *  But at the moment xAct doesn't have a algorithm to do this. 
  *)
 
-Options[AllContractions] ^= {Verbose->False};
+Options[AllContractions] ^= {
+	Verbose -> False,
+	SymmetrizeMethod -> ImposeSymmetry
+};
 
 AllContractions[expr_,options___?OptionQ] := 
 	AllContractions[expr, IndexList[], options];
@@ -1713,15 +1722,21 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ],options___?OptionQ] :=
 
 AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,options___?OptionQ] := Module[
 	{
-		verbose,map,allIndices,exprIndices,numIndices,slotExpr,VB,metric,
+		verbose,symmethod,sym,map,allIndices,exprIndices,numIndices,slotExpr,VB,metric,
 		auxT,dummies,metrics,metricSym,contractions,M,slotRules
 	},
 
-	(* Set the verbosity *)
-	verbose = Verbose /. CheckOptions[options] /. Options[AllContractions];
+	(* Set the options. Note that Function (&) has the HoldAll attribute so we don't need to use SetDelayed. *)
+	{verbose,symmethod} = {Verbose, SymmetrizeMethod} /. CheckOptions[options] /. Options[AllContractions];
 	If[TrueQ[verbose],
 		map = MapTimed,
 		map = Map[#1,#2]&
+	];
+	If[symmethod === ImposeSymmetry,
+		(* ImposeSymmetry: impose symmetry first, and then later canonalize *)
+		sym = ToCanonical@ImposeSymmetry[#,freeIndices,SymmetryGroupOfTensor@auxT]&,
+		(* ImposeSym: canocalize first (to contract metrics generated at the previous step), then symmetrize *)
+		sym = ImposeSym[ToCanonical[#],freeIndices,SymmetryGroupOfTensor@auxT]&
 	];
 	
 	(* Get the indices of the problem *)
@@ -1748,8 +1763,9 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 	(* Define an auxilary tensor. We vary w.r.t. to this tensor afterwards to free the indices. *)
 	Block[{$DefInfoQ=False},DefTensor[auxT@@freeIndices,M,symmetry]];
 	
-	(* Get a list of dummy indices *)
-	dummies = Riffle[#,-#]&@GetIndicesOfVBundle[VB,numIndices/2];
+	(* Get a list of dummy indices. Note that we don't want the include the free indices,
+	   because they will clash later when we remove the auxiliary tensor. *)
+	dummies = Riffle[#,-#]&@GetIndicesOfVBundle[VB,numIndices/2,UpIndex/@freeIndices];
 	
 	(* Construct a pure function that, when acting on a (permutation of) the
 	   dummy indices of the previous line, gives a contraction we're after.
@@ -1785,7 +1801,7 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 		(* Print some info *)
 		Description -> "Computing permutations."
 	];
-	(* Canonicalize and delete duplicates and zeros. *)
+	(* Canonicalize, and delete duplicates and zeros. *)
 	contractions = DeleteCases[
 		DeleteDuplicates@map[
 			ToCanonical,
@@ -1795,15 +1811,26 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 	,
 		0
 	];
-	(* Vary w.r.t. the auxiliary tensor to free the indices. The free indices
-	   then automatically have the symmetry structure the user wanted. *)
-	contractions = map[
-		VarD[auxT@@freeIndices, PD],
+	(* Vary w.r.t. the auxiliary tensor to free the indices. This should be fast,
+	   so we don't need to keep the user informed. *)
+	contractions = ReplaceAll[
 		contractions,
-		Description -> "Freeing indices."
+		auxT[inds___] :> Inner[
+			delta, 
+			IndexList[inds], 
+			freeIndices, 
+			Times
+		]
+	];
+	(* Impose symmetry. *)
+	contractions = map[
+		sym,
+		contractions,
+		Description -> "Imposing symmetry."
 	];
 	
-	(* Lastly, undefine the auxiliary tensor. *)
+	(* Lastly, undefine the auxiliary tensor. We couldn't do this before
+	   because we needed its symmetry in the previous step. *)
 	Block[{$UndefInfoQ=False},UndefTensor[auxT]];
 	
 	(* Return result. *)
