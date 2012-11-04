@@ -1081,8 +1081,20 @@ ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] /; FreeQ[eq,List] := Module[{coll
 SolveConstants[expr_,varsdoms__] := 
 	Solve[expr /. equation_Equal :> ToConstantSymbolEquations[equation], varsdoms];
 
-(* This is a handy shortcut *)
-SolveConstants[expr_] := SolveConstants[expr, Select[Variables[expr],ConstantSymbolQ] ];
+(* This is a handy shortcut.
+   We can't use Variables[expr], because Variables[Equal[__]] always gives {}. *)
+SolveConstants[expr_] := SolveConstants[
+	expr,
+	Select[
+		DeleteDuplicates@Flatten@Cases[
+			expr,
+			Equal[lhs_,rhs_] :> Union[Variables[lhs],Variables[rhs]],
+			{0, Infinity},
+			Heads -> True
+		],
+		ConstantSymbolQ
+	]
+];
 
 MakeEquationRule[{Equal[LHS_,RHS_], pattern_, cond___}, options___?OptionQ]:=
   Module[{expanded, list, terms, coefficient, lhs, rhs},
@@ -1746,7 +1758,7 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 	
 	(* Do some checks *)
 	If[OddQ@numIndices,
-		Throw@Message[AllContractions::error, "Attempting to contract an odd number of indices."];
+		Throw@Message[AllContractions::error, "Can't contract an odd number of indices."];
 	];
 	If[Length@Union[VBundleOfIndex/@allIndices] =!= 1,
 		Throw@Message[AllContractions::error, "More than one tangent bundle detected."];
