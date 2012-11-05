@@ -1026,7 +1026,7 @@ Options[TensorCollect] ^= {
 
 TensorCollect[expr_, options___?OptionQ] := expr;
 TensorCollect[expr_, options___?OptionQ] /; !FreeQ[expr, Plus | _?xTensorQ] := 
-Module[{method, simplify, mod, notensormod, tensormod, tensors},
+Module[{method, simplify, mod, notensormod, tensormod, tensors, dummies},
 	{method,simplify} = {CollectMethod, SimplifyMethod} /. CheckOptions[options] /. Options[TensorCollect];
 	(* If we have perturbations in the expression don't contract metrics etc. *)
 	If[!FreeQ[expr,Perturbation],
@@ -1036,16 +1036,21 @@ Module[{method, simplify, mod, notensormod, tensormod, tensors},
 		method = ToCanonical@ContractMetric@NoScalar@#&;
 	];
 	
-	mod = SameDummies@expr;
-	
 	(* Apply the tensorcollector. *)
 	mod = Block[{$RecursionLimit = 4096},
-		TensorCollector@mod
+		TensorCollector@expr
 	];
-	mod = SameDummies[mod /. HoldPattern@TensorCollector[arg_] :> TensorCollector[method@arg]];
+	(* Apply the canonicalization method. *)
+	mod = mod /. HoldPattern@TensorCollector[arg_] :> TensorCollector[method@arg];
+	(* Make all dummies the same. SameDummies might not work because mod might not be fully expanded. *)
+	dummies = FindDummyIndices[Evaluate@mod];
+	mod = mod /. HoldPattern@TensorCollector[arg_] :> TensorCollector[ReplaceDummies[arg,dummies]];
+	(* Separate the bits with and without tensors. We can only have bits without tensor for scalar expressions. *)
 	notensormod = mod /. HoldPattern[TensorCollector[___]]->0;
 	tensormod 	= mod - notensormod;
-	tensors = Select[Variables[tensormod], ! ConstantQ[#] &];
+	(* Get the tensors of the expression. Could also use Cases instead of Variables... *)
+	tensors = Select[Variables[tensormod], Head[#]===TensorCollector&];
+	(* Collect in terms of the tensors, simplify the overall factors, and remove TensorCollectors. *)
 	simplify[notensormod] + (Collect[tensormod, tensors] 
 		/. x_*y_TensorCollector :> simplify[x] y 
 		/. TensorCollector -> Sequence
