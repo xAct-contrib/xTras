@@ -248,8 +248,11 @@ and turns it into equations for the constant symbols appearing eq.";
 
 SolveConstants::usage =
 	"SolveConstants[expr, vars] attempts to solve the tensorial expr for constant \
-symbols vars. \nSolveConstants[expr] attempts to solve expr for all the constant \
-symbols appearing in expr.";
+symbols vars. \n\
+SolveConstants[expr] attempts to solve expr for all the constant \
+symbols appearing in expr. \n\
+SolveConstants[expr, !vars] attempts to solve expr for all the constant symbols \
+appearing in expr, except vars.";
 
 (* Simplifying *)
 
@@ -1006,6 +1009,7 @@ Block[{$DefInfoQ=False},
 	];
 ];
 TensorCollector[x_List] := TensorCollector /@ x;
+TensorCollector[x_ (y_ + z_)] := TensorCollector[x y] + TensorCollector[x z];
 TensorCollector[x_ * y_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x TensorCollector[y];
 TensorCollector[x_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x;
 
@@ -1032,18 +1036,13 @@ Module[{method, simplify, mod, notensormod, tensormod, tensors},
 		method = ToCanonical@ContractMetric@NoScalar@#&;
 	];
 	
-	mod = SameDummies@Expand@expr;
+	mod = SameDummies@expr;
 	
-	(* Because we have used Expand, and expr contains a Plus, the head should be plus.
-	   To be on the safe side, return if it isn't the case. *)
-	If[Head[mod]=!=Plus,
-		Return[mod];
-	];
-	(* Map of the expanded sum, and apply the tensorcollector. *)
-	mod = SameDummies[method /@ mod];
+	(* Apply the tensorcollector. *)
 	mod = Block[{$RecursionLimit = 4096},
 		TensorCollector@mod
 	];
+	mod = SameDummies[mod /. HoldPattern@TensorCollector[arg_] :> TensorCollector[method@arg]];
 	notensormod = mod /. HoldPattern[TensorCollector[___]]->0;
 	tensormod 	= mod - notensormod;
 	tensors = Select[Variables[tensormod], ! ConstantQ[#] &];
@@ -1078,23 +1077,28 @@ ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] /; FreeQ[eq,List] := Module[{coll
 	Apply[And, Equal[#,0]& /@ Append[withT, Plus@@freeT] ] 
 ];
 
-SolveConstants[expr_,varsdoms__] := 
-	Solve[expr /. equation_Equal :> ToConstantSymbolEquations[equation], varsdoms];
-
 (* This is a handy shortcut.
    We can't use Variables[expr], because Variables[Equal[__]] always gives {}. *)
-SolveConstants[expr_] := SolveConstants[
-	expr,
-	Select[
-		DeleteDuplicates@Flatten@Cases[
-			expr,
-			Equal[lhs_,rhs_] :> Union[Variables[lhs],Variables[rhs]],
-			{0, Infinity},
-			Heads -> True
-		],
-		ConstantSymbolQ
-	]
-];
+Default[SolveConstants] ^= !{};
+SolveConstants[expr_,Optional[notvars:!(_List|_Symbol)]] := 
+	Solve[
+		#,
+		Complement[
+			Select[
+				DeleteDuplicates@Flatten@Cases[
+					#,
+					Equal[lhs_,rhs_] :> Union[Variables[lhs],Variables[rhs]],
+					{0, Infinity},
+					Heads -> True
+				],
+				ConstantSymbolQ
+			],
+			Flatten[{!notvars}]
+		]
+	]&[expr /. equation_Equal :> ToConstantSymbolEquations[equation]];
+
+SolveConstants[expr_,varsdoms__] := 
+	Solve[expr /. equation_Equal :> ToConstantSymbolEquations[equation], varsdoms];	
 
 MakeEquationRule[{Equal[LHS_,RHS_], pattern_, cond___}, options___?OptionQ]:=
   Module[{expanded, list, terms, coefficient, lhs, rhs},

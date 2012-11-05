@@ -52,7 +52,7 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["xAct`xTras`$Version", "Print", "PrintUsage",
- CellTags->"Info3561034895-1206558"],
+ CellTags->"Info3561098770-6230227"],
 
 Cell[BoxData[
  InterpretationBox[GridBox[{
@@ -74,7 +74,7 @@ Cell[BoxData[
      "RowsIndexed" -> {}}],
   Definition[xAct`xTras`$Version],
   Editable->False]], "Print",
- CellTags->"Info3561034895-1206558"]
+ CellTags->"Info3561098770-6230227"]
 }, Open  ]]
 }, Open  ]],
 
@@ -11545,9 +11545,10 @@ Cell[BoxData[
 Cell[BoxData[
  StyleBox["\<\"SolveConstants[expr, vars] attempts to solve the tensorial \
 expr for constant symbols vars. \\nSolveConstants[expr] attempts to solve \
-expr for all the constant symbols appearing in expr.\"\>", 
-  "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3561034933-1206558"]
+expr for all the constant symbols appearing in expr. \\nSolveConstants[expr, \
+!vars] attempts to solve expr for all the constant symbols appearing in expr, \
+except vars.\"\>", "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3561098806-6230227"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -11624,11 +11625,10 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"Solve", "::", "svars"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Equations may not give solutions for all \\\"solve\\\" \
-variables. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
+   RowBox[{"Solve", "::", "svars"}], "MessageName"], ":", 
+  " ", "\<\"Equations may not give solutions for all \\\"solve\\\" variables. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
 ButtonNote -> \\\"Solve::svars\\\"]\\)\"\>"}]], "Message", "MSG"],
 
 Cell[BoxData[
