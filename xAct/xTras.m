@@ -1044,7 +1044,10 @@ Module[{method, simplify, mod, notensormod, tensormod, tensors, dummies},
 	mod = mod /. HoldPattern@TensorCollector[arg_] :> TensorCollector[method@arg];
 	(* Make all dummies the same. SameDummies might not work because mod might not be fully expanded. *)
 	dummies = FindDummyIndices[Evaluate@mod];
-	mod = mod /. HoldPattern@TensorCollector[arg_] :> TensorCollector[ReplaceDummies[arg,dummies]];
+	(* ReplaceDummies generates new dummies for dollar indices in its last argument, unless $ComputeNewDummies is False. *)
+	Block[{$ComputeNewDummies = False},
+		mod = mod /. HoldPattern@TensorCollector[arg_] :> TensorCollector[ReplaceDummies[arg,dummies]];
+	];
 	(* Separate the bits with and without tensors. We can only have bits without tensor for scalar expressions. *)
 	notensormod = mod /. HoldPattern[TensorCollector[___]]->0;
 	tensormod 	= mod - notensormod;
