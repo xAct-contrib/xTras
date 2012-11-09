@@ -18,7 +18,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = "1.0.5pre";
+xAct`xTras`$Version = "1.0.5";
 xAct`xTras`$xTensorVersionExpected = {"1.0.4", {2012, 5, 5}};
 
 If[Unevaluated[xAct`xCore`Private`$LastPackage] === xAct`xCore`Private`$LastPackage, 
