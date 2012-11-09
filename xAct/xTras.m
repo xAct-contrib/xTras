@@ -1025,7 +1025,8 @@ Options[TensorCollect] ^= {
 };
 
 TensorCollect[expr_, options___?OptionQ] := expr;
-TensorCollect[expr_, options___?OptionQ] /; !FreeQ[expr, Plus | _?xTensorQ] := 
+TensorCollect[expr_List, options___?OptionQ] := TensorCollect[#,options]& /@ expr;
+TensorCollect[expr_, options___?OptionQ] /; !FreeQ[expr, Plus | _?xTensorQ] && Head[expr] =!= List := 
 Module[{method, simplify, mod, notensormod, tensormod, tensors, dummies},
 	{method,simplify} = {CollectMethod, SimplifyMethod} /. CheckOptions[options] /. Options[TensorCollect];
 	(* If we have perturbations in the expression don't contract metrics etc. *)
