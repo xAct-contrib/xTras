@@ -1066,7 +1066,13 @@ DoTensorCollect[func_][expr_] := Module[{collected, map},
 	MapIfPlus[map,collected]
 ];
 
+(* Equal with multiple arguments: take the first two and chain the rest recursively. *)
+ToConstantSymbolEquations[Equal[a_,b_,c_,d___]] := ToConstantSymbolEquations[Equal[a,b]] && ToConstantSymbolEquations[Equal[b,c,d]]; 
 
+(* Equal over lists: Thread over the lists and feed back into ToConstantSymbolEquations. *)
+ToConstantSymbolEquations[eq:(Equal[_List,_]|Equal[_,_List]|Equal[_List,_List])] := Thread[eq] /. eqs_Equal :> ToConstantSymbolEquations[eqs];
+
+(* Main function *)
 ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] /; FreeQ[eq,List] := Module[{collected,list,freeT,withT},
 	collected = TensorCollect[lhs - rhs, 
 		CollectMethod->Default, 
@@ -1092,7 +1098,7 @@ SolveConstants[expr_,Optional[notvars:!(_List|_Symbol)]] :=
 			Select[
 				DeleteDuplicates@Flatten@Cases[
 					#,
-					Equal[lhs_,rhs_] :> Union[Variables[lhs],Variables[rhs]],
+					HoldPattern@Equal[args__] :> Union @@ (Variables /@ List[args]),
 					{0, Infinity},
 					Heads -> True
 				],
@@ -1100,10 +1106,10 @@ SolveConstants[expr_,Optional[notvars:!(_List|_Symbol)]] :=
 			],
 			Flatten[{!notvars}]
 		]
-	]&[expr /. equation_Equal :> ToConstantSymbolEquations[equation]];
+	]&[expr /. HoldPattern[equation_Equal] :> ToConstantSymbolEquations[equation]];
 
 SolveConstants[expr_,varsdoms__] := 
-	Solve[expr /. equation_Equal :> ToConstantSymbolEquations[equation], varsdoms];	
+	Solve[expr /. HoldPattern[equation_Equal] :> ToConstantSymbolEquations[equation], varsdoms];	
 
 MakeEquationRule[{Equal[LHS_,RHS_], pattern_, cond___}, options___?OptionQ]:=
   Module[{expanded, list, terms, coefficient, lhs, rhs},
