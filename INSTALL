@@ -6,7 +6,8 @@ xTras consists of a single package file, "xTras.m". Besides the package
 there is documentation available in the notebook "xTrasDoc.nb". This notebook
 does not need to be copied somewhere.
 The file "xTras.m" must be copied to the directory where you've installed xAct.
-This location is most likely the following on the respective operating systems:
+If you haven't done so yet, head over to www.xact.es to download and install xAct.
+The xAct folder is most likely the following on the respective operating systems:
 
 Linux:
    - system-wide installation (requires root priviledges):
@@ -27,7 +28,7 @@ MSWindows:
         C:\Documents and settings\<user>\Application Data\Mathematica\Applications\xAct\
 
 Beware that in Windows these directories might be hidden!
-Then the package can be loaded using unix style
+After installation, the package can be loaded using unix style
 
         <<xAct/xTras.m
 

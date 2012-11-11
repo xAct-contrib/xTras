@@ -1,10 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="xTras" default="zip" basedir="."> 
+<project name="xTras" default="zip" basedir=".">
   <target name="zip">
-  	<zip destfile="dist/xTras.vX.X.X.zip"
+	<macrodef name="get-git-date">
+	        <attribute name="tag" />
+			<attribute name="num" />
+	        <sequential>
+	          	<exec dir="." executable="git" failonerror="true" outputproperty="git.date.@{num}">
+	          	        <arg line="log @{tag} --simplify-by-decoration --pretty=format:%ad --date=short --reverse -1"/>
+	          	</exec>
+	        </sequential>
+	    </macrodef>
+	<macrodef name="get-git-log">
+	        <attribute name="range" />
+			<attribute name="numlog" />
+	        <sequential>
+	          	<exec dir="." executable="git" failonerror="true" outputproperty="git.log.@{numlog}">
+	          		<arg line="log --pretty=format:%s @{range} xAct/xTras.m"/>
+	          	</exec>
+	        </sequential>
+	    </macrodef>
+  	<exec dir="." executable="git" failonerror="true" outputproperty="git.tags">
+  	        <arg line="for-each-ref --sort='*authordate' --format='%(refname:short)' refs/tags"/>
+  	</exec>
+    <script language="javascript"><![CDATA[
+var tags = project.getProperty("git.tags").replace("\r", "").split("\n");
+var output = '';
+
+for (var i = tags.length - 1; i > -1; i--) {
+    	
+    output += tags[i] + ", ";
+    
+    var getgitdate = project.createTask("get-git-date");
+	getgitdate.setDynamicAttribute("tag",tags[i]);
+    getgitdate.setDynamicAttribute("num",i);
+	getgitdate.execute();
+	output += project.getProperty("git.date." + i) + "\n\n";
+
+    var getgitlog  = project.createTask("get-git-log");
+    var range = '';
+    if(i > 0)
+    	{
+    		range += tags[i-1] + "..";
+    	}
+    range += tags[i];
+    getgitlog.setDynamicAttribute("range", range);
+	getgitlog.setDynamicAttribute("numlog",i);
+    getgitlog.execute();
+    output += project.getProperty("git.log." + i).replace("\r", "").replace(" *","\n*") + "\n\n";
+}
+project.setProperty("git.log", output);
+project.setProperty("git.last",tags[tags.length-1]);
+]]></script>
+  	
+	<echo file="CHANGELOG">${git.log}</echo>
+
+  	<zip destfile="dist/xTras.${git.last}.zip"
 	       basedir="."
-  	       includes="install.txt,xTrasDoc.nb,xAct/xTras.m"
+  	       includes="INSTALL,CHANGELOG,xTrasDoc.nb,xAct/xTras.m"
 	       update="true"
   	  />
+  	
   </target>
 </project>
