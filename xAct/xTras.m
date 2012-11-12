@@ -18,7 +18,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = "1.0.5";
+xAct`xTras`$Version = "1.0.6pre";
 xAct`xTras`$xTensorVersionExpected = {"1.0.4", {2012, 5, 5}};
 
 If[Unevaluated[xAct`xCore`Private`$LastPackage] === xAct`xCore`Private`$LastPackage, 
@@ -260,9 +260,17 @@ PreferBoxOfRule::usage =
   "PreferBoxOfRule[tensor,CD] gives rules for rewriting an expression \
 with boxes on the given tensor with respect to the given CD.";
 
+PreferBoxOf::usage =
+	"PreferBoxOf[tensor,CD][expr] commutes the covariant derivatives CD in expr \
+such that all possible boxes (CD[-a]@CD[a]) act on the specified tensor.";
+
 PreferDivOfRule::usage = 
   "PreferDivOfRule[tensor,CD] gives rules for rewriting an expression \
 with divergences of the given tensor with respect to the given CD.";
+
+PreferDivOf::usage =
+	"PreferDivOf[tensor,CD][expr] commutes the covariant derivatives CD in expr \
+such that any covariant derivatve contracted with tensor acts directy on tensor.";
 
 DivFreeQ::usage = 
   "DivFreeQ[expr,tensor,CD] returns True if expr does not contain a \
@@ -1186,7 +1194,7 @@ xAct`xPert`Private`DefGenPertDet[vbundle_, metric_, pert_] := With[
 (* Simplifying *)
 (***************)
 
-PreferBoxOfRule[tensor_] := Flatten[PreferBoxOfRule[tensor, #] & /@ DeleteCases[$CovDs,PD] ];
+PreferBoxOfRule[tensor_] := Flatten[PreferBoxOfRule[tensor, #] & /@ $CovDs ];
 PreferBoxOfRule[tensor_, CD_?CovDQ] := 
 {
 	bigexpr : CD[-b_]@CD[b_]@CD[a_][expr_] /; (! FreeQ[expr, tensor] && FreeQ[expr, CD[ChangeIndex[a]][_]]) :> 
@@ -1197,13 +1205,20 @@ PreferBoxOfRule[tensor_, CD_?CovDQ] :=
 		CommuteCovDs[bigexpr, CD, {a, b}]
 };
 
+PreferBoxOf[tensor_][expr_] := expr //. PreferBoxOfRule[tensor];
+PreferBoxOf[tensor_, CD_?CovDQ][expr_] := expr //. PreferBoxOfRule[tensor, CD]; 
+
 
 (* The next bit is thanks to Leo Stein, 
    see http://groups.google.com/group/xact/browse_thread/thread/31e959cbee8d1848/690def9618ff519c *)
-PreferDivOfRule[tens_] := Flatten[PreferDivOfRule[tens, #] & /@ DeleteCases[$CovDs,PD] ];
+PreferDivOfRule[tens_] := Flatten[PreferDivOfRule[tens, #] & /@ $CovDs ];
 PreferDivOfRule[tens_, CD_?CovDQ] := 
 	(bigexpr : (CD[b_]@CD[a_][expr_] /; (!FreeQ[expr, tens[___, ChangeIndex[b], ___]] && FreeQ[expr, tens[___, ChangeIndex[a], ___]]))) :> 
 		CommuteCovDs[bigexpr, CD, {a, b}];
+
+PreferDivOf[tensor_][expr_] := expr //. PreferDivOfRule[tensor];
+PreferDivOf[tensor_, CD_?CovDQ][expr_] := expr //. PreferDivOfRule[tensor, CD]; 
+
 
 DivFreeQ[expr_, tens_] := And @@ (DivFreeQ[expr, tens, #] & /@ $CovDs);
 DivFreeQ[expr_, tens_, CD_?CovDQ] := FreeQ[expr, CD[a_][inner_] /; ! FreeQ[inner, tens[___, ChangeIndex[a], ___]]];
