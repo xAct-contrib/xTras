@@ -1,6 +1,5 @@
 v1.0.5, 2012-11-09
 
-* Bumped version number to 1.0.5.
 * Made TensorCollect listable.
 * Fixed a bug in TensorCollect cause by my ignorance of ReplaceDummies and $ComputeNewDummies.
 * ToConstantSymbolEquations handles more cases (lists, a==b==c).
@@ -16,7 +15,6 @@ v1.0.5, 2012-11-09
 
 v1.0.4, 2012-10-25
 
-* Bumped version number to 1.0.4.
 * Made RiemannDivRule and RicciDivRule more robust (but also more complicated).
 * Remove zeros from AllContractions.
 * Use Bianchi's twice in FullSimplification.
@@ -44,9 +42,8 @@ v1.0.4, 2012-10-25
 * Added SolveConstants, which is much more similar to Solve than TensorCollectSolve was.
 * Updated some usage messages.
 
-1.0.3, 2012-10-10
+v1.0.3, 2012-10-10
 
-* Bumped the version number (1.0.3).
 * Changed xTras print message.
 * Changed import of other packages.
 * Printing of GPL disclaimer is more in line with xAct behaviour.
@@ -77,14 +74,11 @@ v1.0.4, 2012-10-25
 
 v1.0.2, 2012-08-19
 
-Bumped version number.
 Implemented Killing vectors.
 Fixed bug in ConstantExprQ (caused by Variables only acting on polynomials).
 
 v1.0.1, 2012-05-06
 
-correct version number
-Bumped the version number.
 Added xTension hook (so Schouten and EinsteinCC are automatically defined).
 * Renamed TimedMap to MapTimed.
 * InvarWrapper also sets $CommuteCovDsOnScalars

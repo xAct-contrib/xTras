@@ -14,9 +14,13 @@
 	        <attribute name="range" />
 			<attribute name="numlog" />
 	        <sequential>
-	          	<exec dir="." executable="git" failonerror="true" outputproperty="git.log.@{numlog}">
+	          	<exec dir="." executable="git" failonerror="true" outputproperty="git.fulllog.@{numlog}">
 	          		<arg line="log --pretty=format:%s @{range} xAct/xTras.m"/>
 	          	</exec>
+	        	<echo file="log.temp">${git.fulllog.@{numlog}}</echo>
+	        	<exec dir="." executable="/usr/bin/grep" outputproperty="git.log.@{numlog}">
+	        		<arg line="-v 'version number' log.temp"/>
+	            </exec>
 	        </sequential>
 	    </macrodef>
   	<exec dir="." executable="git" failonerror="true" outputproperty="git.tags">
@@ -51,7 +55,7 @@ for (var i = tags.length - 1; i > -1; i--) {
 project.setProperty("git.log", output);
 project.setProperty("git.last",tags[tags.length-1]);
 ]]></script>
-  	
+  	<delete file="log.temp"/>
 	<echo file="CHANGELOG">${git.log}</echo>
 
   	<zip destfile="dist/xTras.${git.last}.zip"
