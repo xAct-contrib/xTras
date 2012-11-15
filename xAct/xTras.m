@@ -6,6 +6,7 @@
 
 (*
 
+ * DoTensorCollect is broken.
  * Change DummyIn to GetIndicesOfVBundle where appropriate (not everywhere!).
  * Switch Modules to With's where approriate.
 
@@ -1085,7 +1086,7 @@ ToConstantSymbolEquations[Equal[a_,b_,c_,d___]] := ToConstantSymbolEquations[Equ
 ToConstantSymbolEquations[eq:(Equal[_List,_]|Equal[_,_List]|Equal[_List,_List])] := Thread[eq] /. eqs_Equal :> ToConstantSymbolEquations[eqs];
 
 (* Main function *)
-ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] /; FreeQ[eq,List] := Module[{collected,list,freeT,withT},
+ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] := Module[{collected,list,freeT,withT},
 	collected = TensorCollect[lhs - rhs, 
 		CollectMethod->Default, 
 		SimplifyMethod->Identity
