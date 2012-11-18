@@ -66,6 +66,9 @@ License for details."];
 (*********************)
 
 
+HeldCovDQ::usage =
+	"HeldCovDQ[CD] returns True if CD is a 'held' covariant derivatve, and False otherwise."
+
 (* xCoba extensions *)
 
 ComputeBasisValues::usage =
@@ -473,6 +476,47 @@ Begin["`Private`"]
 
 slot := xAct`xTensor`Private`slot; 
 
+(******************************)
+(* Held covariant derivatives *)
+(******************************)
+
+HeldCovDQ[_] := False;
+
+xTension["xTras`", DefCovD, "End"] := xTrasDefCovD;
+
+xTrasDefCovD[covd_[ind_], vbundles_, options___?OptionQ] := With[{heldcovd = GiveSymbol["Held",covd]},
+	
+	If[HeldCovDQ[covd],
+		Return[];
+	];
+	
+	HeldCovDQ[covd] ^= False;
+	HeldCovDQ[heldcovd] ^= True;
+	
+	(* Define a new covariant derivative that won't expand over products. *)
+	DefCovD[heldcovd[ind],vbundles, options];
+	
+	(* Unset Leibniz behaviour over products *)
+	heldcovd[xAct`xTensor`Private`a_][xAct`xTensor`Private`x_ xAct`xTensor`Private`y_] =. ;
+];
+
+(* Formatting *)
+(* This actually applies to all covd's that are not Leibniz, i.e. those that don't automatically expand products *)
+MakeBoxes[covd_Symbol?CovDQ[inds__][expr_Times], StandardForm] := 
+Block[{$WarningFrom = "CovD Formatting"},
+	xAct`xTensor`Private`interpretbox[
+		covd[inds][expr],
+		xAct`xTensor`Private`MakeBoxesCovD[
+			Unevaluated[covd][inds][
+				xAct`xTensor`Private`boxof[
+					RowBox[{StyleBox["("], MakeBoxes[expr, StandardForm], StyleBox[")"]}]
+				]
+			],
+			(* Always prefix notation. Postfix doesn't make sense on products. *)
+			"Prefix"
+		]
+	]
+];
 
 (**********************)
 (* Curvature tensors  *)
