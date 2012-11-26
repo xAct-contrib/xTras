@@ -18,8 +18,8 @@
 	          		<arg line="log --pretty=format:%s @{range} xAct/xTras.m"/>
 	          	</exec>
 	        	<echo file="log.temp">${git.fulllog.@{numlog}}</echo>
-	        	<exec dir="." executable="/usr/bin/grep" outputproperty="git.log.@{numlog}">
-	        		<arg line="-v 'version number' log.temp"/>
+	        	<exec dir="." executable="/usr/bin/egrep" outputproperty="git.log.@{numlog}">
+	        		<arg line="-v 'version number|merge|merging' log.temp"/>
 	            </exec>
 	        </sequential>
 	    </macrodef>
