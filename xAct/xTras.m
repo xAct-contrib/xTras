@@ -6,7 +6,8 @@
 
 (*
 
- * DoTensorCollect is broken.
+ * Is DoTensorCollect broken? (now that TensorCollector expands)
+ * Fix MakeEquationRule (don't do a ToCanonical in there).
  * Change DummyIn to GetIndicesOfVBundle where appropriate (not everywhere!).
  * Switch Modules to With's where approriate.
 
@@ -963,7 +964,13 @@ MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; LevelSpecQ[levels
 	 
 	(* Determine the options *)
 	{desc, ms, dtc} = {Description, MonitorSteps, DoTensorCollect} /. CheckOptions[options] /. Options[MapTimed];
-	desc 			= ToString[desc];
+	desc 			= StringTrim@ToString@desc;
+	If[desc =!= "", 
+		desc = " " <> desc;
+		If[StringTake[desc,-1]=!=".",
+			desc = desc <> ".";
+		]
+	];
 	(* Initialize variables *)
 	length 		= 0;
 	position 	= 0;
@@ -976,7 +983,7 @@ MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; LevelSpecQ[levels
 		Ceiling[length/ms]
 	];
 	begintime 	= AbsoluteTime[];
-	mon 		= "** " <> desc <> " " <> stringlength <> " parts.";
+	mon 		= " **" <> desc <> " " <> stringlength <> " parts.";
 	
 	ETA[pos_] 		:= Ceiling[(AbsoluteTime[] - begintime)*(length - pos)/pos];
 	timer[part_] 	:= Module[{result},
@@ -988,7 +995,7 @@ MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; LevelSpecQ[levels
 		position++;
 		If[
 			ms === All || Mod[position, steps] == 0, 
-			mon = "** " <> desc <> " Parts " 
+			mon = " **" <> desc <> " Parts " 
 				<> ToString@position <> "/" <> stringlength 
 				<> " done. ETA in " <> TimeString@ETA@position <> "."
 		];
@@ -1770,7 +1777,7 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ],options___?OptionQ] :=
 AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,options___?OptionQ] := Module[
 	{
 		verbose,symmethod,sym,map,allIndices,exprIndices,numIndices,slotExpr,VB,metric,
-		auxT,dummies,metrics,metricSym,contractions,M,slotRules
+		auxT,dummylist,dummies,metrics,metricSym,contractions,M,slotRules
 	},
 
 	(* Set the options. Note that Function (&) has the HoldAll attribute so we don't need to use SetDelayed. *)
@@ -1810,9 +1817,10 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 	(* Define an auxilary tensor. We vary w.r.t. to this tensor afterwards to free the indices. *)
 	Block[{$DefInfoQ=False},DefTensor[auxT@@freeIndices,M,symmetry]];
 	
-	(* Get a list of dummy indices. Note that we don't want the include the free indices,
+	(* Get a list of dummy indices. Note that we don't want to include the free indices,
 	   because they will clash later when we remove the auxiliary tensor. *)
-	dummies = Riffle[#,-#]&@GetIndicesOfVBundle[VB,numIndices/2,UpIndex/@freeIndices];
+	dummylist 	= IndexList@@GetIndicesOfVBundle[VB,numIndices/2,UpIndex/@freeIndices];
+	dummies		= Riffle[List@@dummylist,-List@@dummylist];
 	
 	(* Construct a pure function that, when acting on a (permutation of) the
 	   dummy indices of the previous line, gives a contraction we're after.
@@ -1848,10 +1856,12 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 		(* Print some info *)
 		Description -> "Computing permutations."
 	];
-	(* Canonicalize, and delete duplicates and zeros. *)
+	(* Canonicalize, and delete duplicates and zeros.
+	   Note that ReplaceDummies is only needed when a contraction of a tensor has a DownValue
+	   that sends it to another tensor with less indices. *)
 	contractions = DeleteCases[
 		DeleteDuplicates@map[
-			ToCanonical,
+			ReplaceDummies[ToCanonical[#],dummylist]&,
 			contractions,
 			Description -> "Canonicalizing."
 		]
