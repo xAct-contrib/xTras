@@ -217,6 +217,16 @@ TensorCollector::usage =
   "TensorCollector[expr] wraps all tensors in expr in a head \
 'TensorCollector'.";
 
+$TensorCollectorColor::usage =
+	"$TensorCollectorColor is a global variable specifying the color of \
+the parentheses surrounding the formatting of a TensorCollector expression. \
+The default value is blue (RGBColor[0,0,1]).";
+
+$TensorCollectorWeight::usage =
+	"$TensorCollectorWeight is a global variable specifying the font weight of \
+the parentheses surrounding the formatting of a TensorCollector expression. \
+The default value is Bold.";
+
 RemoveConstants::usage = 
   "RemoveConstants[expr] removes all constants from the tensorial \
 expression expr.";
@@ -1020,14 +1030,28 @@ ConstantExprQ[x_] := ConstantQ[x];
 Block[{$DefInfoQ=False},
 	DefInertHead[
 		TensorCollector,
-		LinearQ -> True,
-		PrintAs -> "TC"
+		LinearQ -> True
 	];
 ];
 TensorCollector[x_List] := TensorCollector /@ x;
 TensorCollector[x_ (y_ + z_)] := TensorCollector[x y] + TensorCollector[x z];
 TensorCollector[x_ * y_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x TensorCollector[y];
 TensorCollector[x_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x;
+
+(* TensorCollector formatting. Follows Scalar. *)
+$TensorCollectorColor = RGBColor[0, 0, 1];
+$TensorCollectorWeight = Bold;
+
+TensorCollector /: MakeBoxes[TensorCollector[expr_], StandardForm] := 
+xAct`xTensor`Private`interpretbox[
+	TensorCollector[expr], 
+	RowBox[{
+		StyleBox["(", FontColor -> $TensorCollectorColor, FontWeight -> $TensorCollectorWeight], 
+		MakeBoxes[expr, StandardForm], 
+		StyleBox[")", FontColor -> $TensorCollectorColor, FontWeight -> $TensorCollectorWeight]
+	}]
+];
+
 
 RemoveConstants[expr_] := expr /. x_?ConstantExprQ *y_ /; ! FreeQ[y, _?xTensorQ | _?ParameterQ] :> y
 SetAttributes[RemoveConstants, Listable]
