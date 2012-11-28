@@ -222,11 +222,6 @@ $TensorCollectorColor::usage =
 the parentheses surrounding the formatting of a TensorCollector expression. \
 The default value is blue (RGBColor[0,0,1]).";
 
-$TensorCollectorWeight::usage =
-	"$TensorCollectorWeight is a global variable specifying the font weight of \
-the parentheses surrounding the formatting of a TensorCollector expression. \
-The default value is Bold.";
-
 RemoveConstants::usage = 
   "RemoveConstants[expr] removes all constants from the tensorial \
 expression expr.";
@@ -1040,15 +1035,14 @@ TensorCollector[x_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x;
 
 (* TensorCollector formatting. Follows Scalar. *)
 $TensorCollectorColor = RGBColor[0, 0, 1];
-$TensorCollectorWeight = Bold;
 
 TensorCollector /: MakeBoxes[TensorCollector[expr_], StandardForm] := 
 xAct`xTensor`Private`interpretbox[
 	TensorCollector[expr], 
 	RowBox[{
-		StyleBox["(", FontColor -> $TensorCollectorColor, FontWeight -> $TensorCollectorWeight], 
+		StyleBox["(", FontColor -> $TensorCollectorColor], 
 		MakeBoxes[expr, StandardForm], 
-		StyleBox[")", FontColor -> $TensorCollectorColor, FontWeight -> $TensorCollectorWeight]
+		StyleBox[")", FontColor -> $TensorCollectorColor]
 	}]
 ];
 
