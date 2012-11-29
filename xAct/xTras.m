@@ -222,6 +222,11 @@ $TensorCollectorColor::usage =
 the parentheses surrounding the formatting of a TensorCollector expression. \
 The default value is blue (RGBColor[0,0,1]).";
 
+RemoveTensorCollector::usage =
+	"RemoveTensorCollector is an option for TensorCollect. \
+If True, TensorCollect removes the TensorCollector heads from the expression \
+before returning. The default is True.";
+
 RemoveConstants::usage = 
   "RemoveConstants[expr] removes all constants from the tensorial \
 expression expr.";
@@ -231,13 +236,20 @@ RemoveTensors::usage =
 the constants.";
 
 CollectMethod::usage =
-	"CollectMethod is an option for TensorCollect.";
+	"CollectMethod is an option for TensorCollect that specifies which \
+(pure) function is used before tensors are collected. \
+The Default is ToCanonical@ContractMetric@NoScalar@#& .";
 
 SimplifyMethod::usage =
-	"SimplifyMethod is an option for TensorCollect.";
+	"SimplifyMethod is an option for TensorCollect that specifies how \
+collected prefactors are simplified. The Default is Simplify";
 
 TensorCollect::usage = 
   "TensorCollect[expr] acts as Collect[expr,tensorsof[expr]]";
+
+TensorCollect::denominator = 
+	"There are denominators with a sum inside TensorCollectors. \
+Things might not have been fully collected.";
 
 DoTensorCollect::usage = 
   "DoTensorCollect[func][expr] maps func on every collected tensor in \
@@ -1015,9 +1027,9 @@ MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; LevelSpecQ[levels
 
 
 
-(************************)
-(* TensorCollet et. al. *)
-(************************)
+(*************************)
+(* TensorCollect et. al. *)
+(*************************)
 
 ConstantExprQ[(Plus | Times | _?ScalarFunctionQ)[args__]] := And @@ Map[ConstantExprQ, List@args];
 ConstantExprQ[x_] := ConstantQ[x];
@@ -1025,15 +1037,21 @@ ConstantExprQ[x_] := ConstantQ[x];
 Block[{$DefInfoQ=False},
 	DefInertHead[
 		TensorCollector,
-		LinearQ -> True
+		LinearQ -> False, (* Setting this to True will slow evaluation down dramatically because of a clashing definition below. *)
+		ContractThrough -> {}, 
+		Master -> Null, 
+		PrintAs -> Identity, 
+		ProtectNewSymbol -> False,
+		DefInfo -> {"", ""}
 	];
 ];
 TensorCollector[x_List] := TensorCollector /@ x;
-TensorCollector[x_ (y_ + z_)] := TensorCollector[x y] + TensorCollector[x z];
+TensorCollector[x_Plus] := TensorCollector /@ x;
+(* The next line will clash if TensorCollector is LinearQ (which it is not). *)
 TensorCollector[x_ * y_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x TensorCollector[y];
 TensorCollector[x_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x;
 
-(* TensorCollector formatting. Follows Scalar. *)
+(* TensorCollector formatting. The same as how Scalar formats, only now in blue. *)
 $TensorCollectorColor = RGBColor[0, 0, 1];
 
 TensorCollector /: MakeBoxes[TensorCollector[expr_], StandardForm] := 
@@ -1055,14 +1073,17 @@ SetAttributes[RemoveTensors, Listable]
 
 Options[TensorCollect] ^= {
 	CollectMethod -> Default, 
-	SimplifyMethod -> Simplify
+	SimplifyMethod -> Simplify,
+	RemoveTensorCollector -> True
 };
+
+
 
 TensorCollect[expr_, options___?OptionQ] := expr;
 TensorCollect[expr_List, options___?OptionQ] := TensorCollect[#,options]& /@ expr;
 TensorCollect[expr_, options___?OptionQ] /; !FreeQ[expr, Plus | _?xTensorQ] && Head[expr] =!= List := 
-Module[{method, simplify, mod, notensormod, tensormod, tensors, dummies},
-	{method,simplify} = {CollectMethod, SimplifyMethod} /. CheckOptions[options] /. Options[TensorCollect];
+Module[{method, simplify, rtc, rtcrule, mod, notensormod, tensormod, tensors, dummies},
+	{method,simplify,rtc} = {CollectMethod, SimplifyMethod, RemoveTensorCollector} /. CheckOptions[options] /. Options[TensorCollect];
 	(* If we have perturbations in the expression don't contract metrics etc. *)
 	If[!FreeQ[expr,Perturbation],
 		method = Identity;
@@ -1070,10 +1091,17 @@ Module[{method, simplify, mod, notensormod, tensormod, tensors, dummies},
 	If[method === Default,
 		method = ToCanonical@ContractMetric@NoScalar@#&;
 	];
+	If[rtc,
+		rtcrule = TensorCollector -> Sequence,
+		rtcrule = {}
+	];
+	
+	(* Expand the terms *)
+	mod = SameDummies@MapIfPlus[Expand,expr];
 	
 	(* Apply the tensorcollector. *)
 	mod = Block[{$RecursionLimit = 4096},
-		TensorCollector@expr
+		TensorCollector@mod
 	];
 	(* Apply the canonicalization method. *)
 	mod = mod /. HoldPattern@TensorCollector[arg_] :> TensorCollector[method@arg];
@@ -1083,15 +1111,21 @@ Module[{method, simplify, mod, notensormod, tensormod, tensors, dummies},
 	Block[{$ComputeNewDummies = False},
 		mod = mod /. HoldPattern@TensorCollector[arg_] :> TensorCollector[ReplaceDummies[arg,dummies]];
 	];
-	(* Separate the bits with and without tensors. We can only have bits without tensor for scalar expressions. *)
+	(* Separate the parts with and without tensors. 
+	   Note that we can only have parts without tensors for scalar expressions. *)
 	notensormod = mod /. HoldPattern[TensorCollector[___]]->0;
 	tensormod 	= mod - notensormod;
-	(* Get the tensors of the expression. Could also use Cases instead of Variables... *)
+	(* Get the tensors of the expression. 
+	   Question: is it better to use Cases instead of Variables? *)
 	tensors = Select[Variables[tensormod], Head[#]===TensorCollector&];
+	(* If there are denominators with a plus inside TensorCollector heads, things might not by fully simplified. Warn the user. *)
+	If[!FreeQ[tensors, HoldPattern[Power[y_, x_]] /; x < 0 && ! FreeQ[y, Plus]],
+		Message[TensorCollect::denominator]
+	];
 	(* Collect in terms of the tensors, simplify the overall factors, and remove TensorCollectors. *)
 	simplify[notensormod] + (Collect[tensormod, tensors] 
 		/. x_*y_TensorCollector :> simplify[x] y 
-		/. TensorCollector -> Sequence
+		/. rtcrule
 	)
 ];
 
@@ -1114,9 +1148,10 @@ ToConstantSymbolEquations[eq:(Equal[_List,_]|Equal[_,_List]|Equal[_List,_List])]
 ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] := Module[{collected,list,freeT,withT},
 	collected = TensorCollect[lhs - rhs, 
 		CollectMethod->Default, 
-		SimplifyMethod->Identity
+		SimplifyMethod->Identity,
+		RemoveTensorCollector->False
 	];
-	list = TensorCollector /@ If[Head[#] === Plus, 
+	list = If[Head[#] === Plus, 
 			List@@#, 
 			List@#
 		]& @ collected;
