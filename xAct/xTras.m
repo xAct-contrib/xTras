@@ -1201,20 +1201,12 @@ ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] := Module[{collected,list,freeT,w
 Default[SolveConstants] ^= !{};
 SolveConstants[expr_,Optional[notvars:!(_List|_Symbol)]] := 
 	Solve[
-		#,
+		expr /. HoldPattern[equation_Equal] :> ToConstantSymbolEquations[equation],
 		Complement[
-			Select[
-				DeleteDuplicates@Flatten@Cases[
-					#,
-					HoldPattern@Equal[args__] :> Union @@ (Variables /@ List[args]),
-					{0, Infinity},
-					Heads -> True
-				],
-				ConstantSymbolQ
-			],
+			DeleteDuplicates@Cases[expr, _Symbol?ConstantSymbolQ, {0,Infinity}, Heads->True],
 			Flatten[{!notvars}]
 		]
-	]&[expr /. HoldPattern[equation_Equal] :> ToConstantSymbolEquations[equation]];
+	];
 
 SolveConstants[expr_,varsdoms__] := 
 	Solve[expr /. HoldPattern[equation_Equal] :> ToConstantSymbolEquations[equation], varsdoms];	
