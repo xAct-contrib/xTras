@@ -1073,17 +1073,40 @@ SetAttributes[RemoveTensors, Listable]
 
 Options[TensorCollect] ^= {
 	CollectMethod -> Default, 
-	SimplifyMethod -> Simplify,
-	RemoveTensorCollector -> True
-};
-
-
+	SimplifyMethod -> Simplify, 
+	RemoveTensorCollector -> True, 
+	Verbose -> False
+}
 
 TensorCollect[expr_, options___?OptionQ] := expr;
 TensorCollect[expr_List, options___?OptionQ] := TensorCollect[#,options]& /@ expr;
-TensorCollect[expr_, options___?OptionQ] /; !FreeQ[expr, Plus | _?xTensorQ] && Head[expr] =!= List := 
-Module[{method, simplify, rtc, rtcrule, mod, notensormod, tensormod, tensors, dummies},
-	{method,simplify,rtc} = {CollectMethod, SimplifyMethod, RemoveTensorCollector} /. CheckOptions[options] /. Options[TensorCollect];
+TensorCollect[expr_, options___?OptionQ] /; !FreeQ[expr, Plus | _?xTensorQ] && Head[expr] =!= List :=
+Module[{verbose,print,time,method,simplify,rtc,rtcrule,mod,dummies,notensormod,tensormod,tcs,tcscanon,tcscanondd},
+	
+	(* Get the options. *)	
+	{method,simplify,rtc,verbose} = 
+		{CollectMethod,SimplifyMethod,RemoveTensorCollector,Verbose}
+		/. CheckOptions[options] /. Options[TensorCollect];
+	
+	If[TrueQ@verbose,
+		time=AbsoluteTime[];
+		print[msg_]:=(
+			Print[
+				"** ", msg, " in ",
+				ToString@Round[AbsoluteTime[]-time,0.01], 
+				"s."
+			];
+			time=AbsoluteTime[];
+		)
+	,
+		print[msg_]:=Null
+	];
+	
+	If[TrueQ@rtc,
+		rtcrule = TensorCollector -> Sequence,
+		rtcrule = {}
+	];
+	
 	(* If we have perturbations in the expression don't contract metrics etc. *)
 	If[!FreeQ[expr,Perturbation],
 		method = Identity;
@@ -1091,43 +1114,55 @@ Module[{method, simplify, rtc, rtcrule, mod, notensormod, tensormod, tensors, du
 	If[method === Default,
 		method = ToCanonical@ContractMetric@NoScalar@#&;
 	];
-	If[rtc,
-		rtcrule = TensorCollector -> Sequence,
-		rtcrule = {}
-	];
 	
-	(* Expand the terms *)
-	mod = SameDummies@MapIfPlus[Expand,expr];
+	(* Expand. *)
+	mod = MapIfPlus[Expand,expr];
+	print["Expanded to " <> ToString@Length@mod <> " terms"];
+	
+	(* Find dummies. *)
+	dummies = Sort[xAct`xTensor`Private`IndexName /@ FindDummyIndices[Evaluate@mod]];
+	print["Found " <> ToString@Length@dummies <> " dummies"];
+	
+	(* Replace dummies. *)
+	mod = xAct`xTensor`Private`ReplaceDummies2[mod,dummies];
+	print["Replaced dummies"];
 	
 	(* Apply the tensorcollector. *)
-	mod = Block[{$RecursionLimit = 4096},
+	mod = Block[{$RecursionLimit=4096},
 		TensorCollector@mod
 	];
-	(* Apply the canonicalization method. *)
-	mod = mod /. HoldPattern@TensorCollector[arg_] :> TensorCollector[method@arg];
-	(* Make all dummies the same. SameDummies might not work because mod might not be fully expanded. *)
-	dummies = FindDummyIndices[Evaluate@mod];
-	(* ReplaceDummies generates new dummies for dollar indices in its last argument, unless $ComputeNewDummies is False. *)
-	Block[{$ComputeNewDummies = False},
-		mod = mod /. HoldPattern@TensorCollector[arg_] :> TensorCollector[ReplaceDummies[arg,dummies]];
-	];
-	(* Separate the parts with and without tensors. 
-	   Note that we can only have parts without tensors for scalar expressions. *)
+	print["Applied TensorCollector"];
+	
+	(* Find tensorcollectors. *)
+	tcs = DeleteDuplicates[Cases[mod,HoldPattern[TensorCollector[_]],{0,Infinity},Heads->True]];
+	print["Found " <> ToString@Length@tcs <> " TensorCollectors"];
+	
+	(* Canonicalize tensorcollectors. *)
+	tcscanon = tcs /.HoldPattern@TensorCollector[arg_]:>TensorCollector[xAct`xTensor`Private`ReplaceDummies2[method@arg,dummies]];
+	tcscanondd = DeleteDuplicates@tcscanon;
+	print["Canonicalized " <> ToString@Length@tcscanondd <> " TensorCollectors"];
+	
+	(* Reinsert canonicalized tensorcollectors. *)
+	mod = mod/.Inner[Rule,tcs,tcscanon,List];
+	print["Replaced TensorCollectors"];
+	
+	(* Separate the parts with and without tensors. Note that we can only have parts without tensors for scalar expressions.*)
 	notensormod = mod /. HoldPattern[TensorCollector[___]]->0;
 	tensormod 	= mod - notensormod;
-	(* Get the tensors of the expression. 
-	   Question: is it better to use Cases instead of Variables? *)
-	tensors = Select[Variables[tensormod], Head[#]===TensorCollector&];
+	print["Separated tensor parts"];
+	
 	(* If there are denominators with a plus inside TensorCollector heads, things might not by fully simplified. Warn the user. *)
-	If[!FreeQ[tensors, HoldPattern[Power[y_, x_]] /; x < 0 && ! FreeQ[y, Plus]],
+	If[!FreeQ[tcscanondd, HoldPattern[Power[y_, x_]] /; x < 0 && !FreeQ[y, Plus]],
 		Message[TensorCollect::denominator]
 	];
+	
 	(* Collect in terms of the tensors, simplify the overall factors, and remove TensorCollectors. *)
-	simplify[notensormod] + (Collect[tensormod, tensors] 
+	simplify[notensormod] + (Collect[tensormod, tcscanondd] 
 		/. x_*y_TensorCollector :> simplify[x] y 
 		/. rtcrule
 	)
 ];
+
 
 DoTensorCollect[func_][expr_] := Module[{collected, map},
 	collected = TensorCollector[expr];
