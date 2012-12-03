@@ -202,8 +202,12 @@ Description::usage = "Option for MapTimed.";
 MonitorSteps::usage = "Option for MapTimed.";
 
 MapTimed::usage = 
-  "MapTimed[func,expr] is similar to Map, except that it also prints \
+  "MapTimed[f,expr] is similar to Map, except that it also prints \
 the expected calculation time.";
+
+MapTimedIfPlus::usage =
+	"MapTimedIfPlus[f, expr] maps f on the elements of expr while displaying a timer \
+if expr has head Plus, or returns f[expr] otherwise.";
 
 
 (* TensorCollect et al *)
@@ -1025,6 +1029,8 @@ MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; LevelSpecQ[levels
 	]
 ];
 
+MapTimedIfPlus[f_, expr_Plus, rest___] := MapTimed[f, expr, rest];
+MapTimedIfPlus[f_, expr_, rest___] := f[expr];
 
 
 (*************************)
@@ -1088,8 +1094,15 @@ Module[{verbose,print,time,method,simplify,rtc,rtcrule,mod,dummies,notensormod,t
 		{CollectMethod,SimplifyMethod,RemoveTensorCollector,Verbose}
 		/. CheckOptions[options] /. Options[TensorCollect];
 	
-	If[TrueQ@verbose,
+	verbose = TrueQ[verbose];
+	rtc 	= TrueQ[rtc];
+	
+	If[verbose,
 		time=AbsoluteTime[];
+		Print[
+			"** Collecting tensors in expression of length ", ToString@Length@expr, 
+			" and head ", ToString@Head@expr, "."
+		];
 		print[msg_]:=(
 			Print[
 				"** ", msg, " in ",
@@ -1102,7 +1115,7 @@ Module[{verbose,print,time,method,simplify,rtc,rtcrule,mod,dummies,notensormod,t
 		print[msg_]:=Null
 	];
 	
-	If[TrueQ@rtc,
+	If[rtc,
 		rtcrule = TensorCollector -> Sequence,
 		rtcrule = {}
 	];
@@ -1116,7 +1129,11 @@ Module[{verbose,print,time,method,simplify,rtc,rtcrule,mod,dummies,notensormod,t
 	];
 	
 	(* Expand. *)
-	mod = MapIfPlus[Expand,expr];
+	If[verbose,
+		mod = MapTimedIfPlus[Expand,expr,Description->"Expanding terms"];
+	,
+		mod = MapIfPlus[Expand,expr];
+	];
 	print["Expanded to " <> ToString@Length@mod <> " terms"];
 	
 	(* Find dummies. *)
