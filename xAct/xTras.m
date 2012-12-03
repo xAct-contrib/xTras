@@ -1124,8 +1124,10 @@ Module[{verbose,print,time,method,simplify,rtc,rtcrule,mod,dummies,notensormod,t
 	print["Found " <> ToString@Length@dummies <> " dummies"];
 	
 	(* Replace dummies. *)
-	mod = xAct`xTensor`Private`ReplaceDummies2[mod,dummies];
-	print["Replaced dummies"];
+	If[Length@dummies > 0,
+		mod = xAct`xTensor`Private`ReplaceDummies2[mod,dummies];
+		print["Replaced dummies"];
+	];
 	
 	(* Apply the tensorcollector. *)
 	mod = Block[{$RecursionLimit=4096},
@@ -1193,7 +1195,10 @@ ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] := Module[{collected,list,freeT,w
 	freeT = Select[list,FreeQ[#,TensorCollector]&];
 	withT = Select[list,!FreeQ[#,TensorCollector]&]  /. HoldPattern[TensorCollector[___]] -> 1;
 	
-	Apply[And, Equal[#,0]& /@ Append[withT, Plus@@freeT] ] 
+	Apply[
+		And, 
+		Equal[#,0]& /@ DeleteDuplicates@Append[withT, Plus@@freeT] 
+	] 
 ];
 
 (* This is a handy shortcut.
