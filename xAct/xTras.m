@@ -1996,6 +1996,169 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 	contractions
 ];
 
+
+
+
+AllContractions1[expr_,options___?OptionQ] := 
+	AllContractions1[expr, IndexList[], options];
+
+AllContractions1[expr_,freeIndices:IndexList[___?AIndexQ],options___?OptionQ] := 
+	AllContractions1[expr, freeIndices, StrongGenSet[{},GenSet[]], options];
+
+AllContractions1[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,options___?OptionQ] := Module[
+	{
+		verbose,symmethod,sym,map,exprIndices,numIndices,VB,metric,
+		auxT,dummies,M,removesign,replaceindices,process,step,
+		newIndices,removeindices,addindices,indexcounter,seed,contractions
+	},
+
+	(* Set the options. Note that Function (&) has the HoldAll attribute so we don't need to use SetDelayed. *)
+	{verbose,symmethod} = {Verbose, SymmetrizeMethod} /. CheckOptions[options] /. Options[AllContractions];
+	If[TrueQ[verbose],
+		map = MapTimed,
+		map = Map[#1,#2]&
+	];
+	If[symmethod === ImposeSymmetry,
+		(* ImposeSymmetry: impose symmetry first, and then canonalize later. *)
+		sym = ToCanonical@ImposeSymmetry[#,freeIndices,SymmetryGroupOfTensor@auxT]&,
+		(* ImposeSym: canocalize first (to contract metrics generated at the previous step), then symmetrize. *)
+		sym = ImposeSym[ToCanonical[#],freeIndices,SymmetryGroupOfTensor@auxT]&
+	];
+	
+	(* Get the indices of the complete expression (expr + freeindices), and count them.  *)
+	exprIndices	= Join[freeIndices,IndicesOf[Free][expr]];
+	numIndices 	= Length[exprIndices];
+	
+	(* Do some checks *)
+	If[OddQ@numIndices,
+		Throw@Message[AllContractions::error, "Can't contract an odd number of indices."];
+	];
+	If[Length@Union[VBundleOfIndex/@exprIndices] =!= 1,
+		Throw@Message[AllContractions::error, "More than one tangent bundle detected."];
+	];
+	If[Length@MetricsOfVBundle@VBundleOfIndex@First@exprIndices === 0,
+		Throw@Message[AllContractions::error, "No metric found in tangent bundle."];
+	];
+
+	(* Init geometric variables. *)
+	VB 		= VBundleOfIndex@First@exprIndices;
+	M 		= BaseOfVBundle@VB;
+	metric 	= First@MetricsOfVBundle@VB;
+	
+	(* Define an auxilary tensor. We vary w.r.t. to this tensor afterwards to free the indices. *)
+	Block[{$DefInfoQ=False},DefTensor[auxT@@freeIndices,M,symmetry]];
+
+	(* Get a list of dummy indices. *)
+	dummies = IndexList@@GetIndicesOfVBundle[
+		VB,
+		(* The total number of needed dummies is half the number of total 
+		   free indices plus the number of dummies already present. *)
+		numIndices/2 + Length@FindDummyIndices@Evaluate@expr,
+		(* Don't include the free indices, because they will clash later when
+		   we remove the auxiliary tensor. *)
+		UpIndex/@freeIndices
+	];
+	
+	(* Replace all free indices on the initial expression, the so-called 'seed'. *)
+	replaceindices[x_] := x /. ( RuleDelayed[#,DummyIn@VB]& /@ List@@IndicesOf[Free][x] );
+	(* We replace indices for expr and auxT separately, because the may contain overlapping free indices. *)
+	seed = replaceindices[expr] * replaceindices[auxT@@freeIndices];
+	
+	(* The new free indices are then ... *)
+	newIndices = IndicesOf[Free][seed];
+	
+	(* 
+		We will contract index pairs step-by-step and at each step throw away 
+		duplicates.
+		
+	 	A contracted expression is equal to another if the same indices are 
+	 	contracted,	regardless of the arrangement of the free indices. 
+	 	(The remaining free indices will get contracted	at later steps, 
+	 	so their ordering is irrelevant).
+	 	 
+		In order to throw away all duplicates, either all free indices have to 
+		be the same (and in the same position!), or we have to use Union (or 
+		DeleteDuplicates) with a non-default equality check. The latter is not 
+		desirable, because that will result in MUCH longer evaluation times. 
+		So we'll go with the first option, i.e. making all free indices the 
+		same.
+		
+		With 'the same' we really mean identical: before performing a Union,
+		all free indices will be replaced with the same expression, ('slot[]').
+		Because Times expressions might then get converted into Power, we have
+		to wrap in a Hold before doing so. This is what "removeindices" does.
+		
+		But if we want to canonicalize and contract the remaining free indices,
+		they need to be reinserted. This is what "addindices" does.	   
+	*)
+	With[{noindicesrule = # -> slot[] & /@ List@@newIndices},
+		removeindices[x_] := Hold[x] /. noindicesrule;
+	];
+	addindices[x_] 		:= (indexcounter = 1; ReleaseHold[x /. slot[] :> newIndices[[indexcounter++]]]);
+	
+	(* Canonicalization might give a minus sign or zero. Remove both. *)
+	removeindices[0] = Sequence[];
+	removesign[-x_] := x;
+	removesign[ x_] := x;
+	
+	(* The actual processing function that does all possible single contractions of an expression. *)
+	process[entry_] := Map[
+		(* Contract metrics, canonicalize, replace dummies, remove signs, and
+		   remove indices *)
+		removeindices@removesign@ReplaceDummies[#,dummies]&@ToCanonical@ContractMetric[#]&,
+		(* Add indices, find all free indices, generate subsets of 2, construct
+		   metrics and multiply all constructed metrics with indexed expression (result is a List). *)
+		((metric@@#& /@ Subsets[ ChangeIndex/@IndicesOf[Free][#], {2} ]) * #)&@addindices[entry]
+	] // Union;
+	
+	
+	(* Apply the processing function 1/2*numIndices times, starting from the seed. *)
+	step = 1;
+	contractions = { removeindices@seed };		
+	map[
+		(contractions = Union@@(
+			map[
+				process,
+				contractions,
+				Description -> "Contracting pair " <> ToString[step++]
+			]
+		))&,
+		Range[numIndices/2],
+		Description -> "Contracting " <> ToString@numIndices <> " indices with metric " <> ToString@PrintAs[metric]
+	];
+	
+	(* Release Holds *)
+	contractions = ReleaseHold /@ contractions;
+	
+	(* Vary w.r.t. the auxiliary tensor to free the indices. This should be fast,
+	   so we don't need to keep the user informed. *)
+	contractions = ReplaceAll[
+		contractions,
+		auxT[inds___] :> Inner[
+			delta, 
+			IndexList[inds], 
+			freeIndices, 
+			Times
+		]
+	];
+	
+	(* Impose symmetry. *)
+	contractions = map[
+		sym,
+		contractions,
+		Description -> "Imposing symmetry."
+	];
+	
+	(* Lastly, undefine the auxiliary tensor. We couldn't do this before
+	   because we needed its symmetry in the previous step. *)
+	Block[{$UndefInfoQ=False},UndefTensor[auxT]];
+	
+	(* Return result. *)
+	contractions 
+];
+
+
+
 (* 
  *	MetricPermutations is no longer used by AllContractions, 
  *  but let's keep it anyhow.
