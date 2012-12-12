@@ -1854,17 +1854,6 @@ DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], me
 (* Metric contractions & permutations *)
 (**************************************)
 
-(* 
- *	AllContractions currently only takes the symmetries G of the dummies
- *  into account, i.e. the symmetries of n/2 metrics if there are n indices
- *  to be contracted. Thus it uses a (right) transversal of the coset
- *  S_n / G, with S_n the rank n symmetric group.
- *
- *  We should also take the symmetries H of the expression that is to be contracted
- *  into account, and then do a transversal of the double coset H \ S_n / G.
- *  But at the moment xAct doesn't have a algorithm to do this. 
- *)
-
 Options[AllContractions] ^= {
 	Verbose -> False,
 	SymmetrizeMethod -> ImposeSymmetry
@@ -1878,8 +1867,10 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ],options___?OptionQ] :=
 
 AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,options___?OptionQ] := Module[
 	{
-		verbose,symmethod,sym,map,allIndices,exprIndices,numIndices,slotExpr,VB,metric,
-		auxT,dummylist,dummies,metrics,metricSym,contractions,M,slotRules
+		verbose,symmethod,symm,map,exprIndices,numIndices,VB,metric,
+		auxT,auxTexpr,dummylist,dummies,M,removesign,process,step,
+		contractions,
+		sym,sgs,frees,dummysets,newdummies,newdummypairs,previousdummies,canon
 	},
 
 	(* Set the options. Note that Function (&) has the HoldAll attribute so we don't need to use SetDelayed. *)
@@ -1888,141 +1879,13 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 		map = MapTimed,
 		map = Map[#1,#2]&
 	];
-	If[symmethod === ImposeSymmetry,
-		(* ImposeSymmetry: impose symmetry first, and then later canonalize *)
-		sym = ToCanonical@ImposeSymmetry[#,freeIndices,SymmetryGroupOfTensor@auxT]&,
-		(* ImposeSym: canocalize first (to contract metrics generated at the previous step), then symmetrize *)
-		sym = ImposeSym[ToCanonical[#],freeIndices,SymmetryGroupOfTensor@auxT]&
-	];
 	
-	(* Get the indices of the problem *)
-	exprIndices = IndicesOf[Free][expr];
-	allIndices	= Join[freeIndices,exprIndices];
-	numIndices 	= Length[allIndices];
-	
-	(* Do some checks *)
-	If[OddQ@numIndices,
-		Throw@Message[AllContractions::error, "Can't contract an odd number of indices."];
-	];
-	If[Length@Union[VBundleOfIndex/@allIndices] =!= 1,
-		Throw@Message[AllContractions::error, "More than one tangent bundle detected."];
-	];
-	If[Length@MetricsOfVBundle@VBundleOfIndex@First@allIndices === 0,
-		Throw@Message[AllContractions::error, "No metric found in tangent bundle."];
-	];
-	
-	(* Init geometric variables. *)
-	VB 		= VBundleOfIndex@First@allIndices;
-	M 		= BaseOfVBundle@VB;
-	metric 	= First@MetricsOfVBundle@VB;
-	
-	(* Define an auxilary tensor. We vary w.r.t. to this tensor afterwards to free the indices. *)
-	Block[{$DefInfoQ=False},DefTensor[auxT@@freeIndices,M,symmetry]];
-	
-	(* Get a list of dummy indices. Note that we don't want to include the free indices,
-	   because they will clash later when we remove the auxiliary tensor. *)
-	dummylist 	= IndexList@@GetIndicesOfVBundle[VB,numIndices/2,UpIndex/@freeIndices];
-	dummies		= Riffle[List@@dummylist,-List@@dummylist];
-	
-	(* Construct a pure function that, when acting on a (permutation of) the
-	   dummy indices of the previous line, gives a contraction we're after.
-	   We need to replace the indices with Slots, so let's make rules for that. *)
-	slotRules = Inner[
-		Rule, 
-		List @@ exprIndices, 
-		Slot /@ (Range@Length@exprIndices + Length@freeIndices), 
-		List
-	];
-	slotExpr = Evaluate[
-		Times[
-			(* The auxiliary tensor *)
-			auxT @@ ( Slot /@ Range@Length@freeIndices ),
-			(* The expr as given by the user *)
-			expr /. slotRules
-		]
-	]&;
-	
-	(* Construct a product of metrics and determine its symmetry. *)
-	metrics 	= Times @@ ( metric@@#& /@ Partition[GetIndicesOfVBundle[VB,numIndices], 2] );
-	metricSym 	= Last@SymmetryOf@metrics;
-	
-	(* Compute the transversal of the right cosets of S_numIndices / metricSym.
-	  This gives the right coset representatives of the conjugacy classes that
-	  are not related to each other via the group metricSym (i.e. permutations
-	  of the indices on the metrics). *)
-	contractions = map[
-		(* Act with slotExpr on action of the coset rep on dummies in order to get the full expression *)
-		slotExpr@@PermuteList[dummies,#]&,
-		(* Computation of the coset reps. *)
-		xAct`SymManipulator`Private`TransversalComputation[metricSym,Symmetric@Range@numIndices],
-		(* Print some info *)
-		Description -> "Computing permutations."
-	];
-	(* Canonicalize, and delete duplicates and zeros.
-	   Note that ReplaceDummies is only needed when a contraction of a tensor has a DownValue
-	   that sends it to another tensor with less indices. *)
-	contractions = DeleteCases[
-		DeleteDuplicates@map[
-			ReplaceDummies[ToCanonical[#],dummylist]&,
-			contractions,
-			Description -> "Canonicalizing."
-		]
-	,
-		0
-	];
-	(* Vary w.r.t. the auxiliary tensor to free the indices. This should be fast,
-	   so we don't need to keep the user informed. *)
-	contractions = ReplaceAll[
-		contractions,
-		auxT[inds___] :> Inner[
-			delta, 
-			IndexList[inds], 
-			freeIndices, 
-			Times
-		]
-	];
-	(* Impose symmetry. *)
-	contractions = map[
-		sym,
-		contractions,
-		Description -> "Imposing symmetry."
-	];
-	
-	(* Lastly, undefine the auxiliary tensor. We couldn't do this before
-	   because we needed its symmetry in the previous step. *)
-	Block[{$UndefInfoQ=False},UndefTensor[auxT]];
-	
-	(* Return result. *)
-	contractions
-];
-
-
-
-
-AllContractions1[expr_,options___?OptionQ] := 
-	AllContractions1[expr, IndexList[], options];
-
-AllContractions1[expr_,freeIndices:IndexList[___?AIndexQ],options___?OptionQ] := 
-	AllContractions1[expr, freeIndices, StrongGenSet[{},GenSet[]], options];
-
-AllContractions1[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,options___?OptionQ] := Module[
-	{
-		verbose,symmethod,sym,map,exprIndices,numIndices,VB,metric,
-		auxT,dummies,M,removesign,replaceindices,process,step,
-		newIndices,removeindices,addindices,indexcounter,seed,contractions
-	},
-
-	(* Set the options. Note that Function (&) has the HoldAll attribute so we don't need to use SetDelayed. *)
-	{verbose,symmethod} = {Verbose, SymmetrizeMethod} /. CheckOptions[options] /. Options[AllContractions];
-	If[TrueQ[verbose],
-		map = MapTimed,
-		map = Map[#1,#2]&
-	];
+	canon = ReplaceDummies[ToCanonical@ContractMetric[#],dummylist]&;
 	If[symmethod === ImposeSymmetry,
 		(* ImposeSymmetry: impose symmetry first, and then canonalize later. *)
-		sym = ToCanonical@ImposeSymmetry[#,freeIndices,SymmetryGroupOfTensor@auxT]&,
+		symm = canon@ImposeSymmetry[#,freeIndices,SymmetryGroupOfTensor@auxT]&,
 		(* ImposeSym: canocalize first (to contract metrics generated at the previous step), then symmetrize. *)
-		sym = ImposeSym[ToCanonical[#],freeIndices,SymmetryGroupOfTensor@auxT]&
+		symm = ImposeSym[canon[#],freeIndices,SymmetryGroupOfTensor@auxT]&
 	];
 	
 	(* Get the indices of the complete expression (expr + freeindices), and count them.  *)
@@ -2030,6 +1893,9 @@ AllContractions1[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet
 	numIndices 	= Length[exprIndices];
 	
 	(* Do some checks *)
+	If[IndicesOf[Dummy][expr] =!= IndexList[],
+		Throw@Message[AllContractions::error, "Input expression cannot have dummy indices."];
+	];
 	If[OddQ@numIndices,
 		Throw@Message[AllContractions::error, "Can't contract an odd number of indices."];
 	];
@@ -2045,90 +1911,68 @@ AllContractions1[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet
 	M 		= BaseOfVBundle@VB;
 	metric 	= First@MetricsOfVBundle@VB;
 	
+	(* Check if the metric is symmetric. *)
+	If[xAct`xTensor`Private`SymmetryOfMetric[metric] =!= 1,
+		Throw@Message[AllContractions::error, "Can't do contractions for non-symmetric metrics."];
+	];
+		
 	(* Define an auxilary tensor. We vary w.r.t. to this tensor afterwards to free the indices. *)
 	Block[{$DefInfoQ=False},DefTensor[auxT@@freeIndices,M,symmetry]];
 
-	(* Get a list of dummy indices. *)
-	dummies = IndexList@@GetIndicesOfVBundle[
-		VB,
-		(* The total number of needed dummies is half the number of total 
-		   free indices plus the number of dummies already present. *)
-		numIndices/2 + Length@FindDummyIndices@Evaluate@expr,
-		(* Don't include the free indices, because they will clash later when
-		   we remove the auxiliary tensor. *)
-		UpIndex/@freeIndices
+	(* Replace indices on the auxT (because they might overlap with expr). *)
+	auxTexpr	= expr * auxT@@Table[DummyIn@VB,{Length@freeIndices}];
+	(* Get the symmetry and its Strong Generating Set. *)
+	sym			= SymmetryOf[auxTexpr];
+	sgs			= sym[[4]];
+	
+	(* One more check. *)
+	If[numIndices =!= First@sym,
+		Throw@Message[AllContractions::error, "Number of indices and range of symmetry doesn't match."];
 	];
 	
-	(* Replace all free indices on the initial expression, the so-called 'seed'. *)
-	replaceindices[x_] := x /. ( RuleDelayed[#,DummyIn@VB]& /@ List@@IndicesOf[Free][x] );
-	(* We replace indices for expr and auxT separately, because the may contain overlapping free indices. *)
-	seed = replaceindices[expr] * replaceindices[auxT@@freeIndices];
 	
-	(* The new free indices are then ... *)
-	newIndices = IndicesOf[Free][seed];
-	
-	(* 
-		We will contract index pairs step-by-step and at each step throw away 
-		duplicates.
-		
-	 	A contracted expression is equal to another if the same indices are 
-	 	contracted,	regardless of the arrangement of the free indices. 
-	 	(The remaining free indices will get contracted	at later steps, 
-	 	so their ordering is irrelevant).
-	 	 
-		In order to throw away all duplicates, either all free indices have to 
-		be the same (and in the same position!), or we have to use Union (or 
-		DeleteDuplicates) with a non-default equality check. The latter is not 
-		desirable, because that will result in MUCH longer evaluation times. 
-		So we'll go with the first option, i.e. making all free indices the 
-		same.
-		
-		With 'the same' we really mean identical: before performing a Union,
-		all free indices will be replaced with the same expression, ('slot[]').
-		Because Times expressions might then get converted into Power, we have
-		to wrap in a Hold before doing so. This is what "removeindices" does.
-		
-		But if we want to canonicalize and contract the remaining free indices,
-		they need to be reinserted. This is what "addindices" does.	   
-	*)
-	With[{noindicesrule = # -> slot[] & /@ List@@newIndices},
-		removeindices[x_] := Hold[x] /. noindicesrule;
-	];
-	addindices[x_] 		:= (indexcounter = 1; ReleaseHold[x /. slot[] :> newIndices[[indexcounter++]]]);
-	
-	(* Canonicalization might give a minus sign or zero. Remove both. *)
-	removeindices[0] = Sequence[];
-	removesign[-x_] := x;
-	removesign[ x_] := x;
-	
-	(* The actual processing function that does all possible single contractions of an expression. *)
+	(* Canonicalization might give a minus sign or zero. Remove both and the Images head. *)
+	removesign[0] 	= Sequence[];
+	removesign[-Images[perm_]] := perm;
+	removesign[ Images[perm_]] := perm;
+
+	(* The actual processing function that does all possible single contractions of a permutation. *)
 	process[entry_] := Map[
-		(* Contract metrics, canonicalize, replace dummies, remove signs, and
-		   remove indices *)
-		removeindices@removesign@ReplaceDummies[#,dummies]&@ToCanonical@ContractMetric[#]&,
-		(* Add indices, find all free indices, generate subsets of 2, construct
-		   metrics and multiply all constructed metrics with indexed expression (result is a List). *)
-		((metric@@#& /@ Subsets[ ChangeIndex/@IndicesOf[Free][#], {2} ]) * #)&@addindices[entry]
+		removesign@CanonicalPerm[Images[#],numIndices,sgs,frees,dummysets]&,
+		NextDummyPermutations[entry,newdummies,previousdummies]
 	] // Union;
-	
-	
+
+	(* Initiliaze some variables for below. *)
+	step 			= 1;
+	contractions 	= {Range@numIndices};		
+	newdummypairs 	= Reverse@Partition[Range@numIndices,{2}];
+
 	(* Apply the processing function 1/2*numIndices times, starting from the seed. *)
-	step = 1;
-	contractions = { removeindices@seed };		
-	map[
-		(contractions = Union@@(
-			map[
+	map[(
+		frees 			= Range[numIndices-2step];
+		dummysets 		= {DummySet[VB,Reverse[newdummypairs[[1;;step]]],1]};
+		newdummies 		= newdummypairs[[step]];
+		previousdummies = Flatten@Reverse[newdummypairs[[1;;step-1]]];
+		contractions 	= Union@@(map[
 				process,
 				contractions,
 				Description -> "Contracting pair " <> ToString[step++]
-			]
-		))&,
+			]);
+		)&,
 		Range[numIndices/2],
 		Description -> "Contracting " <> ToString@numIndices <> " indices with metric " <> ToString@PrintAs[metric]
 	];
 	
-	(* Release Holds *)
-	contractions = ReleaseHold /@ contractions;
+	(* Construct a list of dummies. Don't include freeIndices, because they
+	   will clash later when we remove the auxiliary tensor. *)
+	dummylist 	= IndexList@@GetIndicesOfVBundle[VB,numIndices/2,UpIndex/@freeIndices];
+	dummies		= IndexList@@Riffle[List@@dummylist,-List@@dummylist];
+	
+	(* Reconstruct tensorial expressions from the permutations. *)
+	contractions = xAct`xTensor`Private`Reconstruct[
+		sym,
+		{1,PermuteList[dummies,InversePerm@Images[#]]}
+	]& /@ contractions;
 	
 	(* Vary w.r.t. the auxiliary tensor to free the indices. This should be fast,
 	   so we don't need to keep the user informed. *)
@@ -2144,7 +1988,7 @@ AllContractions1[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet
 	
 	(* Impose symmetry. *)
 	contractions = map[
-		sym,
+		symm,
 		contractions,
 		Description -> "Imposing symmetry."
 	];
@@ -2157,7 +2001,26 @@ AllContractions1[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet
 	contractions 
 ];
 
-
+(* 
+ * NextDummyPermutations take a list representating an Images permutation,
+ * a pair of new dummies, and a list of old dummies, and gives all possible
+ * permutations of positions of the new dummies in the initial permutation
+ * while leaving the old dummies alone.
+ * All inputs are assumed to be lists of numbers, and previousDummies 
+ * is assumed to ordered, and newDummy1 < newDummy2. 
+ *)
+NextDummyPermutations[perm_List, {newDummy1_,newDummy2_}, previousDummies_] := With[
+	{
+		positions	= Sort[{Position[perm,#][[1,1]],#}&/@previousDummies],
+		subsets 	= Subsets[Range[Length@perm - Length@previousDummies],{2}],
+		range 		= Range[Length@perm - Length@previousDummies-2]
+	},
+	Fold[
+		Insert[#1, #2[[2]], #2[[1]] ]&,
+		Insert[Insert[range, newDummy1, #[[1]]], newDummy2, #[[2]] ],
+		positions
+	]& /@ subsets
+];
 
 (* 
  *	MetricPermutations is no longer used by AllContractions, 
@@ -2171,7 +2034,7 @@ UnorderedPairsPermutations[list_] /; EvenQ@Length@list :=
 	Partition[#, 2] & /@ UnorderedPairsPermutations1[list];
 
 (* The actual workhorse. *)
-UnorderedPairsPermutations1[list_] /; Length[list] == 2 := {list}
+UnorderedPairsPermutations1[list_] /; Length[list] == 2 := {list};
 UnorderedPairsPermutations1[list_] /; Length[list] > 2 && EvenQ[Length[list]] := Module[{previous, last},
 	last 		= list[[-2 ;; -1]];
 	previous 	= UnorderedPairsPermutations1[list[[1 ;; -3]]];
