@@ -85,21 +85,34 @@ in the imploded tensor CDT. Both CD and T do not take indices."
 (* MetricPermutations *)
 
 SymmetrizeMethod::usage =
-	"SymmetrizeMethod is an options for AllContractions. Its values can be \
+	"SymmetrizeMethod is an option for AllContractions. Its values can be \
 'ImposeSymmetry' (default) or 'ImposeSym'. The former uses xTensor's explicit \
 symmetrization to symmetrize the free indices, whereas the latter uses \
 SymManipulator's implicit ImposeSym to symmetrize the free indices.";
 
+ContractedPairs::usage =
+	"ContractedPairs is an options for AllContractions which specifies how \
+many index pairs should be contracted. The default is All, which amounts to \
+contracting all indices. It can also be an integer in the range from 0 to half the number \
+total indices. \n\
+Note that when not all index pairs are contracted, AllContractions returns a \
+list with one element for each unique contraction, not taking the ordering of \
+the free indices into account.";
+
 AllContractions::usage =
 	"AllContractions[expr] gives all possible full contractions of \
-expr over its free indices. The free indices have to belong to the same \
-tangent bundle, which also has to have a metric. \n\
+expr over its free indices. expr cannot have dummy indices. The free indices have to belong to the same \
+tangent bundle, which also has to have a symmetric metric. \n\
 \n\
 AllContractions[expr, indexList] gives all possible contractions of expr that \
-have free indices specified by indexList. \n\
+have free indices specified by indexList. This is equivalent to adding an \
+auxiliary tensor with indices 'indexList' to expr, computing all contractions, \
+and varying w.r.t. the auxiliary tensor afterwards. \n\
 \n\
 AllContractions[expr, indexList, symm] gives all possible contractions of expr \
-with free indices indexList and the symmetry symm imposed on the free indices.";
+with free indices indexList and the symmetry symm imposed on the free indices. \n\
+\n\
+See also the options SymmetrizeMethod and ContractedPairs.";
 
 
 MetricPermutations::usage =
@@ -1856,7 +1869,8 @@ DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], me
 
 Options[AllContractions] ^= {
 	Verbose -> False,
-	SymmetrizeMethod -> ImposeSymmetry
+	SymmetrizeMethod -> ImposeSymmetry,
+	ContractedPairs -> All
 };
 
 AllContractions[expr_,options___?OptionQ] := 
@@ -1868,13 +1882,16 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ],options___?OptionQ] :=
 AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,options___?OptionQ] := Module[
 	{
 		verbose,symmethod,symm,map,exprIndices,numIndices,VB,metric,
-		auxT,auxTexpr,dummylist,dummies,M,removesign,process,step,
+		auxT,auxTexpr,indexlist,dummylist,dummies,M,removesign,process,step,
 		contractions,
-		sym,sgs,frees,dummysets,newdummies,newdummypairs,previousdummies,canon
+		sym,sgs,frees,dummysets,newdummies,newdummypairs,previousdummies,canon,
+		numContractions
 	},
 
 	(* Set the options. Note that Function (&) has the HoldAll attribute so we don't need to use SetDelayed. *)
-	{verbose,symmethod} = {Verbose, SymmetrizeMethod} /. CheckOptions[options] /. Options[AllContractions];
+	{verbose,symmethod,numContractions} = 
+		{Verbose, SymmetrizeMethod, ContractedPairs} 
+		/. CheckOptions[options] /. Options[AllContractions];
 	If[TrueQ[verbose],
 		map = MapTimed,
 		map = Map[#1,#2]&
@@ -1892,12 +1909,19 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 	exprIndices	= Join[freeIndices,IndicesOf[Free][expr]];
 	numIndices 	= Length[exprIndices];
 	
+	If[numContractions === All,
+		numContractions = numIndices / 2
+	];
+	
 	(* Do some checks *)
 	If[IndicesOf[Dummy][expr] =!= IndexList[],
 		Throw@Message[AllContractions::error, "Input expression cannot have dummy indices."];
 	];
-	If[OddQ@numIndices,
-		Throw@Message[AllContractions::error, "Can't contract an odd number of indices."];
+	If[!IntegerQ@numContractions,
+		Throw@Message[AllContractions::error, "Can only contract an even number of indices."];
+	];
+	If[numContractions > numIndices / 2 || numContractions < 0,
+		Throw@Message[AllContractions::error, "Number of contractions out of range."];
 	];
 	If[Length@Union[VBundleOfIndex/@exprIndices] =!= 1,
 		Throw@Message[AllContractions::error, "More than one tangent bundle detected."];
@@ -1947,7 +1971,7 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 	contractions 	= {Range@numIndices};		
 	newdummypairs 	= Reverse@Partition[Range@numIndices,{2}];
 
-	(* Apply the processing function 1/2*numIndices times, starting from the seed. *)
+	(* Apply the processing function numContraction times, starting from the seed. *)
 	map[(
 		frees 			= Range[numIndices-2step];
 		dummysets 		= {DummySet[VB,Reverse[newdummypairs[[1;;step]]],1]};
@@ -1959,19 +1983,21 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 				Description -> "Contracting pair " <> ToString[step++]
 			]);
 		)&,
-		Range[numIndices/2],
-		Description -> "Contracting " <> ToString@numIndices <> " indices with metric " <> ToString@PrintAs[metric]
+		Range[numContractions],
+		Description -> "Contracting " <> ToString@numContractions <> " pairs of indices with metric " <> ToString@PrintAs[metric]
 	];
 	
-	(* Construct a list of dummies. Don't include freeIndices, because they
+	(* Construct a list of indices. Don't include freeIndices, because they
 	   will clash later when we remove the auxiliary tensor. *)
-	dummylist 	= IndexList@@GetIndicesOfVBundle[VB,numIndices/2,UpIndex/@freeIndices];
+	indexlist 	= IndexList@@GetIndicesOfVBundle[VB,numIndices - numContractions,UpIndex/@freeIndices];
+	dummylist	= indexlist[[-numContractions;;-1]];
 	dummies		= IndexList@@Riffle[List@@dummylist,-List@@dummylist];
+	indexlist	= IndexSort@Join[indexlist[[1;;numIndices-2numContractions]],dummies];
 	
 	(* Reconstruct tensorial expressions from the permutations. *)
 	contractions = xAct`xTensor`Private`Reconstruct[
 		sym,
-		{1,PermuteList[dummies,InversePerm@Images[#]]}
+		{1,PermuteList[indexlist,InversePerm@Images[#]]}
 	]& /@ contractions;
 	
 	(* Vary w.r.t. the auxiliary tensor to free the indices. This should be fast,
