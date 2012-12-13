@@ -115,6 +115,9 @@ with free indices indexList and the symmetry symm imposed on the free indices. \
 See also the options SymmetrizeMethod and ContractedPairs.";
 
 
+IndexConfigurations::usage =
+	"IndexConfigurations[expr] gives a list of all independent index configurations of expr.";
+
 MetricPermutations::usage =
 	"MetricPermutations[metric,indices] gives a list of all possible \
 permutations of indices distributed over n/2 metrics (n being the number of indices). \
@@ -2050,7 +2053,7 @@ NextDummyPermutations[perm_List, {newDummy1_,newDummy2_}, previousDummies_] := W
 
 (* 
  *	MetricPermutations is no longer used by AllContractions, 
- *  but let's keep it anyhow.
+ *  and is superseded by IndexConfigurations, but let's keep it anyhow.
  *)
 
 MetricPermutations[metric_?MetricQ, list_] /; EvenQ@Length@list := 
@@ -2077,6 +2080,29 @@ PairPermuteJoin[list_, newPair_] := Module[{joined1, joined2, cycles, positions}
 		{joined1},
 		xAct`xPerm`PermuteList[joined1, #] & /@ cycles,
 		xAct`xPerm`PermuteList[joined2, #] & /@ cycles
+	]
+];
+
+
+
+IndexConfigurations[expr_] := Module[
+	{
+		sym = SymmetryOf[expr],
+		sgs, indices, len, perms
+	},
+	sgs 	= sym[[4]];
+	indices = IndexSort[ IndexList @@ Last /@ sym[[3]] ];
+	len 	= sym[[1]];
+	perms	= xAct`SymManipulator`Private`TransversalComputation[
+		sgs, 
+  		Symmetric@Range@len 
+  	];
+  	Map[
+  		xAct`xTensor`Private`Reconstruct[
+   			sym, 
+   			{1, PermuteList[indices, InversePerm@#]}
+		]&, 
+		perms
 	]
 ];
 
