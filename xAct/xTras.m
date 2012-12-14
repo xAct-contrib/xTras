@@ -90,11 +90,24 @@ SymmetrizeMethod::usage =
 symmetrization to symmetrize the free indices, whereas the latter uses \
 SymManipulator's implicit ImposeSym to symmetrize the free indices.";
 
+UncontractedPairs::usage = 
+	"UncontractedPairs is an option for AllContractions which specifies how \
+many index pairs should not be contracted. The default is None, which amounts to \
+contracting all indices. It can also be an integer in the range from 0 to half the number \
+total indices. \n\
+When UncontractedPairs and ContractedPairs have conflicting values, UncontractedPairs \
+takes precendence. \n\
+Note that when not all index pairs are contracted, AllContractions returns a \
+list with one element for each unique contraction, not taking the ordering of \
+the free indices into account.";
+
 ContractedPairs::usage =
-	"ContractedPairs is an options for AllContractions which specifies how \
+	"ContractedPairs is an option for AllContractions which specifies how \
 many index pairs should be contracted. The default is All, which amounts to \
 contracting all indices. It can also be an integer in the range from 0 to half the number \
 total indices. \n\
+When UncontractedPairs and ContractedPairs have conflicting values, UncontractedPairs \
+takes precendence. \n\
 Note that when not all index pairs are contracted, AllContractions returns a \
 list with one element for each unique contraction, not taking the ordering of \
 the free indices into account.";
@@ -112,7 +125,7 @@ and varying w.r.t. the auxiliary tensor afterwards. \n\
 AllContractions[expr, indexList, symm] gives all possible contractions of expr \
 with free indices indexList and the symmetry symm imposed on the free indices. \n\
 \n\
-See also the options SymmetrizeMethod and ContractedPairs.";
+See also the options SymmetrizeMethod, ContractedPairs, and UncontracedPairs.";
 
 
 IndexConfigurations::usage =
@@ -1873,7 +1886,8 @@ DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], me
 Options[AllContractions] ^= {
 	Verbose -> False,
 	SymmetrizeMethod -> ImposeSymmetry,
-	ContractedPairs -> All
+	ContractedPairs -> All,
+	UncontractedPairs -> None
 };
 
 AllContractions[expr_,options___?OptionQ] := 
@@ -1888,12 +1902,12 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 		auxT,auxTexpr,indexlist,dummylist,dummies,M,removesign,process,step,
 		contractions,
 		sym,sgs,frees,dummysets,newdummies,newdummypairs,previousdummies,canon,
-		numContractions
+		numContractions,unconpairs,conpairs
 	},
 
 	(* Set the options. Note that Function (&) has the HoldAll attribute so we don't need to use SetDelayed. *)
-	{verbose,symmethod,numContractions} = 
-		{Verbose, SymmetrizeMethod, ContractedPairs} 
+	{verbose,symmethod,conpairs,unconpairs} = 
+		{Verbose, SymmetrizeMethod, ContractedPairs, UncontractedPairs} 
 		/. CheckOptions[options] /. Options[AllContractions];
 	If[TrueQ[verbose],
 		map = MapTimed,
@@ -1912,10 +1926,16 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 	exprIndices	= Join[freeIndices,IndicesOf[Free][expr]];
 	numIndices 	= Length[exprIndices];
 	
-	If[numContractions === All,
-		numContractions = numIndices / 2
+	If[conpairs === All || unconpairs === None,
+		numContractions = numIndices / 2;
 	];
-	
+	If[conpairs =!= All,
+		numContractions = conpairs;
+	];	
+	If[unconpairs =!= None,
+		numContractions = numIndices / 2 - unconpairs;
+	];
+		
 	(* Do some checks *)
 	If[IndicesOf[Dummy][expr] =!= IndexList[],
 		Throw@Message[AllContractions::error, "Input expression cannot have dummy indices."];
