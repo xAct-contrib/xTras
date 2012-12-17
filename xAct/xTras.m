@@ -256,7 +256,8 @@ the parentheses surrounding the formatting of a TensorCollector expression. \
 The default value is blue (RGBColor[0,0,1]).";
 
 RemoveTensorCollector::usage =
-	"RemoveTensorCollector is an option for TensorCollect. \
+	"RemoveTensorCollector[expr] removes TensorCollectors from expr. \n\
+RemoveTensorCollector is also an option for TensorCollect. \
 If True, TensorCollect removes the TensorCollector heads from the expression \
 before returning. The default is True.";
 
@@ -288,6 +289,12 @@ DoTensorCollect::usage =
   "DoTensorCollect[func][expr] maps func on every collected tensor in \
 expr. This is useful if you have an expression with one tensor object \
 with lots of different constants.";
+
+SolveTensors::usage =
+	"SolveTensors[eq,tensors] solves eq for tensors.";
+
+SortMethod::usage =
+	"SortMethod is an option for SolveTensors.";
 
 MakeEquationRule::usage = 
   "MakeEquationRule[{equation,pattern,cond}] returns rules for \
@@ -1069,6 +1076,7 @@ MapTimedIfPlus[f_, expr_, rest___] := f[expr];
 ConstantExprQ[(Plus | Times | _?ScalarFunctionQ)[args__]] := And @@ Map[ConstantExprQ, List@args];
 ConstantExprQ[x_] := ConstantQ[x];
 
+(* Define an inert head "TensorCollector". *)
 Block[{$DefInfoQ=False},
 	DefInertHead[
 		TensorCollector,
@@ -1080,8 +1088,13 @@ Block[{$DefInfoQ=False},
 		DefInfo -> {"", ""}
 	];
 ];
-TensorCollector[x_List] := TensorCollector /@ x;
-TensorCollector[x_Plus] := TensorCollector /@ x;
+(* Thread TensorCollector over List, Plus, and Equal. *)
+TensorCollector[x_List]  := TensorCollector /@ x;
+TensorCollector[x_Plus]  := TensorCollector /@ x;
+TensorCollector[x_Equal] := TensorCollector /@ x;
+(* TensorCollector on itself returns a single TensorCollector. *)
+HoldPattern[TensorCollector[TensorCollector[expr_]]] := TensorCollector[expr];
+
 (* The next line will clash if TensorCollector is LinearQ (which it is not). *)
 TensorCollector[x_ * y_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x TensorCollector[y];
 TensorCollector[x_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x;
@@ -1100,6 +1113,8 @@ xAct`xTensor`Private`interpretbox[
 ];
 
 
+RemoveTensorCollector[expr_] := expr /. HoldPattern@TensorCollector[x_] :> x;
+
 RemoveConstants[expr_] := expr /. x_?ConstantExprQ *y_ /; ! FreeQ[y, _?xTensorQ | _?ParameterQ] :> y
 SetAttributes[RemoveConstants, Listable]
 
@@ -1116,7 +1131,7 @@ Options[TensorCollect] ^= {
 TensorCollect[expr_, options___?OptionQ] := expr;
 TensorCollect[expr_List, options___?OptionQ] := TensorCollect[#,options]& /@ expr;
 TensorCollect[expr_, options___?OptionQ] /; !FreeQ[expr, Plus | _?xTensorQ] && Head[expr] =!= List :=
-Module[{verbose,print,time,method,simplify,rtc,rtcrule,mod,dummies,notensormod,tensormod,tcs,tcscanon,tcscanondd},
+Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanondd},
 	
 	(* Get the options. *)	
 	{method,simplify,rtc,verbose} = 
@@ -1145,8 +1160,8 @@ Module[{verbose,print,time,method,simplify,rtc,rtcrule,mod,dummies,notensormod,t
 	];
 	
 	If[rtc,
-		rtcrule = TensorCollector -> Sequence,
-		rtcrule = {}
+		rtc = RemoveTensorCollector,
+		rtc = Identity
 	];
 	
 	(* If we have perturbations in the expression don't contract metrics etc. *)
@@ -1182,22 +1197,18 @@ Module[{verbose,print,time,method,simplify,rtc,rtcrule,mod,dummies,notensormod,t
 	print["Applied TensorCollector"];
 	
 	(* Find tensorcollectors. *)
-	tcs = DeleteDuplicates[Cases[mod,HoldPattern[TensorCollector[_]],{0,Infinity},Heads->True]];
+	tcs = Union[Cases[mod,HoldPattern[TensorCollector[_]],{0,Infinity},Heads->True]];
 	print["Found " <> ToString@Length@tcs <> " TensorCollectors"];
 	
 	(* Canonicalize tensorcollectors. *)
 	tcscanon = tcs /.HoldPattern@TensorCollector[arg_]:>TensorCollector[xAct`xTensor`Private`ReplaceDummies2[method@arg,dummies]];
-	tcscanondd = DeleteDuplicates@tcscanon;
+	tcscanondd = Union@tcscanon;
 	print["Canonicalized " <> ToString@Length@tcscanondd <> " TensorCollectors"];
 	
 	(* Reinsert canonicalized tensorcollectors. *)
 	mod = mod/.Inner[Rule,tcs,tcscanon,List];
 	print["Replaced TensorCollectors"];
-	
-	(* Separate the parts with and without tensors. Note that we can only have parts without tensors for scalar expressions.*)
-	notensormod = mod /. HoldPattern[TensorCollector[___]]->0;
-	tensormod 	= mod - notensormod;
-	print["Separated tensor parts"];
+
 	
 	(* If there are denominators with a plus inside TensorCollector heads, things might not by fully simplified. Warn the user. *)
 	If[!FreeQ[tcscanondd, HoldPattern[Power[y_, x_]] /; x < 0 && !FreeQ[y, Plus]],
@@ -1205,10 +1216,9 @@ Module[{verbose,print,time,method,simplify,rtc,rtcrule,mod,dummies,notensormod,t
 	];
 	
 	(* Collect in terms of the tensors, simplify the overall factors, and remove TensorCollectors. *)
-	simplify[notensormod] + (Collect[tensormod, tcscanondd] 
+	Collect[mod, tcscanondd] 
 		/. x_*y_TensorCollector :> simplify[x] y 
-		/. rtcrule
-	)
+		// rtc
 ];
 
 
@@ -1247,20 +1257,64 @@ ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] := Module[{collected,list,freeT,w
 	] 
 ];
 
-(* This is a handy shortcut.
-   We can't use Variables[expr], because Variables[Equal[__]] always gives {}. *)
+(* This is a handy shortcut. *)
 Default[SolveConstants] ^= !{};
 SolveConstants[expr_,Optional[notvars:!(_List|_Symbol)]] := 
 	Solve[
 		expr /. HoldPattern[equation_Equal] :> ToConstantSymbolEquations[equation],
 		Complement[
-			DeleteDuplicates@Cases[expr, _Symbol?ConstantSymbolQ, {0,Infinity}, Heads->True],
+			Union@Cases[expr, _Symbol?ConstantSymbolQ, {0,Infinity}, Heads->True],
 			Flatten[{!notvars}]
 		]
 	];
 
 SolveConstants[expr_,varsdoms__] := 
 	Solve[expr /. HoldPattern[equation_Equal] :> ToConstantSymbolEquations[equation], varsdoms];	
+
+
+
+Options[SolveTensors] ^= {
+	MakeRule -> True,
+	SortMethod -> Sort
+}
+
+SolveTensors[expr_, tensors_List, options___?OptionQ] := SolveTensors1[
+	TensorCollect[
+		expr, 
+		RemoveTensorCollector -> False, 
+		CollectMethod -> Identity, 
+		SimplifyMethod -> Identity
+	],
+	TensorCollector[tensors],
+	options
+];
+
+SolveTensors[expr_, options___?OptionQ] := 
+SolveTensors1[
+	#,
+	Union@Cases[#, HoldPattern@TensorCollector[_], {0, Infinity}, Heads -> True],
+	options
+]& @ TensorCollect[
+	expr, 
+	RemoveTensorCollector -> False, 
+	CollectMethod -> Identity, 
+	SimplifyMethod -> Identity
+];
+
+SolveTensors1[eqs_,tensors_List,options___?OptionQ] := Module[{mr,sm,mrrule},
+	
+	{mr,sm} = {MakeRule,SortMethod} 
+		/. CheckOptions[options] 
+		/. Options[SolveTensors];
+	
+	If[TrueQ[mr],
+		mrrule = Rule[lhs_,rhs_] :> Sequence@@MakeRule[Evaluate@{lhs,rhs},options],
+		mrrule = {}
+	];
+	
+	RemoveTensorCollector[Solve[eqs, sm@tensors]] /. mrrule
+];
+
 
 MakeEquationRule[{Equal[LHS_,RHS_], pattern_, cond___}, options___?OptionQ]:=
   Module[{expanded, list, terms, coefficient, lhs, rhs},
