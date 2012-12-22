@@ -6,8 +6,8 @@
 
 (*
 
- * Is DoTensorCollect broken? (now that TensorCollector expands)
- * Fix MakeEquationRule (don't do a ToCanonical in there).
+ * Write proper unit tests.
+ * Split into multiple packages.
  * Change DummyIn to GetIndicesOfVBundle where appropriate (not everywhere!).
  * Switch Modules to With's where approriate.
 
@@ -291,15 +291,19 @@ expr. This is useful if you have an expression with one tensor object \
 with lots of different constants.";
 
 SolveTensors::usage =
-	"SolveTensors[eq,tensors] solves eq for tensors.";
+	"SolveTensors[equation, {t1,t2,...}] solves equation for tensors t1, t2, ... \n\
+\n\
+SolveTensors[equation] attempts to solve equation for any tensors in it.";
 
 SortMethod::usage =
 	"SortMethod is an option for SolveTensors.";
 
 MakeEquationRule::usage = 
-  "MakeEquationRule[{equation,pattern,cond}] returns rules for \
+  "Deprecated.\n\n\
+MakeEquationRule[{equation,pattern,cond}] returns rules for \
 tensors matching pattern in the given equation.\
-\n\nNote that is extremely similar to IndexSolve.";
+\nNote that is extremely similar to IndexSolve.\
+\nMakeEquationRule is deprecated; it has been superseded by SolveTensors.";
 
 ToConstantSymbolEquations::usage =
 	"ToConstantSymbolEquations[eq] takes the tensorial equation eq \
@@ -538,8 +542,10 @@ slot := xAct`xTensor`Private`slot;
 
 xTension["xTras`", DefMetric, "End"] := xTrasDefMetric;
 
-xTrasDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[{M,D,einsteincc,rs,defvar,metricPert,metricPar},
-	
+xTrasDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[
+	{
+		M,D,einsteincc,rs,defvar,metricPert,metricPar
+	},
 	defvar = TrueQ[DefVariation /. CheckOptions[options] /. Options[DefMetric]];
 	
 	M 			= ManifoldOfCovD[cd];
@@ -675,7 +681,7 @@ ClearAutomaticRules[symbol_Symbol, rules_List, options___?OptionQ] := Module[{
 	UpValues[symbol] 	= Delete[UpValues[symbol], up];
 	$Rules 				= Delete[$Rules, other];
 
-	(*Verbose output*)
+	(* Verbose output. *)
 	If[Length[downvs] > 0 && verbose, 
 		Print["   Rules ", Shallow[downvs], " have been removed as DownValues for ", symbol, "."]];
 	If[Length[upvs] > 0 && verbose, 
@@ -908,7 +914,9 @@ Options[InvarLagrangian] ^= {
 InvarLagrangian[metric_?MetricQ, maxOrder_Integer, options___?OptionQ] := 
 	InvarLagrangian[metric, {0, maxOrder}, options];
 	
-InvarLagrangian[metric_?MetricQ, {minOrder_Integer, maxOrder_Integer}, options___?OptionQ] /; minOrder <= maxOrder := Module[{i},
+InvarLagrangian[metric_?MetricQ, {minOrder_Integer, maxOrder_Integer}, options___?OptionQ] /; minOrder <= maxOrder := 
+Module[
+	{i},
 	Sum[
 		InvarLagrangian[metric, {i}, options],
 		{i, minOrder, maxOrder}
@@ -1069,18 +1077,27 @@ MapTimedIfPlus[f_, expr_Plus, rest___] := MapTimed[f, expr, rest];
 MapTimedIfPlus[f_, expr_, rest___] := f[expr];
 
 
-(*************************)
-(* TensorCollect et. al. *)
-(*************************)
+(***************************)
+(*                         *)
+(*   TensorCollect et. al. *)
+(*                         *)
+(***************************)
 
 ConstantExprQ[(Plus | Times | _?ScalarFunctionQ)[args__]] := And @@ Map[ConstantExprQ, List@args];
 ConstantExprQ[x_] := ConstantQ[x];
+
+
+(*******************)
+(* TensorCollector *)
+(*******************)
 
 (* Define an inert head "TensorCollector". *)
 Block[{$DefInfoQ=False},
 	DefInertHead[
 		TensorCollector,
-		LinearQ -> False, (* Setting this to True will slow evaluation down dramatically because of a clashing definition below. *)
+		(* Setting LinearQ to True will slow evaluation down dramatically 
+		   because of a clashing definition below. *)
+		LinearQ -> False, 
 		ContractThrough -> {}, 
 		Master -> Null, 
 		PrintAs -> Identity, 
@@ -1115,11 +1132,21 @@ xAct`xTensor`Private`interpretbox[
 
 RemoveTensorCollector[expr_] := expr /. HoldPattern@TensorCollector[x_] :> x;
 
+
+(***********************************)
+(* RemoveConstants / RemoveTensors *)
+(***********************************)
+
 RemoveConstants[expr_] := expr /. x_?ConstantExprQ *y_ /; ! FreeQ[y, _?xTensorQ | _?ParameterQ] :> y
 SetAttributes[RemoveConstants, Listable]
 
 RemoveTensors[expr_] := TensorCollector[expr] /. HoldPattern[TensorCollector[___]] -> 1
 SetAttributes[RemoveTensors, Listable]
+
+
+(*****************)
+(* TensorCollect *)
+(*****************)
 
 Options[TensorCollect] ^= {
 	CollectMethod -> Default, 
@@ -1182,7 +1209,7 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 	
 	(* Find dummies. *)
 	dummies = Sort[xAct`xTensor`Private`IndexName /@ FindDummyIndices[Evaluate@mod]];
-	print["Found " <> ToString@Length@dummies <> " dummies"];
+	print["Found " <> ToString@Length@dummies <> " dummies, " <> ToString@Shallow[List@@dummies]];
 	
 	(* Replace dummies. *)
 	If[Length@dummies > 0,
@@ -1201,7 +1228,10 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 	print["Found " <> ToString@Length@tcs <> " TensorCollectors"];
 	
 	(* Canonicalize tensorcollectors. *)
-	tcscanon = tcs /.HoldPattern@TensorCollector[arg_]:>TensorCollector[xAct`xTensor`Private`ReplaceDummies2[method@arg,dummies]];
+	tcscanon = 
+		tcs /. HoldPattern@TensorCollector[arg_] :> TensorCollector[
+			xAct`xTensor`Private`ReplaceDummies2[method@arg,dummies]
+		];
 	tcscanondd = Union@tcscanon;
 	print["Canonicalized " <> ToString@Length@tcscanondd <> " TensorCollectors"];
 	
@@ -1210,7 +1240,8 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 	print["Replaced TensorCollectors"];
 
 	
-	(* If there are denominators with a plus inside TensorCollector heads, things might not by fully simplified. Warn the user. *)
+	(* If there are denominators with a plus inside TensorCollector heads, 
+	   things might not by fully simplified. Warn the user. *)
 	If[!FreeQ[tcscanondd, HoldPattern[Power[y_, x_]] /; x < 0 && !FreeQ[y, Plus]],
 		Message[TensorCollect::denominator]
 	];
@@ -1231,11 +1262,17 @@ DoTensorCollect[func_][expr_] := Module[{collected, map},
 	MapIfPlus[map,collected]
 ];
 
+(**************************)
+(* SolveConstants et. al. *)
+(**************************)
+
 (* Equal with multiple arguments: take the first two and chain the rest recursively. *)
-ToConstantSymbolEquations[Equal[a_,b_,c_,d___]] := ToConstantSymbolEquations[Equal[a,b]] && ToConstantSymbolEquations[Equal[b,c,d]]; 
+ToConstantSymbolEquations[Equal[a_,b_,c_,d___]] := 
+	ToConstantSymbolEquations[Equal[a,b]] && ToConstantSymbolEquations[Equal[b,c,d]]; 
 
 (* Equal over lists: Thread over the lists and feed back into ToConstantSymbolEquations. *)
-ToConstantSymbolEquations[eq:(Equal[_List,_]|Equal[_,_List]|Equal[_List,_List])] := Thread[eq] /. eqs_Equal :> ToConstantSymbolEquations[eqs];
+ToConstantSymbolEquations[eq:(Equal[_List,_]|Equal[_,_List]|Equal[_List,_List])] := 
+	Thread[eq] /. eqs_Equal :> ToConstantSymbolEquations[eqs];
 
 (* Main function *)
 ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] := Module[{collected,list,freeT,withT},
@@ -1272,12 +1309,16 @@ SolveConstants[expr_,varsdoms__] :=
 	Solve[expr /. HoldPattern[equation_Equal] :> ToConstantSymbolEquations[equation], varsdoms];	
 
 
+(****************)
+(* SolveTensors *)
+(****************)
 
 Options[SolveTensors] ^= {
 	MakeRule -> True,
 	SortMethod -> Sort
 }
 
+(* Public function with specified tensors. *)
 SolveTensors[expr_, tensors_List, options___?OptionQ] := SolveTensors1[
 	TensorCollect[
 		expr, 
@@ -1289,6 +1330,7 @@ SolveTensors[expr_, tensors_List, options___?OptionQ] := SolveTensors1[
 	options
 ];
 
+(* Public function withouth specified tensors: try to solve for all tensors. *)
 SolveTensors[expr_, options___?OptionQ] := 
 SolveTensors1[
 	#,
@@ -1301,21 +1343,32 @@ SolveTensors1[
 	SimplifyMethod -> Identity
 ];
 
+(* Main driver. *)
 SolveTensors1[eqs_,tensors_List,options___?OptionQ] := Module[{mr,sm,mrrule},
-	
+	(* Get options. *)	
 	{mr,sm} = {MakeRule,SortMethod} 
 		/. CheckOptions[options] 
 		/. Options[SolveTensors];
-	
+	(* Rule for making proper xTensor rules. *)
 	If[TrueQ[mr],
-		mrrule = Rule[lhs_,rhs_] :> Sequence@@MakeRule[Evaluate@{lhs,rhs},options],
+		mrrule = Rule[lhs_,rhs_] :> Sequence@@MakeRule[Evaluate[
+				{
+					lhs,
+					If[Length@IndicesOf[][lhs] === 0 && Length@IndicesOf[][rhs] =!= 0,
+						PutScalar[rhs],
+						rhs
+					]
+				}
+			],
+			options
+		],
 		mrrule = {}
 	];
-	
+	(* Do the actual work. *)
 	RemoveTensorCollector[Solve[eqs, sm@tensors]] /. mrrule
 ];
 
-
+(* Deprecated, superseded by SolveTensors. *)
 MakeEquationRule[{Equal[LHS_,RHS_], pattern_, cond___}, options___?OptionQ]:=
   Module[{expanded, list, terms, coefficient, lhs, rhs},
 	expanded	= TensorCollect[LHS - RHS, CollectMethod->Default, SimplifyMethod->Identity];
@@ -1331,12 +1384,14 @@ MakeEquationRule[{Equal[LHS_,RHS_], pattern_, cond___}, options___?OptionQ]:=
 
 SetAttributes[MakeEquationRule,HoldFirst];
 
+
+
 (********************************)
 (* Metric determinant varations *)
 (********************************)
 
-
-(* This code comes from JMM. See http://groups.google.com/group/xact/browse_thread/thread/8d687342a34e033c/7d79f11620a7d866 *)
+(* This code comes from JMM. See 
+   http://groups.google.com/group/xact/browse_thread/thread/8d687342a34e033c/7d79f11620a7d866 *)
 xAct`xPert`Private`DefGenPertDet[vbundle_, metric_, pert_] := With[
 	{
 		dim 			= DimOfVBundle[vbundle], 
@@ -1390,31 +1445,38 @@ xAct`xPert`Private`DefGenPertDet[vbundle_, metric_, pert_] := With[
 PreferBoxOfRule[tensor_] := Flatten[PreferBoxOfRule[tensor, #] & /@ $CovDs ];
 PreferBoxOfRule[tensor_, CD_?CovDQ] := 
 {
-	bigexpr : CD[-b_]@CD[b_]@CD[a_][expr_] /; (! FreeQ[expr, tensor] && FreeQ[expr, CD[ChangeIndex[a]][_]]) :> 
-		CommuteCovDs[bigexpr, CD, {a, b}],
-	bigexpr : CD[b_]@CD[-b_]@CD[a_][expr_] /; (! FreeQ[expr, tensor] && FreeQ[expr, CD[ChangeIndex[a]][_]]) :> 
-		CommuteCovDs[bigexpr, CD, {a, -b}],
-	bigexpr : CD[b_]@CD[a_][expr_] /; (! FreeQ[expr, tensor] && FreeQ[expr, CD[ChangeIndex[a]][_]] && !FreeQ[expr, CD[ChangeIndex[b]][_]]) :> 
-		CommuteCovDs[bigexpr, CD, {a, b}]
+	bigexpr : CD[-b_]@CD[b_]@CD[a_][expr_] 
+		/; (! FreeQ[expr, tensor] && FreeQ[expr, CD[ChangeIndex[a]][_]]) 
+		:> CommuteCovDs[bigexpr, CD, {a, b}],
+	bigexpr : CD[b_]@CD[-b_]@CD[a_][expr_] 
+		/; (! FreeQ[expr, tensor] && FreeQ[expr, CD[ChangeIndex[a]][_]]) 
+		:> CommuteCovDs[bigexpr, CD, {a, -b}],
+	bigexpr : CD[b_]@CD[a_][expr_] 
+		/; (! FreeQ[expr, tensor] && FreeQ[expr, CD[ChangeIndex[a]][_]] && !FreeQ[expr, CD[ChangeIndex[b]][_]]) 
+		:> CommuteCovDs[bigexpr, CD, {a, b}]
 };
 
 PreferBoxOf[tensor_][expr_] := expr //. PreferBoxOfRule[tensor];
 PreferBoxOf[tensor_, CD_?CovDQ][expr_] := expr //. PreferBoxOfRule[tensor, CD]; 
 
 
-(* The next bit is thanks to Leo Stein, 
-   see http://groups.google.com/group/xact/browse_thread/thread/31e959cbee8d1848/690def9618ff519c *)
+(* The next bit is thanks to Leo Stein, see 
+   http://groups.google.com/group/xact/browse_thread/thread/31e959cbee8d1848/690def9618ff519c *)
 PreferDivOfRule[tens_] := Flatten[PreferDivOfRule[tens, #] & /@ $CovDs ];
 PreferDivOfRule[tens_, CD_?CovDQ] := 
-	(bigexpr : (CD[b_]@CD[a_][expr_] /; (!FreeQ[expr, tens[___, ChangeIndex[b], ___]] && FreeQ[expr, tens[___, ChangeIndex[a], ___]]))) :> 
-		CommuteCovDs[bigexpr, CD, {a, b}];
+{	
+	bigexpr : CD[b_]@CD[a_][expr_] 
+		/; !FreeQ[expr, tens[___, ChangeIndex[b], ___]] && FreeQ[expr, tens[___, ChangeIndex[a], ___]] 
+		:> CommuteCovDs[bigexpr, CD, {a, b}]
+};
 
 PreferDivOf[tensor_][expr_] := expr //. PreferDivOfRule[tensor];
 PreferDivOf[tensor_, CD_?CovDQ][expr_] := expr //. PreferDivOfRule[tensor, CD]; 
 
 
 DivFreeQ[expr_, tens_] := And @@ (DivFreeQ[expr, tens, #] & /@ $CovDs);
-DivFreeQ[expr_, tens_, CD_?CovDQ] := FreeQ[expr, CD[a_][inner_] /; ! FreeQ[inner, tens[___, ChangeIndex[a], ___]]];
+DivFreeQ[expr_, tens_, CD_?CovDQ] := 
+	FreeQ[expr, CD[a_][inner_] /; ! FreeQ[inner, tens[___, ChangeIndex[a], ___]]];
 
 RicciDivRule[cd_?CovDQ] := Module[
 	{
@@ -1555,8 +1617,16 @@ If[FreeQ[Options[xAct`xTensor`DefMetric], DefVariation],
 ];
 Protect[xAct`xTensor`DefMetric];
 
-PerturbationOfMetric[metric_] := Throw@Message[PerturbationOfMetric::unknown, "metric perturbation of metric", metric];
-PerturbationParameterOfMetric[metric_] := Throw@Message[PerturbationParameterOfMetric::unknown, "metric perturbation parameter of metric", metric];
+PerturbationOfMetric[metric_] := Throw@Message[
+	PerturbationOfMetric::unknown, 
+	"metric perturbation of metric", 
+	metric
+];
+PerturbationParameterOfMetric[metric_] := Throw@Message[
+	PerturbationParameterOfMetric::unknown, 
+	"metric perturbation parameter of metric", 
+	metric
+];
 
 Options[DefMetricVariation] ^= {PrintAs -> ""};
 
@@ -1641,9 +1711,12 @@ PerturbBackground[expr_, order_Integer: 1, options___?OptionQ] :=
 	ToBackground[Perturbation[expr, order], options];
 
 ToBackground[expr_, options___?OptionQ] := Module[
-	{bgRules, extraRules, temp, temprules, CreateSymbol, modexpr},
-
-	{bgRules, extraRules} = {BackgroundSolution, ExtraRules} /. CheckOptions[options] /. Options[ToBackground];
+	{
+		bgRules, extraRules, temp, temprules, CreateSymbol, modexpr
+	},
+	{bgRules, extraRules} = {BackgroundSolution, ExtraRules} 
+		/. CheckOptions[options] 
+		/. Options[ToBackground];
 	(* Replace the unexpanded perturbations in the expression, 
 	   such that we won't set unexpanded perturbation of curvature \
 	   tensors to background values later on. *)
@@ -1801,8 +1874,14 @@ YoungTableauQ[tableau:{{___Integer}...}|{{(-_Symbol|_Symbol)...}...}] := And[
 ];
 YoungTableauQ[_] := False;
 
-ExprYoungQ[expr_,tableau_] := YoungTableauQ[tableau] && (Sort@IndicesOf[Free][expr] === IndexList @@ Sort@Flatten[tableau]);
-TnsrYoungQ[tnsr_,tableau_] := YoungTableauQ[tableau] && (Total[Length /@ tableau] === Length[SlotsOfTensor@tnsr]);
+ExprYoungQ[expr_,tableau_] := And[
+	YoungTableauQ[tableau],
+	Sort@IndicesOf[Free][expr] === IndexList @@ Sort@Flatten[tableau]
+];
+TnsrYoungQ[tnsr_,tableau_] := And[
+	YoungTableauQ[tableau],
+	Total[Length /@ tableau] === Length[SlotsOfTensor@tnsr]
+];
 
 YoungSymmetrize[expr_, tableau_] := Module[{transpose, sym},
 	transpose 	= Transpose@PadRight@tableau /. 0 -> Sequence[];
@@ -1821,7 +1900,8 @@ YoungProject[expr_, tableau_] := Module[{sym1, sym2, n, result},
 	sym1 = YoungSymmetrize[expr, tableau];
 	sym2 = YoungSymmetrize[sym1, tableau];
 	Block[{$DefInfoQ = False, $UndefInfoQ = False},
-		(* TODO: compute the overall factor n from group-theoretical arguments instead of symmetrizing twice *)
+		(* TODO: compute the overall factor n from group-theoretical arguments
+		   instead of symmetrizing twice *)
 		DefConstantSymbol[n];
 		result = n sym1 /. First@SolveConstants[sym1 == n sym2, n] // ToCanonical;
 		UndefConstantSymbol[n];
@@ -1843,7 +1923,10 @@ RiemannYoungRule[cd_?CovDQ, numcds_Integer] /; numcds >= 0 :=
 RiemannYoungRule[cd_?CovDQ, {min_Integer,max_Integer}] /; max >= min && min >=0 :=
 	Flatten[RiemannYoungRule[cd,{#}]&/@Range[min,max]];
 
-RiemannYoungRule[cd_?CovDQ, {numcds_Integer}] /; numcds >= 0 := Module[{riemann, indrie, indcds, tableau, expr},
+RiemannYoungRule[cd_?CovDQ, {numcds_Integer}] /; numcds >= 0 := Module[
+	{
+		riemann, indrie, indcds, tableau, expr
+	},
 	riemann	= GiveSymbol[Riemann, cd];
 	indrie	= DummyIn /@ SlotsOfTensor@riemann;
 	indcds 	= -Table[DummyIn@First@VBundlesOfCovD[cd], {numcds}];
@@ -1909,7 +1992,12 @@ xTrasDefTensor[head_[indices___], dependencies_, sym_, options___] :=
 DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], metric_?MetricQ] := Module[
 	{vb, cd,riemann,l1patt,l2patt},
 
-	If[$DefInfoQ,Print["** Defining " <> PrintAs@xi <> " to be a Killing vector of the metric " <> PrintAs@metric <> "."]];
+	If[$DefInfoQ,
+		Print[
+			"** Defining ", PrintAs@xi, 
+			" to be a Killing vector of the metric ", PrintAs@metric, "."
+		];
+	];
 
 	(* Set up some variables. *)
 	vb 		= VBundleOfMetric@metric;
@@ -1919,10 +2007,18 @@ DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], me
 	l2patt 	= PatternSequence[L2]/.LI[___]->LI[___];
 
 	(* Set the symmetry. Thanks to JMM for pointing out how this works. *)
-	SymmetryOf[cd[x_][xi[l1:l1patt,y_,l2:l2patt]]] ^:= Symmetry[2, cd[slot[2]][xi[l1,slot[1],l2]], {slot[1] -> y, slot[2] -> x}, Antisymmetric[{1, 2}]]; 
+	SymmetryOf[cd[x_][xi[l1:l1patt,y_,l2:l2patt]]] ^:= Symmetry[
+		2,
+		cd[slot[2]][xi[l1,slot[1],l2]], 
+		{slot[1] -> y, slot[2] -> x},
+		Antisymmetric[{1, 2}]
+	]; 
 
 	(* Attach the rules and the rest. *)
-	cd[c_]@cd[b_]@xi[l1:l1patt,a_,l2:l2patt] := Module[{d = DummyIn@vb}, riemann[a,b,c,d] xi[l1,-d,l2]];
+	cd[c_]@cd[b_]@xi[l1:l1patt,a_,l2:l2patt] := Module[
+		{d = DummyIn@vb}, 
+		riemann[a,b,c,d] xi[l1,-d,l2]
+	];
 	Unprotect[xAct`xTensor`LieD];
 	LieD[xi[l1patt,_,l2patt]][metric[__]] = 0;
 	LieD[xi[l1patt,_,l2patt],_][metric[__]] = 0;
@@ -1959,7 +2055,8 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 		numContractions,unconpairs,conpairs
 	},
 
-	(* Set the options. Note that Function (&) has the HoldAll attribute so we don't need to use SetDelayed. *)
+	(* Set the options. Note that Function (&) has the HoldAll attribute
+	   so we don't need to use SetDelayed. *)
 	{verbose,symmethod,conpairs,unconpairs} = 
 		{Verbose, SymmetrizeMethod, ContractedPairs, UncontractedPairs} 
 		/. CheckOptions[options] /. Options[AllContractions];
@@ -2028,11 +2125,15 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 	
 	(* One more check. *)
 	If[numIndices =!= First@sym,
-		Throw@Message[AllContractions::error, "Number of indices and range of symmetry doesn't match."];
+		Throw@Message[
+			AllContractions::error, 
+			"Number of indices and range of symmetry doesn't match."
+		];
 	];
 	
 	
-	(* Canonicalization might give a minus sign or zero. Remove both and the Images head. *)
+	(* Canonicalization might give a minus sign or zero. 
+	   Remove both and the Images head. *)
 	removesign[0] 	= Sequence[];
 	removesign[-Images[perm_]] := perm;
 	removesign[ Images[perm_]] := perm;
@@ -2061,7 +2162,10 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 			]);
 		)&,
 		Range[numContractions],
-		Description -> "Contracting " <> ToString@numContractions <> " pairs of indices with metric " <> ToString@PrintAs[metric]
+		Description -> StringJoin[
+			"Contracting ", ToString@numContractions, 
+			" pairs of indices with metric ", ToString@PrintAs[metric]
+		]
 	];
 	
 	(* Construct a list of indices. Don't include freeIndices, because they
@@ -2138,7 +2242,10 @@ UnorderedPairsPermutations[list_] /; EvenQ@Length@list :=
 
 (* The actual workhorse. *)
 UnorderedPairsPermutations1[list_] /; Length[list] == 2 := {list};
-UnorderedPairsPermutations1[list_] /; Length[list] > 2 && EvenQ[Length[list]] := Module[{previous, last},
+UnorderedPairsPermutations1[list_] /; Length[list] > 2 && EvenQ[Length[list]] := Module[
+	{
+		previous, last
+	},
 	last 		= list[[-2 ;; -1]];
 	previous 	= UnorderedPairsPermutations1[list[[1 ;; -3]]];
 	Flatten[Map[PairPermuteJoin[#, last] &, previous], 1]
@@ -2186,7 +2293,10 @@ IndexConfigurations[expr_] := Module[
 
 ComputeBasisValues[B1_?ChartQ,B2_?ChartQ] := ComputeBasisValues1@@#& /@ {{B1,B2},{B2,B1}};
 
-ComputeBasisValues1[B1_?ChartQ,B2_?ChartQ] := Module[{C1,C2,basisArray,values},
+ComputeBasisValues1[B1_?ChartQ,B2_?ChartQ] := Module[
+	{
+		C1,C2,basisArray,values
+	},
 	values = Outer[
 		Simplify@D[#1,#2]&,
 		InChart[B2]@ScalarsOfChart@B1,
@@ -2199,22 +2309,21 @@ ComputeBasisValues1[B1_?ChartQ,B2_?ChartQ] := Module[{C1,C2,basisArray,values},
 
 
 ImplodedTensorValues[cd_?CovDQ, T_?xTensorQ, B_?BasisQ, f_:Identity] := Module[
-	{cdT,valueArray,implodedArray},
-
+	{
+		cdT,valueArray,implodedArray
+	},
 	(* Construct the expression with derivative and indices. *)
 	cdT = cd[DownIndex@DummyIn@First@VBundlesOfCovD@cd]@Apply[T,DummyIn/@SlotsOfTensor[T]];
 	(* Implode cdT, go to the basis, and give a component list. *)
 	implodedArray = cdT//Implode//ToBasis[B]//ComponentArray;
-	valueArray = ToValues[
+	valueArray = f@ToValues[
 		(* Construct the component array of the unimploded cdT. *)
 		(* Note that we once use FreeToBasis for the free indices and once  
 		   DummyToBasis for the contraction with the Christoffels. *)
 		(* Doing the ChangeCovD is not strictly necessary, but it is 'more correct' to change to the PD of the basis. *) 
 		cdT // FreeToBasis[B] // DummyToBasis[B] // ChangeCovD[#, cd, PDOfBasis@B]& // TraceBasisDummy // ComponentArray,
 		(* Get a list of all the tensors in the problem, which are just the tensor T and the relevant Christoffel *)
-		{T, GiveSymbol[Christoffel,cd,PDOfBasis@B]},
-		(* Use a simplification function *)
-		f
+		{T, GiveSymbol[Christoffel,cd,PDOfBasis@B]}
 	];
 	(* Assign values and return. *)
 	(* Note that this is the main bottleneck for large tensors, because ComponentValue
