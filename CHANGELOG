@@ -1,3 +1,35 @@
+v1.0.6, 2012-12-23
+
+* Add Scalar head in SolveTensors when LHS is a non-indexed scalar and RHS is an indexed scalar.
+* Made TensorCollect a bit more verbose (shows indices).
+* Changed how ImplodedTensorValues applies simplification function.
+* Code formatting.
+* Added SolveTensors.
+* Replaced some DeleteDuplicates with Union.
+* Simplified TensorCollect algorithm a bit (removed the splitting in parts with and without tensors).
+* TensorCollector threads over Equal.
+* Added options UncontractedPairs to AllContractions.
+* Added IndexConfigurations.
+* Added option ContractedPairs to AllContractions.
+* New, (much!) faster implementation of AllContractions.
+* New implementation of AllContractions, that contracts indices stepwise.
+* Added MapTimedIfPlus.
+* TensorCollect is a bit more verbose.
+* Delete duplicate equations from ToConstantSymbolEquations.
+* Don't replace dummies in TensorCollect if there are no dummies.
+* Replaced Variables[] with Cases[] in SolveConstants.
+* Another (sigh) and faster rewrite of TensorCollect.
+* TensorCollect prints a message if things might not have been fully collected.
+* Added option RemoveTensorCollector to TensorCollect.
+* Speed improvements in SolveConstants.
+* Don't specify TensorCollector weight.
+* TensorCollector prints like Scalar: with colored parentheses around the wrapped expression.
+* AllContractions doesn't give duplicates when the result contains fewer indices.
+* MapTimed prints info a bit nicer.
+* Defined a held covd alongside every other covd. (first step towards total derivatives)
+* Don't restrict ToConstantSymbolEquations to work only on things that don't contain lists (this prevented it to work on basis expressions).
+* Added PreferDifOf and PreferBoxOf functions.
+
 v1.0.5, 2012-11-09
 
 * Made TensorCollect listable.

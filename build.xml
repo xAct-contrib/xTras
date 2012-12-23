@@ -19,7 +19,7 @@
 	          	</exec>
 	        	<echo file="log.temp">${git.fulllog.@{numlog}}</echo>
 	        	<exec dir="." executable="/usr/bin/egrep" outputproperty="git.log.@{numlog}">
-	        		<arg line="-v 'version number|merge|merging' log.temp"/>
+	        		<arg line="-v -i 'version number|merge|merging' log.temp"/>
 	            </exec>
 	        </sequential>
 	    </macrodef>
