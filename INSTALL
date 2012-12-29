@@ -1,40 +1,57 @@
-****************************************
-INSTALLATION NOTES FOR THE xTras PACKAGE
-****************************************
+**********************************************
+*                                            *
+*  INSTALLATION NOTES FOR THE xTras PACKAGE  *
+*                                            *
+**********************************************
 
-xTras consists of a single package file, "xTras.m". Besides the package
-there is documentation available in the notebook "xTrasDoc.nb". This notebook
-does not need to be copied somewhere.
-The file "xTras.m" must be copied to the directory where you've installed xAct.
-If you haven't done so yet, head over to www.xact.es to download and install xAct.
+xTras consists of multiple packages that either extend existing xAct pacakges, or bring new 
+functionality altogether. The directory structure of xTras is
+
+/
+  xAct
+    xTras
+      xCore.m
+      xTensor.m
+      xPert.m
+      Invar.m
+      xCoba.m
+      Algebra.m
+      Combinatorics.m
+    xTras.m
+  xTrasDoc.nb
+
+The xTras.m package calls the other seven packages in the xTras folder; it does not contain
+any new functions. The notebook "xTrasDoc.nb" contains a bit of documentation. It does not 
+need to be copied somewhere.
+Everything in the xAct subdirectory must be copied to the directory where you've installed xAct.
 The xAct folder is most likely the following on the respective operating systems:
 
 Linux:
-   - system-wide installation (requires root priviledges):
-        /usr/share/Mathematica/Applications/xAct/
-   - single-user installation:
-        $HOME/.Mathematica/Applications/xAct/
+  - system-wide installation (requires root priviledges):
+      /usr/share/Mathematica/Applications/xAct/
+  - single-user installation:
+      $HOME/.Mathematica/Applications/xAct/
 
 Mac OS:
-   - system-wide installation (requires root priviledges):
-        /Library/Mathematica/Applications/xAct/
-   - single-user installation:
-        /Users/<user>/Library/Mathematica/Applications/xAct/
+  - system-wide installation (requires root priviledges):
+      /Library/Mathematica/Applications/xAct/
+  - single-user installation:
+      /Users/<user>/Library/Mathematica/Applications/xAct/
 
 MSWindows:
-   - system-wide installation:
-        C:\Documents and settings\All Users\Application data\Mathematica\Applications\xAct\
-   - single-user installation:
-        C:\Documents and settings\<user>\Application Data\Mathematica\Applications\xAct\
+  - system-wide installation:
+      C:\Documents and settings\All Users\Application data\Mathematica\Applications\xAct\
+  - single-user installation:
+      C:\Documents and settings\<user>\Application Data\Mathematica\Applications\xAct\
 
 Beware that in Windows these directories might be hidden!
 After installation, the package can be loaded using unix style
 
-        <<xAct/xTras.m
+  <<xAct/xTras.m
 
 or Mathematica style
 
-        <<xAct`xTras`
+   <<xAct`xTras`
 
 Note that some functionality of xTras requires the presence of the Invar database.
 This database can be downloaded from www.xact.es.

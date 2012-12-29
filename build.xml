@@ -60,7 +60,7 @@ project.setProperty("git.last",tags[tags.length-1]);
 
   	<zip destfile="dist/xTras.${git.last}.zip"
 	       basedir="."
-  	       includes="INSTALL,CHANGELOG,xTrasDoc.nb,xAct/xTras.m"
+  	       includes="INSTALL,CHANGELOG,xTrasDoc.nb,xAct/**"
 	       update="true"
   	  />
   	
