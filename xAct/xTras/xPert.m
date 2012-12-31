@@ -20,13 +20,12 @@ VarL::usage =
 and then divides with Sqrt[-Det[g]].";
 
 DefMetricVariation::usage = 
-  "DefMetricVariation[metric, pert, param] first defines a metric \
-perturbation with the same arguments, and then defines covariant VarD \
-and VarL functions for the metric.";
+  "DefMetricVariation[metric, pert, param] defines proper VarD \
+and VarL functions for the metric. It is called automatically from DefMetricPerturbation.";
 
 ExpandPerturbationDer::usage = 
-	"ExpandPerturbationDer expands the perturbations of derivatives. 
-	It's similar to the private xAct function ExpandPerturbationDer, but not quite.";
+	"ExpandPerturbationDer expands the perturbations of derivatives. \
+It's similar to the private xAct function ExpandPerturbationDer, but not quite.";
 
 
 (* Background perturbations *)
@@ -266,7 +265,7 @@ DefMetricVariation[metric_?MetricQ, per_, param_, options___?OptionQ] := Module[
 		(* And finally one handy function that varies Lagrangians, 
 		   and thus takes care of the square root of the determinant. *)
 		VarL[metric[inds__]][L_] := VarL[metric[inds], cd][L];
-		VarL[metric[inds__], cd][L_] := VarD[metric[inds], cd][sqrt L]/sqrt;  
+		VarL[metric[inds__], cd][L_] := VarD[metric[inds], cd][L] + L VarD[metric[inds], cd][sqrt]/sqrt;  
 	);
 	
 	def[

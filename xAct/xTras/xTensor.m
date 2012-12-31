@@ -94,15 +94,6 @@ DivFreeQ::usage =
 divergence of the given tensor w.r.t. the given CD after arbritrary \
 commutations of the covariant derivatives."; 
 
-RicciDivRule::usage = 
-  "RicciDivRule[CD] gives rules for rewriting the divergence of the \
-Ricci tensor of the given covariant derivative in terms of the Ricci \
-scalar.";
-
-RiemannDivRule::usage = 
-  "RiemannDivRule[CD] gives rules for rewriting the divergence of the \
-Riemann tensor of the given covariant derivative in terms of the \
-Ricci tensor.";
 
 
 (* Killing vectors *)
@@ -317,9 +308,9 @@ RicciToEinsteinCC[K_][expr_, cd_?CovDQ] := Module[{ricci, rs, einsteincc, d, met
 RicciToEinsteinCC[K_][expr_] := Fold[RicciToEinsteinCC[K], expr, DeleteCases[$CovDs, PD]];
 
 
-(***************)
-(* Simplifying *)
-(***************)
+(*************************)
+(* Commuting derivatives *)
+(*************************)
 
 PreferBoxOfRule[tensor_] := Flatten[PreferBoxOfRule[tensor, #] & /@ $CovDs ];
 PreferBoxOfRule[tensor_, CD_?CovDQ] := 
@@ -357,71 +348,6 @@ DivFreeQ[expr_, tens_] := And @@ (DivFreeQ[expr, tens, #] & /@ $CovDs);
 DivFreeQ[expr_, tens_, CD_?CovDQ] := 
 	FreeQ[expr, CD[a_][inner_] /; ! FreeQ[inner, tens[___, ChangeIndex[a], ___]]];
 
-RicciDivRule[cd_?CovDQ] := Module[
-	{
-		ricci	= GiveSymbol[Ricci,cd],
-		rs		= GiveSymbol[RicciScalar,cd],
-		vb		= First@VBundlesOfCovD[cd],
-		a,b,pa,pb,MR
-	},
-	{a,b}	= Table[DummyIn[vb],{2}];
-	pb = With[{vbpmq=GiveSymbol[vb,"`pmQ"]},
-		PatternTest[Pattern[Evaluate@b,Blank[]],vbpmq]
-	];
-	pa = With[{vbq=GiveSymbol[vb,"`Q"]},
-		PatternTest[Pattern[Evaluate@a,Blank[Symbol]],vbq]
-	];
-	
-	MR[der_,head_,i1_,i2_,i3_] := RuleDelayed[
-		HoldPattern[der[i1]@head[i2,i3]],
-		Evaluate[1/2 cd[b]@rs[]]
-	];
-	FoldedRule[
-		PreferDivOfRule[ricci, cd],
-		{
-			MR[cd,ricci,pa,-pa,pb],
-			MR[cd,ricci,-pa,pa,pb],
-			MR[cd,ricci,pa,pb,-pa],
-			MR[cd,ricci,-pa,pb,pa]
-		}
-	]
-];
-
-
-RiemannDivRule[cd_?CovDQ] := Module[
-	{
-		ricci	= GiveSymbol[Ricci,cd],
-		riemann	= GiveSymbol[Riemann,cd],
-		vb		= First@VBundlesOfCovD[cd],
-		a,b,c,d,pa,pb,pc,pd,MR
-	},
-	
-	{a,b,c,d}	= Table[DummyIn[vb],{4}];
-	{pa,pb,pc}	= With[{vbpmq=GiveSymbol[vb,"`pmQ"]},
-		PatternTest[Pattern[#,Blank[]],vbpmq]&/@{a,b,c}
-	];
-	pd = With[{vbq=GiveSymbol[vb,"`Q"]},
-		PatternTest[Pattern[Evaluate@d,Blank[Symbol]],vbq]
-	];
-	
-	MR[der_,head_,i1_,i2_,i3_,i4_,i5_,sign_] := RuleDelayed[
-		HoldPattern[der[i1]@head[i2,i3,i4,i5]],
-		Evaluate[sign*$RicciSign*(cd[b]@ricci[a,c]-cd[c]@ricci[a,b])]
-	];
-	FoldedRule[
-		PreferDivOfRule[riemann, cd],
-		{
-			MR[cd,riemann,-pd,pd,pa,pb,pc,1],
-			MR[cd,riemann,pd,-pd,pa,pb,pc,1],
-			MR[cd,riemann,-pd,pa,pd,pb,pc,-1],
-			MR[cd,riemann,pd,pa,-pd,pb,pc,-1],
-			MR[cd,riemann,-pd,pb,pc,pd,pa,1],
-			MR[cd,riemann,pd,pb,pc,-pd,pa,1],
-			MR[cd,riemann,-pd,pb,pc,pa,pd,-1],
-			MR[cd,riemann,pd,pb,pc,pa,-pd,-1]
-		}
-	]
-];
 
 
 (*******************)

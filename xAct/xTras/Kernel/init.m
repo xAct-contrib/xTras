@@ -27,15 +27,13 @@ If[Unevaluated[xAct`xCore`Private`$LastPackage] === xAct`xCore`Private`$LastPack
 	xAct`xCore`Private`$LastPackage = "xAct`xTras`"
 ];
 
-BeginPackage["xAct`xTras`",{
-	"xAct`xTras`xCore`",
-	"xAct`xTras`xTensor`",
-	"xAct`xTras`xPert`",
-	"xAct`xTras`Invar`",
-	"xAct`xTras`xCoba`",
-	"xAct`xTras`Algebra`",
-	"xAct`xTras`Combinatorics`"
-}]
+Get["xAct`xTras`xCore`"];
+Get["xAct`xTras`xTensor`"];
+Get["xAct`xTras`xPert`"];
+Get["xAct`xTras`Invar`"];
+Get["xAct`xTras`xCoba`"];
+Get["xAct`xTras`Algebra`"];
+Get["xAct`xTras`Combinatorics`"];
 
 (* Check if we have the correct version of xAct. *)
 If[Not@OrderedQ@Map[Last, {xAct`xTras`$xTensorVersionExpected, xAct`xTensor`$Version}], 
@@ -59,23 +57,3 @@ redistribute it under certain conditions. See the General Public \
 License for details."];
 	Print[xAct`xCore`Private`bars]
 ];
-
-(*********************)
-(*                   *)
-(*   Begin private   *)
-(*                   *)
-(*********************)
-
-
-Begin["`Private`"]
-
-
-(*********************)
-(*                   *)
-(*    End package    *)
-(*                   *)
-(*********************)
-
-End[]
-
-EndPackage[]

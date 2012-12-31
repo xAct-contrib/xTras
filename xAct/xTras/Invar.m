@@ -5,7 +5,6 @@ BeginPackage["xAct`xTras`Invar`", {
 	"xAct`xTras`xTensor`"
 }]
 
-(* Invar extensions *)
 
 EulerDensity::usage = 
   "EulerDensity[CD] give the Euler density of the curvature tensor of \
@@ -17,12 +16,24 @@ InvarWrapper::usage =
 function specified by invarFunction s.t. you can use your own options \
 for ToCanonical, ContractMetric, and CurvatureRelations.";
 
+(* Simplifying *)
+
 RiemannSimplification::usage = 
   "RiemannSimplification[metric,level][expr] works similarly to \
 RiemannSimplify, except that it also works for generic options for \
 ToCanonical etc, and works on more general expressions. \
 \nNote that it only simplifies expression consisting of Riccis and Riemanns, \
 and not of other curvature tensors.";
+
+RicciDivRule::usage = 
+  "RicciDivRule[CD] gives rules for rewriting the divergence of the \
+Ricci tensor of the given covariant derivative in terms of the Ricci \
+scalar.";
+
+RiemannDivRule::usage = 
+  "RiemannDivRule[CD] gives rules for rewriting the divergence of the \
+Riemann tensor of the given covariant derivative in terms of the \
+Ricci tensor.";
 
 FS::usage = 
   "FS is an alias of FullSimplification. Kept for backwards compatibility.";
@@ -33,6 +44,8 @@ taking Bianchi identities into account and sorting covariant derivatives. \
 It also uses to power of the Invar package to simplify scalar invariants of  \
 Riccis and Riemanns (but not of other curvature tensors like the Weyl tensor).";
 
+
+(* Monomials *)
 
 IncludeDuals::usage = 
   "Option for SingleInvariants, ProductInvariants, RangeInvariants, \
@@ -144,7 +157,7 @@ InvarWrapper[invarFunction_, g_?MetricQ][expr_, otherargs___] := Module[
 	];
 	
 	(* Apply them to the expression and run the Invar function *)
-	result = invarFunction[g, expr /. rules, otherargs];
+	result = Block[{Print},invarFunction[g, expr /. rules, otherargs]];
 
 	(* Reapply the settings as they were before *)
 	xAct`xTensor`$CommuteCovDsOnScalars = commutescalars;
@@ -200,6 +213,73 @@ RiemannSimplification[metric_?MetricQ, level_Integer][expr_] := Module[
 
 
 
+RicciDivRule[cd_?CovDQ] := Module[
+	{
+		ricci	= GiveSymbol[Ricci,cd],
+		rs		= GiveSymbol[RicciScalar,cd],
+		vb		= First@VBundlesOfCovD[cd],
+		a,b,pa,pb,MR
+	},
+	{a,b}	= Table[DummyIn[vb],{2}];
+	pb = With[{vbpmq=GiveSymbol[vb,"`pmQ"]},
+		PatternTest[Pattern[Evaluate@b,Blank[]],vbpmq]
+	];
+	pa = With[{vbq=GiveSymbol[vb,"`Q"]},
+		PatternTest[Pattern[Evaluate@a,Blank[Symbol]],vbq]
+	];
+	
+	MR[der_,head_,i1_,i2_,i3_] := RuleDelayed[
+		HoldPattern[der[i1]@head[i2,i3]],
+		Evaluate[1/2 cd[b]@rs[]]
+	];
+	FoldedRule[
+		PreferDivOfRule[ricci, cd],
+		{
+			MR[cd,ricci,pa,-pa,pb],
+			MR[cd,ricci,-pa,pa,pb],
+			MR[cd,ricci,pa,pb,-pa],
+			MR[cd,ricci,-pa,pb,pa]
+		}
+	]
+];
+
+
+RiemannDivRule[cd_?CovDQ] := Module[
+	{
+		ricci	= GiveSymbol[Ricci,cd],
+		riemann	= GiveSymbol[Riemann,cd],
+		vb		= First@VBundlesOfCovD[cd],
+		a,b,c,d,pa,pb,pc,pd,MR
+	},
+	
+	{a,b,c,d}	= Table[DummyIn[vb],{4}];
+	{pa,pb,pc}	= With[{vbpmq=GiveSymbol[vb,"`pmQ"]},
+		PatternTest[Pattern[#,Blank[]],vbpmq]&/@{a,b,c}
+	];
+	pd = With[{vbq=GiveSymbol[vb,"`Q"]},
+		PatternTest[Pattern[Evaluate@d,Blank[Symbol]],vbq]
+	];
+	
+	MR[der_,head_,i1_,i2_,i3_,i4_,i5_,sign_] := RuleDelayed[
+		HoldPattern[der[i1]@head[i2,i3,i4,i5]],
+		Evaluate[sign*$RicciSign*(cd[b]@ricci[a,c]-cd[c]@ricci[a,b])]
+	];
+	FoldedRule[
+		PreferDivOfRule[riemann, cd],
+		{
+			MR[cd,riemann,-pd,pd,pa,pb,pc,1],
+			MR[cd,riemann,pd,-pd,pa,pb,pc,1],
+			MR[cd,riemann,-pd,pa,pd,pb,pc,-1],
+			MR[cd,riemann,pd,pa,-pd,pb,pc,-1],
+			MR[cd,riemann,-pd,pb,pc,pd,pa,1],
+			MR[cd,riemann,pd,pb,pc,-pd,pa,1],
+			MR[cd,riemann,-pd,pb,pc,pa,pd,-1],
+			MR[cd,riemann,pd,pb,pc,pa,-pd,-1]
+		}
+	]
+];
+
+
 FS = FullSimplification;
 
 Options[FullSimplification] ^= {SortCovDs -> True};
@@ -251,7 +331,7 @@ FullSimplification[metric_?MetricQ, options___?OptionQ][expr_] := Module[
 	SetOptions[ToCanonical, oldmonv // First];
 	SetOptions[ContractMetric, olduppder // First];
 	
-	tmp
+	ToCanonical[tmp]
 ];
 
 
@@ -273,20 +353,22 @@ SingleInvariants[metric_?MetricQ, {order_Integer}, options___?OptionQ] /; order 
 		Message[SingleInvariants::oddorder]; Return[{}];
 	];
 	
-	dim 	= DimOfManifold@ManifoldOfCovD@CovDOfMetric@metric;
-	steps 	= If[dim === 4, 6, 4];
-	cases 	= InvarCases[order];
-	invs 	= RInvs[metric][4, #] & /@ cases;
-	If[duals,
-		If[dim === 4,
-			dcases 	= InvarDualCases[order];
-			dinvs 	= DualRInvs[metric][steps, #] & /@ dcases;
-			invs = Join[invs, dinvs];
-		,
-			Message[SingleInvariants::noduals];
-		]
-	];
-	Flatten[InvToRiemann[invs]]
+	Block[{Print},
+		dim 	= DimOfManifold@ManifoldOfCovD@CovDOfMetric@metric;
+		steps 	= If[dim === 4, 6, 4];
+		cases 	= InvarCases[order];
+		invs 	= RInvs[metric][4, #] & /@ cases;
+		If[duals,
+			If[dim === 4,
+				dcases 	= InvarDualCases[order];
+				dinvs 	= DualRInvs[metric][steps, #] & /@ dcases;
+				invs = Join[invs, dinvs];
+			,
+				Message[SingleInvariants::noduals];
+			]
+		];
+		Flatten[InvToRiemann[invs]]
+	]
 ];
 
 SingleInvariants[_?MetricQ, {0}, ___?OptionQ] := {1};

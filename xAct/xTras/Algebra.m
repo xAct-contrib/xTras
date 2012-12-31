@@ -18,8 +18,8 @@ The default value is blue (RGBColor[0,0,1]).";
 
 RemoveTensorCollector::usage =
 	"RemoveTensorCollector[expr] removes TensorCollectors from expr. \n\
-RemoveTensorCollector is also an option for TensorCollect. \
-If True, TensorCollect removes the TensorCollector heads from the expression \
+RemoveTensorCollector is also an option for CollectTensors. \
+If True, CollectTensors removes the TensorCollector heads from the expression \
 before returning. The default is True.";
 
 RemoveConstants::usage = 
@@ -31,25 +31,31 @@ RemoveTensors::usage =
 the constants.";
 
 CollectMethod::usage =
-	"CollectMethod is an option for TensorCollect that specifies which \
+	"CollectMethod is an option for CollectTensors that specifies which \
 (pure) function is used before tensors are collected. \
 The Default is ToCanonical@ContractMetric@NoScalar@#& .";
 
 SimplifyMethod::usage =
-	"SimplifyMethod is an option for TensorCollect that specifies how \
+	"SimplifyMethod is an option for CollectTensors that specifies how \
 collected prefactors are simplified. The Default is Simplify";
 
-TensorCollect::usage = 
-  "TensorCollect[expr] acts as Collect[expr,tensorsof[expr]]";
+CollectTensors::usage = 
+  "CollectTensors[expr] acts as Collect[expr,tensorsof[expr]]";
 
-TensorCollect::denominator = 
+CollectTensors::denominator = 
 	"There are denominators with a sum inside TensorCollectors. \
 Things might not have been fully collected.";
+
+TensorCollect::usage =
+	"TensorCollect is an alias for CollectTensors. Deprecated.";
 
 DoTensorCollect::usage = 
   "DoTensorCollect[func][expr] maps func on every collected tensor in \
 expr. This is useful if you have an expression with one tensor object \
 with lots of different constants.";
+
+CollectConstants::usage =
+	"CollectConstants[expr] act as Collect[expr, constantsof[expr] ].";
 
 SolveTensors::usage =
 	"SolveTensors[equation, {t1,t2,...}] solves equation for tensors t1, t2, ... \n\
@@ -85,7 +91,7 @@ Begin["`Private`"]
 
 (***************************)
 (*                         *)
-(*   TensorCollect et. al. *)
+(*   CollectTensors et. al. *)
 (*                         *)
 (***************************)
 
@@ -148,26 +154,28 @@ RemoveTensors[expr_] := TensorCollector[expr] /. HoldPattern[TensorCollector[___
 SetAttributes[RemoveTensors, Listable]
 
 
-(*****************)
-(* TensorCollect *)
-(*****************)
+(******************)
+(* CollectTensors *)
+(******************)
 
-Options[TensorCollect] ^= {
+TensorCollect = CollectTensors;
+
+Options[CollectTensors] ^= {
 	CollectMethod -> Default, 
 	SimplifyMethod -> Simplify, 
 	RemoveTensorCollector -> True, 
 	Verbose -> False
 }
 
-TensorCollect[expr_, options___?OptionQ] := expr;
-TensorCollect[expr_List, options___?OptionQ] := TensorCollect[#,options]& /@ expr;
-TensorCollect[expr_, options___?OptionQ] /; !FreeQ[expr, Plus | _?xTensorQ] && Head[expr] =!= List :=
+CollectTensors[expr_, options___?OptionQ] := expr;
+CollectTensors[expr_List, options___?OptionQ] := CollectTensors[#,options]& /@ expr;
+CollectTensors[expr_, options___?OptionQ] /; !FreeQ[expr, Plus | _?xTensorQ] && Head[expr] =!= List :=
 Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanondd},
 	
 	(* Get the options. *)	
 	{method,simplify,rtc,verbose} = 
 		{CollectMethod,SimplifyMethod,RemoveTensorCollector,Verbose}
-		/. CheckOptions[options] /. Options[TensorCollect];
+		/. CheckOptions[options] /. Options[CollectTensors];
 	
 	verbose = TrueQ[verbose];
 	rtc 	= TrueQ[rtc];
@@ -247,7 +255,7 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 	(* If there are denominators with a plus inside TensorCollector heads, 
 	   things might not by fully simplified. Warn the user. *)
 	If[!FreeQ[tcscanondd, HoldPattern[Power[y_, x_]] /; x < 0 && !FreeQ[y, Plus]],
-		Message[TensorCollect::denominator]
+		Message[CollectTensors::denominator]
 	];
 	
 	(* Collect in terms of the tensors, simplify the overall factors, and remove TensorCollectors. *)
@@ -255,6 +263,34 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 		/. x_*y_TensorCollector :> simplify[x] y 
 		// rtc
 ];
+
+
+Options[CollectConstants] ^= {
+	SimplifyMethod -> CollectTensors
+}
+
+Default[CollectConstants] ^= !{};
+CollectConstants[expr_,Optional[notvars:!(_List|_Symbol)], options___?OptionQ] := 
+	CollectConstants[
+		expr,
+		Complement[
+			Union@Cases[expr, _Symbol?ConstantSymbolQ, {0,Infinity}, Heads->True],
+			Flatten[{!notvars}]
+		],
+		options
+	];
+
+CollectConstants[expr_, constant_Symbol, options___?OptionQ] := 
+	CollectConstants[expr,{constant}, options];
+
+CollectConstants[expr_, constants_List, options___?OptionQ] := Module[
+	{
+		simplify = SimplifyMethod /. CheckOptions[options] /. Options[CollectConstants]
+	},
+	Collect[expr, constants] /. (y_ * x:Alternatives@@constants) :> (simplify[y] x)
+];
+
+
 
 
 DoTensorCollect[func_][expr_] := Module[{collected, map},
@@ -265,7 +301,6 @@ DoTensorCollect[func_][expr_] := Module[{collected, map},
  	];
 	MapIfPlus[map,collected]
 ];
-
 
 
 (**************************)
@@ -282,7 +317,7 @@ ToConstantSymbolEquations[eq:(Equal[_List,_]|Equal[_,_List]|Equal[_List,_List])]
 
 (* Main function *)
 ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] := Module[{collected,list,freeT,withT},
-	collected = TensorCollect[lhs - rhs, 
+	collected = CollectTensors[lhs - rhs, 
 		CollectMethod->Default, 
 		SimplifyMethod->Identity,
 		RemoveTensorCollector->False
@@ -326,7 +361,7 @@ Options[SolveTensors] ^= {
 
 (* Public function with specified tensors. *)
 SolveTensors[expr_, tensors_List, options___?OptionQ] := SolveTensors1[
-	TensorCollect[
+	CollectTensors[
 		expr, 
 		RemoveTensorCollector -> False, 
 		CollectMethod -> Identity, 
@@ -342,7 +377,7 @@ SolveTensors1[
 	#,
 	Union@Cases[#, HoldPattern@TensorCollector[_], {0, Infinity}, Heads -> True],
 	options
-]& @ TensorCollect[
+]& @ CollectTensors[
 	expr, 
 	RemoveTensorCollector -> False, 
 	CollectMethod -> Identity, 
@@ -377,7 +412,7 @@ SolveTensors1[eqs_,tensors_List,options___?OptionQ] := Module[{mr,sm,mrrule},
 (* Deprecated, superseded by SolveTensors. *)
 MakeEquationRule[{Equal[LHS_,RHS_], pattern_, cond___}, options___?OptionQ]:=
   Module[{expanded, list, terms, coefficient, lhs, rhs},
-	expanded	= TensorCollect[LHS - RHS, CollectMethod->Default, SimplifyMethod->Identity];
+	expanded	= CollectTensors[LHS - RHS, CollectMethod->Default, SimplifyMethod->Identity];
 	list		= If[Head[expanded] === Plus, List@@expanded, List@expanded];
 	terms = Cases[list, (Optional[c_] * t_) /; ConstantExprQ[c] && MatchQ[t, HoldPattern@pattern] :> {t, c}];
 	If[Length[terms] =!=1, Return[{}]];

@@ -15,7 +15,7 @@
 			<attribute name="numlog" />
 	        <sequential>
 	          	<exec dir="." executable="git" failonerror="true" outputproperty="git.fulllog.@{numlog}">
-	          		<arg line="log --pretty=format:%s @{range} xAct/xTras.m"/>
+	          		<arg line="log --pretty=format:%s @{range} xAct"/>
 	          	</exec>
 	        	<echo file="log.temp">${git.fulllog.@{numlog}}</echo>
 	        	<exec dir="." executable="/usr/bin/egrep" outputproperty="git.log.@{numlog}">
@@ -60,9 +60,10 @@ project.setProperty("git.last",tags[tags.length-1]);
 
   	<zip destfile="dist/xTras.${git.last}.zip"
 	       basedir="."
-  	       includes="INSTALL,CHANGELOG,xTrasDoc.nb,xAct/**"
-	       update="true"
-  	  />
+  	       includes="INSTALL,CHANGELOG,xAct/**"
+	       update="no">
+  		<zipfileset dir="notebooks" includes="xTrasDoc.nb" prefix="xAct/Documentation/English"/>
+  	</zip>
   	
   </target>
 </project>
