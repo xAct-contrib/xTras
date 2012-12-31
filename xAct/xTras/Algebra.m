@@ -6,20 +6,22 @@ BeginPackage["xAct`xTras`Algebra`", {
 
 (* TensorCollect et al *)
 
+TensorCollector::usage =
+	"TensorCollector is an alias for TensorWrapper. Kept for backwards compatibility. Deprecated.";
 
-TensorCollector::usage = 
-  "TensorCollector[expr] wraps all tensors in expr in a head \
-'TensorCollector'.";
+TensorWrapper::usage = 
+  "TensorWrapper[expr] wraps all tensors in expr in a head \
+'TensorWrapper'.";
 
-$TensorCollectorColor::usage =
-	"$TensorCollectorColor is a global variable specifying the color of \
-the parentheses surrounding the formatting of a TensorCollector expression. \
+$TensorWrapperColor::usage =
+	"$TensorWrapperColor is a global variable specifying the color of \
+the parentheses surrounding the formatting of a TensorWrapper expression. \
 The default value is blue (RGBColor[0,0,1]).";
 
-RemoveTensorCollector::usage =
-	"RemoveTensorCollector[expr] removes TensorCollectors from expr. \n\
-RemoveTensorCollector is also an option for CollectTensors. \
-If True, CollectTensors removes the TensorCollector heads from the expression \
+RemoveTensorWrapper::usage =
+	"RemoveTensorWrapper[expr] removes TensorWrappers from expr. \n\
+RemoveTensorWrapper is also an option for CollectTensors. \
+If True, CollectTensors removes the TensorWrapper heads from the expression \
 before returning. The default is True.";
 
 RemoveConstants::usage = 
@@ -43,11 +45,11 @@ CollectTensors::usage =
   "CollectTensors[expr] acts as Collect[expr,tensorsof[expr]]";
 
 CollectTensors::denominator = 
-	"There are denominators with a sum inside TensorCollectors. \
+	"There are denominators with a sum inside TensorWrappers. \
 Things might not have been fully collected.";
 
 TensorCollect::usage =
-	"TensorCollect is an alias for CollectTensors. Deprecated.";
+	"TensorCollect is an alias for CollectTensors. Kept for backwards compatibility. Deprecated.";
 
 DoTensorCollect::usage = 
   "DoTensorCollect[func][expr] maps func on every collected tensor in \
@@ -97,14 +99,14 @@ Begin["`Private`"]
 
 
 
-(*******************)
-(* TensorCollector *)
-(*******************)
+(*****************)
+(* TensorWrapper *)
+(*****************)
 
-(* Define an inert head "TensorCollector". *)
+(* Define an inert head "TensorWrapper". *)
 Block[{$DefInfoQ=False},
 	DefInertHead[
-		TensorCollector,
+		TensorWrapper,
 		(* Setting LinearQ to True will slow evaluation down dramatically 
 		   because of a clashing definition below. *)
 		LinearQ -> False, 
@@ -115,33 +117,35 @@ Block[{$DefInfoQ=False},
 		DefInfo -> {"", ""}
 	];
 ];
-(* Thread TensorCollector over List, Plus, and Equal. *)
-TensorCollector[x_List]  := TensorCollector /@ x;
-TensorCollector[x_Plus]  := TensorCollector /@ x;
-TensorCollector[x_Equal] := TensorCollector /@ x;
-(* TensorCollector on itself returns a single TensorCollector. *)
-HoldPattern[TensorCollector[TensorCollector[expr_]]] := TensorCollector[expr];
+(* Thread TensorWrapper over List, Plus, and Equal. *)
+TensorWrapper[x_List]  := TensorWrapper /@ x;
+TensorWrapper[x_Plus]  := TensorWrapper /@ x;
+TensorWrapper[x_Equal] := TensorWrapper /@ x;
+(* TensorWrapper on itself returns a single TensorWrapper. *)
+HoldPattern[TensorWrapper[TensorWrapper[expr_]]] := TensorWrapper[expr];
 
-(* The next line will clash if TensorCollector is LinearQ (which it is not). *)
-TensorCollector[x_ * y_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x TensorCollector[y];
-TensorCollector[x_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x;
+(* The next line will clash if TensorWrapper is LinearQ (which it is not). *)
+TensorWrapper[x_ * y_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x TensorWrapper[y];
+TensorWrapper[x_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x;
 
-(* TensorCollector formatting. The same as how Scalar formats, only now in blue. *)
-$TensorCollectorColor = RGBColor[0, 0, 1];
+(* TensorWrapper formatting. The same as how Scalar formats, only now in blue. *)
+$TensorWrapperColor = RGBColor[0, 0, 1];
 
-TensorCollector /: MakeBoxes[TensorCollector[expr_], StandardForm] := 
+TensorWrapper /: MakeBoxes[TensorWrapper[expr_], StandardForm] := 
 xAct`xTensor`Private`interpretbox[
-	TensorCollector[expr], 
+	TensorWrapper[expr], 
 	RowBox[{
-		StyleBox["(", FontColor -> $TensorCollectorColor], 
+		StyleBox["(", FontColor -> $TensorWrapperColor], 
 		MakeBoxes[expr, StandardForm], 
-		StyleBox[")", FontColor -> $TensorCollectorColor]
+		StyleBox[")", FontColor -> $TensorWrapperColor]
 	}]
 ];
 
 
-RemoveTensorCollector[expr_] := expr /. HoldPattern@TensorCollector[x_] :> x;
+RemoveTensorWrapper[expr_] := expr /. HoldPattern@TensorWrapper[x_] :> x;
 
+
+TensorCollector = TensorWrapper;
 
 (***********************************)
 (* RemoveConstants / RemoveTensors *)
@@ -150,7 +154,7 @@ RemoveTensorCollector[expr_] := expr /. HoldPattern@TensorCollector[x_] :> x;
 RemoveConstants[expr_] := expr /. x_?ConstantExprQ *y_ /; ! FreeQ[y, _?xTensorQ | _?ParameterQ] :> y
 SetAttributes[RemoveConstants, Listable]
 
-RemoveTensors[expr_] := TensorCollector[expr] /. HoldPattern[TensorCollector[___]] -> 1
+RemoveTensors[expr_] := TensorWrapper[expr] /. HoldPattern[TensorWrapper[___]] -> 1
 SetAttributes[RemoveTensors, Listable]
 
 
@@ -163,7 +167,7 @@ TensorCollect = CollectTensors;
 Options[CollectTensors] ^= {
 	CollectMethod -> Default, 
 	SimplifyMethod -> Simplify, 
-	RemoveTensorCollector -> True, 
+	RemoveTensorWrapper -> True, 
 	Verbose -> False
 }
 
@@ -174,7 +178,7 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 	
 	(* Get the options. *)	
 	{method,simplify,rtc,verbose} = 
-		{CollectMethod,SimplifyMethod,RemoveTensorCollector,Verbose}
+		{CollectMethod,SimplifyMethod,RemoveTensorWrapper,Verbose}
 		/. CheckOptions[options] /. Options[CollectTensors];
 	
 	verbose = TrueQ[verbose];
@@ -199,7 +203,7 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 	];
 	
 	If[rtc,
-		rtc = RemoveTensorCollector,
+		rtc = RemoveTensorWrapper,
 		rtc = Identity
 	];
 	
@@ -229,38 +233,38 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 		print["Replaced dummies"];
 	];
 	
-	(* Apply the tensorcollector. *)
+	(* Apply the TensorWrapper. *)
 	mod = Block[{$RecursionLimit=4096},
-		TensorCollector@mod
+		TensorWrapper@mod
 	];
-	print["Applied TensorCollector"];
+	print["Applied TensorWrapper"];
 	
-	(* Find tensorcollectors. *)
-	tcs = Union[Cases[mod,HoldPattern[TensorCollector[_]],{0,Infinity},Heads->True]];
-	print["Found " <> ToString@Length@tcs <> " TensorCollectors"];
+	(* Find TensorWrappers. *)
+	tcs = Union[Cases[mod,HoldPattern[TensorWrapper[_]],{0,Infinity},Heads->True]];
+	print["Found " <> ToString@Length@tcs <> " TensorWrappers"];
 	
-	(* Canonicalize tensorcollectors. *)
+	(* Canonicalize TensorWrappers. *)
 	tcscanon = 
-		tcs /. HoldPattern@TensorCollector[arg_] :> TensorCollector[
+		tcs /. HoldPattern@TensorWrapper[arg_] :> TensorWrapper[
 			xAct`xTensor`Private`ReplaceDummies2[method@arg,dummies]
 		];
 	tcscanondd = Union@tcscanon;
-	print["Canonicalized " <> ToString@Length@tcscanondd <> " TensorCollectors"];
+	print["Canonicalized " <> ToString@Length@tcscanondd <> " TensorWrappers"];
 	
-	(* Reinsert canonicalized tensorcollectors. *)
+	(* Reinsert canonicalized TensorWrappers. *)
 	mod = mod/.Inner[Rule,tcs,tcscanon,List];
-	print["Replaced TensorCollectors"];
+	print["Replaced TensorWrappers"];
 
 	
-	(* If there are denominators with a plus inside TensorCollector heads, 
+	(* If there are denominators with a plus inside TensorWrapper heads, 
 	   things might not by fully simplified. Warn the user. *)
 	If[!FreeQ[tcscanondd, HoldPattern[Power[y_, x_]] /; x < 0 && !FreeQ[y, Plus]],
 		Message[CollectTensors::denominator]
 	];
 	
-	(* Collect in terms of the tensors, simplify the overall factors, and remove TensorCollectors. *)
+	(* Collect in terms of the tensors, simplify the overall factors, and remove TensorWrappers. *)
 	Collect[mod, tcscanondd] 
-		/. x_*y_TensorCollector :> simplify[x] y 
+		/. x_*y_TensorWrapper :> simplify[x] y 
 		// rtc
 ];
 
@@ -294,10 +298,10 @@ CollectConstants[expr_, constants_List, options___?OptionQ] := Module[
 
 
 DoTensorCollect[func_][expr_] := Module[{collected, map},
-	collected = TensorCollector[expr];
-	map[subexpr_] := If[FreeQ[subexpr, TensorCollector],
+	collected = TensorWrapper[expr];
+	map[subexpr_] := If[FreeQ[subexpr, TensorWrapper],
 		func[subexpr],
-		subexpr /. HoldPattern[TensorCollector[p___]] :> func[p]
+		subexpr /. HoldPattern[TensorWrapper[p___]] :> func[p]
  	];
 	MapIfPlus[map,collected]
 ];
@@ -320,14 +324,14 @@ ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] := Module[{collected,list,freeT,w
 	collected = CollectTensors[lhs - rhs, 
 		CollectMethod->Default, 
 		SimplifyMethod->Identity,
-		RemoveTensorCollector->False
+		RemoveTensorWrapper->False
 	];
 	list = If[Head[#] === Plus, 
 			List@@#, 
 			List@#
 		]& @ collected;
-	freeT = Select[list,FreeQ[#,TensorCollector]&];
-	withT = Select[list,!FreeQ[#,TensorCollector]&]  /. HoldPattern[TensorCollector[___]] -> 1;
+	freeT = Select[list,FreeQ[#,TensorWrapper]&];
+	withT = Select[list,!FreeQ[#,TensorWrapper]&]  /. HoldPattern[TensorWrapper[___]] -> 1;
 	
 	Apply[
 		And, 
@@ -363,11 +367,11 @@ Options[SolveTensors] ^= {
 SolveTensors[expr_, tensors_List, options___?OptionQ] := SolveTensors1[
 	CollectTensors[
 		expr, 
-		RemoveTensorCollector -> False, 
+		RemoveTensorWrapper -> False, 
 		CollectMethod -> Identity, 
 		SimplifyMethod -> Identity
 	],
-	TensorCollector[tensors],
+	TensorWrapper[tensors],
 	options
 ];
 
@@ -375,11 +379,11 @@ SolveTensors[expr_, tensors_List, options___?OptionQ] := SolveTensors1[
 SolveTensors[expr_, options___?OptionQ] := 
 SolveTensors1[
 	#,
-	Union@Cases[#, HoldPattern@TensorCollector[_], {0, Infinity}, Heads -> True],
+	Union@Cases[#, HoldPattern@TensorWrapper[_], {0, Infinity}, Heads -> True],
 	options
 ]& @ CollectTensors[
 	expr, 
-	RemoveTensorCollector -> False, 
+	RemoveTensorWrapper -> False, 
 	CollectMethod -> Identity, 
 	SimplifyMethod -> Identity
 ];
@@ -406,7 +410,7 @@ SolveTensors1[eqs_,tensors_List,options___?OptionQ] := Module[{mr,sm,mrrule},
 		mrrule = {}
 	];
 	(* Do the actual work. *)
-	RemoveTensorCollector[Solve[eqs, sm@tensors]] /. mrrule
+	RemoveTensorWrapper[Solve[eqs, sm@tensors]] /. mrrule
 ];
 
 (* Deprecated, superseded by SolveTensors. *)
