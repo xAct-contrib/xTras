@@ -390,8 +390,8 @@ ProductInvariants[metric_?MetricQ, {order_Integer}, options___?OptionQ] /; order
 		{SingleInvariants::oddorder}
 	];
 
-	combine[partition_] := DeleteDuplicates@Flatten[Outer[Times, Sequence @@ npinvs[[partition]]], 1];
-	combine /@ partitions // Flatten // DeleteDuplicates // Sort
+	combine[partition_] := Union@Flatten[Outer[Times, Sequence @@ npinvs[[partition]]], 1];
+	combine /@ partitions // Flatten // Union
 ];
 
 ProductInvariants[_?MetricQ, {0}, ___?OptionQ] := {1};

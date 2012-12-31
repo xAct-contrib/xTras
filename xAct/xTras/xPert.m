@@ -325,8 +325,8 @@ ToFlat[expr_, order_Integer: 1, options___?OptionQ] :=
 	ToBackground[expr, BackgroundSolution -> FlatRules[expr], options];
 
 FindAllMetrics[expr_] := Module[{tensors, manifolds, vbundles,metrics},
-	tensors 	= DeleteDuplicates[FindAllOfType[expr, Tensor] /. t_[___] /; xTensorQ[t] :> t];
-	manifolds 	= Flatten[Select[HostsOf[#], ManifoldQ] & /@ tensors] // DeleteDuplicates;
+	tensors 	= Union[FindAllOfType[expr, Tensor] /. t_[___] /; xTensorQ[t] :> t];
+	manifolds 	= Flatten[Select[HostsOf[#], ManifoldQ] & /@ tensors] // Union;
 	vbundles 	= Union[
 		Flatten[Select[HostsOf[#], VBundleQ] & /@ tensors], 
 		Flatten[TangentBundleOfManifold /@ manifolds]
@@ -340,8 +340,8 @@ FindAllMetrics[expr_] := Module[{tensors, manifolds, vbundles,metrics},
 
 FlatRules[expr_] := Module[{tensors, manifolds, vbundles, metrics, cds},
 	(* First determine what all the covariant derivatives of the expression are. *)
-	tensors 	= DeleteDuplicates[FindAllOfType[expr, Tensor] /. t_[___] /; xTensorQ[t] :> t];
-	manifolds 	= Flatten[Select[HostsOf[#], ManifoldQ] & /@ tensors] // DeleteDuplicates;
+	tensors 	= Union[FindAllOfType[expr, Tensor] /. t_[___] /; xTensorQ[t] :> t];
+	manifolds 	= Flatten[Select[HostsOf[#], ManifoldQ] & /@ tensors] // Union;
 	vbundles 	= Union[
 		Flatten[Select[HostsOf[#], VBundleQ] & /@ tensors], 
 		Flatten[TangentBundleOfManifold /@ manifolds]

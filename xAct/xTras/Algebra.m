@@ -9,6 +9,9 @@ BeginPackage["xAct`xTras`Algebra`", {
 TensorCollector::usage =
 	"TensorCollector is an alias for TensorWrapper. Kept for backwards compatibility. Deprecated.";
 
+UnitConstant::usage =
+	"UnitConstant is a constant whose value is one. It prints as 1, and is used with TensorWrapper.";
+
 TensorWrapper::usage = 
   "TensorWrapper[expr] wraps all tensors in expr in a head \
 'TensorWrapper'.";
@@ -103,6 +106,14 @@ Begin["`Private`"]
 (* TensorWrapper *)
 (*****************)
 
+Block[{$DefInfoQ=False},
+	DefConstantSymbol[UnitConstant, PrintAs -> "1"];
+];
+
+UnitConstant /: UnitConstant * UnitConstant = UnitConstant;
+UnitConstant /: UnitConstant * TensorWrapper[ UnitConstant ] := TensorWrapper[ UnitConstant ];
+UnitConstant /: Power[UnitConstant, x_Integer] /; x > 1 := UnitConstant;
+
 (* Define an inert head "TensorWrapper". *)
 Block[{$DefInfoQ=False},
 	DefInertHead[
@@ -126,7 +137,7 @@ HoldPattern[TensorWrapper[TensorWrapper[expr_]]] := TensorWrapper[expr];
 
 (* The next line will clash if TensorWrapper is LinearQ (which it is not). *)
 TensorWrapper[x_ * y_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x TensorWrapper[y];
-TensorWrapper[x_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x;
+TensorWrapper[x_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] && x =!= UnitConstant := x TensorWrapper[ UnitConstant ];
 
 (* TensorWrapper formatting. The same as how Scalar formats, only now in blue. *)
 $TensorWrapperColor = RGBColor[0, 0, 1];
@@ -142,7 +153,10 @@ xAct`xTensor`Private`interpretbox[
 ];
 
 
-RemoveTensorWrapper[expr_] := expr /. HoldPattern@TensorWrapper[x_] :> x;
+RemoveTensorWrapper[expr_] := expr /. FoldedRule[
+	HoldPattern@TensorWrapper[x_] :> x,
+	UnitConstant -> 1
+];
 
 
 TensorCollector = TensorWrapper;
@@ -330,7 +344,7 @@ ToConstantSymbolEquations[eq:(Equal[_List,_]|Equal[_,_List]|Equal[_List,_List])]
 	Thread[eq] /. eqs_Equal :> ToConstantSymbolEquations[eqs];
 
 (* Main function *)
-ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] := Module[{collected,list,freeT,withT},
+ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] := Module[{collected,list},
 	collected = CollectTensors[lhs - rhs, 
 		CollectMethod->Default, 
 		SimplifyMethod->Identity,
@@ -340,12 +354,9 @@ ToConstantSymbolEquations[eq:Equal[lhs_,rhs_]] := Module[{collected,list,freeT,w
 			List@@#, 
 			List@#
 		]& @ collected;
-	freeT = Select[list,FreeQ[#,TensorWrapper]&];
-	withT = Select[list,!FreeQ[#,TensorWrapper]&]  /. HoldPattern[TensorWrapper[___]] -> 1;
-	
 	Apply[
 		And, 
-		Equal[#,0]& /@ DeleteDuplicates@Append[withT, Plus@@freeT] 
+		Equal[#,0]& /@ Union[list  /. HoldPattern[TensorWrapper[___]] -> 1]
 	] 
 ];
 
