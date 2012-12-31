@@ -32,6 +32,19 @@ RemoveTensors::usage =
   "RemoveTensors[expr] removes all tensors from expr, and leaves just \
 the constants.";
 
+MapTimedTensors::usage =
+	"MapTimedTensors[f,expr] maps f over all tensorial expressions in expr with MapTimed.";
+
+MapTensors::usage =
+	"MapTensors[f,expr] maps f over all tensorial expressions in expr.";
+
+DoTensorCollect::usage = 
+  "Deprecated. Superseded by MapTensors / MapTimedTensors. \n \n \
+DoTensorCollect[func][expr] maps func on every collected tensor in \
+expr. This is useful if you have an expression with one tensor object \
+with lots of different constants.";
+
+
 CollectMethod::usage =
 	"CollectMethod is an option for CollectTensors that specifies which \
 (pure) function is used before tensors are collected. \
@@ -50,11 +63,6 @@ Things might not have been fully collected.";
 
 TensorCollect::usage =
 	"TensorCollect is an alias for CollectTensors. Kept for backwards compatibility. Deprecated.";
-
-DoTensorCollect::usage = 
-  "DoTensorCollect[func][expr] maps func on every collected tensor in \
-expr. This is useful if you have an expression with one tensor object \
-with lots of different constants.";
 
 CollectConstants::usage =
 	"CollectConstants[expr] act as Collect[expr, constantsof[expr] ].";
@@ -88,14 +96,6 @@ appearing in expr, except vars.";
 
 
 Begin["`Private`"]
-
-
-
-(***************************)
-(*                         *)
-(*   CollectTensors et. al. *)
-(*                         *)
-(***************************)
 
 
 
@@ -147,6 +147,7 @@ RemoveTensorWrapper[expr_] := expr /. HoldPattern@TensorWrapper[x_] :> x;
 
 TensorCollector = TensorWrapper;
 
+
 (***********************************)
 (* RemoveConstants / RemoveTensors *)
 (***********************************)
@@ -156,6 +157,27 @@ SetAttributes[RemoveConstants, Listable]
 
 RemoveTensors[expr_] := TensorWrapper[expr] /. HoldPattern[TensorWrapper[___]] -> 1
 SetAttributes[RemoveTensors, Listable]
+
+
+(********************************)
+(* MapTensors / MapTimedTensors *)
+(********************************)
+
+MapTimedTensors[func_, expr_, options___?OptionQ] := MapTensors1[func, expr, MapTimed, options];
+MapTensors[func_, expr_] := MapTensors1[func, expr, Map];
+
+MapTensors1[func_, expr_, mapmethod_] := Module[
+	{
+		wrapped, wrappers, fwrappers
+	},
+	wrapped 	= TensorWrapper[expr];
+	wrappers	= Union[Cases[wrapped,HoldPattern[TensorWrapper[_]],{0,Infinity},Heads->True]];
+	fwrappers	= mapmethod[func, RemoveTensorWrapper[wrappers] ];
+	wrapped /. Inner[Rule,wrappers,fwrappers, List]
+];
+
+
+DoTensorCollect[func_][expr_] := MapTensors[func, expr];
 
 
 (******************)
@@ -292,18 +314,6 @@ CollectConstants[expr_, constants_List, options___?OptionQ] := Module[
 		simplify = SimplifyMethod /. CheckOptions[options] /. Options[CollectConstants]
 	},
 	Collect[expr, constants] /. (y_ * x:Alternatives@@constants) :> (simplify[y] x)
-];
-
-
-
-
-DoTensorCollect[func_][expr_] := Module[{collected, map},
-	collected = TensorWrapper[expr];
-	map[subexpr_] := If[FreeQ[subexpr, TensorWrapper],
-		func[subexpr],
-		subexpr /. HoldPattern[TensorWrapper[p___]] :> func[p]
- 	];
-	MapIfPlus[map,collected]
 ];
 
 
