@@ -265,7 +265,7 @@ DefMetricVariation[metric_?MetricQ, per_, param_, options___?OptionQ] := Module[
 		(* And finally one handy function that varies Lagrangians, 
 		   and thus takes care of the square root of the determinant. *)
 		VarL[metric[inds__]][L_] := VarL[metric[inds], cd][L];
-		VarL[metric[inds__], cd][L_] := VarD[metric[inds], cd][L] + L VarD[metric[inds], cd][sqrt]/sqrt;  
+		VarL[metric[inds__], cd][L_] := VarD[metric[inds], cd][L] + ReplaceDummies[L] VarD[metric[inds], cd][sqrt]/sqrt;  
 	);
 	
 	def[

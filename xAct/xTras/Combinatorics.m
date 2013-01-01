@@ -38,7 +38,7 @@ list with one element for each unique contraction, not taking the ordering of \
 the free indices into account.";
 
 AllContractions::usage =
-	"AllContractions[expr] gives all possible full contractions of \
+	"AllContractions[expr] returns a sorted list of all possible full contractions of \
 expr over its free indices. expr cannot have dummy indices. The free indices have to belong to the same \
 tangent bundle, which also has to have a symmetric metric. \n\
 \n\
@@ -130,7 +130,8 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 		auxT,auxTexpr,indexlist,dummylist,dummies,M,removesign,process,step,
 		contractions,
 		sym,sgs,frees,dummysets,newdummies,newdummypairs,previousdummies,canon,
-		numContractions,unconpairs,conpairs
+		numContractions,unconpairs,conpairs,
+		removesign2
 	},
 
 	(* Set the options. Note that Function (&) has the HoldAll attribute
@@ -282,8 +283,11 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 	   because we needed its symmetry in the previous step. *)
 	Block[{$UndefInfoQ=False},UndefTensor[auxT]];
 	
-	(* Return result. *)
-	contractions 
+	(* Return result. Because tensors might have up/down values, we still need to 
+	   remove signs, zeros, and duplicates. *)
+	removesign2[-x_] := x;
+	removesign2[ x_] := x;	
+	DeleteCases[Union[removesign2 /@ contractions], 0] 
 ];
 
 (* 

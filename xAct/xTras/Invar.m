@@ -325,13 +325,15 @@ FullSimplification[metric_?MetricQ, options___?OptionQ][expr_] := Module[
 			tmp = ContractMetric[tmp //. ricciDivRule, metric]
 		];
 	];
-   
+	
+	tmp = ToCanonical@ContractMetric[tmp, metric];
+	 
 	(* TODO: Apply dimensional dependent identities again *)
 	(* TODO: Apply bianchi identities *)
 	SetOptions[ToCanonical, oldmonv // First];
 	SetOptions[ContractMetric, olduppder // First];
 	
-	ToCanonical[tmp]
+	tmp
 ];
 
 
