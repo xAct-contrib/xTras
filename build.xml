@@ -63,6 +63,7 @@ project.setProperty("git.last",tags[tags.length-1]);
   	       includes="INSTALL,CHANGELOG,xAct/**"
 	       update="no">
   		<zipfileset dir="notebooks" includes="xTrasDoc.nb" prefix="xAct/Documentation/English"/>
+  		<zipfileset dir="notebooks/examples" prefix="xAct/Documentation/English/xTras"/>
   	</zip>
   	
   </target>
