@@ -200,6 +200,9 @@ RiemannSimplification[metric_?MetricQ, level_Integer][expr_] := Module[
 	scalar = PutScalar[expr];
 	
 	(* TODO: if the result contains Cycles something went wrong, and we should return the original expression. *)
+	
+	(* RiemannSimplify returns expression with a Scalar head, so removing the scalars with the rule
+	   is safe. *) 
 	NoScalar[scalar /. 
 		Scalar[subexpr_] /; SameQ[
 			{},

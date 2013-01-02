@@ -2,5 +2,8 @@
 
 TestSuite[{
 	"xCore.mt",
-	"xTensor.mt"
+	"xTensor.mt",
+	"xPert.mt",
+	"Invar.mt",
+	"xCoba.mt"
 }]
