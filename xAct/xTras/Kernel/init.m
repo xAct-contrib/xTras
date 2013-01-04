@@ -6,8 +6,6 @@
 
 (*
 
- * Write proper unit tests.
- * Split into multiple packages.
  * Change DummyIn to GetIndicesOfVBundle where appropriate (not everywhere!).
  * Switch Modules to With's where approriate.
 
@@ -27,13 +25,16 @@ If[Unevaluated[xAct`xCore`Private`$LastPackage] === xAct`xCore`Private`$LastPack
 	xAct`xCore`Private`$LastPackage = "xAct`xTras`"
 ];
 
-Get["xAct`xTras`xCore`"];
-Get["xAct`xTras`xTensor`"];
-Get["xAct`xTras`xPert`"];
-Get["xAct`xTras`Invar`"];
-Get["xAct`xTras`xCoba`"];
-Get["xAct`xTras`Algebra`"];
-Get["xAct`xTras`Combinatorics`"];
+BeginPackage["xAct`xTras`", {
+	"xAct`xTras`xCore`",
+	"xAct`xTras`xTensor`",
+	"xAct`xTras`xPert`",
+	"xAct`xTras`Invar`",
+	"xAct`xTras`xCoba`",
+	"xAct`xTras`Algebra`",
+	"xAct`xTras`Combinatorics`"
+}]
+
 
 (* Check if we have the correct version of xAct. *)
 If[Not@OrderedQ@Map[Last, {xAct`xTras`$xTensorVersionExpected, xAct`xTensor`$Version}], 
@@ -57,3 +58,5 @@ redistribute it under certain conditions. See the General Public \
 License for details."];
 	Print[xAct`xCore`Private`bars]
 ];
+
+EndPackage[]
