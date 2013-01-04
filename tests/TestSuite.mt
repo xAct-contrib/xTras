@@ -1,9 +1,9 @@
-(* Mathematica Test File *)
-
 TestSuite[{
 	"xCore.mt",
 	"xTensor.mt",
 	"xPert.mt",
 	"Invar.mt",
-	"xCoba.mt"
+	"xCoba.mt",
+	"Algebra.mt",
+	"Combinatorics.mt"
 }]
