@@ -166,11 +166,9 @@ TensorCollector = TensorWrapper;
 (* RemoveConstants / RemoveTensors *)
 (***********************************)
 
-RemoveConstants[expr_] := expr /. x_?ConstantExprQ *y_ /; ! FreeQ[y, _?xTensorQ | _?ParameterQ] :> y
-SetAttributes[RemoveConstants, Listable]
+RemoveConstants[expr_] := TensorWrapper[expr] /. _ * y_TensorWrapper :> y // RemoveTensorWrapper
 
 RemoveTensors[expr_] := TensorWrapper[expr] /. HoldPattern[TensorWrapper[___]] -> 1
-SetAttributes[RemoveTensors, Listable]
 
 
 (********************************)
@@ -207,9 +205,7 @@ Options[CollectTensors] ^= {
 	Verbose -> False
 }
 
-CollectTensors[expr_, options___?OptionQ] := expr;
-CollectTensors[expr_List, options___?OptionQ] := CollectTensors[#,options]& /@ expr;
-CollectTensors[expr_, options___?OptionQ] /; !FreeQ[expr, Plus | _?xTensorQ] && Head[expr] =!= List :=
+CollectTensors[expr_, options___?OptionQ] :=
 Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanondd},
 	
 	(* Get the options. *)	

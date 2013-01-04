@@ -360,7 +360,7 @@ IndexConfigurations[expr_] := Module[
 		sgs, 
   		Symmetric@Range@len 
   	];
-  	Map[
+  	Union@Map[
   		xAct`xTensor`Private`Reconstruct[
    			sym, 
    			{1, PermuteList[indices, InversePerm@#]}
