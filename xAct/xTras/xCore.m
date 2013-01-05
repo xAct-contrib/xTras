@@ -78,8 +78,8 @@ MapTimed[func_, expr_, levelspec_: {1}, options___?OptionQ] /; LevelSpecQ[levels
 	{begintime, desc, ms, length, stringlength, timer, mon, ETA, steps, position},
 	 
 	(* Determine the options *)
-	{desc, ms} = {Description, MonitorSteps} /. CheckOptions[options] /. Options[MapTimed];
-	desc 			= StringTrim@ToString@desc;
+	{desc, ms} 	= {Description, MonitorSteps} /. CheckOptions[options] /. Options[MapTimed];
+	desc 		= ToString@desc;
 	If[desc =!= "", 
 		desc = " " <> desc;
 		If[StringTake[desc,-1]=!=".",

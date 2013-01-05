@@ -1,9 +1,11 @@
 TestSuite[{
+	"PrintSystemVersion.mt",
 	"xCore.mt",
 	"xTensor.mt",
 	"xPert.mt",
 	"Invar.mt",
 	"xCoba.mt",
 	"Algebra.mt",
-	"Combinatorics.mt"
+	"Combinatorics.mt",
+	"PrintSystemVersion.mt"
 }]
