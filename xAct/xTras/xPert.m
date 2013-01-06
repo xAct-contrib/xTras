@@ -403,7 +403,12 @@ SymmetricSpaceRules[CD_?CovDQ, K_?ConstantExprQ] := Module[
 		,
 		MR
 			[GiveSymbol[Weyl, CD], pa, pb, pc, pd]
-			[0],
+			[0]
+		,
+		MR
+			[GiveSymbol[Kretschmann, CD]]
+			[ 2 (D-1) D K^2 ]
+		,
 		MR
 			[GiveSymbol[Ricci, CD], pa, pb]
 			[$RicciSign K (D-1) metric[a, b]]
@@ -435,8 +440,8 @@ SymmetricSpaceRules[CD_?CovDQ, K_?ConstantExprQ] := Module[
 ];
 
 EinsteinSpaceRules[CD_?CovDQ, K_?ConstantExprQ] :=
-	(* We just remove the Riemmann and Weyl rules, which are the first two. *)
-	Part[SymmetricSpaceRules[CD,K], Span[3, -1]];
+	(* We just remove the Riemmann, Weyl, and Kretschmann rules, which are the first three. *)
+	Part[SymmetricSpaceRules[CD,K], Span[4, -1]];
 
 End[]
 EndPackage[]

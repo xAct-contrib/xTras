@@ -2893,9 +2893,7 @@ Cell[BoxData[
      RowBox[{"-", "a"}], ",", 
      RowBox[{"-", "b"}]}], "]"}], ",", "M"}], "]"}]], "Input"],
 
-Cell["\<\
-Commuting to divergences is done as follows:\
-\>", "Text"],
+Cell["Commuting to divergences is done as follows:", "Text"],
 
 Cell[CellGroupData[{
 
@@ -4821,9 +4819,7 @@ cd.\"\>", "MSG"]], "Print", "PrintUsage",
  CellTags->"Info3566455058-1250689"]
 }, Open  ]],
 
-Cell["\<\
-The Ricci scalar has two derivatives inside:\
-\>", "Text"],
+Cell["The Ricci scalar has two derivatives inside:", "Text"],
 
 Cell[CellGroupData[{
 
@@ -4834,9 +4830,7 @@ Cell[BoxData[
 Cell[BoxData["2"], "Output"]
 }, Open  ]],
 
-Cell["\<\
-Therefore the square of the Ricci scalar has four:\
-\>", "Text"],
+Cell["Therefore the square of the Ricci scalar has four:", "Text"],
 
 Cell[CellGroupData[{
 
@@ -4848,9 +4842,7 @@ Cell[BoxData[
 Cell[BoxData["4"], "Output"]
 }, Open  ]],
 
-Cell["\<\
-Which is the same number as the Kretschmann scalar:\
-\>", "Text"],
+Cell["Which is the same number as the Kretschmann scalar:", "Text"],
 
 Cell[CellGroupData[{
 
@@ -5569,6 +5561,38 @@ Cell[BoxData[
    RowBox[{
     RowBox[{"HoldPattern", "[", 
      InterpretationBox[
+      StyleBox[
+       RowBox[{"K", "[", "\[EmptyDownTriangle]", "]"}],
+       ShowAutoStyles->False,
+       AutoSpacing->False],
+      $CellContext`KretschmannCD[],
+      Editable->False], "]"}], "\[RuleDelayed]", 
+    RowBox[{"2", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"-", "1"}], "+", 
+       InterpretationBox[
+        StyleBox["d",
+         ShowAutoStyles->False,
+         AutoSpacing->False],
+        xAct`Invar`dim,
+        Editable->False]}], ")"}], " ", 
+     InterpretationBox[
+      StyleBox["d",
+       ShowAutoStyles->False,
+       AutoSpacing->False],
+      xAct`Invar`dim,
+      Editable->False], " ", 
+     SuperscriptBox[
+      InterpretationBox[
+       StyleBox["K",
+        ShowAutoStyles->False,
+        AutoSpacing->False],
+       K,
+       Editable->False], "2"]}]}], ",", 
+   RowBox[{
+    RowBox[{"HoldPattern", "[", 
+     InterpretationBox[
       StyleBox[GridBox[{
          {
           RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
@@ -5812,7 +5836,7 @@ Cell[BoxData[
          {
           RowBox[{"S", "[", "\[EmptyDownTriangle]", "]"}], 
           StyleBox[GridBox[{
-             {"xAct`xTras`xPert`Private`L$3541_", 
+             {"xAct`xTras`xPert`Private`L$2417_", 
               UnderscriptBox[
                UnderscriptBox["a", "_"], "_"], 
               UnderscriptBox[
@@ -5841,7 +5865,7 @@ Cell[BoxData[
        AutoSpacing->False],
       $CellContext`SchoutenCCCD[
        xAct`xTensor`LI[
-        Pattern[xAct`xTras`xPert`Private`L$3541, 
+        Pattern[xAct`xTras`xPert`Private`L$2417, 
          Blank[]]], 
        PatternTest[
         Pattern[$CellContext`a, 
@@ -5859,7 +5883,7 @@ Cell[BoxData[
          ShowAutoStyles->False,
          AutoSpacing->False],
         K,
-        Editable->False], "-", "xAct`xTras`xPert`Private`L$3541"}], ")"}], 
+        Editable->False], "-", "xAct`xTras`xPert`Private`L$2417"}], ")"}], 
      " ", 
      InterpretationBox[
       StyleBox[GridBox[{
@@ -5993,7 +6017,7 @@ Cell[BoxData[
          {
           RowBox[{"G", "[", "\[EmptyDownTriangle]", "]"}], 
           StyleBox[GridBox[{
-             {"xAct`xTras`xPert`Private`L$3541_", 
+             {"xAct`xTras`xPert`Private`L$2417_", 
               UnderscriptBox[
                UnderscriptBox["a", "_"], "_"], 
               UnderscriptBox[
@@ -6022,7 +6046,7 @@ Cell[BoxData[
        AutoSpacing->False],
       $CellContext`EinsteinCCCD[
        xAct`xTensor`LI[
-        Pattern[xAct`xTras`xPert`Private`L$3541, 
+        Pattern[xAct`xTras`xPert`Private`L$2417, 
          Blank[]]], 
        PatternTest[
         Pattern[$CellContext`a, 
@@ -6059,7 +6083,7 @@ Cell[BoxData[
           ShowAutoStyles->False,
           AutoSpacing->False],
          K,
-         Editable->False]}], "+", "xAct`xTras`xPert`Private`L$3541"}], ")"}], 
+         Editable->False]}], "+", "xAct`xTras`xPert`Private`L$2417"}], ")"}], 
      " ", 
      InterpretationBox[
       StyleBox[GridBox[{
@@ -7579,9 +7603,7 @@ $CellContext`d],
     Editable->False]}]}]], "Output"]
 }, Open  ]],
 
-Cell["\<\
-And in six dimensions, the Euler density becomes:\
-\>", "Text"],
+Cell["And in six dimensions, the Euler density becomes:", "Text"],
 
 Cell[CellGroupData[{
 
@@ -10484,7 +10506,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
                FontSize->9]}
             },
-            
             GridBoxAlignment->{
              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -10769,6 +10790,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -10840,7 +10862,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
-           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -12214,7 +12235,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
-           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -12286,6 +12306,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -13659,6 +13680,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -13730,7 +13752,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
-           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -15104,7 +15125,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
-           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -15176,6 +15196,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -17066,9 +17087,7 @@ $CellContext`d],
 
 Cell[CellGroupData[{
 
-Cell["\<\
-RemoveTensors & RemoveConstants\
-\>", "Subsection"],
+Cell["RemoveTensors & RemoveConstants", "Subsection"],
 
 Cell["\<\
 Tensors can be removed from any expression with RemoveTensors:\
@@ -17177,9 +17196,7 @@ Cell[BoxData[
      Editable->False]}], "2"]}]], "Output"]
 }, Open  ]],
 
-Cell["\<\
-Constants can be removed with RemoveConstants:\
-\>", "Text"],
+Cell["Constants can be removed with RemoveConstants:", "Text"],
 
 Cell[CellGroupData[{
 
@@ -18011,11 +18028,10 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"Solve", "::", "svars"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Equations may not give solutions for all \\\"solve\\\" \
-variables. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
+   RowBox[{"Solve", "::", "svars"}], "MessageName"], ":", 
+  " ", "\<\"Equations may not give solutions for all \\\"solve\\\" variables. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
 ButtonNote -> \\\"Solve::svars\\\"]\\)\"\>"}]], "Message", "MSG"],
 
 Cell[BoxData[
@@ -18223,11 +18239,10 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"Solve", "::", "svars"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Equations may not give solutions for all \\\"solve\\\" \
-variables. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
+   RowBox[{"Solve", "::", "svars"}], "MessageName"], ":", 
+  " ", "\<\"Equations may not give solutions for all \\\"solve\\\" variables. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
 ButtonNote -> \\\"Solve::svars\\\"]\\)\"\>"}]], "Message", "MSG"],
 
 Cell[BoxData[
@@ -20477,9 +20492,7 @@ Cell[BoxData[
 Cell[BoxData["0"], "Output"]
 }, Open  ]],
 
-Cell["\<\
-We can also prove the second Bianchi identity this way:\
-\>", "Text"],
+Cell["We can also prove the second Bianchi identity this way:", "Text"],
 
 Cell[CellGroupData[{
 
@@ -21831,9 +21844,7 @@ Cell[BoxData[
      Editable->False]}]}], "}"}]], "Output"]
 }, Open  ]],
 
-Cell["\<\
-The above is the same as doing...\
-\>", "Text"],
+Cell["The above is the same as doing...", "Text"],
 
 Cell[CellGroupData[{
 

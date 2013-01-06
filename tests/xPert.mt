@@ -77,6 +77,16 @@ Test[
 ]
 
 Test[
+	Simplification@ContractMetric@ToBackground[
+		RiemannCD[-a,-b,-c,-d] RiemannCD[a,b,c,d] - KretschmannCD[]
+	]
+	,
+	0
+	,
+	TestID->"xPert-20130106-O1E5Y3"
+]
+
+Test[
 	Simplification@ContractMetric[ 
 		ToBackground@RicciCD[a,b] 
 		- metric[-c,-d] ToBackground@RiemannCD[a,c,b,d]
