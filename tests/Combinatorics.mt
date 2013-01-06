@@ -1,5 +1,33 @@
 (***************************)
 (*                         *)
+(*     Young projectors    *)
+(*                         *)
+(***************************)
+
+Test[
+	Antisymmetrize[
+		RiemannCD[-a,-b,-c,-d],
+		{-a,-b,-c}
+	] // ToCanonical // RiemannYoungProject// ToCanonical
+	,
+	0
+	,
+	TestID->"Combinatorics-20130106-I3K0K8"
+]
+
+Test[
+	Antisymmetrize[
+		CD[-a]@RiemannCD[-b,-c,-d,-e],
+		{-a,-b,-c}
+	] //ToCanonical // RiemannYoungProject[#,1]& // ToCanonical
+	,
+	0
+	,
+	TestID->"Combinatorics-20130106-O0D1Q2"
+]
+
+(***************************)
+(*                         *)
 (*     AllContractions     *)
 (*                         *)
 (***************************)

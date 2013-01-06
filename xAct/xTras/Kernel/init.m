@@ -25,15 +25,15 @@ If[Unevaluated[xAct`xCore`Private`$LastPackage] === xAct`xCore`Private`$LastPack
 	xAct`xCore`Private`$LastPackage = "xAct`xTras`"
 ];
 
-BeginPackage["xAct`xTras`", {
-	"xAct`xTras`xCore`",
-	"xAct`xTras`xTensor`",
-	"xAct`xTras`xPert`",
-	"xAct`xTras`Invar`",
-	"xAct`xTras`xCoba`",
-	"xAct`xTras`Algebra`",
-	"xAct`xTras`Combinatorics`"
-}]
+Get["xAct`xTras`xCore`"];
+Get["xAct`xTras`xTensor`"];
+Get["xAct`xTras`xPert`"];
+Get["xAct`xTras`Invar`"];
+Get["xAct`xTras`xCoba`"];
+Get["xAct`xTras`Algebra`"];
+Get["xAct`xTras`Combinatorics`"];
+
+BeginPackage["xAct`xTras`"]
 
 
 (* Check if we have the correct version of xAct. *)

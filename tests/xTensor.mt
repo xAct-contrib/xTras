@@ -214,6 +214,30 @@ Test[
 ]
 
 
+Test[
+	SchoutenCD[-a, -b] - SchoutenCCCD[LI[K], -a, -b] // ToRicci
+	,
+	1/2 K metric[-a,-b]
+	,
+	TestID->"xTensor-20130105-X0J1K1"
+]
+
+Test[
+	EinsteinCD[-a, -b] - EinsteinCCCD[LI[K], -a, -b] // EinsteinToRicci // EinsteinCCToRicci
+	,
+	EinsteinCD[-a, -b] - EinsteinCCCD[LI[K], -a, -b] // ToRicci
+	,
+	TestID->"xTensor-20130105-W8L0H1"
+]
+
+Test[
+	TFRicciCD[-a, -b] // ToRicci
+	,
+	TFRicciCD[-a, -b] // TFRicciToRicci
+	,
+	TestID->"xTensor-20130105-G6O1I6"
+]
+
 (***************************)
 (*                         *)
 (*  Covariant derivatives  *)

@@ -41,12 +41,10 @@ AllContractions::usage =
 	"AllContractions[expr] returns a sorted list of all possible full contractions of \
 expr over its free indices. expr cannot have dummy indices. The free indices have to belong to the same \
 tangent bundle, which also has to have a symmetric metric. \n\
-\n\
 AllContractions[expr, indexList] gives all possible contractions of expr that \
 have free indices specified by indexList. This is equivalent to adding an \
 auxiliary tensor with indices 'indexList' to expr, computing all contractions, \
 and varying w.r.t. the auxiliary tensor afterwards. \n\
-\n\
 AllContractions[expr, indexList, symm] gives all possible contractions of expr \
 with free indices indexList and the symmetry symm imposed on the free indices. \n\
 \n\
@@ -100,8 +98,10 @@ RiemannYoungRule::usage =
 derivative of the Riemann tensor of the covariant derivative CD onto \
 its Young tableau. n has the default levelspec form. The default for n is {0}.";
 
-
-
+RiemannYoungProject::usage = "\
+RiemannYoungProject[expr] projects all Riemann tensors in expr onto their Young tableau.\n\
+RiemannYoungProject[expr, n] projects also n-fold covariant derivatives of the Riemann tensor.\n\
+RiemannYoungProject[expr, cd, n] only projects Riemann tensors of the covariant derivative cd.";
 
 Begin["`Private`"]
 
@@ -446,8 +446,17 @@ RiemannYoungRule[cd_?CovDQ, {numcds_Integer}] /; numcds >= 0 := Module[
 	indcds 	= -Table[DummyIn@First@VBundlesOfCovD[cd], {numcds}];
 	tableau = {Join[indrie[[{1, 3}]], indcds], indrie[[{2, 4}]]};
 	expr 	= Fold[cd[#2][#1] &, riemann @@ indrie, indcds];
-	MakeRule[Evaluate[{expr, YoungProject[expr, tableau]}]]
+	If[expr === 0,
+		{},
+		MakeRule[Evaluate[{expr, YoungProject[expr, tableau]}]]
+	]
 ];
+
+RiemannYoungProject[expr_, cd_?CovDQ, level_:{0}] /; LevelSpecQ[level] :=
+	expr /. RiemannYoungRule[cd, level];
+
+RiemannYoungProject[expr_, level_:{0}] /; LevelSpecQ[level] := 
+	Fold[RiemannYoungProject[#1,#2,level]&, expr, DeleteCases[$CovDs, PD]];
 
 End[]
 EndPackage[]

@@ -9,7 +9,8 @@ BeginPackage["xAct`xTras`Invar`", {
 EulerDensity::usage = 
   "EulerDensity[CD] give the Euler density of the curvature tensor of \
 the covariant derivative CD. If the manifold has generic dimension, \
-you can use EulerDensity[CD,dim] to specify a dimension.";
+you can use EulerDensity[CD,dim] to specify a dimension. Note that it \
+omits the square root of the metric determinant, so technically it's not a density.";
 
 InvarWrapper::usage = 
   "InvarWrapper[invarFunction,g][expr,otherargs] wraps an Invar \

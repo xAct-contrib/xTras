@@ -31,8 +31,9 @@ rules, and False otherwise.";
 
 (* Other stuff *)
 
-DerivativeOrder::usage =
-	"DerivativeOrder[expr,CD] gives the order of derivatives of expr.";
+DerivativeOrder::usage = "\
+DerivativeOrder[expr] gives the order of derivatives of expr.\n\
+DerivativeOrder[expr,cd] only counts the covariant derivative cd.";
 
 SortedCovDsQ::usage =
 	"SortedCovDsQ[expr] returns True if the expression has all its covariant \
@@ -41,33 +42,49 @@ derivatives sorted, and False otherwise. \
 
 
 (* Extra curvature tensors *)
-	
+
+ToRicci::usage = "\
+ToRicci[expr] converts all curvature tensors of rank two in expr to Ricci tensors and scalars. \n\
+ToRicci[expr, cd] converts only for curvature tensors of the covariant derivative cd."; 
+
 Schouten::usage = 
   "Schouten is a reserved word in xTras. It is used to generate the \
 name of the Schouten curvature tensor associated to a connection \
 acting on a tangent bundle.";
 
-SchoutenToRicci::usage = "SchoutenToRicci[expr,cd] converts Schouten tensors to Ricci tensors.";
+SchoutenToRicci::usage = "\
+SchoutenToRicci[expr] converts all Schouten tensors in expr to Ricci tensors and scalars.\n\
+SchoutenToRicci[expr,cd] converts only Schouten tensors of the covariant derivative cd.";
 
-RicciToSchouten::usage = "RicciToSchouten[expr,cd] converts Ricci tensors to Schouten tensors.";
+RicciToSchouten::usage = "\
+RicciToSchouten[expr] converts all Ricci tensors in expr to Schouten tensors.\n\
+RicciToSchouten[expr,cd] converts only Ricci tensors of the covariant derivative cd.";
 
 SchoutenCC::usage = 
   "SchoutenCC is a reserved word in xTras. It is used to generate the \
 name of the cosmological Schouten curvature tensor associated to a connection \
 acting on a tangent bundle.";
 
-SchoutenCCToRicci::usage = "SchoutenCCToRicci[expr,cd] converts cosmological Schouten tensors to Ricci tensors.";
+SchoutenCCToRicci::usage = "\
+SchoutenCCToRicci[expr] converts all cosmological Schouten tensors in expr to Ricci tensors and scalars.\n\
+SchoutenCCToRicci[expr,cd] converts only cosmological Schouten tensors of the covariant derivative cd.";
 
-RicciToSchoutenCC::usage = "RicciToSchoutenCC[expr,cd] converts Ricci tensors to cosmological Schouten tensors.";
+RicciToSchoutenCC::usage = "\
+RicciToSchoutenCC[K][expr] converts all Ricci tensors of in expr to cosmological Schouten tensors with cosmological constant K.\n\
+RicciToSchoutenCC[K][expr,cd] converts only Ricci tensors of the covariant derivative cd.";
 
 EinsteinCC::usage = 
   "EinsteinCC is a reserved word in xTras. It is used to generate the \
 name of the cosmological Einstein curvature tensor associated to a connection \
 acting on a tangent bundle.";
 
-EinsteinCCToRicci::usage = "EinsteinCCToRicci[expr,cd] converts cosmological Einstein tensors to Ricci tensors.";
+EinsteinCCToRicci::usage = "\
+EinsteinCCToRicci[expr] converts all cosmological Einstein tensors in expr to Ricci tensors and scalars.\n\
+EinsteinCCToRicci[expr,cd] converts only cosmological Einstein tensors of the covariant derivative cd.";
 
-RicciToEinsteinCC::usage = "RicciToEinsteinCC[K][expr,cd] converts Ricci tensors into cosmological Einstein tensors.";
+RicciToEinsteinCC::usage = "\
+RicciToEinsteinCC[K][expr] converts all Ricci tensors in expr to cosmological Einstein tensors with cosmological constant K.\n\
+RicciToEinsteinCC[K][expr,cd] converts only Ricci tensors of the covariant derivative cd.";
 
 
 
@@ -77,17 +94,17 @@ PreferBoxOfRule::usage =
   "PreferBoxOfRule[tensor,CD] gives rules for rewriting an expression \
 with boxes on the given tensor with respect to the given CD.";
 
-PreferBoxOf::usage =
-	"PreferBoxOf[tensor,CD][expr] commutes the covariant derivatives CD in expr \
-such that all possible boxes (CD[-a]@CD[a]) act on the specified tensor.";
+PreferBoxOf::usage = "\
+PreferBoxOf[tensor][expr] commutes derivatives in expr such that all possible boxes act on the specified tensor.\n\
+PreferBoxOf[tensor,cd][expr] only commute the covariant derivative cd.";
 
 PreferDivOfRule::usage = 
   "PreferDivOfRule[tensor,CD] gives rules for rewriting an expression \
 with divergences of the given tensor with respect to the given CD.";
 
-PreferDivOf::usage =
-	"PreferDivOf[tensor,CD][expr] commutes the covariant derivatives CD in expr \
-such that any covariant derivatve contracted with tensor acts directy on tensor.";
+PreferDivOf::usage = "\
+PreferDivOf[tensor][expr] commutes derivatives in expr such that any derivatve contracted with tensor acts directy on the specified tensor.\n\
+PreferDivOf[tensor,cd][expr] only commutes the covariant derivative cd.";
 
 DivFreeQ::usage = 
   "DivFreeQ[expr,tensor,CD] returns True if expr does not contain a \
@@ -102,8 +119,8 @@ KillingVectorQ::usage =
   "KillingVectorQ[tensor] return True if the tensor is defined to be a Killing vector";
 
 KillingVectorOf::usage = 
-  "Option for DefTensor. If the tensor is to be a Killing vector, the \
-option should be a metric. (i.e. KillingVectorOf -> metric)";
+  "Option for DefTensor. Setting the value of KillingVectorOf to a metric while defining a vector \
+defines the vector as a Killing vector of that metric (e.g. \"DefTensor[\[Xi][a], KillingVectorOf->metric]\").";
 
 
 Begin["`Private`"]
@@ -184,22 +201,27 @@ CurvatureRelationsQ[cd_?CovDQ] := Module[
 (* Other stuff  *)
 (****************)
 
-DerivativeOrder[expr_] := Total[DerivativeOrder[expr, #] & /@ $CovDs];
+DerivativeOrder[x_Plus, cd_?CovDQ] := Max[DerivativeOrder[#,cd]& /@ List@@x];
 
-DerivativeOrder[expr_,cd_?CovDQ] /; FreeQ[expr, Plus | Power] := Module[
-	{
-		ordertwo 	= GiveSymbol[#,cd]& /@ {Riemann,Ricci,RicciScalar,Einstein,Weyl,Schouten,EinsteinCC,SchoutenCC},
-		christoffel = GiveSymbol[Christoffel,cd]
-	},	
- 	2 Count[expr, (Alternatives@@ordertwo)[___], {0, Infinity}, Heads -> True] 
- 		+ Count[expr, (cd[_][_])|(christoffel[___]), {0, Infinity}, Heads -> True]
-];
-
-DerivativeOrder[Power[y_, z_Integer],cd_?CovDQ] := z DerivativeOrder[y,cd];
+DerivativeOrder[Power[y_, z_Integer], cd_?CovDQ] := z DerivativeOrder[y,cd];
 
 DerivativeOrder[x_ * y_,cd_?CovDQ] := DerivativeOrder[x,cd] + DerivativeOrder[y,cd];
 
 DerivativeOrder[x_?ConstantExprQ,cd_?CovDQ] := 0
+
+DerivativeOrder[x_List, cd___?CovDQ] := DerivativeOrder[#,cd]& /@ x;
+
+DerivativeOrder[expr_, cd_?CovDQ] /; FreeQ[expr, Plus | Power] := Module[
+	{
+		orderfour = GiveSymbol[#,cd]& /@ {Kretschmann},
+		ordertwo  = GiveSymbol[#,cd]& /@ {Riemann,Ricci,RicciScalar,Einstein,Weyl,Schouten,EinsteinCC,SchoutenCC},
+		orderone  = GiveSymbol[#,cd]& /@ {Christoffel, Torsion}
+	},
+	4 Count[expr, (Alternatives@@orderfour)[___], {0, Infinity}, Heads -> True]
+	+ 2 Count[expr, (Alternatives@@ordertwo)[___], {0, Infinity}, Heads -> True] 
+ 		+ Count[expr, (cd[_][_])|((Alternatives@@orderone)[___]), {0, Infinity}, Heads -> True]
+];
+DerivativeOrder[expr_] := Max[DerivativeOrder[expr, #] & /@ $CovDs];
 
 
 
@@ -240,6 +262,17 @@ xTrasxTensorDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[
 (* TODO: undefmetric hook *)
 
 GiveOutputString[Schouten, covd_] := StringJoin["S", "[", SymbolOfCovD[covd][[2]], "]"];
+
+
+ToRicci[expr_, cd_?CovDQ] := Composition[
+	TFRicciToRicci[#, cd]&,
+	EinsteinToRicci[#, cd]&,
+	EinsteinCCToRicci[#, cd]&,
+	SchoutenToRicci[#, cd]&,
+	SchoutenCCToRicci[#, cd]&
+][expr];
+ 
+ToRicci[expr_] := Fold[ToRicci, expr, DeleteCases[$CovDs, PD]];
 
 SchoutenToRicci[expr_, cd_?CovDQ] := Module[{d, ricci, rs, schouten, metric},
 	ricci 		= GiveSymbol[Ricci, cd];

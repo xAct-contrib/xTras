@@ -16,12 +16,12 @@ PerturbationOfMetric::usage =
 	"PerturbationOfMetric[metric] gives the perturbation tensor of the metric.";
 
 VarL::usage = 
-	"VarL[ metric[a,b] ][ L ] varies Sqrt[-Det[g]] * L with respect to metric[a,b], \ 
-and then divides with Sqrt[-Det[g]].";
+	"VarL[ g[a,b] ][ L ] performs a variation of \!\(TraditionalForm\`\*SqrtBox[\(-g\)]L\) \
+with respect to the metric g, and divides with \!\(TraditionalForm\`\*SqrtBox[\(-g\)]\) afterwards.";
 
 DefMetricVariation::usage = 
-  "DefMetricVariation[metric, pert, param] defines proper VarD \
-and VarL functions for the metric. It is called automatically from DefMetricPerturbation.";
+  "DefMetricVariation[metric, pert, param] enables proper metric variations via the VarD \
+and VarL functions. It is called automatically from DefMetricPerturbation.";
 
 ExpandPerturbationDer::usage = 
 	"ExpandPerturbationDer expands the perturbations of derivatives. \
@@ -66,7 +66,8 @@ curvature tensors of CD on a symmetric space of zero curvature. \
 Additionally, partial derivatives of metric are also zero.";
 
 BackgroundSolution::usage = 
-  "BackgroundSolution is an option for ToBackground. It should be (a list of) replacement rule(s).";
+  "BackgroundSolution is an option for ToBackground. It should be (a list of) replacement rules \
+that send curvature tensors to their background values.";
 
 ExtraRules::usage = "ExtraRules is an option for ApplyBackground.";
 

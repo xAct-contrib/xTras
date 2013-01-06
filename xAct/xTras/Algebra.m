@@ -58,7 +58,7 @@ SimplifyMethod::usage =
 collected prefactors are simplified. The Default is Simplify";
 
 CollectTensors::usage = 
-  "CollectTensors[expr] acts as Collect[expr,tensorsof[expr]]";
+  "CollectTensors[expr] collects all tensors of expr. It behaves a bit as Collect[expr, tensorsof[expr]] would.";
 
 CollectTensors::denominator = 
 	"There are denominators with a sum inside TensorWrappers. \
@@ -68,11 +68,10 @@ TensorCollect::usage =
 	"TensorCollect is an alias for CollectTensors. Kept for backwards compatibility. Deprecated.";
 
 CollectConstants::usage =
-	"CollectConstants[expr] act as Collect[expr, constantsof[expr] ].";
+	"CollectConstants[expr] collects all constant symbols of expr. It behaves as Collect[expr, constantsof[expr]].";
 
 SolveTensors::usage =
 	"SolveTensors[equation, {t1,t2,...}] solves equation for tensors t1, t2, ... \n\
-\n\
 SolveTensors[equation] attempts to solve equation for any tensors in it.";
 
 SortMethod::usage =
