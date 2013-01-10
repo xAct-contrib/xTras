@@ -537,7 +537,7 @@ Cell[BoxData[
 respect to the n abstract indices i1, ..., in. By convention, the result has \
 a factor 1/n! multiplying. Symmetrize[expr] symmetrizes all free \
 indices.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3566026067-7172370"]
+ CellTags->"Info3566799777-6960174"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1094,7 +1094,7 @@ to consider all possible equivalent rules. See notes for its options \
 PatternIndices, MetricOn, UseSymmetries and TestIndices. MakeRule[{LHS, RHS, \
 conditions}] adds conditions to the rules.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3566026067-7172370"]
+ CellTags->"Info3566799783-6960174"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1671,7 +1671,7 @@ on disjoint sets of indices. The user needs to check that symmetrizations are \
 not taken on contracted indices. Warning, ImposeSym requires expr to be \
 expanded. For general expressions use ImposeSym[Expand@expr, inds, sym]\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3566026068-7172370"]
+ CellTags->"Info3566799788-6960174"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1914,7 +1914,7 @@ Cell[BoxData[
  StyleBox["\<\"AutomaticRules[symbol, {rule1, rule2, ...}] declares the rules \
 as upvalues or downvalues for symbol, or append them to $Rules if symbol is \
 too deep in the rules.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3566026069-7172370"]
+ CellTags->"Info3566799796-6960174"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3412,7 +3412,7 @@ much as possible, taking Bianchi identities into account and sorting \
 covariant derivatives. It also uses to power of the Invar package to simplify \
 scalar invariants of  Riccis and Riemanns (but not of other curvature tensors \
 like the Weyl tensor).\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3566026076-7172370"]
+ CellTags->"Info3566799826-6960174"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -5389,7 +5389,7 @@ symmetrized expressions are taken after the symmetrization. The trace and \
 symmetriation operations do not generally commute unless they work on \
 disjoint sets of indices. The user needs to check that symmetrizations are \
 not taken on contracted indices.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3566026082-7172370"]
+ CellTags->"Info3566799881-6960174"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -5803,15 +5803,19 @@ Cell[BoxData[
  RowBox[{"?", "AllContractions"}]], "Input"],
 
 Cell[BoxData[
- StyleBox["\<\"AllContractions[expr] gives all possible full contractions of \
-expr over its free indices. The free indices have to belong to the same \
-tangent bundle, which also has to have a metric. \\n\\nAllContractions[expr, \
-indexList] gives all possible contractions of expr that have free indices \
-specified by indexList. \\n\\nAllContractions[expr, indexList, symm] gives \
+ StyleBox["\<\"AllContractions[expr] returns a sorted list of all possible \
+full contractions of expr over its free indices. expr cannot have dummy \
+indices. The free indices have to belong to the same tangent bundle, which \
+also has to have a symmetric metric. \\nAllContractions[expr, indexList] \
+gives all possible contractions of expr that have free indices specified by \
+indexList. This is equivalent to adding an auxiliary tensor with indices \
+'indexList' to expr, computing all contractions, and varying w.r.t. the \
+auxiliary tensor afterwards. \\nAllContractions[expr, indexList, symm] gives \
 all possible contractions of expr with free indices indexList and the \
-symmetry symm imposed on the free indices.\"\>", 
+symmetry symm imposed on the free indices. \\n\\nSee also the options \
+SymmetrizeMethod, ContractedPairs, and UncontracedPairs.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3561466595-2084346"]
+ CellTags->"Info3566799907-6960174"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -6375,48 +6379,8 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{
-   InterpretationBox[
-    StyleBox["m1",
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    $CellContext`m1,
-    Editable->False], ",", 
-   InterpretationBox[
-    StyleBox["m2",
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    $CellContext`m2,
-    Editable->False], ",", 
-   InterpretationBox[
-    StyleBox["k1",
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    $CellContext`k1,
-    Editable->False], ",", 
-   InterpretationBox[
-    StyleBox["k3",
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    $CellContext`k3,
-    Editable->False], ",", 
-   InterpretationBox[
-    StyleBox["k2",
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    $CellContext`k2,
-    Editable->False], ",", 
-   InterpretationBox[
-    StyleBox["k4",
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    $CellContext`k4,
-    Editable->False], ",", 
-   InterpretationBox[
-    StyleBox["k5",
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    $CellContext`k5,
-    Editable->False]}], "}"}]], "Output"]
+  "m1", ",", "m2", ",", "k1", ",", "k3", ",", "k2", ",", "k4", ",", "k5"}], 
+  "}"}]], "Output"]
 }, Open  ]],
 
 Cell["\<\
@@ -6436,17 +6400,6 @@ Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefConstantSymbol", 
    "\[InvisibleSpace]", "\<\": Defining \"\>", 
-   "\[InvisibleSpace]", "\<\"constant symbol \"\>", "\[InvisibleSpace]", "m2",
-    "\[InvisibleSpace]", "\<\". \"\>", "\[InvisibleSpace]", "\<\"\"\>"}],
-  SequenceForm[
-  "** ", xAct`xTensor`DefConstantSymbol, ": Defining ", 
-   "constant symbol ", $CellContext`m2, ". ", ""],
-  Editable->False]], "Print"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefConstantSymbol", 
-   "\[InvisibleSpace]", "\<\": Defining \"\>", 
    "\[InvisibleSpace]", "\<\"constant symbol \"\>", "\[InvisibleSpace]", "m1",
     "\[InvisibleSpace]", "\<\". \"\>", "\[InvisibleSpace]", "\<\"\"\>"}],
   SequenceForm[
@@ -6458,22 +6411,22 @@ Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefConstantSymbol", 
    "\[InvisibleSpace]", "\<\": Defining \"\>", 
-   "\[InvisibleSpace]", "\<\"constant symbol \"\>", "\[InvisibleSpace]", "k5",
+   "\[InvisibleSpace]", "\<\"constant symbol \"\>", "\[InvisibleSpace]", "m2",
     "\[InvisibleSpace]", "\<\". \"\>", "\[InvisibleSpace]", "\<\"\"\>"}],
   SequenceForm[
   "** ", xAct`xTensor`DefConstantSymbol, ": Defining ", 
-   "constant symbol ", $CellContext`k5, ". ", ""],
+   "constant symbol ", $CellContext`m2, ". ", ""],
   Editable->False]], "Print"],
 
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefConstantSymbol", 
    "\[InvisibleSpace]", "\<\": Defining \"\>", 
-   "\[InvisibleSpace]", "\<\"constant symbol \"\>", "\[InvisibleSpace]", "k2",
+   "\[InvisibleSpace]", "\<\"constant symbol \"\>", "\[InvisibleSpace]", "k1",
     "\[InvisibleSpace]", "\<\". \"\>", "\[InvisibleSpace]", "\<\"\"\>"}],
   SequenceForm[
   "** ", xAct`xTensor`DefConstantSymbol, ": Defining ", 
-   "constant symbol ", $CellContext`k2, ". ", ""],
+   "constant symbol ", $CellContext`k1, ". ", ""],
   Editable->False]], "Print"],
 
 Cell[BoxData[
@@ -6491,6 +6444,17 @@ Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefConstantSymbol", 
    "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"constant symbol \"\>", "\[InvisibleSpace]", "k2",
+    "\[InvisibleSpace]", "\<\". \"\>", "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefConstantSymbol, ": Defining ", 
+   "constant symbol ", $CellContext`k2, ". ", ""],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefConstantSymbol", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
    "\[InvisibleSpace]", "\<\"constant symbol \"\>", "\[InvisibleSpace]", "k4",
     "\[InvisibleSpace]", "\<\". \"\>", "\[InvisibleSpace]", "\<\"\"\>"}],
   SequenceForm[
@@ -6502,11 +6466,11 @@ Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefConstantSymbol", 
    "\[InvisibleSpace]", "\<\": Defining \"\>", 
-   "\[InvisibleSpace]", "\<\"constant symbol \"\>", "\[InvisibleSpace]", "k1",
+   "\[InvisibleSpace]", "\<\"constant symbol \"\>", "\[InvisibleSpace]", "k5",
     "\[InvisibleSpace]", "\<\". \"\>", "\[InvisibleSpace]", "\<\"\"\>"}],
   SequenceForm[
   "** ", xAct`xTensor`DefConstantSymbol, ": Defining ", 
-   "constant symbol ", $CellContext`k1, ". ", ""],
+   "constant symbol ", $CellContext`k5, ". ", ""],
   Editable->False]], "Print"]
 }, Open  ]]
 }, Open  ]],
@@ -7298,7 +7262,7 @@ Cell[BoxData[
 of expr*rest with respect to the tensor field T. Integrations by parts will \
 be performed with the covariant derivative covd.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3561466642-2084346"]
+ CellTags->"Info3566799941-6960174"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -9986,14 +9950,13 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{
-   RowBox[{
-    RowBox[{"VarD", "[", 
-     RowBox[{
-      RowBox[{"metric", "[", 
-       RowBox[{
-        RowBox[{"-", "a"}], ",", 
-        RowBox[{"-", "b"}]}], "]"}], ",", "CD"}], "]"}], "[", "lagEH", "]"}], 
-   "//", "ContractMetric"}], "//", "ToCanonical"}]], "Input"],
+   RowBox[{"VarD", "[", 
+    RowBox[{
+     RowBox[{"metric", "[", 
+      RowBox[{
+       RowBox[{"-", "a"}], ",", 
+       RowBox[{"-", "b"}]}], "]"}], ",", "CD"}], "]"}], "[", "lagEH", "]"}], "//",
+   "ContractMetric"}]], "Input"],
 
 Cell[BoxData[
  RowBox[{"-", 
@@ -10038,10 +10001,11 @@ Cell[BoxData[
  RowBox[{"?", "VarL"}]], "Input"],
 
 Cell[BoxData[
- StyleBox["\<\"VarL[ metric[a,b] ][ L ] varies Sqrt[-Det[g]] * L with respect \
-to metric[a,b],  \\nand then divides with Sqrt[-Det[g]].\"\>", 
+ StyleBox["\<\"VarL[ g[a,b] ][ L ] performs a variation of \
+\!\(TraditionalForm\`\*SqrtBox[\(-g\)]L\) with respect to the metric g, and \
+divides with \!\(TraditionalForm\`\*SqrtBox[\(-g\)]\) afterwards.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3566024712-9301576"]
+ CellTags->"Info3566799967-6960174"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -10050,14 +10014,13 @@ Cell[BoxData[
  RowBox[{"eomMetric", " ", "=", " ", 
   RowBox[{
    RowBox[{
-    RowBox[{
-     RowBox[{"VarL", "[", 
-      RowBox[{
-       RowBox[{"metric", "[", 
-        RowBox[{
-         RowBox[{"-", "a"}], ",", 
-         RowBox[{"-", "b"}]}], "]"}], ",", "CD"}], "]"}], "[", "lagEH", "]"}],
-     "//", "ContractMetric"}], "//", "ToCanonical"}]}]], "Input"],
+    RowBox[{"VarL", "[", 
+     RowBox[{
+      RowBox[{"metric", "[", 
+       RowBox[{
+        RowBox[{"-", "a"}], ",", 
+        RowBox[{"-", "b"}]}], "]"}], ",", "CD"}], "]"}], "[", "lagEH", "]"}], 
+   "//", "ContractMetric"}]}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -13826,9 +13789,10 @@ Cell[BoxData[
  RowBox[{"gaugeVariation", " ", "=", " ", 
   RowBox[{
    RowBox[{
-    RowBox[{"eomPhi", "*", "phiGauge"}], "+", 
-    RowBox[{"eomMetric", "*", " ", "metricGaugeAnsatz"}]}], "//", 
-   "TensorCollect"}]}]], "Input"],
+    RowBox[{
+     RowBox[{"eomPhi", "*", "phiGauge"}], "+", 
+     RowBox[{"eomMetric", "*", " ", "metricGaugeAnsatz"}]}], "//", 
+    "ContractMetric"}], "//", "ToCanonical"}]}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -18849,7 +18813,7 @@ Cell[BoxData[
          RowBox[{"-", "a"}], ",", 
          RowBox[{"-", "b"}], ",", 
          RowBox[{"-", "c"}]}], "]"}], ",", "CD"}], "]"}], "[", 
-     "gaugeVariation", "]"}]}], " ", "//", "TensorCollect"}]}]], "Input"],
+     "gaugeVariation", "]"}]}], " ", "//", "CollectTensors"}]}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -22204,7 +22168,6 @@ Cell[BoxData[
                    Offset[0.]}}, "RowsIndexed" -> {}}],
              FontSize->9]}
           },
-          
           GridBoxAlignment->{
            "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
             "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -22843,7 +22806,7 @@ Cell[BoxData[
   RowBox[{
    RowBox[{"gaugeVariation", "//", 
     RowBox[{"FullSimplification", "[", "]"}]}], "//", 
-   "TensorCollect"}]}]], "Input"],
+   "CollectTensors"}]}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -24605,7 +24568,7 @@ expr for constant symbols vars. \\nSolveConstants[expr] attempts to solve \
 expr for all the constant symbols appearing in expr. \\nSolveConstants[expr, \
 !vars] attempts to solve expr for all the constant symbols appearing in expr, \
 except vars.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3566026316-7172370"]
+ CellTags->"Info3566800210-6960174"]
 }, Open  ]],
 
 Cell[CellGroupData[{

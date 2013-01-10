@@ -483,36 +483,9 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell[BoxData[
- RowBox[{"?", "xAct`xTras`$Version"}]], "Input"],
+Cell[BoxData["xAct`xTras`$Version"], "Input"],
 
-Cell[CellGroupData[{
-
-Cell["xAct`xTras`$Version", "Print", "PrintUsage",
- CellTags->"Info3566026742-4733369"],
-
-Cell[BoxData[
- InterpretationBox[GridBox[{
-    {GridBox[{
-       {
-        RowBox[{"xAct`xTras`$Version", "=", "\<\"1.1.0pre\"\>"}]}
-      },
-      BaselinePosition->{Baseline, {1, 1}},
-      GridBoxAlignment->{
-       "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
-        "RowsIndexed" -> {}},
-      GridBoxItemSize->{"Columns" -> {{
-           Scaled[0.999]}}, "ColumnsIndexed" -> {}, "Rows" -> {{1.}}, 
-        "RowsIndexed" -> {}}]}
-   },
-   BaselinePosition->{Baseline, {1, 1}},
-   GridBoxAlignment->{
-    "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
-     "RowsIndexed" -> {}}],
-  Definition[xAct`xTras`$Version],
-  Editable->False]], "Print",
- CellTags->"Info3566026742-4733369"]
-}, Open  ]]
+Cell[BoxData["\<\"1.1.0pre\"\>"], "Output"]
 }, Open  ]],
 
 Cell["Set some variables.", "Text"],
@@ -543,7 +516,7 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"SetOptions", "[", 
-   RowBox[{"TensorCollect", ",", 
+   RowBox[{"CollectTensors", ",", 
     RowBox[{"SimplifyMethod", "\[Rule]", "Simplify"}]}], "]"}], 
   ";"}]}], "Input"]
 }, Closed]],
@@ -1201,7 +1174,7 @@ Cell[BoxData[
      RowBox[{
       RowBox[{"%", "/.", 
        RowBox[{"RiemannYoungRule", "[", "CDNL", "]"}]}], "//", 
-      "RicciToEinstein"}], "//", "TensorCollect"}]}]}]}]], "Input"],
+      "RicciToEinstein"}], "//", "CollectTensors"}]}]}]}]], "Input"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -2243,7 +2216,7 @@ Cell[BoxData[
    RowBox[{
     RowBox[{"varEinstein", "//", "ExpandFlat"}], "//", 
     RowBox[{"FullSimplification", "[", "]"}]}], "//", "ToFlat"}], "//", 
-  "TensorCollect"}]], "Input"],
+  "ToCanonical"}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -3889,13 +3862,14 @@ Cell[BoxData[{
   "ToCanonical"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"VarD", "[", 
-    RowBox[{
-     RowBox[{"metricNL", "[", 
-      RowBox[{
-       RowBox[{"-", "\[Alpha]"}], ",", 
-       RowBox[{"-", "\[Beta]"}]}], "]"}], ",", "CDNL"}], "]"}], "[", "%", 
-   "]"}], "//", "TensorCollect"}]}], "Input"],
+   RowBox[{
+    RowBox[{"VarD", "[", 
+     RowBox[{
+      RowBox[{"metricNL", "[", 
+       RowBox[{
+        RowBox[{"-", "\[Alpha]"}], ",", 
+        RowBox[{"-", "\[Beta]"}]}], "]"}], ",", "CDNL"}], "]"}], "[", "%", 
+    "]"}], "//", "ContractMetric"}], "//", "ToCanonical"}]}], "Input"],
 
 Cell[BoxData[
  TagBox[
@@ -4424,7 +4398,7 @@ Cell[BoxData[
        RowBox[{"{", 
         RowBox[{
          RowBox[{"xiNL", "[", "_", "]"}], "\[Rule]", "0"}], "}"}]}]}], "]"}], 
-    "&"}]}], "//", "TensorCollect"}]], "Input"],
+    "&"}]}], "//", "ToCanonical"}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -4510,7 +4484,7 @@ Cell[BoxData[
        RowBox[{"{", 
         RowBox[{
          RowBox[{"xiNL", "[", "_", "]"}], "\[Rule]", "0"}], "}"}]}]}], "]"}], 
-    "&"}]}], "//", "TensorCollect"}]], "Input"],
+    "&"}]}], "//", "CollectTensors"}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -4717,8 +4691,7 @@ Cell[BoxData[
   RowBox[{"diffeo", "//", 
    RowBox[{
     RowBox[{"ExpandFlat", "[", 
-     RowBox[{"#", ",", "3"}], "]"}], "&"}]}], "//", 
-  "TensorCollect"}]], "Input"],
+     RowBox[{"#", ",", "3"}], "]"}], "&"}]}], "//", "ToCanonical"}]], "Input"],
 
 Cell[BoxData["0"], "Output"]
 }, Open  ]]
@@ -4726,7 +4699,7 @@ Cell[BoxData["0"], "Output"]
 
 Cell[CellGroupData[{
 
-Cell["Perturbations of the action and eom", "Subsection"],
+Cell["Perturbations of the eom", "Subsection"],
 
 Cell["\<\
 For reference, we\[CloseCurlyQuote]ll compute the lowest order perturbations \
@@ -7895,1173 +7868,6 @@ Cell[BoxData[
       $CellContext`PerturbationmetricNL[
        xAct`xTensor`LI[1], $CellContext`\[Gamma], $CellContext`\[Delta]]],
      Editable->False], ")"}]}]}]], "Output"]
-}, Open  ]],
-
-Cell[BoxData[
- RowBox[{"DefTensor", "[", 
-  RowBox[{
-   RowBox[{"EOM", "[", 
-    RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}], ",", "MNL", ",", 
-   RowBox[{"PrintAs", "\[Rule]", "\"\<E\>\""}]}], "]"}]], "Input"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"CDNL", "[", 
-   RowBox[{"-", "\[Alpha]"}], "]"}], "@", 
-  RowBox[{"EOM", "[", 
-   RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}]}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"Perturbation", "[", "%", "]"}], "//", "ExpandPerturbation"}], "//", 
-  RowBox[{
-   RowBox[{"ToFlat", "[", 
-    RowBox[{"#", ",", 
-     RowBox[{"ExtraRules", "\[Rule]", 
-      RowBox[{
-       RowBox[{"EOM", "[", "__", "]"}], "\[Rule]", "0"}]}]}], "]"}], 
-   "&"}]}]}], "Input"],
-
-Cell[BoxData[
- InterpretationBox[
-  StyleBox[
-   RowBox[{
-    SubscriptBox["\[EmptyDownTriangle]", "\[Alpha]"], GridBox[{
-      {"E", 
-       StyleBox[GridBox[{
-          {"\[Alpha]", "\[Beta]"},
-          {" ", " "}
-         },
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-              Offset[0.]}}, "RowsIndexed" -> {}}],
-        FontSize->9]}
-     },
-     GridBoxAlignment->{
-      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
-       "RowsIndexed" -> {}},
-     GridBoxSpacings->{"Columns" -> {
-         Offset[0.27999999999999997`], {
-          Offset[0.034999999999999996`]}, 
-         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-         Offset[0.2], {
-          Offset[0.4]}, 
-         Offset[0.2]}, "RowsIndexed" -> {}}]}],
-   ShowAutoStyles->False,
-   AutoSpacing->False],
-  $CellContext`CDNL[-$CellContext`\[Alpha]][
-   $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Beta]]],
-  Editable->False]], "Output"],
-
-Cell[BoxData[
- InterpretationBox[
-  StyleBox[
-   RowBox[{
-    SubscriptBox["\[EmptyDownTriangle]", "\[Alpha]"], "\[EmptyUpTriangle]", 
-    "[", 
-    InterpretationBox[
-     StyleBox[GridBox[{
-        {"E", 
-         StyleBox[GridBox[{
-            {"\[Alpha]", "\[Beta]"},
-            {" ", " "}
-           },
-           GridBoxSpacings->{"Columns" -> {
-               Offset[0.], {
-                Offset[0.034999999999999996`]}, 
-               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                Offset[0.]}}, "RowsIndexed" -> {}}],
-          FontSize->9]}
-       },
-       GridBoxAlignment->{
-        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
-          "RowsIndexed" -> {}},
-       GridBoxSpacings->{"Columns" -> {
-           Offset[0.27999999999999997`], {
-            Offset[0.034999999999999996`]}, 
-           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-           Offset[0.2], {
-            Offset[0.4]}, 
-           Offset[0.2]}, "RowsIndexed" -> {}}],
-      ShowAutoStyles->False,
-      AutoSpacing->False],
-     $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Beta]],
-     Editable->False], "]"}],
-   ShowAutoStyles->False,
-   AutoSpacing->False],
-  $CellContext`CDNL[-$CellContext`\[Alpha]][
-   xAct`xPert`Perturbation[
-    $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Beta]]]],
-  Editable->False]], "Output"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"CDNL", "[", 
-   RowBox[{"-", "\[Alpha]"}], "]"}], "@", 
-  RowBox[{"EOM", "[", 
-   RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}]}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"Perturbation", "[", 
-    RowBox[{"%", ",", "2"}], "]"}], "//", "ExpandPerturbation"}], "//", 
-  RowBox[{
-   RowBox[{"ToFlat", "[", 
-    RowBox[{"#", ",", 
-     RowBox[{"ExtraRules", "\[Rule]", 
-      RowBox[{
-       RowBox[{"EOM", "[", "__", "]"}], "\[Rule]", "0"}]}]}], "]"}], 
-   "&"}]}]}], "Input"],
-
-Cell[BoxData[
- InterpretationBox[
-  StyleBox[
-   RowBox[{
-    SubscriptBox["\[EmptyDownTriangle]", "\[Alpha]"], GridBox[{
-      {"E", 
-       StyleBox[GridBox[{
-          {"\[Alpha]", "\[Beta]"},
-          {" ", " "}
-         },
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-              Offset[0.]}}, "RowsIndexed" -> {}}],
-        FontSize->9]}
-     },
-     GridBoxAlignment->{
-      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
-       "RowsIndexed" -> {}},
-     GridBoxSpacings->{"Columns" -> {
-         Offset[0.27999999999999997`], {
-          Offset[0.034999999999999996`]}, 
-         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-         Offset[0.2], {
-          Offset[0.4]}, 
-         Offset[0.2]}, "RowsIndexed" -> {}}]}],
-   ShowAutoStyles->False,
-   AutoSpacing->False],
-  $CellContext`CDNL[-$CellContext`\[Alpha]][
-   $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Beta]]],
-  Editable->False]], "Output"],
-
-Cell[BoxData[
- RowBox[{
-  InterpretationBox[
-   StyleBox[
-    RowBox[{
-     SubscriptBox["\[EmptyDownTriangle]", "\[Alpha]"], 
-     SuperscriptBox["\[EmptyUpTriangle]", "2"], "[", 
-     InterpretationBox[
-      StyleBox[GridBox[{
-         {"E", 
-          StyleBox[GridBox[{
-             {"\[Alpha]", "\[Beta]"},
-             {" ", " "}
-            },
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                 Offset[0.]}}, "RowsIndexed" -> {}}],
-           FontSize->9]}
-        },
-        GridBoxAlignment->{
-         "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-          "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-        GridBoxSpacings->{"Columns" -> {
-            Offset[0.27999999999999997`], {
-             Offset[0.034999999999999996`]}, 
-            Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
-          "Rows" -> {
-            Offset[0.2], {
-             Offset[0.4]}, 
-            Offset[0.2]}, "RowsIndexed" -> {}}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Beta]],
-      Editable->False], "]"}],
-    ShowAutoStyles->False,
-    AutoSpacing->False],
-   $CellContext`CDNL[-$CellContext`\[Alpha]][
-    xAct`xPert`Perturbation[
-     $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Beta]], 2]],
-   Editable->False], "+", 
-  RowBox[{
-   InterpretationBox[
-    StyleBox[
-     RowBox[{"\[EmptyUpTriangle]", "[", 
-      InterpretationBox[
-       StyleBox[GridBox[{
-          {"E", 
-           StyleBox[GridBox[{
-              {"\[Gamma]", "\[Beta]"},
-              {" ", " "}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}],
-        ShowAutoStyles->False,
-        AutoSpacing->False],
-       $CellContext`EOM[$CellContext`\[Gamma], $CellContext`\[Beta]],
-       Editable->False], "]"}],
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    xAct`xPert`Perturbation[
-     $CellContext`EOM[$CellContext`\[Gamma], $CellContext`\[Beta]]],
-    Editable->False], " ", 
-   RowBox[{"(", 
-    RowBox[{
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SubscriptBox["\[EmptyDownTriangle]", "\[Alpha]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", "\[Alpha]", " "},
-              {" ", " ", "\[Gamma]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[-$CellContext`\[Alpha]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], $CellContext`\[Alpha], -$CellContext`\[Gamma]]],
-      Editable->False], "-", 
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SuperscriptBox["\[EmptyDownTriangle]", "\[Alpha]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", " ", " "},
-              {" ", "\[Alpha]", "\[Gamma]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[$CellContext`\[Alpha]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], -$CellContext`\[Alpha], -$CellContext`\[Gamma]]],
-      Editable->False], "+", 
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SubscriptBox["\[EmptyDownTriangle]", "\[Gamma]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", "\[Alpha]", " "},
-              {" ", " ", "\[Alpha]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[-$CellContext`\[Gamma]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], $CellContext`\[Alpha], -$CellContext`\[Alpha]]],
-      Editable->False]}], ")"}]}], "+", 
-  RowBox[{
-   InterpretationBox[
-    StyleBox[
-     RowBox[{"\[EmptyUpTriangle]", "[", 
-      InterpretationBox[
-       StyleBox[GridBox[{
-          {"E", 
-           StyleBox[GridBox[{
-              {"\[Alpha]", "\[Gamma]"},
-              {" ", " "}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}],
-        ShowAutoStyles->False,
-        AutoSpacing->False],
-       $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Gamma]],
-       Editable->False], "]"}],
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    xAct`xPert`Perturbation[
-     $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Gamma]]],
-    Editable->False], " ", 
-   RowBox[{"(", 
-    RowBox[{
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SubscriptBox["\[EmptyDownTriangle]", "\[Alpha]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", "\[Beta]", " "},
-              {" ", " ", "\[Gamma]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[-$CellContext`\[Alpha]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], $CellContext`\[Beta], -$CellContext`\[Gamma]]],
-      Editable->False], "-", 
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SuperscriptBox["\[EmptyDownTriangle]", "\[Beta]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", " ", " "},
-              {" ", "\[Alpha]", "\[Gamma]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[$CellContext`\[Beta]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], -$CellContext`\[Alpha], -$CellContext`\[Gamma]]],
-      Editable->False], "+", 
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SubscriptBox["\[EmptyDownTriangle]", "\[Gamma]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", "\[Beta]", " "},
-              {" ", " ", "\[Alpha]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[-$CellContext`\[Gamma]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], $CellContext`\[Beta], -$CellContext`\[Alpha]]],
-      Editable->False]}], ")"}]}]}]], "Output"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"CDNL", "[", 
-   RowBox[{"-", "\[Alpha]"}], "]"}], "@", 
-  RowBox[{"EOM", "[", 
-   RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}]}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{
-   RowBox[{"Perturbation", "[", 
-    RowBox[{"%", ",", "3"}], "]"}], "//", "ExpandPerturbation"}], "//", 
-  RowBox[{
-   RowBox[{"ToFlat", "[", 
-    RowBox[{"#", ",", 
-     RowBox[{"ExtraRules", "\[Rule]", 
-      RowBox[{
-       RowBox[{"EOM", "[", "__", "]"}], "\[Rule]", "0"}]}]}], "]"}], 
-   "&"}]}]}], "Input"],
-
-Cell[BoxData[
- InterpretationBox[
-  StyleBox[
-   RowBox[{
-    SubscriptBox["\[EmptyDownTriangle]", "\[Alpha]"], GridBox[{
-      {"E", 
-       StyleBox[GridBox[{
-          {"\[Alpha]", "\[Beta]"},
-          {" ", " "}
-         },
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-              Offset[0.]}}, "RowsIndexed" -> {}}],
-        FontSize->9]}
-     },
-     GridBoxAlignment->{
-      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
-       "RowsIndexed" -> {}},
-     GridBoxSpacings->{"Columns" -> {
-         Offset[0.27999999999999997`], {
-          Offset[0.034999999999999996`]}, 
-         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-         Offset[0.2], {
-          Offset[0.4]}, 
-         Offset[0.2]}, "RowsIndexed" -> {}}]}],
-   ShowAutoStyles->False,
-   AutoSpacing->False],
-  $CellContext`CDNL[-$CellContext`\[Alpha]][
-   $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Beta]]],
-  Editable->False]], "Output"],
-
-Cell[BoxData[
- RowBox[{
-  InterpretationBox[
-   StyleBox[
-    RowBox[{
-     SubscriptBox["\[EmptyDownTriangle]", "\[Alpha]"], 
-     SuperscriptBox["\[EmptyUpTriangle]", "3"], "[", 
-     InterpretationBox[
-      StyleBox[GridBox[{
-         {"E", 
-          StyleBox[GridBox[{
-             {"\[Alpha]", "\[Beta]"},
-             {" ", " "}
-            },
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                 Offset[0.]}}, "RowsIndexed" -> {}}],
-           FontSize->9]}
-        },
-        GridBoxAlignment->{
-         "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-          "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-        GridBoxSpacings->{"Columns" -> {
-            Offset[0.27999999999999997`], {
-             Offset[0.034999999999999996`]}, 
-            Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
-          "Rows" -> {
-            Offset[0.2], {
-             Offset[0.4]}, 
-            Offset[0.2]}, "RowsIndexed" -> {}}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Beta]],
-      Editable->False], "]"}],
-    ShowAutoStyles->False,
-    AutoSpacing->False],
-   $CellContext`CDNL[-$CellContext`\[Alpha]][
-    xAct`xPert`Perturbation[
-     $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Beta]], 3]],
-   Editable->False], "+", 
-  RowBox[{
-   FractionBox["3", "2"], " ", 
-   InterpretationBox[
-    StyleBox[
-     RowBox[{
-      SuperscriptBox["\[EmptyUpTriangle]", "2"], "[", 
-      InterpretationBox[
-       StyleBox[GridBox[{
-          {"E", 
-           StyleBox[GridBox[{
-              {"\[Gamma]", "\[Beta]"},
-              {" ", " "}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}],
-        ShowAutoStyles->False,
-        AutoSpacing->False],
-       $CellContext`EOM[$CellContext`\[Gamma], $CellContext`\[Beta]],
-       Editable->False], "]"}],
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    xAct`xPert`Perturbation[
-     $CellContext`EOM[$CellContext`\[Gamma], $CellContext`\[Beta]], 2],
-    Editable->False], " ", 
-   RowBox[{"(", 
-    RowBox[{
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SubscriptBox["\[EmptyDownTriangle]", "\[Alpha]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", "\[Alpha]", " "},
-              {" ", " ", "\[Gamma]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[-$CellContext`\[Alpha]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], $CellContext`\[Alpha], -$CellContext`\[Gamma]]],
-      Editable->False], "-", 
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SuperscriptBox["\[EmptyDownTriangle]", "\[Alpha]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", " ", " "},
-              {" ", "\[Alpha]", "\[Gamma]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[$CellContext`\[Alpha]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], -$CellContext`\[Alpha], -$CellContext`\[Gamma]]],
-      Editable->False], "+", 
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SubscriptBox["\[EmptyDownTriangle]", "\[Gamma]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", "\[Alpha]", " "},
-              {" ", " ", "\[Alpha]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[-$CellContext`\[Gamma]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], $CellContext`\[Alpha], -$CellContext`\[Alpha]]],
-      Editable->False]}], ")"}]}], "+", 
-  RowBox[{
-   FractionBox["3", "2"], " ", 
-   InterpretationBox[
-    StyleBox[
-     RowBox[{
-      SuperscriptBox["\[EmptyUpTriangle]", "2"], "[", 
-      InterpretationBox[
-       StyleBox[GridBox[{
-          {"E", 
-           StyleBox[GridBox[{
-              {"\[Alpha]", "\[Gamma]"},
-              {" ", " "}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}],
-        ShowAutoStyles->False,
-        AutoSpacing->False],
-       $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Gamma]],
-       Editable->False], "]"}],
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    xAct`xPert`Perturbation[
-     $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Gamma]], 2],
-    Editable->False], " ", 
-   RowBox[{"(", 
-    RowBox[{
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SubscriptBox["\[EmptyDownTriangle]", "\[Alpha]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", "\[Beta]", " "},
-              {" ", " ", "\[Gamma]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[-$CellContext`\[Alpha]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], $CellContext`\[Beta], -$CellContext`\[Gamma]]],
-      Editable->False], "-", 
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SuperscriptBox["\[EmptyDownTriangle]", "\[Beta]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", " ", " "},
-              {" ", "\[Alpha]", "\[Gamma]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[$CellContext`\[Beta]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], -$CellContext`\[Alpha], -$CellContext`\[Gamma]]],
-      Editable->False], "+", 
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SubscriptBox["\[EmptyDownTriangle]", "\[Gamma]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", "\[Beta]", " "},
-              {" ", " ", "\[Alpha]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[-$CellContext`\[Gamma]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], $CellContext`\[Beta], -$CellContext`\[Alpha]]],
-      Editable->False]}], ")"}]}], "-", 
-  RowBox[{"3", " ", 
-   InterpretationBox[
-    StyleBox[
-     RowBox[{"\[EmptyUpTriangle]", "[", 
-      InterpretationBox[
-       StyleBox[GridBox[{
-          {"E", 
-           StyleBox[GridBox[{
-              {"\[Gamma]", "\[Beta]"},
-              {" ", " "}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}],
-        ShowAutoStyles->False,
-        AutoSpacing->False],
-       $CellContext`EOM[$CellContext`\[Gamma], $CellContext`\[Beta]],
-       Editable->False], "]"}],
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    xAct`xPert`Perturbation[
-     $CellContext`EOM[$CellContext`\[Gamma], $CellContext`\[Beta]]],
-    Editable->False], " ", 
-   InterpretationBox[
-    StyleBox[GridBox[{
-       {"h", 
-        StyleBox[GridBox[{
-           {"1", "\[Alpha]", "\[Delta]"},
-           {" ", " ", " "}
-          },
-          GridBoxSpacings->{"Columns" -> {
-              Offset[0.], {
-               Offset[0.034999999999999996`]}, 
-              Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-               Offset[0.]}}, "RowsIndexed" -> {}}],
-         FontSize->9]}
-      },
-      GridBoxAlignment->{
-       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
-        "RowsIndexed" -> {}},
-      GridBoxSpacings->{"Columns" -> {
-          Offset[0.27999999999999997`], {
-           Offset[0.034999999999999996`]}, 
-          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-          Offset[0.2], {
-           Offset[0.4]}, 
-          Offset[0.2]}, "RowsIndexed" -> {}}],
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    $CellContext`PerturbationmetricNL[
-     xAct`xTensor`LI[1], $CellContext`\[Alpha], $CellContext`\[Delta]],
-    Editable->False], " ", 
-   RowBox[{"(", 
-    RowBox[{
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SubscriptBox["\[EmptyDownTriangle]", "\[Alpha]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", " ", " "},
-              {" ", "\[Delta]", "\[Gamma]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[-$CellContext`\[Alpha]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], -$CellContext`\[Delta], -$CellContext`\[Gamma]]],
-      Editable->False], "+", 
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SubscriptBox["\[EmptyDownTriangle]", "\[Gamma]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", " ", " "},
-              {" ", "\[Delta]", "\[Alpha]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[-$CellContext`\[Gamma]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], -$CellContext`\[Delta], -$CellContext`\[Alpha]]],
-      Editable->False], "-", 
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SubscriptBox["\[EmptyDownTriangle]", "\[Delta]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", " ", " "},
-              {" ", "\[Alpha]", "\[Gamma]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[-$CellContext`\[Delta]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], -$CellContext`\[Alpha], -$CellContext`\[Gamma]]],
-      Editable->False]}], ")"}]}], "-", 
-  RowBox[{"3", " ", 
-   InterpretationBox[
-    StyleBox[
-     RowBox[{"\[EmptyUpTriangle]", "[", 
-      InterpretationBox[
-       StyleBox[GridBox[{
-          {"E", 
-           StyleBox[GridBox[{
-              {"\[Alpha]", "\[Gamma]"},
-              {" ", " "}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}],
-        ShowAutoStyles->False,
-        AutoSpacing->False],
-       $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Gamma]],
-       Editable->False], "]"}],
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    xAct`xPert`Perturbation[
-     $CellContext`EOM[$CellContext`\[Alpha], $CellContext`\[Gamma]]],
-    Editable->False], " ", 
-   InterpretationBox[
-    StyleBox[GridBox[{
-       {"h", 
-        StyleBox[GridBox[{
-           {"1", "\[Beta]", "\[Delta]"},
-           {" ", " ", " "}
-          },
-          GridBoxSpacings->{"Columns" -> {
-              Offset[0.], {
-               Offset[0.034999999999999996`]}, 
-              Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-               Offset[0.]}}, "RowsIndexed" -> {}}],
-         FontSize->9]}
-      },
-      GridBoxAlignment->{
-       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
-        "RowsIndexed" -> {}},
-      GridBoxSpacings->{"Columns" -> {
-          Offset[0.27999999999999997`], {
-           Offset[0.034999999999999996`]}, 
-          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-          Offset[0.2], {
-           Offset[0.4]}, 
-          Offset[0.2]}, "RowsIndexed" -> {}}],
-     ShowAutoStyles->False,
-     AutoSpacing->False],
-    $CellContext`PerturbationmetricNL[
-     xAct`xTensor`LI[1], $CellContext`\[Beta], $CellContext`\[Delta]],
-    Editable->False], " ", 
-   RowBox[{"(", 
-    RowBox[{
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SubscriptBox["\[EmptyDownTriangle]", "\[Alpha]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", " ", " "},
-              {" ", "\[Delta]", "\[Gamma]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[-$CellContext`\[Alpha]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], -$CellContext`\[Delta], -$CellContext`\[Gamma]]],
-      Editable->False], "+", 
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SubscriptBox["\[EmptyDownTriangle]", "\[Gamma]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", " ", " "},
-              {" ", "\[Delta]", "\[Alpha]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[-$CellContext`\[Gamma]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], -$CellContext`\[Delta], -$CellContext`\[Alpha]]],
-      Editable->False], "-", 
-     InterpretationBox[
-      StyleBox[
-       RowBox[{
-        SubscriptBox["\[EmptyDownTriangle]", "\[Delta]"], GridBox[{
-          {"h", 
-           StyleBox[GridBox[{
-              {"1", " ", " "},
-              {" ", "\[Alpha]", "\[Gamma]"}
-             },
-             GridBoxSpacings->{"Columns" -> {
-                 Offset[0.], {
-                  Offset[0.034999999999999996`]}, 
-                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                  Offset[0.]}}, "RowsIndexed" -> {}}],
-            FontSize->9]}
-         },
-         GridBoxAlignment->{
-          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-         GridBoxSpacings->{"Columns" -> {
-             Offset[0.27999999999999997`], {
-              Offset[0.034999999999999996`]}, 
-             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-             Offset[0.2], {
-              Offset[0.4]}, 
-             Offset[0.2]}, "RowsIndexed" -> {}}]}],
-       ShowAutoStyles->False,
-       AutoSpacing->False],
-      $CellContext`CDNL[-$CellContext`\[Delta]][
-       $CellContext`PerturbationmetricNL[
-        xAct`xTensor`LI[1], -$CellContext`\[Alpha], -$CellContext`\[Gamma]]],
-      Editable->False]}], ")"}]}]}]], "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
@@ -9126,7 +7932,7 @@ Cell[BoxData[
     RowBox[{"xi", "[", "_", "]"}], "]"}], "^=", "0"}], ";"}]], "Input"],
 
 Cell["\<\
-Everything\[CloseCurlyQuote]s flat, so these things hold:\
+Everything\[CloseCurlyQuote]s flat, so the following things hold:\
 \>", "Text"],
 
 Cell[BoxData[
@@ -9166,6 +7972,11 @@ Cell[BoxData[
  RowBox[{"{", 
   RowBox[{"\<\",\"\>", ",", "\<\"\[PartialD]\"\>"}], "}"}]], "Output"]
 }, Open  ]],
+
+Cell["\<\
+This function translates tensors on the manifold of the previous section (the \
+top-down approach) to tensors on the manifold of this section.\
+\>", "Text"],
 
 Cell[BoxData[
  RowBox[{
@@ -9585,7 +8396,7 @@ Cell[BoxData[
        RowBox[{
         RowBox[{"-", "a"}], ",", 
         RowBox[{"-", "b"}]}], "]"}], ",", "CD"}], "]"}], "[", "S2", "]"}], "//",
-    "TensorCollect"}]}]], "Input"],
+    "CollectTensors"}]}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -10068,7 +8879,7 @@ Cell[BoxData[{
   RowBox[{
    RowBox[{
     RowBox[{"Transform", "[", "\[Delta]0", "]"}], "[", "E1", "]"}], "//", 
-   "TensorCollect"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+   "CollectTensors"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"SolveConstants", "[", 
    RowBox[{
@@ -10388,7 +9199,7 @@ Cell[BoxData[
    RowBox[{"(", 
     RowBox[{"E1", "/.", "sol1"}], ")"}], "-", 
    RowBox[{"SwitchManifold", "[", "eom1", "]"}]}], "//", 
-  "TensorCollect"}]], "Input"],
+  "CollectTensors"}]], "Input"],
 
 Cell[BoxData["0"], "Output"]
 }, Open  ]],
@@ -10956,7 +9767,7 @@ Cell[BoxData[{
     RowBox[{
      RowBox[{"-", "a"}], ",", 
      RowBox[{"-", "b"}]}], "]"}], "E1"}], "//", 
-  "TensorCollect"}], "\[IndentingNewLine]", 
+  "CollectTensors"}], "\[IndentingNewLine]", 
  RowBox[{"E1ruleA", " ", "=", " ", 
   RowBox[{"First", "@", 
    RowBox[{"SolveTensors", "[", 
@@ -13394,7 +12205,7 @@ Cell[BoxData[
         RowBox[{
          RowBox[{"-", "a"}], ",", 
          RowBox[{"-", "b"}]}], "]"}], ",", "CD"}], "]"}], "[", "S3", "]"}], "//",
-     "TensorCollect"}]}], ";"}]], "Input"],
+     "CollectTensors"}]}], ";"}]], "Input"],
 
 Cell[TextData[{
  "Because ",
@@ -13628,7 +12439,10 @@ Cell[BoxData[
        Editable->False]}]}]}], "}"}], "}"}]], "Output"]
 }, Open  ]],
 
-Cell["But it\[CloseCurlyQuote]s not unique:", "Text"],
+Cell["\<\
+But it\[CloseCurlyQuote]s not unique; there are a couple of free parameters \
+left:\
+\>", "Text"],
 
 Cell[CellGroupData[{
 
@@ -15067,7 +13881,7 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"S3", "//.", "E1rule"}], "//", "TensorCollect"}]], "Input"],
+  RowBox[{"S3", "//.", "E1rule"}], "//", "CollectTensors"}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -15917,7 +14731,7 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"S3", "//.", "E1rule"}], "//", "TensorCollect"}]], "Input"],
+  RowBox[{"S3", "//.", "E1rule"}], "//", "CollectTensors"}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -16711,16 +15525,10 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"S3freedom", "=", " ", 
   RowBox[{
-   RowBox[{
-    RowBox[{"S3", " ", "-", " ", 
-     RowBox[{"(", 
-      RowBox[{"S3", "//.", "E1rule"}], ")"}]}], "//", "TensorCollect"}], " ", 
-   "//", 
-   RowBox[{
-    RowBox[{"Collect", "[", 
-     RowBox[{"#", ",", 
-      RowBox[{"ConstantVariables", "[", "#", "]"}]}], "]"}], 
-    "&"}]}]}]], "Input"],
+   RowBox[{"S3", " ", "-", " ", 
+    RowBox[{"(", 
+     RowBox[{"S3", "//.", "E1rule"}], ")"}]}], "//", 
+   "CollectConstants"}]}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -17575,8 +16383,7 @@ Cell[BoxData[
           GridBoxSpacings->{"Columns" -> {
               Offset[0.27999999999999997`], {
                Offset[0.034999999999999996`]}, 
-              Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> 
-            {
+              Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
               Offset[0.2], {
                Offset[0.4]}, 
               Offset[0.2]}, "RowsIndexed" -> {}}]}],
@@ -18601,7 +17408,7 @@ Cell[BoxData[
    RowBox[{
     RowBox[{
      RowBox[{"Transform", "[", "R2", "]"}], "[", "S2", "]"}], "//", 
-    "TensorCollect"}]}], ";"}]], "Input"],
+    "CollectTensors"}]}], ";"}]], "Input"],
 
 Cell[TextData[{
  "And these redefinitions precisely account for the freedom of ",
@@ -18763,11 +17570,11 @@ Cell[BoxData[{
  RowBox[{"S3", "=", 
   RowBox[{
    RowBox[{"S3", "/.", "R2sol"}], "//", 
-   "TensorCollect"}]}], "\[IndentingNewLine]", 
+   "CollectTensors"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"E2", "=", 
    RowBox[{
-    RowBox[{"E2", "/.", "R2sol"}], "//", "TensorCollect"}]}], 
+    RowBox[{"E2", "/.", "R2sol"}], "//", "CollectTensors"}]}], 
   ";"}]}], "Input"],
 
 Cell[BoxData[
@@ -21576,7 +20383,7 @@ Cell[BoxData[
    RowBox[{
     RowBox[{
      RowBox[{"E1", " ", "\[Delta]1"}], " ", "+", 
-     RowBox[{"E2", " ", "\[Delta]0"}]}], "//", "TensorCollect"}]}], 
+     RowBox[{"E2", " ", "\[Delta]0"}]}], "//", "CollectTensors"}]}], 
   ";"}]], "Input"],
 
 Cell[TextData[{
@@ -23097,20 +21904,15 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{
-   RowBox[{"Select", "[", 
+  RowBox[{"Select", "[", 
+   RowBox[{
+    RowBox[{"Expand", "[", "\[Delta]1", "]"}], ",", 
     RowBox[{
-     RowBox[{"Expand", "[", "\[Delta]1", "]"}], ",", 
-     RowBox[{
-      RowBox[{"!", 
-       RowBox[{"FreeQ", "[", 
-        RowBox[{"#", ",", 
-         RowBox[{"\[Beta]1", "|", "\[Beta]2"}]}], "]"}]}], "&"}]}], "]"}], "//",
-    "TensorCollect"}], "//", 
-  RowBox[{
-   RowBox[{"Collect", "[", 
-    RowBox[{"#", ",", 
-     RowBox[{"ConstantVariables", "[", "#", "]"}]}], "]"}], "&"}]}]], "Input"],
+     RowBox[{"!", 
+      RowBox[{"FreeQ", "[", 
+       RowBox[{"#", ",", 
+        RowBox[{"\[Beta]1", "|", "\[Beta]2"}]}], "]"}]}], "&"}]}], "]"}], "//",
+   "CollectConstants"}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -23552,6 +22354,7 @@ Cell[BoxData[
                    Offset[0.]}}, "RowsIndexed" -> {}}],
              FontSize->9]}
           },
+          
           GridBoxAlignment->{
            "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
             "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -23645,28 +22448,23 @@ Cell[BoxData[
  RowBox[{
   RowBox[{
    RowBox[{
-    RowBox[{
-     RowBox[{"1", "/", "2"}], "\[Delta]0"}], "/.", 
-    RowBox[{"MakeRule", "[", 
-     RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{"1", "/", "2"}], "\[Delta]0"}], "/.", 
+   RowBox[{"MakeRule", "[", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"xi", "[", "a", "]"}], ",", "\[IndentingNewLine]", 
       RowBox[{
-       RowBox[{"xi", "[", "a", "]"}], ",", "\[IndentingNewLine]", 
-       RowBox[{
-        RowBox[{"\[Beta]1", " ", 
-         RowBox[{"H", "[", 
-          RowBox[{"a", ",", 
-           RowBox[{"-", "b"}]}], "]"}], 
-         RowBox[{"xi", "[", "b", "]"}]}], " ", "+", " ", 
-        RowBox[{"\[Beta]2", " ", 
-         RowBox[{"H", "[", 
-          RowBox[{"b", ",", 
-           RowBox[{"-", "b"}]}], "]"}], 
-         RowBox[{"xi", "[", "a", "]"}]}]}]}], "\[IndentingNewLine]", "}"}], 
-     "]"}]}], "//", "TensorCollect"}], "//", 
-  RowBox[{
-   RowBox[{"Collect", "[", 
-    RowBox[{"#", ",", 
-     RowBox[{"ConstantVariables", "[", "#", "]"}]}], "]"}], "&"}]}]], "Input"],
+       RowBox[{"\[Beta]1", " ", 
+        RowBox[{"H", "[", 
+         RowBox[{"a", ",", 
+          RowBox[{"-", "b"}]}], "]"}], 
+        RowBox[{"xi", "[", "b", "]"}]}], " ", "+", " ", 
+       RowBox[{"\[Beta]2", " ", 
+        RowBox[{"H", "[", 
+         RowBox[{"b", ",", 
+          RowBox[{"-", "b"}]}], "]"}], 
+        RowBox[{"xi", "[", "a", "]"}]}]}]}], "\[IndentingNewLine]", "}"}], 
+    "]"}]}], "//", "CollectConstants"}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -23984,6 +22782,7 @@ Cell[BoxData[
                    Offset[0.]}}, "RowsIndexed" -> {}}],
              FontSize->9]}
           },
+          
           GridBoxAlignment->{
            "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
             "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -24375,7 +23174,7 @@ Cell[BoxData[
    RowBox[{"commutator", "/.", 
     RowBox[{
      RowBox[{"H", "[", "__", "]"}], "\[Rule]", "0"}]}], "//", 
-   "TensorCollect"}]}]], "Input"],
+   "CollectTensors"}]}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
@@ -26522,7 +25321,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"xi3", "=", 
   RowBox[{
-   RowBox[{"xi3", "/.", "sol2B"}], "//", "TensorCollect"}]}]], "Input"],
+   RowBox[{"xi3", "/.", "sol2B"}], "//", "CollectTensors"}]}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
