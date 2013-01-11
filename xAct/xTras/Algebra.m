@@ -388,6 +388,7 @@ SolveTensors[expr_, tensors_List, options___?OptionQ] := SolveTensors1[
 		SimplifyMethod -> Identity
 	],
 	TensorWrapper[tensors],
+	False,
 	options
 ];
 
@@ -396,6 +397,7 @@ SolveTensors[expr_, options___?OptionQ] :=
 SolveTensors1[
 	#,
 	Union@Cases[#, HoldPattern@TensorWrapper[_], {0, Infinity}, Heads -> True],
+	True,
 	options
 ]& @ CollectTensors[
 	expr, 
@@ -405,7 +407,7 @@ SolveTensors1[
 ];
 
 (* Main driver. *)
-SolveTensors1[eqs_,tensors_List,options___?OptionQ] := Module[{mr,sm,mrrule},
+SolveTensors1[eqs_,tensors_List, sortq_, options___?OptionQ] := Module[{mr,sm,mrrule,ntw,sorted},
 	(* Get options. *)	
 	{mr,sm} = {MakeRule,SortMethod} 
 		/. CheckOptions[options] 
@@ -425,8 +427,19 @@ SolveTensors1[eqs_,tensors_List,options___?OptionQ] := Module[{mr,sm,mrrule},
 		],
 		mrrule = {}
 	];
-	(* Do the actual work. *)
-	RemoveTensorWrapper[Solve[eqs, sm@tensors]] /. mrrule
+	(* Sort the tensors. Because the sort method might not work on the TensorWrapper head
+	   (because the user doesn't know SolveTensors uses TensorWrappers internally, and didn't 
+	   take that into account), we need to make sure we sort without TensorWrappers. *)
+	ntw 	= RemoveTensorWrapper[tensors];
+	sorted 	= If[TrueQ@sortq,
+		Part[
+			tensors, 
+			Flatten[Position[ntw,#]& /@ sm[ntw] ]
+		],
+		tensors
+	];
+	(* Solve the equation(s). *)
+	RemoveTensorWrapper[Solve[eqs, sorted]] /. mrrule
 ];
 
 (* Deprecated, superseded by SolveTensors. *)
