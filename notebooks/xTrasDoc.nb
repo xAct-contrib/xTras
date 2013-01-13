@@ -4909,7 +4909,7 @@ Cell[BoxData[
  StyleBox["\<\"DefMetricVariation[metric, pert, param] enables proper metric \
 variations via the VarD and VarL functions. It is called automatically from \
 DefMetricPerturbation.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3566456289-1250689"]
+ CellTags->"Info3567092317-3623296"]
 }, Open  ]],
 
 Cell[TextData[{
@@ -4991,7 +4991,7 @@ Cell[BoxData[
 \!\(TraditionalForm\`\*SqrtBox[\(-g\)]L\) with respect to the metric g, and \
 divides with \!\(TraditionalForm\`\*SqrtBox[\(-g\)]\) afterwards.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3566455955-1250689"]
+ CellTags->"Info3567092345-3623296"]
 }, Open  ]],
 
 Cell[TextData[{
@@ -5836,7 +5836,7 @@ Cell[BoxData[
          {
           RowBox[{"S", "[", "\[EmptyDownTriangle]", "]"}], 
           StyleBox[GridBox[{
-             {"xAct`xTras`xPert`Private`L$2417_", 
+             {"xAct`xTras`xPert`Private`L$1478_", 
               UnderscriptBox[
                UnderscriptBox["a", "_"], "_"], 
               UnderscriptBox[
@@ -5865,7 +5865,7 @@ Cell[BoxData[
        AutoSpacing->False],
       $CellContext`SchoutenCCCD[
        xAct`xTensor`LI[
-        Pattern[xAct`xTras`xPert`Private`L$2417, 
+        Pattern[xAct`xTras`xPert`Private`L$1478, 
          Blank[]]], 
        PatternTest[
         Pattern[$CellContext`a, 
@@ -5883,7 +5883,7 @@ Cell[BoxData[
          ShowAutoStyles->False,
          AutoSpacing->False],
         K,
-        Editable->False], "-", "xAct`xTras`xPert`Private`L$2417"}], ")"}], 
+        Editable->False], "-", "xAct`xTras`xPert`Private`L$1478"}], ")"}], 
      " ", 
      InterpretationBox[
       StyleBox[GridBox[{
@@ -6017,7 +6017,7 @@ Cell[BoxData[
          {
           RowBox[{"G", "[", "\[EmptyDownTriangle]", "]"}], 
           StyleBox[GridBox[{
-             {"xAct`xTras`xPert`Private`L$2417_", 
+             {"xAct`xTras`xPert`Private`L$1478_", 
               UnderscriptBox[
                UnderscriptBox["a", "_"], "_"], 
               UnderscriptBox[
@@ -6046,7 +6046,7 @@ Cell[BoxData[
        AutoSpacing->False],
       $CellContext`EinsteinCCCD[
        xAct`xTensor`LI[
-        Pattern[xAct`xTras`xPert`Private`L$2417, 
+        Pattern[xAct`xTras`xPert`Private`L$1478, 
          Blank[]]], 
        PatternTest[
         Pattern[$CellContext`a, 
@@ -6083,7 +6083,7 @@ Cell[BoxData[
           ShowAutoStyles->False,
           AutoSpacing->False],
          K,
-         Editable->False]}], "+", "xAct`xTras`xPert`Private`L$2417"}], ")"}], 
+         Editable->False]}], "+", "xAct`xTras`xPert`Private`L$1478"}], ")"}], 
      " ", 
      InterpretationBox[
       StyleBox[GridBox[{
@@ -6327,7 +6327,7 @@ Cell[BoxData[
 perbutation of expr on an arbitrary background, without an expansion \
 parameter or 1/n! factor. The background is set with the option \
 BackgroundSolution.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3566456475-1250689"]
+ CellTags->"Info3567092396-3623296"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -6348,7 +6348,7 @@ Cell[BoxData[
          RowBox[{
           SubscriptBox["\[EmptyDownTriangle]", "a"], 
           SubscriptBox["\[EmptyDownTriangle]", "b"], GridBox[{
-            {"Perturbationmetric", 
+            {"\[EmptyUpTriangle]g", 
              StyleBox[GridBox[{
                 {"1", "c", " "},
                 {" ", " ", "c"}
@@ -6383,7 +6383,7 @@ Cell[BoxData[
        RowBox[{
         SubscriptBox["\[EmptyDownTriangle]", "a"], 
         SubscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
-          {"Perturbationmetric", 
+          {"\[EmptyUpTriangle]g", 
            StyleBox[GridBox[{
               {"1", "c", " "},
               {" ", " ", "b"}
@@ -6417,7 +6417,7 @@ Cell[BoxData[
        RowBox[{
         SubscriptBox["\[EmptyDownTriangle]", "a"], 
         SuperscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
-          {"Perturbationmetric", 
+          {"\[EmptyUpTriangle]g", 
            StyleBox[GridBox[{
               {"1", " ", " "},
               {" ", "b", "c"}
@@ -6455,7 +6455,7 @@ Cell[BoxData[
        RowBox[{
         SubscriptBox["\[EmptyDownTriangle]", "c"], 
         SubscriptBox["\[EmptyDownTriangle]", "a"], GridBox[{
-          {"Perturbationmetric", 
+          {"\[EmptyUpTriangle]g", 
            StyleBox[GridBox[{
               {"1", "c", " "},
               {" ", " ", "b"}
@@ -6489,7 +6489,7 @@ Cell[BoxData[
        RowBox[{
         SubscriptBox["\[EmptyDownTriangle]", "c"], 
         SubscriptBox["\[EmptyDownTriangle]", "b"], GridBox[{
-          {"Perturbationmetric", 
+          {"\[EmptyUpTriangle]g", 
            StyleBox[GridBox[{
               {"1", "c", " "},
               {" ", " ", "a"}
@@ -6523,7 +6523,7 @@ Cell[BoxData[
        RowBox[{
         SubscriptBox["\[EmptyDownTriangle]", "c"], 
         SuperscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
-          {"Perturbationmetric", 
+          {"\[EmptyUpTriangle]g", 
            StyleBox[GridBox[{
               {"1", " ", " "},
               {" ", "b", "a"}
@@ -6606,7 +6606,7 @@ Cell[BoxData[
              Editable->False], "2"]}]]}], ")"}]}], " ", 
       InterpretationBox[
        StyleBox[GridBox[{
-          {"Perturbationmetric", 
+          {"\[EmptyUpTriangle]g", 
            StyleBox[GridBox[{
               {"1", " ", " "},
               {" ", "a", "b"}
@@ -6713,7 +6713,7 @@ Cell[BoxData[
            Editable->False], " ", 
           InterpretationBox[
            StyleBox[GridBox[{
-              {"Perturbationmetric", 
+              {"\[EmptyUpTriangle]g", 
                StyleBox[GridBox[{
                   {"1", "c", "d"},
                   {" ", " ", " "}
@@ -6800,7 +6800,7 @@ Cell[BoxData[
                   RowBox[{
                    SubscriptBox["\[EmptyDownTriangle]", "c"], 
                    SubscriptBox["\[EmptyDownTriangle]", "d"], GridBox[{
-                    {"Perturbationmetric", 
+                    {"\[EmptyUpTriangle]g", 
                     StyleBox[GridBox[{
                     {"1", "e", " "},
                     {" ", " ", "e"}
@@ -6836,7 +6836,7 @@ Cell[BoxData[
                 RowBox[{
                  SubscriptBox["\[EmptyDownTriangle]", "c"], 
                  SubscriptBox["\[EmptyDownTriangle]", "e"], GridBox[{
-                   {"Perturbationmetric", 
+                   {"\[EmptyUpTriangle]g", 
                     StyleBox[GridBox[{
                     {"1", "e", " "},
                     {" ", " ", "d"}
@@ -6872,7 +6872,7 @@ Cell[BoxData[
                 RowBox[{
                  SubscriptBox["\[EmptyDownTriangle]", "c"], 
                  SuperscriptBox["\[EmptyDownTriangle]", "e"], GridBox[{
-                   {"Perturbationmetric", 
+                   {"\[EmptyUpTriangle]g", 
                     StyleBox[GridBox[{
                     {"1", " ", " "},
                     {" ", "d", "e"}
@@ -6912,7 +6912,7 @@ Cell[BoxData[
                 RowBox[{
                  SubscriptBox["\[EmptyDownTriangle]", "e"], 
                  SubscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
-                   {"Perturbationmetric", 
+                   {"\[EmptyUpTriangle]g", 
                     StyleBox[GridBox[{
                     {"1", "e", " "},
                     {" ", " ", "d"}
@@ -6948,7 +6948,7 @@ Cell[BoxData[
                 RowBox[{
                  SubscriptBox["\[EmptyDownTriangle]", "e"], 
                  SubscriptBox["\[EmptyDownTriangle]", "d"], GridBox[{
-                   {"Perturbationmetric", 
+                   {"\[EmptyUpTriangle]g", 
                     StyleBox[GridBox[{
                     {"1", "e", " "},
                     {" ", " ", "c"}
@@ -6984,7 +6984,7 @@ Cell[BoxData[
                 RowBox[{
                  SubscriptBox["\[EmptyDownTriangle]", "e"], 
                  SuperscriptBox["\[EmptyDownTriangle]", "e"], GridBox[{
-                   {"Perturbationmetric", 
+                   {"\[EmptyUpTriangle]g", 
                     StyleBox[GridBox[{
                     {"1", " ", " "},
                     {" ", "d", "c"}
@@ -7019,16 +7019,19 @@ Cell[BoxData[
 }, Open  ]],
 
 Cell["\<\
-We\[CloseCurlyQuote]ll call the first order perturbation of the metric \
-(Perturbationmetric) something else, in order to de-clutter the output:\
+We can call the first order perturbation of the metric (Perturbationmetric) \
+something else, in order to de-clutter the output:\
 \>", "Text"],
 
 Cell[CellGroupData[{
 
-Cell[BoxData[
+Cell[BoxData[{
+ RowBox[{"PrintAs", "[", "Perturbationmetric", "]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"PrintAs", "[", "Perturbationmetric", "]"}], "^=", 
-  "\"\<h\>\""}]], "Input"],
+  "\"\<h\>\""}]}], "Input"],
+
+Cell[BoxData["\<\"\[EmptyUpTriangle]g\"\>"], "Output"],
 
 Cell[BoxData["\<\"h\"\>"], "Output"]
 }, Open  ]],

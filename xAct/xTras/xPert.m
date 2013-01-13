@@ -180,7 +180,11 @@ xTrasxPertDefMetric[signdet_, metric_[-a_, -b_], cd_, options___] := (
 			metric,
 			GiveSymbol[Perturbation,metric],
 			GiveSymbol["\[Epsilon]",metric]
-		]
+		];
+		PrintAs[GiveSymbol[Perturbation,metric]] ^= StringJoin[
+			PrintAs[Perturbation],
+			PrintAs[metric]
+		];
 	];
 );
 
@@ -213,10 +217,9 @@ xTrasDefMetricPerturbation[metric_,pert_,param_] := (
 
 Options[DefMetricVariation] ^= {PrintAs -> ""};
 
-DefMetricVariation[metric_?MetricQ, per_, param_, options___?OptionQ] := Module[
-	{var, M, vb, a, b, print, def},
-	
-	{print} = {PrintAs} /. CheckOptions[options] /. Options[DefMetricVariation];
+DefMetricVariation[metric_?MetricQ, per_, param_] := Module[
+	{var, M, vb, a, b, def},
+
 	M 		= ManifoldOfCovD@CovDOfMetric@metric;
 	vb 		= VBundleOfMetric[metric];
 	a 		= DummyIn[vb];
@@ -232,9 +235,7 @@ DefMetricVariation[metric_?MetricQ, per_, param_, options___?OptionQ] := Module[
 	Block[{$DefInfoQ = False},
 		DefTensor[var[-a, -b], M, Symmetric[{-a, -b}]];
 	];
-
-	If[print =!= "", PrintAs[per] ^= print];
-   
+  
 	(* The stuff below is wrapped in a function because SetDelayed has the HoldAll attribute. *)
 	def[cd_, sqrt_] :=
 	(
