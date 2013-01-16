@@ -19,10 +19,6 @@ VarL::usage =
 	"VarL[ g[a,b] ][ L ] performs a variation of \!\(TraditionalForm\`\*SqrtBox[\(-g\)]L\) \
 with respect to the metric g, and divides with \!\(TraditionalForm\`\*SqrtBox[\(-g\)]\) afterwards.";
 
-DefMetricVariation::usage = 
-  "DefMetricVariation[metric, pert, param] enables proper metric variations via the VarD \
-and VarL functions. It is called automatically from DefMetricPerturbation.";
-
 ExpandPerturbationDer::usage = 
 	"ExpandPerturbationDer expands the perturbations of derivatives. \
 It's similar to the private xAct function ExpandPerturbationDer, but not quite.";
@@ -200,7 +196,6 @@ PerturbationParameterOfMetric[metric_] := Throw@Message[
 ];
 
 
-
 xTension["xTras`xPert`", DefMetricPerturbation, "End"] := xTrasDefMetricPerturbation;
 
 xTrasDefMetricPerturbation[metric_,pert_,param_] := (		
@@ -209,13 +204,6 @@ xTrasDefMetricPerturbation[metric_,pert_,param_] := (
 	DefMetricVariation[metric, pert, param];
 );
 
-
-
-
-
-
-
-Options[DefMetricVariation] ^= {PrintAs -> ""};
 
 DefMetricVariation[metric_?MetricQ, per_, param_] := Module[
 	{var, M, vb, a, b, def},
