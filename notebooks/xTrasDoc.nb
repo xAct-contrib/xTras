@@ -113,7 +113,7 @@ Cell[TextData[{
  StyleBox["xTras`xCore",
   FontSlant->"Italic"],
  "` is MapTimed. It behaves as the normal Map (i.e. it maps a function over a \
-list or other head) except that it prints its progress and a timer."
+list or other head) except that it prints progress and a timer."
 }], "Text"],
 
 Cell[CellGroupData[{
@@ -122,9 +122,12 @@ Cell[BoxData[
  RowBox[{"?", "MapTimed"}]], "Input"],
 
 Cell[BoxData[
- StyleBox["\<\"MapTimed[f,expr] is similar to Map, except that it also prints \
-the expected calculation time.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3565787153-9053124"]
+ StyleBox["\<\"MapTimed[f, expr] maps f over expr while monitoring the \
+progress and the estimated time remaining.\\nMapTimed[f, expr, \
+Description->\\\"text\\\"] gives a description to the monitor.\\nMapTimed[f, \
+expr, Parallelize->True] performs a ParallelMap instead of a Map.\"\>", 
+  "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3567670714-9165190"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -142,50 +145,118 @@ Cell[BoxData[
   RowBox[{"MapTimed", "[", 
    RowBox[{"PartitionsQ", ",", "data"}], "]"}], ";"}]], "Input"],
 
-Cell["MapTimed has two options: Description and MonitorSteps.", "Text"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"Options", "[", "MapTimed", "]"}]], "Input"],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{
-   RowBox[{"Description", "\[Rule]", "\<\"\"\>"}], ",", 
-   RowBox[{"MonitorSteps", "\[Rule]", "All"}]}], "}"}]], "Output"]
-}, Open  ]],
-
 Cell["\<\
+MapTimed has two options: Description and Parallelize.
 Description can be used the give additional printed information. The default \
 value is an empty string, but it can be set to any string.\
 \>", "Text"],
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"MapTimed", "[", "\[IndentingNewLine]", 
-   RowBox[{
-   "PartitionsQ", ",", "\[IndentingNewLine]", "data", ",", 
-    "\[IndentingNewLine]", 
+  RowBox[{"MapTimed", "[", 
+   RowBox[{"PartitionsQ", ",", "data", ",", 
     RowBox[{
     "Description", "\[Rule]", 
      "\"\<Computing the number of partitions of random integers.\>\""}]}], 
-   "\[IndentingNewLine]", "]"}], ";"}]], "Input"],
+   "]"}], ";"}]], "Input"],
 
-Cell["\<\
-Normally MapTimed updates its progress for every element in the list. If you \
-want less frequent updates (e.g. when the list is huge), then you can set \
-MonitorSteps to the number of updates you want.\
-\>", "Text"],
+Cell[TextData[{
+ "When the options Parallelize is set to True, MapTimed uses ParallelMap \
+instead of Map. For a multi-processor machine, this should be faster. Note \
+that this only works for ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " version 7 and higher."
+}], "Text"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"MapTimed", "[", "\[IndentingNewLine]", 
-   RowBox[{
-   "PartitionsQ", ",", "\[IndentingNewLine]", "data", ",", 
-    "\[IndentingNewLine]", 
-    RowBox[{"MonitorSteps", "\[Rule]", "25"}]}], "\[IndentingNewLine]", "]"}],
-   ";"}]], "Input"]
+  RowBox[{
+   RowBox[{"MapTimed", "[", 
+    RowBox[{"PartitionsQ", ",", "data", ",", 
+     RowBox[{"Parallelize", "\[Rule]", "True"}]}], "]"}], "//", 
+   "AbsoluteTiming"}], "//", "First"}]], "Input"],
+
+Cell[BoxData["7.919994`7.3502698460743705"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MapTimed", "[", 
+    RowBox[{"PartitionsQ", ",", "data", ",", 
+     RowBox[{"Parallelize", "\[Rule]", "False"}]}], "]"}], "//", 
+   "AbsoluteTiming"}], "//", "First"}]], "Input"],
+
+Cell[BoxData["13.516413`7.582406446862274"], "Output"]
+}, Open  ]],
+
+Cell["\<\
+Because MapTimed prints information, there is a slight overhead compared to \
+Map:\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MapTimed", "[", 
+    RowBox[{"Identity", ",", 
+     RowBox[{"Range", "[", "1000", "]"}]}], "]"}], "//", "AbsoluteTiming"}], "//",
+   "First"}]], "Input"],
+
+Cell[BoxData["0.056681`5.2049824972211916"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Map", "[", 
+    RowBox[{"Identity", ",", 
+     RowBox[{"Range", "[", "1000", "]"}]}], "]"}], "//", "AbsoluteTiming"}], "//",
+   "First"}]], "Input"],
+
+Cell[BoxData["0.000273`2.8877076405367252"], "Output"]
+}, Open  ]],
+
+Cell["\<\
+When Parallelize is set to True, the overhead is much worse because MapTimed \
+synchronizes its progress among the different kernels:\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"MapTimed", "[", 
+    RowBox[{"Identity", ",", 
+     RowBox[{"Range", "[", "1000", "]"}], ",", 
+     RowBox[{"Parallelize", "\[Rule]", "True"}]}], "]"}], "//", 
+   "AbsoluteTiming"}], "//", "First"}]], "Input"],
+
+Cell[BoxData["5.514014`7.193012857934394"], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"ParallelMap", "[", 
+    RowBox[{"Identity", ",", 
+     RowBox[{"Range", "[", "1000", "]"}]}], "]"}], "//", "AbsoluteTiming"}], "//",
+   "First"}]], "Input"],
+
+Cell[BoxData["0.033537`4.9770692043683695"], "Output"]
+}, Open  ]]
 }, Closed]]
 }, Open  ]],
 
@@ -5075,9 +5146,7 @@ Cell[BoxData[
     Editable->False]}]}]], "Output"]
 }, Open  ]],
 
-Cell["\<\
-This is the same as doing the following:\
-\>", "Text"],
+Cell["This is the same as doing the following:", "Text"],
 
 Cell[CellGroupData[{
 
@@ -5384,6 +5453,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
                FontSize->9]}
             },
+            
             GridBoxAlignment->{
              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -10088,7 +10158,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
                FontSize->9]}
             },
-            
             GridBoxAlignment->{
              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -11063,6 +11132,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -14167,7 +14237,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
-           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -14889,6 +14958,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},

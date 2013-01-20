@@ -374,6 +374,15 @@ SolveConstants[expr_,varsdoms__] :=
 (* SolveTensors *)
 (****************)
 
+(* 
+	TODO:
+	
+	Instead of using TensorWrappers, we could use BreakInMonomials, and solve for Monomials.
+	This has the advantage that equations like T1 T2 - T1 T3 == 0 can get solved as
+ 	{{T1 -> 0}, {T2 -> T3}} instead of the less general solution {{T1 T2 -> T1 T3}}.
+ *)
+
+
 Options[SolveTensors] ^= {
 	MakeRule -> True,
 	SortMethod -> Sort
@@ -442,6 +451,9 @@ SolveTensors1[eqs_,tensors_List, sortq_, options___?OptionQ] := Module[{mr,sm,mr
 	RemoveTensorWrapper[Solve[eqs, sorted]] /. mrrule
 ];
 
+
+
+
 (* Deprecated, superseded by SolveTensors. *)
 MakeEquationRule[{Equal[LHS_,RHS_], pattern_, cond___}, options___?OptionQ]:=
   Module[{expanded, list, terms, coefficient, lhs, rhs},
@@ -457,9 +469,6 @@ MakeEquationRule[{Equal[LHS_,RHS_], pattern_, cond___}, options___?OptionQ]:=
 ];
 
 SetAttributes[MakeEquationRule,HoldFirst];
-
-
-
 
 
 End[]
