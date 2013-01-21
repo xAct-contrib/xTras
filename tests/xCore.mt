@@ -63,7 +63,7 @@ Test[
 ]
 
 Test[
-	MapTimed[Identity, data, Parallelize->True]
+	MapTimed[Identity, data, Parallelization->True]
 	,
 	data
 	,
@@ -73,7 +73,7 @@ Test[
 ]
 
 Test[
-	MapTimed[PartitionsQ, data, Parallelize->True]
+	MapTimed[PartitionsQ, data, Parallelization->True]
 	,
 	Map[PartitionsQ, data]
 	,
@@ -83,7 +83,7 @@ Test[
 ]
 
 Test[
-	MapTimed[nonExistingFunction, data, Parallelize->True]
+	MapTimed[nonExistingFunction, data, Parallelization->True]
 	,
 	Map[nonExistingFunction, data]
 	,
@@ -107,7 +107,7 @@ Test[
 ]
 
 Test[
-	MapTimed[PartitionsQ, data, {4}, Parallelize->True]
+	MapTimed[PartitionsQ, data, {4}, Parallelization->True]
 	,
 	Map[PartitionsQ, data, {4}]
 	,

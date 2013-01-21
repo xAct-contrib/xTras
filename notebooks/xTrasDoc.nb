@@ -125,9 +125,9 @@ Cell[BoxData[
  StyleBox["\<\"MapTimed[f, expr] maps f over expr while monitoring the \
 progress and the estimated time remaining.\\nMapTimed[f, expr, \
 Description->\\\"text\\\"] gives a description to the monitor.\\nMapTimed[f, \
-expr, Parallelize->True] performs a ParallelMap instead of a Map.\"\>", 
+expr, Parallelization->True] performs a ParallelMap instead of a Map.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3567670714-9165190"]
+ CellTags->"Info3567742506-8569677"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -176,10 +176,10 @@ Cell[BoxData[
   RowBox[{
    RowBox[{"MapTimed", "[", 
     RowBox[{"PartitionsQ", ",", "data", ",", 
-     RowBox[{"Parallelize", "\[Rule]", "True"}]}], "]"}], "//", 
+     RowBox[{"Parallelization", "\[Rule]", "True"}]}], "]"}], "//", 
    "AbsoluteTiming"}], "//", "First"}]], "Input"],
 
-Cell[BoxData["7.919994`7.3502698460743705"], "Output"]
+Cell[BoxData["7.63083`7.334116771924714"], "Output"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -189,10 +189,10 @@ Cell[BoxData[
   RowBox[{
    RowBox[{"MapTimed", "[", 
     RowBox[{"PartitionsQ", ",", "data", ",", 
-     RowBox[{"Parallelize", "\[Rule]", "False"}]}], "]"}], "//", 
+     RowBox[{"Parallelization", "\[Rule]", "False"}]}], "]"}], "//", 
    "AbsoluteTiming"}], "//", "First"}]], "Input"],
 
-Cell[BoxData["13.516413`7.582406446862274"], "Output"]
+Cell[BoxData["13.458444`7.58053984526532"], "Output"]
 }, Open  ]],
 
 Cell["\<\
@@ -210,7 +210,7 @@ Cell[BoxData[
      RowBox[{"Range", "[", "1000", "]"}]}], "]"}], "//", "AbsoluteTiming"}], "//",
    "First"}]], "Input"],
 
-Cell[BoxData["0.056681`5.2049824972211916"], "Output"]
+Cell[BoxData["0.058745`5.220515901634333"], "Output"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -223,7 +223,7 @@ Cell[BoxData[
      RowBox[{"Range", "[", "1000", "]"}]}], "]"}], "//", "AbsoluteTiming"}], "//",
    "First"}]], "Input"],
 
-Cell[BoxData["0.000273`2.8877076405367252"], "Output"]
+Cell[BoxData["0.000293`2.9184126138500828"], "Output"]
 }, Open  ]],
 
 Cell["\<\
@@ -239,10 +239,10 @@ Cell[BoxData[
    RowBox[{"MapTimed", "[", 
     RowBox[{"Identity", ",", 
      RowBox[{"Range", "[", "1000", "]"}], ",", 
-     RowBox[{"Parallelize", "\[Rule]", "True"}]}], "]"}], "//", 
+     RowBox[{"Parallelization", "\[Rule]", "True"}]}], "]"}], "//", 
    "AbsoluteTiming"}], "//", "First"}]], "Input"],
 
-Cell[BoxData["5.514014`7.193012857934394"], "Output"]
+Cell[BoxData["5.488554`7.191002934933707"], "Output"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -255,7 +255,7 @@ Cell[BoxData[
      RowBox[{"Range", "[", "1000", "]"}]}], "]"}], "//", "AbsoluteTiming"}], "//",
    "First"}]], "Input"],
 
-Cell[BoxData["0.033537`4.9770692043683695"], "Output"]
+Cell[BoxData["0.032442`4.96265261345524"], "Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
@@ -17139,7 +17139,7 @@ $CellContext`d],
        $CellContext`RicciScalarCD[]]],
      Editable->False], ")"}]}]}]], "Output"]
 }, Open  ]]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 

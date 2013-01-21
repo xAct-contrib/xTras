@@ -19,13 +19,15 @@ Description::usage = "Option for MapTimed.";
 MapTimed::usage = "\
 MapTimed[f, expr] maps f over expr while monitoring the progress and the estimated time remaining.\n\
 MapTimed[f, expr, Description->\"text\"] gives a description to the monitor.\n\
-MapTimed[f, expr, Parallelize->True] performs a ParallelMap instead of a Map.";
+MapTimed[f, expr, Parallelization->True] performs a ParallelMap instead of a Map.";
 
 MapTimedIfPlus::usage =
 	"MapTimedIfPlus[f, expr] maps f on the elements of expr while displaying a timer \
 if expr has head Plus, or returns f[expr] otherwise.";
 
-
+If[System`$VersionNumber < 8.,
+	Parallelization::usage = "Parallelization is an option for MapTimed."
+];
 
 
 Begin["`Private`"]
@@ -64,7 +66,7 @@ LevelSpecQ[___] := False
 
 Options[MapTimed] ^= {
 	Description -> "", 
-	Parallelize -> False
+	Parallelization -> False
 };
 
 MapTimed[func_,expr_,levelspec_: {1},options___?OptionQ]/;LevelSpecQ[levelspec] := Module[
@@ -75,7 +77,7 @@ MapTimed[func_,expr_,levelspec_: {1},options___?OptionQ]/;LevelSpecQ[levelspec] 
 	},
 	
 	(* Determine the options. *)
-	{desc,parallel} = {Description,Parallelize}  /. CheckOptions[options] /. Options[MapTimed];
+	{desc,parallel} = {Description,Parallelization}  /. CheckOptions[options] /. Options[MapTimed];
 	desc = ToString@desc;
 	If[desc =!= "", 
 		desc = " " <> desc;
@@ -102,7 +104,7 @@ MapTimed[func_,expr_,levelspec_: {1},options___?OptionQ]/;LevelSpecQ[levelspec] 
 	timer[length] 	= " **" <> desc <> " Parts " <> ToString[length] <> "/" <> ToString[length] <> " done.";
 	
 	(* Do the mapping. *)
-	If[TrueQ[parallel] && $VersionNumber >= 7.,
+	If[TrueQ[parallel] && System`$VersionNumber >= 7.,
 		SetSharedVariable[position];
 		(UnsetShared[position];#)&@Monitor[ParallelMap[((position++;#)&@func[#])&,expr,levelspec],timer@position]
 	,
