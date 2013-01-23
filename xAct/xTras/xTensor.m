@@ -248,11 +248,11 @@ xTrasxTensorDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[
 	
 	(* Define the new curvature tensors. *)
 	DefTensor[GiveSymbol[Schouten,cd][-a, -b], 
-		M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];
+		M, Symmetric[{-a, -b},Cycles], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];
 	DefTensor[GiveSymbol[SchoutenCC,cd][LI[_],-a, -b], 
-		M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];	
+		M, Symmetric[{-a, -b},Cycles], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];	
 	DefTensor[einsteincc[LI[_],-a, -b], 
-		M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Einstein,cd], Master->cd];
+		M, Symmetric[{-a, -b},Cycles], PrintAs -> GiveOutputString[Einstein,cd], Master->cd];
 	
 	(* Some identities for the cosmological Einstein tensor. *)
 	cd[c_]@einsteincc[LI[_],___,d_,___] /; c === ChangeIndex[d] ^= 0;
@@ -429,7 +429,7 @@ DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], me
 		2,
 		cd[xAct`xTensor`Private`slot[2]][xi[l1,xAct`xTensor`Private`slot[1],l2]], 
 		{xAct`xTensor`Private`slot[1] -> y, xAct`xTensor`Private`slot[2] -> x},
-		Antisymmetric[{1, 2}]
+		Antisymmetric[{1, 2},Cycles]
 	]; 
 
 	(* Attach the rules and the rest. *)

@@ -86,7 +86,7 @@ Test[
 ]
 
 Test[
-	AllContractions[ RiemannCD[a,b,c,d], IndexList[a,b], Symmetric[{a,b}] ]
+	AllContractions[ RiemannCD[a,b,c,d], IndexList[a,b], Symmetric[{a,b},Cycles] ]
 	,
 	{ RicciCD[a,b], metric[a,b] RicciScalarCD[] }
 	,

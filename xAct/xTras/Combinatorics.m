@@ -358,7 +358,7 @@ IndexConfigurations[expr_] := Module[
 	len 	= sym[[1]];
 	perms	= xAct`SymManipulator`Private`TransversalComputation[
 		sgs, 
-  		Symmetric@Range@len 
+  		Symmetric[Range@len,Cycles] 
   	];
   	Union@Map[
   		xAct`xTensor`Private`Reconstruct[

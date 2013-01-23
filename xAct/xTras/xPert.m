@@ -221,7 +221,7 @@ DefMetricVariation[metric_?MetricQ, per_, param_] := Module[
 		]
 	];
 	Block[{$DefInfoQ = False},
-		DefTensor[var[-a, -b], M, Symmetric[{-a, -b}]];
+		DefTensor[var[-a, -b], M, Symmetric[{-a, -b},Cycles]];
 	];
   
 	(* The stuff below is wrapped in a function because SetDelayed has the HoldAll attribute. *)
