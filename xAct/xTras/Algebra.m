@@ -443,7 +443,7 @@ SolveTensors1[eqs_,tensors_List, sortq_, options___?OptionQ] := Module[{mr,sm,mr
 	sorted 	= If[TrueQ@sortq,
 		Part[
 			tensors, 
-			Flatten[Position[ntw,#]& /@ sm[ntw] ]
+			Flatten[Position[ntw,#,{1}]& /@ sm[ntw] ]
 		],
 		tensors
 	];
