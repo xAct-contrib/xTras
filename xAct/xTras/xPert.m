@@ -206,12 +206,11 @@ xTrasDefMetricPerturbation[metric_,pert_,param_] := (
 
 
 DefMetricVariation[metric_?MetricQ, per_, param_] := Module[
-	{var, M, vb, a, b, def},
+	{var, M, vb, a, b},
 
 	M 		= ManifoldOfCovD@CovDOfMetric@metric;
 	vb 		= VBundleOfMetric[metric];
-	a 		= DummyIn[vb];
-	b 		= DummyIn[vb];
+	{a,b}	= GetIndicesOfVBundle[vb,2];
 
 	If[
 		PerturbationOfMetric[metric] =!= per || PerturbationParameterOfMetric[metric] =!= param,
@@ -223,10 +222,13 @@ DefMetricVariation[metric_?MetricQ, per_, param_] := Module[
 	Block[{$DefInfoQ = False},
 		DefTensor[var[-a, -b], M, Symmetric[{-a, -b},Cycles]];
 	];
-  
-	(* The stuff below is wrapped in a function because SetDelayed has the HoldAll attribute. *)
-	def[cd_, sqrt_] :=
-	(
+	
+	With[
+		{
+			cd 	 = CovDOfMetric[metric],
+			sqrt = Sqrt[SignDetOfMetric[metric] Determinant[metric][]]
+		},
+		
 		(* We can now define a total variation (w.r.t.to metric) as \
 		   follows.Note that we're only varying the metric and hence set \
 		   variations of any other tensors to zero. *)
@@ -256,11 +258,6 @@ DefMetricVariation[metric_?MetricQ, per_, param_] := Module[
 		   and thus takes care of the square root of the determinant. *)
 		VarL[metric[inds__]][L_] := VarL[metric[inds], cd][L];
 		VarL[metric[inds__], cd][L_] := VarD[metric[inds], cd][L] + ReplaceDummies[L] VarD[metric[inds], cd][sqrt]/sqrt;  
-	);
-	
-	def[
-		CovDOfMetric[metric],
-		Sqrt[SignDetOfMetric[metric] Determinant[metric][]]
 	];
 ];
 
@@ -347,13 +344,19 @@ FlatRules[expr_] := Module[{tensors, manifolds, vbundles, metrics, cds},
 
 FlatRules[expr_] := Flatten[ FlatRules[CovDOfMetric[#]]& /@ FindAllMetrics[expr] ];
 
-FlatRules[CD_?CovDQ] := Module[{metric 	= MetricOfCovD[CD],	a,b,c},
-	{a,b,c}	= Table[DummyIn@First@VBundlesOfCovD@CD,{3}];
+FlatRules[CD_?CovDQ] := With[
+	{
+		metric = MetricOfCovD[CD],	
+		a = #1,
+		b = #2,
+		c = #3
+	},
 	Join[
 		SymmetricSpaceRules[CD, 0],
 		Block[{Print}, MakeRule[{PD[a]@metric[b, c], 0}, MetricOn -> All]]
 	]
-];
+]&[Sequence@@GetIndicesOfVBundle[First@VBundlesOfCovD@CD, 3]];
+
 
 
 SymmetricSpaceRules[CD_?CovDQ, K_?ConstantExprQ] := Module[
@@ -363,12 +366,13 @@ SymmetricSpaceRules[CD_?CovDQ, K_?ConstantExprQ] := Module[
 		metric	= MetricOfCovD[CD],
 		vb 		= First@VBundlesOfCovD[CD]
 	},
-	{a,b,c,d}		= Table[DummyIn[vb],{4}];
+	{a,b,c,d}		= GetIndicesOfVBundle[vb,4];
 	{pa,pb,pc,pd}	= With[{vbpmq = GiveSymbol[vb,"`pmQ"]},
 		PatternTest[Pattern[#,Blank[]],vbpmq]& /@ {a,b,c,d}
 	];
 	
-	(* The reason for this funny construction is that we don't want to evaluate
+	(* 
+	   The reason for this funny construction is that we don't want to evaluate
 	   curvature tensors with brackets, because some might be zero 
 	   (e.g. the Weyl tensor in three dimension) and some might have other
 	   downvalues associated to them by the user.
@@ -376,13 +380,14 @@ SymmetricSpaceRules[CD_?CovDQ, K_?ConstantExprQ] := Module[
 	   
 	       HoldPattern[ RicciCD[a_?TangentM`pmQ,b_?TangentM`pmQ] ] :> RHS
 	  
-	  The problem is to get the tensor heads, for which we need to do some evaluating. 
-	  That's why we wrap stuff in the MR function, because its arguments
-	  will get evaluated but the complete thing in HoldPattern[] won't.
+	   The problem is to get the tensor heads, for which we need to do some evaluating. 
+	   That's why we wrap stuff in the MR function, because its arguments
+	   will get evaluated but the complete thing in HoldPattern[] won't.
 	  
-	  Note that using a With + MakeRule construction won't help,
-	  because even though MakeRule has the attribute HoldFirst, it does evaluate
-	  its LHS along the way. *) 
+	   Note that using a With + MakeRule construction won't help,
+	   because even though MakeRule has the attribute HoldFirst, it does evaluate
+	   its LHS along the way. 
+	*) 
 	MR[head_,inds___][rhs_] := RuleDelayed[HoldPattern[head[inds]], rhs];
 
 	List[

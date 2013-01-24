@@ -93,7 +93,7 @@ Begin["`Private`"]
 EulerDensity[cd_?CovDQ] := EulerDensity[cd, DimOfManifold[ManifoldOfCovD[cd]]];
 
 EulerDensity[cd_?CovDQ, D_?EvenQ] := Module[{indices, e1, e2, riemann, n, e},
-	indices 	= Table[DummyIn@VBundleOfMetric@MetricOfCovD@cd, {2 D}];
+	indices 	= GetIndicesOfVBundle[VBundleOfMetric@MetricOfCovD@cd, 2 D];
 	e 			= GiveSymbol[epsilon, MetricOfCovD[cd]];
 	e1 			= e @@ (-indices[[1 ;; D]]);
 	e2 			= e @@ (-indices[[D + 1 ;; 2 D]]);
@@ -103,7 +103,7 @@ EulerDensity[cd_?CovDQ, D_?EvenQ] := Module[{indices, e1, e2, riemann, n, e},
 		indices[[2 i + D - 1]],
 		indices[[2 i + D]]
 	];
-	1/2^(D/2) e1 e2 Product[riemann[n], {n, 1, D/2}] // ContractMetric // ToCanonical
+	1/2^(D/2) e1 e2 Product[riemann[n], {n, 1, D/2}] // ContractMetric // ToCanonical // PutScalar
 ];
 
 InvarWrapper[invarFunction_, g_?MetricQ][expr_, otherargs___] := Module[
@@ -114,7 +114,7 @@ InvarWrapper[invarFunction_, g_?MetricQ][expr_, otherargs___] := Module[
 	
 	(* Initialize *)
 	cd 			= CovDOfMetric[g];
-	{i1,i2,i3} 	= Table[DummyIn@VBundleOfMetric@g, {3}];
+	{i1,i2,i3} 	= GetIndicesOfVBundle[VBundleOfMetric@g, 3];
 	ricci 		= GiveSymbol[Ricci, cd];
 	ricciscalar = GiveSymbol[RicciScalar, cd];
 	riemann 	= GiveSymbol[Riemann, cd];
@@ -189,7 +189,7 @@ RiemannSimplification[metric_?MetricQ][expr_] := If[
 ];
 
 RiemannSimplification[metric_?MetricQ, level_Integer][expr_] := Module[
-	{scalar, curvatureTensors,cd},
+	{result, curvatureTensors,cd},
 	
 	cd = CovDOfMetric@metric;
 	curvatureTensors = {
@@ -198,20 +198,30 @@ RiemannSimplification[metric_?MetricQ, level_Integer][expr_] := Module[
  		GiveSymbol[RicciScalar,cd],
  		GiveSymbol[Riemann,cd]
 	};
-	scalar = PutScalar[expr];
-	
-	(* TODO: if the result contains Cycles something went wrong, and we should return the original expression. *)
-	
+		
 	(* RiemannSimplify returns expression with a Scalar head, so removing the scalars with the rule
 	   is safe. *) 
-	NoScalar[scalar /. 
+	result = NoScalar[PutScalar[expr] /. 
 		Scalar[subexpr_] /; SameQ[
 			{},
 			Complement[
 				FindAllOfType[subexpr, Tensor] /. t_?xTensorQ[___] :> t, 
 	     		curvatureTensors
 	     	] 
-		] :> InvarWrapper[RiemannSimplify[#2, Release@level, CurvatureRelationsQ@cd, #1] &, metric][ContractMetric@subexpr]
+		] :> InvarWrapper[
+			RiemannSimplify[#2, Release@level, CurvatureRelationsQ@cd, #1] &, 
+			metric
+		][ContractMetric@subexpr]
+	];
+
+	(* If the result contains Cycles something went wrong, and we return the original expression. *)
+	If[FreeQ[expr, Cycles] && !FreeQ[result, Cycles],
+		Message[
+			RiemannSimplification::error, 
+			"Result containts Cycles and input did not. Returning input."
+		];
+		expr,
+		result
 	]
 ];
 
@@ -224,7 +234,7 @@ RicciDivRule[cd_?CovDQ] := Module[
 		vb		= First@VBundlesOfCovD[cd],
 		a,b,pa,pb,MR
 	},
-	{a,b}	= Table[DummyIn[vb],{2}];
+	{a,b}	= GetIndicesOfVBundle[vb, 2];
 	pb = With[{vbpmq=GiveSymbol[vb,"`pmQ"]},
 		PatternTest[Pattern[Evaluate@b,Blank[]],vbpmq]
 	];
@@ -256,7 +266,7 @@ RiemannDivRule[cd_?CovDQ] := Module[
 		a,b,c,d,pa,pb,pc,pd,MR
 	},
 	
-	{a,b,c,d}	= Table[DummyIn[vb],{4}];
+	{a,b,c,d}	= GetIndicesOfVBundle[vb, 4];
 	{pa,pb,pc}	= With[{vbpmq=GiveSymbol[vb,"`pmQ"]},
 		PatternTest[Pattern[#,Blank[]],vbpmq]&/@{a,b,c}
 	];
@@ -307,8 +317,6 @@ FullSimplification[metric_?MetricQ, options___?OptionQ][expr_] := Module[
 	
 	tmp = ToCanonical@ContractMetric[expr, metric];
 	tmp = RiemannSimplification[metric][tmp];
-	
-	(* TODO: Apply dimensional dependent identities *)
 
 	(* Sort covariant derivatives *)
 	If[sortcd,
@@ -332,8 +340,6 @@ FullSimplification[metric_?MetricQ, options___?OptionQ][expr_] := Module[
 	
 	tmp = ToCanonical@ContractMetric[tmp, metric];
 	 
-	(* TODO: Apply dimensional dependent identities again *)
-	(* TODO: Apply bianchi identities *)
 	SetOptions[ToCanonical, oldmonv // First];
 	SetOptions[ContractMetric, olduppder // First];
 	

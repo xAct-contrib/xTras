@@ -177,3 +177,11 @@ Test[
 	,
 	TestID->"xPert-20130102-U8R5L9"
 ]
+
+Test[
+	PD[-e]@metric[-f,-d] /. FlatRules[CD] 
+	,
+	0
+	,
+	TestID->"xPert-20130124-M1S8X7"
+]

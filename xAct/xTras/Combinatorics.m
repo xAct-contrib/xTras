@@ -124,7 +124,7 @@ AllContractions[expr_,options___?OptionQ] :=
 AllContractions[expr_,freeIndices:IndexList[___?AIndexQ],options___?OptionQ] := 
 	AllContractions[expr, freeIndices, StrongGenSet[{},GenSet[]], options];
 
-AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,options___?OptionQ] := Module[
+AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
 	{
 		verbose,symmethod,symm,map,exprIndices,numIndices,VB,metric,
 		auxT,auxTexpr,indexlist,dummylist,dummies,M,removesign,process,step,
@@ -276,7 +276,7 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_StrongGenSet,
 	contractions = map[
 		symm,
 		contractions,
-		Description -> "Imposing symmetry."
+		Description -> "Imposing symmetry and canonicalizing."
 	];
 	
 	(* Lastly, undefine the auxiliary tensor. We couldn't do this before
@@ -356,9 +356,9 @@ IndexConfigurations[expr_] := Module[
 	sgs 	= sym[[4]];
 	indices = IndexSort[ IndexList @@ Last /@ sym[[3]] ];
 	len 	= sym[[1]];
-	perms	= xAct`SymManipulator`Private`TransversalComputation[
+	perms	= TransversalInSymmetricGroup[
 		sgs, 
-  		Symmetric[Range@len,Cycles] 
+  		Symmetric[Range@len] 
   	];
   	Union@Map[
   		xAct`xTensor`Private`Reconstruct[
@@ -443,7 +443,7 @@ RiemannYoungRule[cd_?CovDQ, {numcds_Integer}] /; numcds >= 0 := Module[
 	},
 	riemann	= GiveSymbol[Riemann, cd];
 	indrie	= DummyIn /@ SlotsOfTensor@riemann;
-	indcds 	= -Table[DummyIn@First@VBundlesOfCovD[cd], {numcds}];
+	indcds 	= -GetIndicesOfVBundle[First@VBundlesOfCovD[cd], numcds];
 	tableau = {Join[indrie[[{1, 3}]], indcds], indrie[[{2, 4}]]};
 	expr 	= Fold[cd[#2][#1] &, riemann @@ indrie, indcds];
 	If[expr === 0,

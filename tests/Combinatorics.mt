@@ -17,6 +17,17 @@ Test[
 
 Test[
 	Antisymmetrize[
+		RiemannCD[-e,-f,-g,-h],
+		{-e,-g,-h}
+	] // ToCanonical // RiemannYoungProject// ToCanonical
+	,
+	0
+	,
+	TestID->"xPert-20130124-Y2N0D7"
+]
+
+Test[
+	Antisymmetrize[
 		CD[-a]@RiemannCD[-b,-c,-d,-e],
 		{-a,-b,-c}
 	] //ToCanonical // RiemannYoungProject[#,1]& // ToCanonical
@@ -86,7 +97,7 @@ Test[
 ]
 
 Test[
-	AllContractions[ RiemannCD[a,b,c,d], IndexList[a,b], Symmetric[{a,b},Cycles] ]
+	AllContractions[ RiemannCD[a,b,c,d], IndexList[a,b], Symmetric[{a,b}] ]
 	,
 	{ RicciCD[a,b], metric[a,b] RicciScalarCD[] }
 	,

@@ -6,8 +6,9 @@
 
 (*
 
- * Change DummyIn to GetIndicesOfVBundle where appropriate (not everywhere!).
+ * Undef hooks.
  * Switch Modules to With's where approriate.
+ * Rewrite SolveTensors with Monomials?
 
 *)
 
@@ -19,7 +20,8 @@
 (*********************)
 
 xAct`xTras`$Version = "1.1.0pre";
-xAct`xTras`$xTensorVersionExpected = {"1.0.4", {2012, 5, 5}};
+xAct`xTras`$xTensorVersionExpected = {"1.0.5", {2013, 1, 27}};
+xAct`xTras`$MathematicaVersionNeeded = 6.;
 
 If[Unevaluated[xAct`xCore`Private`$LastPackage] === xAct`xCore`Private`$LastPackage, 
 	xAct`xCore`Private`$LastPackage = "xAct`xTras`"
@@ -39,6 +41,12 @@ BeginPackage["xAct`xTras`"]
 (* Check if we have the correct version of xAct. *)
 If[Not@OrderedQ@Map[Last, {xAct`xTras`$xTensorVersionExpected, xAct`xTensor`$Version}], 
 	Message[General::versions, "xTensor", xAct`xTensor`$Version, xAct`xTras`$xTensorVersionExpected];
+	Abort[]
+];
+
+(* Check for MMA versions. *)
+If[System`$VersionNumber < xAct`xTras`$MathematicaVersionNeeded,
+	Message[General::versions, "Mathematica", System`$VersionNumber, xAct`xTras`$MathematicaVersionNeeded];
 	Abort[]
 ];
 

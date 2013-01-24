@@ -6,7 +6,7 @@
 
 Test[
 	ToCanonical[
-		EulerDensity[CD,4]
+		NoScalar@EulerDensity[CD,4]
 		- (4*RicciCD[-a, -b]*RicciCD[a, b] - RicciScalarCD[]^2 - 
  		  RiemannCD[-a, -b, -c, -d]*RiemannCD[a, b, c, d] )
 	]
@@ -80,6 +80,15 @@ Test[
 	,
 	TestID->"Invar-20130102-Z9B2U8"
 ]
+
+Test[
+	CD[f]@RicciCD[-g, -f] /. RicciDivRule[CD]
+	,
+	CD[-g][RicciScalarCD[]]/2
+	,
+	TestID->"xPert-20130124-Q1C6L4"
+]
+
 
 Test[
 	CD[b]@RicciCD[a, -b] /. RicciDivRule[CD]
