@@ -19,7 +19,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = "1.1.0";
+xAct`xTras`$Version = {"1.1.0", {2013,1,23}};
 xAct`xTras`$xTensorVersionExpected = {"1.0.5", {2013, 1, 27}};
 xAct`xTras`$MathematicaVersionNeeded = 6.;
 
@@ -52,10 +52,8 @@ If[System`$VersionNumber < xAct`xTras`$MathematicaVersionNeeded,
 
 (* Print info *)
 Print[xAct`xCore`Private`bars];
-Print["Package xAct`xTras`  version ", xAct`xTras`$Version];
-Print["Written by Teake Nutma."];
-Print["https://code.google.com/p/xact-xtras/"];
-
+Print["Package xAct`xTras`  version ", xAct`xTras`$Version[[1]],", ",xAct`xTras`$Version[[2]]];
+Print["CopyRight (C) 2012-2013, Teake Nutma, under the General Public License."];
 
 If[xAct`xCore`Private`$LastPackage === "xAct`xTras`",
 	Unset[xAct`xCore`Private`$LastPackage];
