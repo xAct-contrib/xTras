@@ -118,7 +118,7 @@ commutations of the covariant derivatives.";
 KillingVectorQ::usage = "\ 
 KillingVectorQ[tensor,metric] returns True if the tensor is defined to be a Killing vector of\
 the given metric, and False otherwise.\n\
-KillingVectorQ[tensor] returns KillingVectorQ[tensor, KillingVectorOf[tensor]].";
+KillingVectorQ[tensor] returns KillingVectorQ[tensor, MetricOfKillingVector[tensor]].";
 
 KillingVectorOf::usage = 
   "Option for DefTensor. Setting the value of KillingVectorOf to a metric while defining a vector \

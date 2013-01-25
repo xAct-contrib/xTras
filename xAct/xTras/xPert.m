@@ -220,7 +220,7 @@ DefMetricVariation[metric_?MetricQ, per_, param_] := Module[
 		]
 	];
 	Block[{$DefInfoQ = False},
-		DefTensor[var[-a, -b], M, Symmetric[{-a, -b},Cycles]];
+		DefTensor[var[-a, -b], M, Symmetric[{-a, -b}]];
 	];
 	
 	With[
