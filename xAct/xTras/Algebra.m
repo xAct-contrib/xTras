@@ -177,13 +177,13 @@ RemoveTensors[expr_] := TensorWrapper[expr] /. HoldPattern[TensorWrapper[___]] -
 MapTimedTensors[func_, expr_, options___?OptionQ] := MapTensors1[func, expr, MapTimed, options];
 MapTensors[func_, expr_] := MapTensors1[func, expr, Map];
 
-MapTensors1[func_, expr_, mapmethod_] := Module[
+MapTensors1[func_, expr_, mapmethod_,options___] := Module[
 	{
 		wrapped, wrappers, fwrappers
 	},
 	wrapped 	= TensorWrapper[expr];
 	wrappers	= Union[Cases[wrapped,HoldPattern[TensorWrapper[_]],{0,Infinity},Heads->True]];
-	fwrappers	= mapmethod[func, RemoveTensorWrapper[wrappers] ];
+	fwrappers	= mapmethod[func, RemoveTensorWrapper[wrappers], options ];
 	wrapped /. Inner[Rule,wrappers,fwrappers, List]
 ];
 
