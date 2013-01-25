@@ -115,13 +115,18 @@ commutations of the covariant derivatives.";
 
 (* Killing vectors *)
 
-KillingVectorQ::usage = 
-  "KillingVectorQ[tensor] return True if the tensor is defined to be a Killing vector";
+KillingVectorQ::usage = "\ 
+KillingVectorQ[tensor,metric] returns True if the tensor is defined to be a Killing vector of\
+the given metric, and False otherwise.\n\
+KillingVectorQ[tensor] returns KillingVectorQ[tensor, KillingVectorOf[tensor]].";
 
 KillingVectorOf::usage = 
   "Option for DefTensor. Setting the value of KillingVectorOf to a metric while defining a vector \
 defines the vector as a Killing vector of that metric (e.g. \"DefTensor[\[Xi][a], KillingVectorOf->metric]\").";
 
+MetricOfKillingVector::usage =
+	"MetricOfKillingVector[vector] returns the metric of which the given vector is a Killing vector,\
+and None if it is not a Killing vector.";
 
 Begin["`Private`"]
 
@@ -248,11 +253,11 @@ xTrasxTensorDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[
 	
 	(* Define the new curvature tensors. *)
 	DefTensor[GiveSymbol[Schouten,cd][-a, -b], 
-		M, Symmetric[{-a, -b},Cycles], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];
+		M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];
 	DefTensor[GiveSymbol[SchoutenCC,cd][LI[_],-a, -b], 
-		M, Symmetric[{-a, -b},Cycles], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];	
+		M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];	
 	DefTensor[einsteincc[LI[_],-a, -b], 
-		M, Symmetric[{-a, -b},Cycles], PrintAs -> GiveOutputString[Einstein,cd], Master->cd];
+		M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Einstein,cd], Master->cd];
 	
 	(* Some identities for the cosmological Einstein tensor. *)
 	cd[c_]@einsteincc[LI[_],___,d_,___] /; c === ChangeIndex[d] ^= 0;
@@ -388,8 +393,10 @@ DivFreeQ[expr_, tens_, CD_?CovDQ] :=
 (*******************)
 
 
-KillingVectorQ[expr_] := False
-KillingVectorOf[expr_] := None
+KillingVectorQ[_,_] := False
+KillingVectorQ[v_] 	:= KillingVectorQ[v,MetricOfKillingVector@v];
+
+MetricOfKillingVector[_] := None
 
 Unprotect[xAct`xTensor`DefTensor];
 If[FreeQ[Options[xAct`xTensor`DefTensor], KillingVectorOf], 
@@ -429,7 +436,7 @@ DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], me
 		2,
 		cd[xAct`xTensor`Private`slot[2]][xi[l1,xAct`xTensor`Private`slot[1],l2]], 
 		{xAct`xTensor`Private`slot[1] -> y, xAct`xTensor`Private`slot[2] -> x},
-		Antisymmetric[{1, 2},Cycles]
+		Antisymmetric[{1, 2}]
 	]; 
 
 	(* Attach the rules and the rest. *)
@@ -442,8 +449,8 @@ DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], me
 	LieD[xi[l1patt,_,l2patt],_][metric[__]] = 0;
 	Protect[xAct`xTensor`LieD];
  
-	KillingVectorOf[xi] ^= metric;
-	KillingVectorQ[xi] ^= True;
+	MetricOfKillingVector[xi] ^= metric;
+	KillingVectorQ[xi,metric] ^= True;
 ] /; AIndexQ[ind, VBundleOfMetric@metric];
 
 

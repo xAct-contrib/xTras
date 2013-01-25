@@ -336,7 +336,7 @@ Test[
 DefTensor[V[a], M, KillingVectorOf -> metric]
 
 Test[
-	KillingVectorQ[V]
+	KillingVectorQ[V,metric]
 	,
 	True
 	,
@@ -344,7 +344,7 @@ Test[
 ]
 
 Test[
-	KillingVectorOf[V]
+	MetricOfKillingVector[V]
 	,
 	metric
 	,

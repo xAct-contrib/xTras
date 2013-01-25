@@ -91,13 +91,269 @@ We\[CloseCurlyQuote]ll first load xTras and discuss the new functionality in \
 the sub-packages one by one.\
 \>", "Text"],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[
- RowBox[{"Quiet", "@", 
-  RowBox[{"Block", "[", 
-   RowBox[{
-    RowBox[{"{", "Print", "}"}], ",", "\[IndentingNewLine]", 
-    RowBox[{"<<", "xAct`xTras`"}]}], "\[IndentingNewLine]", 
-   "]"}]}]], "Input"]
+ RowBox[{"<<", "xAct`xTras`"}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Package xAct`xPerm`  version \"\>", 
+   "\[InvisibleSpace]", "\<\"1.2.0\"\>", "\[InvisibleSpace]", "\<\", \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"2013", ",", "1", ",", "27"}], "}"}]}],
+  SequenceForm["Package xAct`xPerm`  version ", "1.2.0", ", ", {2013, 1, 27}],
+  
+  Editable->False]], "Print"],
+
+Cell[BoxData["\<\"CopyRight (C) 2003-2013, Jose M. Martin-Garcia, under the \
+General Public License.\"\>"], "Print"],
+
+Cell[BoxData["\<\"Connecting to external mac executable...\"\>"], "Print"],
+
+Cell[BoxData["\<\"Connection established.\"\>"], "Print"],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Package xAct`xTensor`  version \"\>", 
+   "\[InvisibleSpace]", "\<\"1.0.5\"\>", "\[InvisibleSpace]", "\<\", \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"2013", ",", "1", ",", "27"}], "}"}]}],
+  SequenceForm[
+  "Package xAct`xTensor`  version ", "1.0.5", ", ", {2013, 1, 27}],
+  Editable->False]], "Print"],
+
+Cell[BoxData["\<\"CopyRight (C) 2002-2013, Jose M. Martin-Garcia, under the \
+General Public License.\"\>"], "Print"],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Package xAct`xPert`  version \"\>", 
+   "\[InvisibleSpace]", "\<\"1.0.2\"\>", "\[InvisibleSpace]", "\<\", \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"2011", ",", "10", ",", "10"}], "}"}]}],
+  SequenceForm["Package xAct`xPert`  version ", "1.0.2", ", ", {2011, 10, 10}],
+  Editable->False]], "Print"],
+
+Cell[BoxData["\<\"CopyRight (C) 2005-2012, David Brizuela, Jose M. \
+Martin-Garcia and Guillermo A. Mena Marugan, under the General Public \
+License.\"\>"], "Print"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "nostdvar"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Nonstandard configuration: variable \
+\[NoBreak]\\!\\(\\\"$PrePrint\\\"\\)\[NoBreak] now has value \[NoBreak]\\!\\(\
+\\\"ScreenDollarIndices\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG"],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "nostdvar"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Nonstandard configuration: variable \
+\[NoBreak]\\!\\(\\\"$CovDFormat\\\"\\)\[NoBreak] now has value \
+\[NoBreak]\\!\\(\\\"Postfix\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG"],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "nostdopt"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Nonstandard configuration: option \
+\[NoBreak]\\!\\(\\\"AllowUpperDerivatives\\\"\\)\[NoBreak] of \
+\[NoBreak]\\!\\(\\\"ContractMetric\\\"\\)\[NoBreak] now has value \
+\[NoBreak]\\!\\(\\\"True\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG"],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "nostdopt"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Nonstandard configuration: option \
+\[NoBreak]\\!\\(\\\"MetricOn\\\"\\)\[NoBreak] of \[NoBreak]\\!\\(\\\"MakeRule\
+\\\"\\)\[NoBreak] now has value \
+\[NoBreak]\\!\\(\\\"All\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG"],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "nostdopt"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Nonstandard configuration: option \
+\[NoBreak]\\!\\(\\\"ContractMetrics\\\"\\)\[NoBreak] of \
+\[NoBreak]\\!\\(\\\"MakeRule\\\"\\)\[NoBreak] now has value \
+\[NoBreak]\\!\\(\\\"True\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG"],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "stop"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Further output of \[NoBreak]\\!\\(\\*StyleBox[\\(General \
+:: nostdopt\\), \\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during \
+this calculation. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/stop\\\", ButtonNote -> \
+\\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefInertHead", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"inert head \"\>", "\[InvisibleSpace]", 
+   "Perturbation", "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefInertHead, ": Defining ", "inert head ", 
+   xAct`xPert`Perturbation, ". ", ""],
+  Editable->False]], "Print"],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Package xAct`Invar`  version \"\>", 
+   "\[InvisibleSpace]", "\<\"2.0.3\"\>", "\[InvisibleSpace]", "\<\", \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"2011", ",", "10", ",", "25"}], "}"}]}],
+  SequenceForm["Package xAct`Invar`  version ", "2.0.3", ", ", {2011, 10, 25}],
+  Editable->False]], "Print"],
+
+Cell[BoxData["\<\"CopyRight (C) 2006-2012, J. M. Martin-Garcia, D. Yllanes \
+and R. Portugal, under the General Public License.\"\>"], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefConstantSymbol", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"constant symbol \"\>", "\[InvisibleSpace]", 
+   "sigma", "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefConstantSymbol, ": Defining ", "constant symbol ", 
+   xAct`Invar`sigma, ". ", ""],
+  Editable->False]], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefConstantSymbol", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"constant symbol \"\>", "\[InvisibleSpace]", 
+   "dim", "\[InvisibleSpace]", "\<\". \"\>", "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefConstantSymbol, ": Defining ", "constant symbol ", 
+   xAct`Invar`dim, ". ", ""],
+  Editable->False]], "Print"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "nostdvar"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Nonstandard configuration: variable \
+\[NoBreak]\\!\\(\\\"$PrePrint\\\"\\)\[NoBreak] now has value \[NoBreak]\\!\\(\
+\\\"ScreenDollarIndices\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG"],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "stop"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Further output of \[NoBreak]\\!\\(\\*StyleBox[\\(General \
+:: nostdvar\\), \\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during \
+this calculation. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/stop\\\", ButtonNote -> \
+\\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Package xAct`xCoba`  version \"\>", 
+   "\[InvisibleSpace]", "\<\"0.8.0\"\>", "\[InvisibleSpace]", "\<\", \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"2013", ",", "1", ",", "27"}], "}"}]}],
+  SequenceForm["Package xAct`xCoba`  version ", "0.8.0", ", ", {2013, 1, 27}],
+  
+  Editable->False]], "Print"],
+
+Cell[BoxData["\<\"CopyRight (C) 2005-2013, David Yllanes and Jose M. \
+Martin-Garcia, under the General Public License.\"\>"], "Print"],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Package xAct`SymManipulator`  version \"\>", 
+   "\[InvisibleSpace]", "\<\"0.8.5\"\>", "\[InvisibleSpace]", "\<\", \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"2013", ",", "1", ",", "23"}], "}"}]}],
+  SequenceForm[
+  "Package xAct`SymManipulator`  version ", "0.8.5", ", ", {2013, 1, 23}],
+  Editable->False]], "Print"],
+
+Cell[BoxData["\<\"CopyRight (C) 2011-2013, Thomas B\[ADoubleDot]ckdahl, under \
+the General Public License.\"\>"], "Print"],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Package xAct`xTras`  version \"\>", 
+   "\[InvisibleSpace]", "\<\"1.1.1pre\"\>", "\[InvisibleSpace]", "\<\", \"\>",
+    "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"2013", ",", "1", ",", "25"}], "}"}]}],
+  SequenceForm[
+  "Package xAct`xTras`  version ", "1.1.1pre", ", ", {2013, 1, 25}],
+  Editable->False]], "Print"],
+
+Cell[BoxData["\<\"CopyRight (C) 2012-2013, Teake Nutma, under the General \
+Public License.\"\>"], "Print"],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print"],
+
+Cell[BoxData["\<\"These packages come with ABSOLUTELY NO WARRANTY; for \
+details type Disclaimer[]. This is free software, and you are welcome to \
+redistribute it under certain conditions. See the General Public License for \
+details.\"\>"], "Print"],
+
+Cell[BoxData["\<\"------------------------------------------------------------\
+\"\>"], "Print"]
+}, Open  ]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -179,7 +435,8 @@ Cell[BoxData[
      RowBox[{"Parallelization", "\[Rule]", "True"}]}], "]"}], "//", 
    "AbsoluteTiming"}], "//", "First"}]], "Input"],
 
-Cell[BoxData["7.63083`7.334116771924714"], "Output"]
+Cell[BoxData["8.5406510000000004367848305264487862587`6.952090888761633"], \
+"Output"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -192,70 +449,117 @@ Cell[BoxData[
      RowBox[{"Parallelization", "\[Rule]", "False"}]}], "]"}], "//", 
    "AbsoluteTiming"}], "//", "First"}]], "Input"],
 
-Cell[BoxData["13.458444`7.58053984526532"], "Output"]
+Cell[BoxData["13.66116199999999913927695160964503884315`7.156087554698706"], \
+"Output"]
 }, Open  ]],
 
 Cell["\<\
 Because MapTimed prints information, there is a slight overhead compared to \
-Map:\
+Map. To measure this, we\[CloseCurlyQuote]ll use Identity, a function that \
+does nothing but return the expression it is given, and thus takes almost no \
+time to evaluate:\
 \>", "Text"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{
+ RowBox[{"t1", "=", 
   RowBox[{
-   RowBox[{"MapTimed", "[", 
-    RowBox[{"Identity", ",", 
-     RowBox[{"Range", "[", "1000", "]"}]}], "]"}], "//", "AbsoluteTiming"}], "//",
-   "First"}]], "Input"],
+   RowBox[{
+    RowBox[{"MapTimed", "[", 
+     RowBox[{"Identity", ",", 
+      RowBox[{"Range", "[", "1000", "]"}]}], "]"}], "//", "AbsoluteTiming"}], 
+   "//", "First"}]}]], "Input"],
 
-Cell[BoxData["0.058745`5.220515901634333"], "Output"]
+Cell[BoxData["0.08465899999999999814281892440703813918`4.948273047521007"], \
+"Output"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{
+ RowBox[{"t2", "=", 
   RowBox[{
-   RowBox[{"Map", "[", 
-    RowBox[{"Identity", ",", 
-     RowBox[{"Range", "[", "1000", "]"}]}], "]"}], "//", "AbsoluteTiming"}], "//",
-   "First"}]], "Input"],
+   RowBox[{
+    RowBox[{"Map", "[", 
+     RowBox[{"Identity", ",", 
+      RowBox[{"Range", "[", "1000", "]"}]}], "]"}], "//", "AbsoluteTiming"}], 
+   "//", "First"}]}]], "Input"],
 
-Cell[BoxData["0.000293`2.9184126138500828"], "Output"]
+Cell[BoxData["0.00019499999999999999646983772638719756`2.310634524642142"], \
+"Output"]
 }, Open  ]],
 
 Cell["\<\
-When Parallelize is set to True, the overhead is much worse because MapTimed \
-synchronizes its progress among the different kernels:\
+The overhead depends on the length of the expression to map over; per unit \
+length it is approximately:\
 \>", "Text"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{
-   RowBox[{"MapTimed", "[", 
-    RowBox[{"Identity", ",", 
-     RowBox[{"Range", "[", "1000", "]"}], ",", 
-     RowBox[{"Parallelization", "\[Rule]", "True"}]}], "]"}], "//", 
-   "AbsoluteTiming"}], "//", "First"}]], "Input"],
+  RowBox[{"(", 
+   RowBox[{"t1", "-", "t2"}], ")"}], "/", "1000"}]], "Input"],
 
-Cell[BoxData["5.488554`7.191002934933707"], "Output"]
+Cell[BoxData["0.00008446399999999999814634908668065094`4.646241562272526"], \
+"Output"]
+}, Open  ]],
+
+Cell["\<\
+Depending on the type of computation you\[CloseCurlyQuote]re doing, this is \
+usually neglible.\
+\>", "Text"],
+
+Cell["\<\
+However, when Parallelize is set to True, the overhead is much worse because \
+MapTimed synchronizes its progress among the different kernels:\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"t1", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"MapTimed", "[", 
+     RowBox[{"Identity", ",", 
+      RowBox[{"Range", "[", "1000", "]"}], ",", 
+      RowBox[{"Parallelization", "\[Rule]", "True"}]}], "]"}], "//", 
+    "AbsoluteTiming"}], "//", "First"}]}]], "Input"],
+
+Cell[BoxData["5.61205200000000026250290829921141266823`6.7697215997286815"], \
+"Output"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{
+ RowBox[{"t2", "=", 
   RowBox[{
-   RowBox[{"ParallelMap", "[", 
-    RowBox[{"Identity", ",", 
-     RowBox[{"Range", "[", "1000", "]"}]}], "]"}], "//", "AbsoluteTiming"}], "//",
-   "First"}]], "Input"],
+   RowBox[{
+    RowBox[{"ParallelMap", "[", 
+     RowBox[{"Identity", ",", 
+      RowBox[{"Range", "[", "1000", "]"}]}], "]"}], "//", "AbsoluteTiming"}], 
+   "//", "First"}]}]], "Input"],
 
-Cell[BoxData["0.032442`4.96265261345524"], "Output"]
+Cell[BoxData["0.03457600000000000256550336530381173361`4.55937466281879"], \
+"Output"]
+}, Open  ]],
+
+Cell["\<\
+The overhead per unit length now is almost 100 times as much:\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(", 
+   RowBox[{"t1", "-", "t2"}], ")"}], "/", "1000"}]], "Input"],
+
+Cell[BoxData["0.00557747600000000025993740493390760094`6.466007627796978"], \
+"Output"]
 }, Open  ]]
 }, Closed]]
 }, Open  ]],
@@ -2371,7 +2675,7 @@ Cell[BoxData[
 a metric while defining a vector defines the vector as a Killing vector of \
 that metric (e.g. \\\"DefTensor[\[Xi][a], KillingVectorOf->metric]\\\").\"\>",
    "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3566446700-1250689"]
+ CellTags->"Info3568109686-8308727"]
 }, Open  ]],
 
 Cell[TextData[{
@@ -2393,14 +2697,15 @@ Cell[TextData[{
  Cell[BoxData[
   FormBox[
    SuperscriptBox["\[Xi]", "a"], TraditionalForm]]],
- " is then registered as a Killing vector:"
+ " is then registered as a Killing vector of the metric:"
 }], "Text"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[{
- RowBox[{"KillingVectorQ", "[", "\[Xi]", "]"}], "\[IndentingNewLine]", 
- RowBox[{"KillingVectorOf", "[", "\[Xi]", "]"}]}], "Input"],
+ RowBox[{"KillingVectorQ", "[", 
+  RowBox[{"\[Xi]", ",", "metric"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"MetricOfKillingVector", "[", "\[Xi]", "]"}]}], "Input"],
 
 Cell[BoxData["True"], "Output"],
 
@@ -10712,6 +11017,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
                FontSize->9]}
             },
+            
             GridBoxAlignment->{
              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -11068,6 +11374,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -11284,7 +11591,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
-           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -12441,6 +12747,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -13958,6 +14265,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -15109,7 +15417,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
-           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -15331,6 +15638,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
