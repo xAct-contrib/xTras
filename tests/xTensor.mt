@@ -139,6 +139,63 @@ Test[
 	TestID->"xTensor-20130126-K9Y5J9"
 ]
 
+Test[
+	CD[a]@RicciCD[-a, -b] /. CurvatureRelationsBianchi[CD]
+	,
+	CD[-b][RicciScalarCD[]]/2
+	,
+	TestID->"Invar-20130102-Z9B2U8"
+]
+
+Test[
+	CD[f]@RicciCD[-g, -f] /. CurvatureRelationsBianchi[CD]
+	,
+	CD[-g][RicciScalarCD[]]/2
+	,
+	TestID->"xPert-20130124-Q1C6L4"
+]
+
+
+Test[
+	CD[b]@RicciCD[a, -b] /. CurvatureRelationsBianchi[CD]
+	,
+	CD[a][RicciScalarCD[]]/2
+	,
+	TestID->"Invar-20130102-N0C0V5"
+]
+
+Test[
+	CD[a]@RiemannCD[-a, -b, -c, -d] /. CurvatureRelationsBianchi[CD]
+	,
+	CD[-c][RicciCD[-b, -d]] - CD[-d][RicciCD[-b, -c]]
+	,
+	TestID->"Invar-20130102-V9L4H6"
+]
+
+Test[
+	CD[b]@RiemannCD[-a, -b, -c, -d] /. CurvatureRelationsBianchi[CD]
+	,
+	-CD[-c][RicciCD[-a, -d]] + CD[-d][RicciCD[-a, -c]]
+	,
+	TestID->"Invar-20130102-Z5B4W8"
+]
+
+Test[
+	CD[c]@RiemannCD[-a, -b, -c, -d] /. CurvatureRelationsBianchi[CD]
+	,
+	CD[-a][RicciCD[-d, -b]] - CD[-b][RicciCD[-d, -a]]
+	,
+	TestID->"Invar-20130102-Z7Y9G1"
+]
+
+Test[
+	CD[d]@RiemannCD[-a, -b, -c, -d] /. CurvatureRelationsBianchi[CD]
+	,
+	-CD[-a][RicciCD[-c, -b]] + CD[-b][RicciCD[-c, -a]]
+	,
+	TestID->"Invar-20130102-N2G6L7"
+]
+
 (*****************************)
 (*                           *)
 (*  Extra curvature tensors  *)

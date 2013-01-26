@@ -26,16 +26,6 @@ ToCanonical etc, and works on more general expressions. \
 \nNote that it only simplifies expression consisting of Riccis and Riemanns, \
 and not of other curvature tensors.";
 
-RicciDivRule::usage = 
-  "RicciDivRule[CD] gives rules for rewriting the divergence of the \
-Ricci tensor of the given covariant derivative in terms of the Ricci \
-scalar.";
-
-RiemannDivRule::usage = 
-  "RiemannDivRule[CD] gives rules for rewriting the divergence of the \
-Riemann tensor of the given covariant derivative in terms of the \
-Ricci tensor.";
-
 FS::usage = 
   "FS is an alias of FullSimplification. Kept for backwards compatibility.";
 
@@ -225,75 +215,6 @@ RiemannSimplification[metric_?MetricQ, level_Integer][expr_] := Module[
 	]
 ];
 
-
-
-RicciDivRule[cd_?CovDQ] := Module[
-	{
-		ricci	= GiveSymbol[Ricci,cd],
-		rs		= GiveSymbol[RicciScalar,cd],
-		vb		= First@VBundlesOfCovD[cd],
-		a,b,pa,pb,MR
-	},
-	{a,b}	= GetIndicesOfVBundle[vb, 2];
-	pb = With[{vbpmq=GiveSymbol[vb,"`pmQ"]},
-		PatternTest[Pattern[Evaluate@b,Blank[]],vbpmq]
-	];
-	pa = With[{vbq=GiveSymbol[vb,"`Q"]},
-		PatternTest[Pattern[Evaluate@a,Blank[Symbol]],vbq]
-	];
-	
-	MR[der_,head_,i1_,i2_,i3_] := RuleDelayed[
-		HoldPattern[der[i1]@head[i2,i3]],
-		Evaluate[1/2 cd[b]@rs[]]
-	];
-	FoldedRule[
-		PreferDivOfRule[ricci, cd],
-		{
-			MR[cd,ricci,pa,-pa,pb],
-			MR[cd,ricci,-pa,pa,pb],
-			MR[cd,ricci,pa,pb,-pa],
-			MR[cd,ricci,-pa,pb,pa]
-		}
-	]
-];
-
-
-RiemannDivRule[cd_?CovDQ] := Module[
-	{
-		ricci	= GiveSymbol[Ricci,cd],
-		riemann	= GiveSymbol[Riemann,cd],
-		vb		= First@VBundlesOfCovD[cd],
-		a,b,c,d,pa,pb,pc,pd,MR
-	},
-	
-	{a,b,c,d}	= GetIndicesOfVBundle[vb, 4];
-	{pa,pb,pc}	= With[{vbpmq=GiveSymbol[vb,"`pmQ"]},
-		PatternTest[Pattern[#,Blank[]],vbpmq]&/@{a,b,c}
-	];
-	pd = With[{vbq=GiveSymbol[vb,"`Q"]},
-		PatternTest[Pattern[Evaluate@d,Blank[Symbol]],vbq]
-	];
-	
-	MR[der_,head_,i1_,i2_,i3_,i4_,i5_,sign_] := RuleDelayed[
-		HoldPattern[der[i1]@head[i2,i3,i4,i5]],
-		Evaluate[sign*$RicciSign*(cd[b]@ricci[a,c]-cd[c]@ricci[a,b])]
-	];
-	FoldedRule[
-		PreferDivOfRule[riemann, cd],
-		{
-			MR[cd,riemann,-pd,pd,pa,pb,pc,1],
-			MR[cd,riemann,pd,-pd,pa,pb,pc,1],
-			MR[cd,riemann,-pd,pa,pd,pb,pc,-1],
-			MR[cd,riemann,pd,pa,-pd,pb,pc,-1],
-			MR[cd,riemann,-pd,pb,pc,pd,pa,1],
-			MR[cd,riemann,pd,pb,pc,-pd,pa,1],
-			MR[cd,riemann,-pd,pb,pc,pa,pd,-1],
-			MR[cd,riemann,pd,pb,pc,pa,-pd,-1]
-		}
-	]
-];
-
-
 FS = FullSimplification;
 
 Options[FullSimplification] ^= {SortCovDs -> True};
@@ -320,15 +241,25 @@ FullSimplification[metric_?MetricQ, options___?OptionQ][expr_] := Module[
 
 	(* Sort covariant derivatives *)
 	If[sortcd,
-		riemannDivRule 	= RiemannDivRule[cd];
-		ricciDivRule 	= RicciDivRule[cd];
+		
+		riemannDivRule = FoldedRule[
+	 		PreferDivOfRule[GiveSymbol[Riemann,cd], cd],
+			CurvatureRelationsBianchi[cd, Riemann]
+		];
+		ricciDivRule = FoldedRule[
+	 		PreferDivOfRule[GiveSymbol[Ricci,cd], cd],
+			CurvatureRelationsBianchi[cd, Ricci]
+		];
+		
 		While[!DivFreeQ[tmp, GiveSymbol[Riemann, cd]], 
 			tmp = ContractMetric[tmp //. riemannDivRule, metric]
 		];
 		While[!DivFreeQ[tmp, GiveSymbol[Ricci, cd]], 
 			tmp = ContractMetric[tmp //. ricciDivRule, metric]
 		];
+		
 		tmp = SortCovDs[tmp];
+		
 		(* Question: why do we need to do this twice? *)
 		While[!DivFreeQ[tmp, GiveSymbol[Riemann, cd]], 
 			tmp = ContractMetric[tmp //. riemannDivRule, metric]
