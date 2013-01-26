@@ -115,6 +115,30 @@ Test[
 ]
 
 
+(**********************************)
+(*                                *)
+(*  Contracted Bianchi identities *)
+(*                                *)
+(**********************************)
+
+Test[
+	ContractMetric[CD[-a][ EinsteinToRicci@EinsteinCD[a,b] ]] /. CurvatureRelationsBianchi[CD]
+	,
+	0
+	,
+	TestID->"xTensor-20130126-B1M8S4"
+]
+
+Test[
+	ToCanonical@ContractMetric[ 
+		metric[-a,-c] Antisymmetrize[CD[e]@RiemannCD[a,b,c,d],{a,b,e}] 
+	] /. CurvatureRelationsBianchi[CD] // ToCanonical
+	,
+	0
+	,
+	TestID->"xTensor-20130126-K9Y5J9"
+]
+
 (*****************************)
 (*                           *)
 (*  Extra curvature tensors  *)
@@ -236,6 +260,14 @@ Test[
 	TFRicciCD[-a, -b] // TFRicciToRicci
 	,
 	TestID->"xTensor-20130105-G6O1I6"
+]
+
+Test[
+	ContractMetric[metric[a,b] (  ( # - EinsteinCCToRicci[#] )&[EinsteinCCCD[LI[K], -a, -b]] )]
+	,
+	0
+	,
+	TestID->"xTensor-20130126-A4I4Y7"
 ]
 
 (***************************)

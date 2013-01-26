@@ -90,13 +90,19 @@ RicciToEinsteinCC[K][expr,cd] converts only Ricci tensors of the covariant deriv
 
 (* Simplifying *)
 
+CurvatureRelationsBianchi::usage = "\
+CurvatureRelationsBianchi[cd] gives the contracted Bianchi identities for the curvature tensor\
+of the covariant derivative cd.\n\
+CurvatureRelationsBianchi[cd, Riemann] gives only the identities for the Riemann tensor.\n\
+CurvatureRelationsBianchi[cd, Ricci] gives only the identities for the Ricci tensor.";
+
 PreferBoxOfRule::usage = 
   "PreferBoxOfRule[tensor,CD] gives rules for rewriting an expression \
 with boxes on the given tensor with respect to the given CD.";
 
 PreferBoxOf::usage = "\
 PreferBoxOf[tensor][expr] commutes derivatives in expr such that all possible boxes act on the specified tensor.\n\
-PreferBoxOf[tensor,cd][expr] only commute the covariant derivative cd.";
+PreferBoxOf[tensor,cd][expr] only commutes the covariant derivative cd.";
 
 PreferDivOfRule::usage = 
   "PreferDivOfRule[tensor,CD] gives rules for rewriting an expression \
@@ -240,28 +246,64 @@ SortedCovDsQ[expr_] := And @@ ( SortedCovDsQ[expr, #]& /@ DeleteCases[$CovDs,PD]
 (* Curvature tensors  *)
 (**********************)
 
+CurvatureRelationsBianchi[] := Apply[Join, Map[CurvatureRelationsBianchi, $CovDs]];
+CurvatureRelationsBianchi[covd_Symbol?CovDQ] := 
+  Join[CurvatureRelationsBianchi[covd, Riemann], CurvatureRelationsBianchi[covd, Ricci]];
+CurvatureRelationsBianchi[__] = {};
+
 xTension["xTras`xTensor`", DefMetric, "End"] := xTrasxTensorDefMetric;
 
-xTrasxTensorDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= Module[
+xTrasxTensorDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= With[
 	{
-		M,D,einsteincc,rs
-	},	
-	M 			= ManifoldOfCovD[cd];
-	D 			= DimOfManifold[M];
-	einsteincc 	= GiveSymbol[EinsteinCC,cd];
-	rs 			= GiveSymbol[RicciScalar,cd];
-	
-	(* Define the new curvature tensors. *)
-	DefTensor[GiveSymbol[Schouten,cd][-a, -b], 
-		M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];
-	DefTensor[GiveSymbol[SchoutenCC,cd][LI[_],-a, -b], 
-		M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];	
-	DefTensor[einsteincc[LI[_],-a, -b], 
-		M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Einstein,cd], Master->cd];
-	
-	(* Some identities for the cosmological Einstein tensor. *)
-	cd[c_]@einsteincc[LI[_],___,d_,___] /; c === ChangeIndex[d] ^= 0;
-	einsteincc[LI[K_], c_, d_] /; c === ChangeIndex[d] := (1/ 2 (D-2)(D-1) D K + (1-D/2) rs[]);
+		indices = GetIndicesOfVBundle[First@VBundlesOfCovD@cd, 2, {a,b}]
+	},
+	With[
+		{
+			M 			= ManifoldOfCovD[cd],
+			D 			= DimOfManifold@ManifoldOfCovD[cd],
+			einsteincc 	= GiveSymbol[EinsteinCC,cd],
+			rs 			= GiveSymbol[RicciScalar,cd],
+			riemann		= GiveSymbol[Riemann,cd],
+			ricci		= GiveSymbol[Ricci,cd],
+			c			= First@indices,
+			d			= Last@indices
+		},
+		With[
+			{
+				cpat = PatternIndex[c, AIndex, Null, First@VBundlesOfCovD@cd],
+				dpat = PatternIndex[d, AIndex, Null, First@VBundlesOfCovD@cd]
+			},
+			(* Define the new curvature tensors. *)
+			DefTensor[GiveSymbol[Schouten,cd][-a, -b], 
+				M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];
+			DefTensor[GiveSymbol[SchoutenCC,cd][LI[_],-a, -b], 
+				M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];	
+			DefTensor[einsteincc[LI[_],-a, -b], 
+				M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Einstein,cd], Master->cd];
+			
+			(* Some identities for the cosmological Einstein tensor. *)
+			cd[cpat]@einsteincc[LI[_],___,dpat,___] /; c === ChangeIndex[d] ^= 0;
+			einsteincc[LI[K_], cpat, dpat] /; c === ChangeIndex[d] := (1/ 2 (D-2)(D-1) D K + (1-D/2) rs[]);
+			
+			(* Contracted Bianchi identities *)
+			cd /: CurvatureRelationsBianchi[cd, Riemann] = MakeRule[
+				{
+					cd[-d]@riemann[d,a,b,c],
+					$RicciSign*(cd[b]@ricci[a,c] - cd[c]@ricci[a,b])
+				},
+				MetricOn -> All,
+				UseSymmetries -> True 
+			];
+			cd /: CurvatureRelationsBianchi[cd, Ricci] = MakeRule[
+				{
+					cd[-a]@ricci[a,b], 
+					1/2 cd[b]@rs[]
+				},
+				MetricOn -> All,
+				UseSymmetries -> True
+			];
+		]
+	]
 ];
 
 (* TODO: undefmetric hook *)
