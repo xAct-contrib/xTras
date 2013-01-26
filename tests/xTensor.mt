@@ -366,7 +366,7 @@ Test[
 ]
 
 Test[
-	Simplification@PreferDivOf[RicciCD][
+	Simplification@SortCovDsToDiv[RicciCD][
 		CD[a]@CD[b]@RicciCD[-a, -c] -
 		(RicciCD[b, a]*RicciCD[-c, -a] - RicciCD[a, d]*
 		RiemannCD[b, -a, -c, -d] + CD[b][CD[-a][RicciCD[-c, a]]] )
@@ -388,7 +388,7 @@ Test[
 Test[
 	DivFreeQ[
 		Simplification[ 
-			PreferDivOf[RicciCD][ CD[a]@CD[b]@CD[c]@CD[d]@CD[e]@RicciCD[-a, -f] ] -
+			SortCovDsToDiv[RicciCD][ CD[a]@CD[b]@CD[c]@CD[d]@CD[e]@RicciCD[-a, -f] ] -
 			CD[b]@CD[c]@CD[d]@CD[e]@CD[a]@RicciCD[-a, -f]
 		],
 		RicciCD, CD
@@ -401,7 +401,7 @@ Test[
 
 Test[
 	Simplification[
-		PreferBoxOf[RicciCD][ CD[-a]@CD[a]@CD[-b]@RicciCD[-c, -d] ] -
+		SortCovDsToBox[RicciCD][ CD[-a]@CD[a]@CD[-b]@RicciCD[-c, -d] ] -
 		(CD[-b][CD[-e][CD[e][RicciCD[-c, -d]]]] + 
 		 RicciCD[-b, e]*CD[-e][RicciCD[-c, -d]] - 
 		 2*RiemannCD[-b, e, -d, f]*CD[-e][RicciCD[-c, -f]] - 

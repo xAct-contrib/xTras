@@ -221,12 +221,16 @@ Options[FullSimplification] ^= {SortCovDs -> True};
 
 FullSimplification[options___?OptionQ][expr_] := Fold[FullSimplification[#2, options][#1] &, expr, $Metrics];
 FullSimplification[metric_?MetricQ, options___?OptionQ][expr_] := Module[
-	{cd, oldmonv, olduppder, tmp, sortcd, riemannDivRule, ricciDivRule},
+	{
+		cd			= CovDOfMetric[metric],
+		oldmonv		= Options[ToCanonical, UseMetricOnVBundle],
+		olduppder	= Options[ContractMetric, AllowUpperDerivatives],
+		sortcd		= SortCovDs /. CheckOptions[options] /. Options[FullSimplification],
+		riemann		= GiveSymbol[Riemann, CovDOfMetric@metric],
+		ricci		= GiveSymbol[Ricci, CovDOfMetric@metric],
+		tmp 
+	},
 
-	{sortcd} 	= {SortCovDs} /. CheckOptions[options] /. Options[FullSimplification];
-	cd 			= CovDOfMetric[metric];
-	oldmonv 	= Options[ToCanonical, UseMetricOnVBundle];
-	olduppder 	= Options[ContractMetric, AllowUpperDerivatives];
 	SetOptions[
 		ToCanonical,  
 		UseMetricOnVBundle -> If[FreeQ[expr, PD], All, None]
@@ -242,30 +246,21 @@ FullSimplification[metric_?MetricQ, options___?OptionQ][expr_] := Module[
 	(* Sort covariant derivatives *)
 	If[sortcd,
 		
-		riemannDivRule = FoldedRule[
-	 		PreferDivOfRule[GiveSymbol[Riemann,cd], cd],
-			CurvatureRelationsBianchi[cd, Riemann]
+		While[!DivFreeQ[tmp, riemann], 
+			tmp = ContractMetric[SortCovDsToDiv[riemann,cd][tmp] /. CurvatureRelationsBianchi[cd, Riemann], metric]
 		];
-		ricciDivRule = FoldedRule[
-	 		PreferDivOfRule[GiveSymbol[Ricci,cd], cd],
-			CurvatureRelationsBianchi[cd, Ricci]
-		];
-		
-		While[!DivFreeQ[tmp, GiveSymbol[Riemann, cd]], 
-			tmp = ContractMetric[tmp //. riemannDivRule, metric]
-		];
-		While[!DivFreeQ[tmp, GiveSymbol[Ricci, cd]], 
-			tmp = ContractMetric[tmp //. ricciDivRule, metric]
+		While[!DivFreeQ[tmp, ricci], 
+			tmp = ContractMetric[SortCovDsToDiv[ricci,cd][tmp] /. CurvatureRelationsBianchi[cd, Ricci], metric]
 		];
 		
 		tmp = SortCovDs[tmp];
 		
 		(* Question: why do we need to do this twice? *)
-		While[!DivFreeQ[tmp, GiveSymbol[Riemann, cd]], 
-			tmp = ContractMetric[tmp //. riemannDivRule, metric]
+		While[!DivFreeQ[tmp, riemann], 
+			tmp = ContractMetric[SortCovDsToDiv[riemann,cd][tmp] /. CurvatureRelationsBianchi[cd, Riemann], metric]
 		];
-		While[!DivFreeQ[tmp, GiveSymbol[Ricci, cd]], 
-			tmp = ContractMetric[tmp //. ricciDivRule, metric]
+		While[!DivFreeQ[tmp, ricci], 
+			tmp = ContractMetric[SortCovDsToDiv[ricci,cd][tmp] /. CurvatureRelationsBianchi[cd, Ricci], metric]
 		];
 	];
 	
