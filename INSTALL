@@ -4,15 +4,14 @@
 *                                            *
 **********************************************
 
-xTras consists of multiple packages that either extend existing xAct pacakges, or bring new 
+xTras consists of multiple packages that either extend existing xAct packages, or bring new 
 functionality altogether. The directory structure of xTras is
 
 /
   INSTALL				(this file)
-  CHANGELOG
-  xAct
-    xTras				(copy this subdirectory entirely into your xAct directory)
-      Kernel
+  xAct/
+    xTras/				(copy this subdirectory entirely into your xAct directory)
+      Kernel/
         init.m
       xCore.m
       xTensor.m
@@ -21,10 +20,11 @@ functionality altogether. The directory structure of xTras is
       xCoba.m
       Algebra.m
       Combinatorics.m
-    Documentation		(can also be copied into xAct directory; not necessary though)
-      English
+      xTras.history
+    Documentation/		(can also be copied into xAct directory; not necessary though)
+      English/
         xTrasDoc.nb		(documentation notebook)
-        xTras
+        xTras/
           ...			(example notebooks)     
 
 The init.m file calls the other seven packages in the xTras folder; it does not contain
