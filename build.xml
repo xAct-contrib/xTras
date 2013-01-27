@@ -1,111 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xTras" default="zip" basedir=".">
-  <target name="zip">
-  	<tstamp>
-  	  <format property="TODAY_XACT"
-  	          pattern="yyyy-M-d"
-	   />
-  	</tstamp>
-	<macrodef name="get-git-date">
-	        <attribute name="tag" />
+
+	<!-- The main zip task that creates the distributable file. -->
+	<!-- Note that it uses Git and thus Ant needs to know where the git binary is (via PATH). -->
+	<target name="zip">
+
+		<!-- Get the date. -->
+		<tstamp>
+			<format property="TODAY_XACT" pattern="yyyy-M-d" />
+		</tstamp>
+
+		<!-- Macro for getting the date of a Git tag. -->
+		<macrodef name="get-git-date">
+			<attribute name="tag" />
 			<attribute name="num" />
-	        <sequential>
-	          	<exec dir="." executable="git" failonerror="true" outputproperty="git.date.@{num}">
-	          	        <arg line="log @{tag} --simplify-by-decoration --pretty=format:%ad --date=short --reverse -1"/>
-	          	</exec>
-	        </sequential>
-	    </macrodef>
-	<macrodef name="get-git-log">
-	        <attribute name="range" />
+			<sequential>
+				<exec dir="." executable="git" failonerror="true" outputproperty="git.date.@{num}">
+					<arg line="log @{tag} --simplify-by-decoration --pretty=format:%ad --date=short --reverse -1" />
+				</exec>
+			</sequential>
+		</macrodef>
+		
+		<!-- Macro for getting the Git commit logs of one tag. -->
+		<macrodef name="get-git-log">
+			<attribute name="range" />
 			<attribute name="numlog" />
-	        <sequential>
-	          	<exec dir="." executable="git" failonerror="true" outputproperty="git.fulllog.@{numlog}">
-	          		<arg line="log --pretty=format:%s @{range} xAct"/>
-	          	</exec>
-	        	<echo file="log.temp">${git.fulllog.@{numlog}}</echo>
-	        	<exec dir="." executable="/usr/bin/egrep" outputproperty="git.log.@{numlog}">
-	        		<arg line="-v -i 'version number|merge|merging' log.temp"/>
-	            </exec>
-	        </sequential>
-	    </macrodef>
-  	<exec dir="." executable="git" failonerror="true" outputproperty="git.tags">
-  	        <arg line="for-each-ref --sort='*authordate' --format='%(refname:short)' refs/tags"/>
-  	</exec>
-  	<exec dir="." executable="git" failonerror="false" outputproperty="git.currenttag">
-  	        <arg line="describe --exact-match HEAD"/>
-  	</exec>
-    <script language="javascript"><![CDATA[
-var tags = project.getProperty("git.tags").replace("\r", "").split("\n");
-var output = '';
+			<sequential>
+				<exec dir="." executable="git" failonerror="true" outputproperty="git.fulllog.@{numlog}">
+					<arg line="log --pretty=format:%s @{range} xAct" />
+				</exec>
+				<echo file="log.temp">${git.fulllog.@{numlog}}</echo>
+				<exec dir="." executable="/usr/bin/egrep" outputproperty="git.log.@{numlog}">
+					<arg line="-v -i 'version number|merge|merging' log.temp" />
+				</exec>
+			</sequential>
+		</macrodef>
+		
+		<!-- Get a list of tags from Git. -->
+		<exec dir="." executable="git" failonerror="true" outputproperty="git.tags">
+			<arg line="for-each-ref --sort='*authordate' --format='%(refname:short)' refs/tags" />
+		</exec>
+		
+		<!-- Get the current tag from Git. If the current commit doesn't have a tag, it fails. -->
+		<exec dir="." executable="git" failonerror="false" outputproperty="git.currenttag">
+			<arg line="describe --exact-match HEAD" />
+		</exec>
+		<echo>${git.currenttag}</echo>
+		
+		<!-- Parse the Git tags into a nicely formatted log with Javascript. -->
+		<script language="javascript">
+			<![CDATA[
+			
+			/* Get the list of tags, and split them into an array. */ 
+			var tags = project.getProperty("git.tags").replace("\r", "").split("\n");
+			
+			
+			/* Create the formatted log by looping over the tags. */
+			var output = '';
+			for (var i = tags.length - 1; i > -1; i--) {
+			    	
+			    output += tags[i] + ", ";
+			    
+				/* Get the date of the tag. */
+			    var getgitdate = project.createTask("get-git-date");
+				getgitdate.setDynamicAttribute("tag",tags[i]);
+			    getgitdate.setDynamicAttribute("num",i);
+				getgitdate.execute();
+				output += project.getProperty("git.date." + i) + "\n\n";
+			
+				/* Get the log of this particular tag. */
+			    var getgitlog  = project.createTask("get-git-log");
+			    var range = '';
+			    if(i > 0)
+			    {
+			    	range += tags[i-1] + "..";
+			    }
+			    range += tags[i];
+			    getgitlog.setDynamicAttribute("range", range);
+				getgitlog.setDynamicAttribute("numlog",i);
+			    getgitlog.execute();
+			    output += project.getProperty("git.log." + i).replace("\r", "").replace(" *","\n*") + "\n\n";
+			}
+			
+			/* Send the formatted log back to Ant. */
+			project.setProperty("git.log", output);
 
-for (var i = tags.length - 1; i > -1; i--) {
-    	
-    output += tags[i] + ", ";
-    
-    var getgitdate = project.createTask("get-git-date");
-	getgitdate.setDynamicAttribute("tag",tags[i]);
-    getgitdate.setDynamicAttribute("num",i);
-	getgitdate.execute();
-	output += project.getProperty("git.date." + i) + "\n\n";
+			/* Determine if the current commit sits on the last tag. 
+			   If so, use the name of the last tag as the version number.
+			   If not, the version number is the last tag incremented with 1, with a "pre" at the end. */
+			var lastversion = tags[tags.length-1].replace("v","");
+			if(tags[tags.length-1] == String(project.getProperty("git.currenttag")))
+			{
+				var newversion 	= lastversion;
+			    var newdate 	= (project.getProperty("git.date." + (tags.length - 1))).replace("-0","-").split("-").join(", ");
+			}
+			else
+			{
+				var splitted 	= String(lastversion).split(".");
+				var lastnumber 	= String(Number(splitted.pop())+1);
+				var newversion 	= splitted.join(".") + "." + lastnumber + "pre";
+			    var newdate 	= project.getProperty("TODAY_XACT").split("-").join(", ");
+			}
+			project.setProperty("git.newversion",newversion);
+			
+			/* Also set a string that matches the formatting in the init.m file. */
+			project.setProperty(
+				"xact.version",
+				"{\"" + newversion + "\", {" + newdate + "}}"
+			);
+			]]>
+		</script>
+		
+		<!-- Delete the temporary log file. -->
+		<delete file="log.temp" />
+		
+		<!-- Write the changelog to a file. -->
+		<echo file="xAct/xTras/xTras.History">${git.log}</echo>
+		
+		<!-- Echo the version number. -->
+		<echo>${xact.version}</echo>
 
-    var getgitlog  = project.createTask("get-git-log");
-    var range = '';
-    if(i > 0)
-    	{
-    		range += tags[i-1] + "..";
-    	}
-    range += tags[i];
-    getgitlog.setDynamicAttribute("range", range);
-	getgitlog.setDynamicAttribute("numlog",i);
-    getgitlog.execute();
-    output += project.getProperty("git.log." + i).replace("\r", "").replace(" *","\n*") + "\n\n";
-}
-project.setProperty("git.log", output);
-project.setProperty("git.last",tags[tags.length-1]);
+		<!-- Replace the version number and date in the init.m file. -->
+		<replaceregexp file="xAct/xTras/Kernel/init.m" match="Version = (.*)" replace="Version = ${xact.version};" byline="true" />
 
-var lastversion = tags[tags.length-1].replace("v","");
-if(tags[tags.length-1] === project.getProperty("git.currenttag"))
-{
-	var newversion = lastversion;
-    var newdate = (project.getProperty("git.date." + (tags.length - 1))).replace("-0","-").split("-").join(", ");
-}
-else
-{
-	var splitted = String(lastversion).split(".");
-	var lastnumber = String(Number(splitted.pop())+1);
-	var newversion = splitted.join(".") + "." + lastnumber + "pre";
-    var newdate = project.getProperty("TODAY_XACT").split("-").join(", ");
-}
-project.setProperty("git.newversion",newversion);
+		<!-- Lastly, zip everything in a distributable file. -->
+		<zip destfile="dist/xTras.v${git.newversion}.zip" basedir="." includes="INSTALL,xAct/**" update="no">
+			<!-- Move the documentation and example notebooks to the xAct documentation directory. -->
+			<zipfileset dir="notebooks" includes="xTrasDoc.nb" prefix="xAct/Documentation/English" />
+			<zipfileset dir="notebooks/examples" prefix="xAct/Documentation/English/xTras" />
+		</zip>
 
-project.setProperty(
-	"xact.version",
-	"{\"" + newversion + "\", {" + newdate + "}}"
-);
-]]></script>
-  	<delete file="log.temp"/>
-	<echo file="xAct/xTras/xTras.History">${git.log}</echo>
-  	<echo>${xact.version}</echo>
+	</target>
 
-  	<replaceregexp file="xAct/xTras/Kernel/init.m"
-  	               match="Version = (.*)"
-  	               replace="Version = ${xact.version};"
-  	               byline="true"
-  	/>
-  	
-  	<zip destfile="dist/xTras.v${git.newversion}.zip"
-	       basedir="."
-  	       includes="INSTALL,xAct/**"
-	       update="no">
-  		<zipfileset dir="notebooks" includes="xTrasDoc.nb" prefix="xAct/Documentation/English"/>
-  		<zipfileset dir="notebooks/examples" prefix="xAct/Documentation/English/xTras"/>
-  	</zip>
-  	
-  </target>
-
-   <target name="deploy">
-	  	<copy todir="${user.home}/Library/Mathematica/Applications/xAct">
-	  	    <fileset dir="xAct"/>
-	  	  </copy>
-	  </target>
+	<!-- Task the deploys xTras into the local Mathematica user directory. -->
+	<target name="deploy">
+		<copy todir="${user.home}/Library/Mathematica/Applications/xAct">
+			<fileset dir="xAct" />
+		</copy>
+	</target>
 </project>
