@@ -96,72 +96,51 @@ EulerDensity[cd_?CovDQ, D_?EvenQ] := Module[{indices, e1, e2, riemann, n, e},
 	1/2^(D/2) e1 e2 Product[riemann[n], {n, 1, D/2}] // ContractMetric // ToCanonical // PutScalar
 ];
 
+
+GetInvarOptions[cd_] := {
+	CurvatureRelationsQ[cd],
+	UseMetricOnVBundle /. Options[ToCanonical],
+	AllowUpperDerivatives /. Options[ContractMetric],
+	xAct`xTensor`$CommuteCovDsOnScalars
+};
+
+SetInvarOptions[cd_] := ResetInvarOptions[cd, {False, All, True, False}];
+
+ResetInvarOptions[cd_, {curvatureRelationQ_, useMetricOnVBundle_, allowUpperDerivatives_, commuteScalars_}] := (
+	If[curvatureRelationQ, 
+		SetCurvatureRelations[cd, Verbose -> False],
+		ClearCurvatureRelations[cd, Verbose -> False]
+	];
+	SetOptions[
+		ToCanonical, 
+		UseMetricOnVBundle -> useMetricOnVBundle
+	];
+	SetOptions[
+		ContractMetric, 
+		AllowUpperDerivatives -> allowUpperDerivatives
+	];
+	xAct`xTensor`$CommuteCovDsOnScalars = commuteScalars;
+);
+
+
 InvarWrapper[invarFunction_, g_?MetricQ][expr_, otherargs___] := Module[
 	{
-		cd, i1, i2, i3, ricciscalar, ricci, riemann, rules,
-		result, curvrel, monvb, uppder,commutescalars
+		cd 		= CovDOfMetric[g],
+		options = GetInvarOptions[CovDOfMetric@g],
+		result
 	},
-	
-	(* Initialize *)
-	cd 			= CovDOfMetric[g];
-	{i1,i2,i3} 	= GetIndicesOfVBundle[VBundleOfMetric@g, 3];
-	ricci 		= GiveSymbol[Ricci, cd];
-	ricciscalar = GiveSymbol[RicciScalar, cd];
-	riemann 	= GiveSymbol[Riemann, cd];
-   
-	(* Store old config values *)
-	curvrel 		= CurvatureRelationsQ[cd];
-	monvb 			= Options[ToCanonical, UseMetricOnVBundle];
-	uppder 			= Options[ContractMetric, AllowUpperDerivatives];
-	commutescalars 	= xAct`xTensor`$CommuteCovDsOnScalars;
-   
-	(* Set config values to Invar compatible settings *)
-	SetOptions[
-		ToCanonical, 
-		UseMetricOnVBundle -> All
+	(* Set options to Invar compatible settings. *)
+	SetInvarOptions[cd];
+	(* Run the Invar function.
+	   We need to catch the possible Abort (thrown if the database is not installed) because 
+	   the options must be reset. *)
+	CheckAbort[
+		result = Block[{Print},invarFunction[g, expr, otherargs]],
+		ResetInvarOptions[cd, options];
+		Abort[];
 	];
-	SetOptions[
-		ContractMetric, 
-		AllowUpperDerivatives -> True
-	];
-	ClearCurvatureRelations[cd, Verbose -> False];
-	xAct`xTensor`$CommuteCovDsOnScalars = False;
-   
-	(* Make rules to convert the Ricci scalar and Ricci tensor to Riemanns *)
-	rules = Join[
-		MakeRule[
-			Evaluate@
-			{
-				ricciscalar[], 
-				$RicciSign * Scalar@riemann[i1, i2, -i1, -i2]
-			},	
-			MetricOn -> All
-		],
-		MakeRule[
-			Evaluate@
-			{
-				ricci[i1, i2], 
-				$RicciSign * riemann[i1, i3, i2, -i3]
-			},	
-			MetricOn -> All
-		]
-	];
-	
-	(* Apply them to the expression and run the Invar function *)
-	result = Block[{Print},invarFunction[g, expr /. rules, otherargs]];
-
-	(* Reapply the settings as they were before *)
-	xAct`xTensor`$CommuteCovDsOnScalars = commutescalars;
-	SetOptions[
-		ToCanonical, 
-		monvb // First
-	];
-	SetOptions[
-		ContractMetric, 
-		uppder // First
-	];
-	If[curvrel, SetCurvatureRelations[cd, Verbose -> False]];
-	
+	(* Reapply the options as they were before *)
+	ResetInvarOptions[cd, options];	
 	(* Return *)
 	result
 ];

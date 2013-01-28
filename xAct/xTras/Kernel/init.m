@@ -7,6 +7,7 @@
 (*
 
  * Undef hooks.
+ * Add conditionals for when to define extra curvature tensors (e.g. when there's torsion etc).
  * Switch Modules to With's where approriate.
  * Rewrite SolveTensors with Monomials?
 
@@ -19,7 +20,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = {"1.1.1pre", {2013, 1, 25}};
+xAct`xTras`$Version = {"1.1.2pre", {2013, 1, 27}};
 xAct`xTras`$xTensorVersionExpected = {"1.0.5", {2013, 1, 27}};
 xAct`xTras`$MathematicaVersionNeeded = 6.;
 

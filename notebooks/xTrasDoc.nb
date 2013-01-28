@@ -179,65 +179,61 @@ Cell[BoxData[
 
 Cell[BoxData["\<\"CopyRight (C) 2005-2013, David Brizuela, Jose M. \
 Martin-Garcia and Guillermo A. Mena Marugan, under the General Public \
-License.\"\>"], "Print"]
-}, Open  ]],
+License.\"\>"], "Print"],
 
 Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"General", "::", "nostdvar"}], "MessageName"], ":", 
-  " ", "\<\"Nonstandard configuration: variable \[NoBreak]\\!\\(\\\"$PrePrint\
-\\\"\\)\[NoBreak] now has value \
-\[NoBreak]\\!\\(\\\"ScreenDollarIndices\\\"\\)\[NoBreak].\"\>"}]], "Message", \
-"MSG"],
+ InterpretationBox[
+  RowBox[{"\<\"** Variable \"\>", "\[InvisibleSpace]", "$PrePrint", 
+   "\[InvisibleSpace]", "\<\" assigned value \"\>", "\[InvisibleSpace]", 
+   "ScreenDollarIndices"}],
+  SequenceForm[
+  "** Variable ", $PrePrint, " assigned value ", 
+   xAct`xTensor`ScreenDollarIndices],
+  Editable->False]], "Print"],
 
 Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"General", "::", "nostdvar"}], "MessageName"], ":", 
-  " ", "\<\"Nonstandard configuration: variable \
-\[NoBreak]\\!\\(\\\"$CovDFormat\\\"\\)\[NoBreak] now has value \
-\[NoBreak]\\!\\(\\\"Postfix\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG"],
+ InterpretationBox[
+  RowBox[{"\<\"** Variable \"\>", "\[InvisibleSpace]", "$CovDFormat", 
+   "\[InvisibleSpace]", "\<\" changed from \"\>", 
+   "\[InvisibleSpace]", "\<\"Prefix\"\>", "\[InvisibleSpace]", "\<\" to \"\>",
+    "\[InvisibleSpace]", "\<\"Postfix\"\>"}],
+  SequenceForm[
+  "** Variable ", xAct`xTensor`$CovDFormat, " changed from ", "Prefix", 
+   " to ", "Postfix"],
+  Editable->False]], "Print"],
 
 Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"General", "::", "nostdopt"}], "MessageName"], ":", 
-  " ", "\<\"Nonstandard configuration: option \
-\[NoBreak]\\!\\(\\\"AllowUpperDerivatives\\\"\\)\[NoBreak] of \
-\[NoBreak]\\!\\(\\\"ContractMetric\\\"\\)\[NoBreak] now has value \
-\[NoBreak]\\!\\(\\\"True\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG"],
+ InterpretationBox[
+  RowBox[{"\<\"** Option \"\>", "\[InvisibleSpace]", "AllowUpperDerivatives", 
+   "\[InvisibleSpace]", "\<\" of \"\>", "\[InvisibleSpace]", "ContractMetric",
+    "\[InvisibleSpace]", "\<\" changed from \"\>", "\[InvisibleSpace]", 
+   "False", "\[InvisibleSpace]", "\<\" to \"\>", "\[InvisibleSpace]", "True"}],
+  SequenceForm[
+  "** Option ", xAct`xTensor`AllowUpperDerivatives, " of ", 
+   xAct`xTensor`ContractMetric, " changed from ", False, " to ", True],
+  Editable->False]], "Print"],
 
 Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"General", "::", "nostdopt"}], "MessageName"], ":", 
-  " ", "\<\"Nonstandard configuration: option \
-\[NoBreak]\\!\\(\\\"MetricOn\\\"\\)\[NoBreak] of \[NoBreak]\\!\\(\\\"MakeRule\
-\\\"\\)\[NoBreak] now has value \
-\[NoBreak]\\!\\(\\\"All\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG"],
+ InterpretationBox[
+  RowBox[{"\<\"** Option \"\>", "\[InvisibleSpace]", "MetricOn", 
+   "\[InvisibleSpace]", "\<\" of \"\>", "\[InvisibleSpace]", "MakeRule", 
+   "\[InvisibleSpace]", "\<\" changed from \"\>", "\[InvisibleSpace]", "None",
+    "\[InvisibleSpace]", "\<\" to \"\>", "\[InvisibleSpace]", "All"}],
+  SequenceForm[
+  "** Option ", xAct`xTensor`MetricOn, " of ", xAct`xTensor`MakeRule, 
+   " changed from ", None, " to ", All],
+  Editable->False]], "Print"],
 
 Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"General", "::", "nostdopt"}], "MessageName"], ":", 
-  " ", "\<\"Nonstandard configuration: option \
-\[NoBreak]\\!\\(\\\"ContractMetrics\\\"\\)\[NoBreak] of \
-\[NoBreak]\\!\\(\\\"MakeRule\\\"\\)\[NoBreak] now has value \
-\[NoBreak]\\!\\(\\\"True\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG"],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"General", "::", "stop"}], "MessageName"], ":", 
-  " ", "\<\"Further output of \[NoBreak]\\!\\(\\*StyleBox[\\(General :: \
-nostdopt\\), \\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during this \
-calculation. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
-ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/General/stop\\\", ButtonNote -> \
-\\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG"],
-
-Cell[CellGroupData[{
+ InterpretationBox[
+  RowBox[{"\<\"** Option \"\>", "\[InvisibleSpace]", "ContractMetrics", 
+   "\[InvisibleSpace]", "\<\" of \"\>", "\[InvisibleSpace]", "MakeRule", 
+   "\[InvisibleSpace]", "\<\" changed from \"\>", "\[InvisibleSpace]", 
+   "False", "\[InvisibleSpace]", "\<\" to \"\>", "\[InvisibleSpace]", "True"}],
+  SequenceForm[
+  "** Option ", xAct`xTensor`ContractMetrics, " of ", xAct`xTensor`MakeRule, 
+   " changed from ", False, " to ", True],
+  Editable->False]], "Print"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -257,14 +253,15 @@ Cell[BoxData["\<\"------------------------------------------------------------\
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Package xAct`Invar`  version \"\>", 
-   "\[InvisibleSpace]", "\<\"2.0.3\"\>", "\[InvisibleSpace]", "\<\", \"\>", 
+   "\[InvisibleSpace]", "\<\"2.0.4\"\>", "\[InvisibleSpace]", "\<\", \"\>", 
    "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"2011", ",", "10", ",", "25"}], "}"}]}],
-  SequenceForm["Package xAct`Invar`  version ", "2.0.3", ", ", {2011, 10, 25}],
+    RowBox[{"2013", ",", "1", ",", "27"}], "}"}]}],
+  SequenceForm["Package xAct`Invar`  version ", "2.0.4", ", ", {2013, 1, 27}],
+  
   Editable->False]], "Print"],
 
-Cell[BoxData["\<\"CopyRight (C) 2006-2012, J. M. Martin-Garcia, D. Yllanes \
+Cell[BoxData["\<\"CopyRight (C) 2006-2013, J. M. Martin-Garcia, D. Yllanes \
 and R. Portugal, under the General Public License.\"\>"], "Print"],
 
 Cell[BoxData[
@@ -288,30 +285,29 @@ Cell[BoxData[
   SequenceForm[
   "** ", xAct`xTensor`DefConstantSymbol, ": Defining ", "constant symbol ", 
    xAct`Invar`dim, ". ", ""],
-  Editable->False]], "Print"]
-}, Open  ]],
+  Editable->False]], "Print"],
 
 Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"General", "::", "nostdvar"}], "MessageName"], ":", 
-  " ", "\<\"Nonstandard configuration: variable \[NoBreak]\\!\\(\\\"$PrePrint\
-\\\"\\)\[NoBreak] now has value \
-\[NoBreak]\\!\\(\\\"ScreenDollarIndices\\\"\\)\[NoBreak].\"\>"}]], "Message", \
-"MSG"],
+ InterpretationBox[
+  RowBox[{"\<\"** Option \"\>", "\[InvisibleSpace]", "CurvatureRelations", 
+   "\[InvisibleSpace]", "\<\" of \"\>", "\[InvisibleSpace]", "DefCovD", 
+   "\[InvisibleSpace]", "\<\" changed from \"\>", "\[InvisibleSpace]", "True",
+    "\[InvisibleSpace]", "\<\" to \"\>", "\[InvisibleSpace]", "False"}],
+  SequenceForm[
+  "** Option ", xAct`xTensor`CurvatureRelations, " of ", xAct`xTensor`DefCovD,
+    " changed from ", True, " to ", False],
+  Editable->False]], "Print"],
 
 Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"General", "::", "stop"}], "MessageName"], ":", 
-  " ", "\<\"Further output of \[NoBreak]\\!\\(\\*StyleBox[\\(General :: \
-nostdvar\\), \\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during this \
-calculation. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
-ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/General/stop\\\", ButtonNote -> \
-\\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG"],
-
-Cell[CellGroupData[{
+ InterpretationBox[
+  RowBox[{"\<\"** Variable \"\>", "\[InvisibleSpace]", 
+   "$CommuteCovDsOnScalars", "\[InvisibleSpace]", "\<\" changed from \"\>", 
+   "\[InvisibleSpace]", "True", "\[InvisibleSpace]", "\<\" to \"\>", 
+   "\[InvisibleSpace]", "False"}],
+  SequenceForm[
+  "** Variable ", xAct`xTensor`$CommuteCovDsOnScalars, " changed from ", True,
+    " to ", False],
+  Editable->False]], "Print"],
 
 Cell[BoxData["\<\"------------------------------------------------------------\
 \"\>"], "Print"],
@@ -339,9 +335,9 @@ Cell[BoxData[
    "\[InvisibleSpace]", "\<\"0.8.5\"\>", "\[InvisibleSpace]", "\<\", \"\>", 
    "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"2013", ",", "1", ",", "23"}], "}"}]}],
+    RowBox[{"2013", ",", "1", ",", "25"}], "}"}]}],
   SequenceForm[
-  "Package xAct`SymManipulator`  version ", "0.8.5", ", ", {2013, 1, 23}],
+  "Package xAct`SymManipulator`  version ", "0.8.5", ", ", {2013, 1, 25}],
   Editable->False]], "Print"],
 
 Cell[BoxData["\<\"CopyRight (C) 2011-2013, Thomas B\[ADoubleDot]ckdahl, under \
@@ -353,12 +349,12 @@ Cell[BoxData["\<\"------------------------------------------------------------\
 Cell[BoxData[
  InterpretationBox[
   RowBox[{"\<\"Package xAct`xTras`  version \"\>", 
-   "\[InvisibleSpace]", "\<\"1.1.1pre\"\>", "\[InvisibleSpace]", "\<\", \"\>",
+   "\[InvisibleSpace]", "\<\"1.1.2pre\"\>", "\[InvisibleSpace]", "\<\", \"\>",
     "\[InvisibleSpace]", 
    RowBox[{"{", 
-    RowBox[{"2013", ",", "1", ",", "25"}], "}"}]}],
+    RowBox[{"2013", ",", "1", ",", "27"}], "}"}]}],
   SequenceForm[
-  "Package xAct`xTras`  version ", "1.1.1pre", ", ", {2013, 1, 25}],
+  "Package xAct`xTras`  version ", "1.1.2pre", ", ", {2013, 1, 27}],
   Editable->False]], "Print"],
 
 Cell[BoxData["\<\"CopyRight (C) 2012-2013, Teake Nutma, under the General \
@@ -438,7 +434,7 @@ Cell[TextData[{
  " depends on and loads the packages it extends, that is it loads xCore, \
 xPerm, xTensor, xPert, Invar, and SymManipulator."
 }], "Text"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -5850,7 +5846,8 @@ Cell[BoxData[
             GridBoxSpacings->{"Columns" -> {
                 Offset[0.27999999999999997`], {
                  Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> 
+              {
                 Offset[0.2], {
                  Offset[0.4]}, 
                 Offset[0.2]}, "RowsIndexed" -> {}}],
@@ -7165,6 +7162,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
                 FontSize->9]}
              },
+             
              GridBoxAlignment->{
               "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
                "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -10265,6 +10263,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
                FontSize->9]}
             },
+            
             GridBoxAlignment->{
              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -14245,6 +14244,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -14968,7 +14968,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
-           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -15912,6 +15911,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -28215,7 +28215,6 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`xTensor`"], 
          ButtonBox["SortCovDsToDiv",
           BaseStyle->"InformationLink",
-          
           ButtonData:>{
            "Info3568218943-1755474", {
             "SortCovDsToDiv", "xAct`xTras`xTensor`"}},
@@ -28244,6 +28243,7 @@ Cell[BoxData[
         {
          ButtonBox["EinsteinCC",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
            "Info3568218943-1755474", {"EinsteinCC", "xAct`xTras`xTensor`"}},
           ButtonNote->"xAct`xTras`xTensor`"], 
@@ -28307,6 +28307,7 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`xCore`"], 
          ButtonBox["MapTimed",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
            "Info3568218943-1755474", {"MapTimed", "xAct`xTras`xCore`"}},
           ButtonNote->"xAct`xTras`xCore`"], 
@@ -28372,6 +28373,7 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`xPert`"], 
          ButtonBox["PerturbFlat",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
            "Info3568218943-1755474", {"PerturbFlat", "xAct`xTras`xPert`"}},
           ButtonNote->"xAct`xTras`xPert`"]},
@@ -28774,7 +28776,6 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`Algebra`"], 
          ButtonBox["$TensorWrapperColor",
           BaseStyle->"InformationLink",
-          
           ButtonData:>{
            "Info3568218944-1755474", {
             "$TensorWrapperColor", "xAct`xTras`Algebra`"}},
@@ -28928,7 +28929,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 WindowSize->{1060, 736},
-WindowMargins->{{Automatic, 21}, {Automatic, 0}},
+WindowMargins->{{340, Automatic}, {Automatic, 10}},
 ShowSelection->True,
 FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 20, \
 2012)",
