@@ -183,18 +183,18 @@ SetCurvatureRelations[cd_?CovDQ, options___?OptionQ] := (
 	AutomaticRules[Evaluate[GiveSymbol[Riemann, cd]], CurvatureRelations[cd, Riemann], options];
 );
 
-CurvatureRelationsQ[cd_?CovDQ] := Module[
+CurvatureRelationsQ[cd_?CovDQ] := With[
 	{
 		ricci 	= GiveSymbol[Ricci, cd], 
 		riemann	= GiveSymbol[Riemann, cd]
 	},
 	Complement[
 		CurvatureRelations[cd, Ricci], 
-		DownValues[Evaluate[ricci]], UpValues[Evaluate[ricci]]
+		DownValues[ricci], UpValues[ricci]
 	] === {} &&	Complement[
 		CurvatureRelations[cd, Riemann], 
-		DownValues[Evaluate[riemann]], 
-		UpValues[Evaluate[riemann]]
+		DownValues[riemann], 
+		UpValues[riemann]
 	] === {}
 ];
 
@@ -313,67 +313,79 @@ ToRicci[expr_, cd_?CovDQ] := Composition[
  
 ToRicci[expr_] := Fold[ToRicci, expr, DeleteCases[$CovDs, PD]];
 
-SchoutenToRicci[expr_, cd_?CovDQ] := Module[{d, ricci, rs, schouten, metric},
-	ricci 		= GiveSymbol[Ricci, cd];
-	rs 			= GiveSymbol[RicciScalar, cd];
-	schouten 	= GiveSymbol[Schouten, cd];
-	metric 		= MetricOfCovD@cd;
-	d 			= DimOfManifold@ManifoldOfCovD@cd;
+SchoutenToRicci[expr_, cd_?CovDQ] := With[
+	{
+		ricci 		= GiveSymbol[Ricci, cd],
+		rs 			= GiveSymbol[RicciScalar, cd],
+		schouten 	= GiveSymbol[Schouten, cd],
+		metric 		= MetricOfCovD@cd,
+		d 			= DimOfManifold@ManifoldOfCovD@cd
+	},
 	expr /. schouten[inds__] :> ricci[inds]/(d - 2) - metric[inds] rs[] / (2 (d - 1) (d - 2))
 ];
 
 SchoutenToRicci[expr_] := Fold[SchoutenToRicci, expr, DeleteCases[$CovDs, PD]];
 
-RicciToSchouten[expr_, cd_?CovDQ] := Module[{d, ricci, rs, schouten, metric},
-	ricci 		= GiveSymbol[Ricci, cd];
-	rs 			= GiveSymbol[RicciScalar, cd];
-	schouten	= GiveSymbol[Schouten, cd];
-	metric 		= MetricOfCovD@cd;
-	d 			= DimOfManifold@ManifoldOfCovD@cd;
+RicciToSchouten[expr_, cd_?CovDQ] := With[
+	{
+		ricci 		= GiveSymbol[Ricci, cd],
+		rs 			= GiveSymbol[RicciScalar, cd],
+		schouten	= GiveSymbol[Schouten, cd],
+		metric 		= MetricOfCovD@cd,
+		d 			= DimOfManifold@ManifoldOfCovD@cd
+	},
 	expr /. ricci[inds__] :> schouten[inds] (d - 2) + metric[inds] rs[] /(2 (d - 1))
 ];
 
 RicciToSchouten[expr_] := Fold[RicciToSchouten, expr, DeleteCases[$CovDs, PD]];
 
-SchoutenCCToRicci[expr_, cd_?CovDQ] := Module[{d, ricci, rs, schouten, metric},
-	ricci 		= GiveSymbol[Ricci, cd];
-	rs 			= GiveSymbol[RicciScalar, cd];
-	schouten 	= GiveSymbol[SchoutenCC, cd];
-	metric 		= MetricOfCovD@cd;
-	d 			= DimOfManifold@ManifoldOfCovD@cd;
+SchoutenCCToRicci[expr_, cd_?CovDQ] := With[
+	{
+		ricci 		= GiveSymbol[Ricci, cd],
+		rs 			= GiveSymbol[RicciScalar, cd],
+		schouten	= GiveSymbol[SchoutenCC, cd],
+		metric 		= MetricOfCovD@cd,
+		d 			= DimOfManifold@ManifoldOfCovD@cd
+	},
 	expr /. schouten[LI[K_],inds__] :> ricci[inds]/(d - 2) - metric[inds] rs[] / (2 (d - 1) (d - 2)) - 1/2 K  metric[inds]
 ];
 
 SchoutenCCToRicci[expr_] := Fold[SchoutenCCToRicci, expr, DeleteCases[$CovDs, PD]];
 
-RicciToSchoutenCC[K_][expr_, cd_?CovDQ] := Module[{d, ricci, rs, schouten, metric},
-	ricci 		= GiveSymbol[Ricci, cd];
-	rs 			= GiveSymbol[RicciScalar, cd];
-	schouten 	= GiveSymbol[SchoutenCC, cd];
-	metric 		= MetricOfCovD@cd;
-	d 			= DimOfManifold@ManifoldOfCovD@cd;
+RicciToSchoutenCC[K_][expr_, cd_?CovDQ] := With[
+	{
+		ricci 		= GiveSymbol[Ricci, cd],
+		rs 			= GiveSymbol[RicciScalar, cd],
+		schouten	= GiveSymbol[SchoutenCC, cd],
+		metric 		= MetricOfCovD@cd,
+		d 			= DimOfManifold@ManifoldOfCovD@cd
+	},
 	expr /. ricci[inds__] :> schouten[LI[K],inds] (d - 2) + metric[inds] rs[] /(2 (d - 1)) + 1/2 (d-2) K metric[inds]
 ];
 
 RicciToSchoutenCC[K_][expr_] := Fold[RicciToSchoutenCC[K], expr, DeleteCases[$CovDs, PD]];
 
-EinsteinCCToRicci[expr_, cd_?CovDQ] := Module[{ricci, rs, einsteincc, d, metric},
-	d 			= DimOfManifold@ManifoldOfCovD@cd;
-	metric 		= MetricOfCovD[cd];
-	ricci 		= GiveSymbol[Ricci, cd];
-	rs 			= GiveSymbol[RicciScalar, cd];
-	einsteincc 	= GiveSymbol[EinsteinCC, cd];
+EinsteinCCToRicci[expr_, cd_?CovDQ] := With[
+	{
+		ricci 		= GiveSymbol[Ricci, cd],
+		rs 			= GiveSymbol[RicciScalar, cd],
+		einsteincc	= GiveSymbol[EinsteinCC, cd],
+		metric 		= MetricOfCovD@cd,
+		d 			= DimOfManifold@ManifoldOfCovD@cd
+	},
 	expr /. einsteincc[LI[K_], inds__] :> (ricci[inds] + 1/2 metric[inds] (-rs[] + (d - 2) (d - 1) K))
 ];
 
 EinsteinCCToRicci[expr_] := Fold[EinsteinCCToRicci, expr, DeleteCases[$CovDs, PD]];
 
-RicciToEinsteinCC[K_][expr_, cd_?CovDQ] := Module[{ricci, rs, einsteincc, d, metric},
-	d 			= DimOfManifold@ManifoldOfCovD@cd;
-	metric 		= MetricOfCovD[cd];
-	ricci 		= GiveSymbol[Ricci, cd];
-	rs 			= GiveSymbol[RicciScalar, cd];
-	einsteincc 	= GiveSymbol[EinsteinCC, cd];
+RicciToEinsteinCC[K_][expr_, cd_?CovDQ] := With[
+	{
+		ricci 		= GiveSymbol[Ricci, cd],
+		rs 			= GiveSymbol[RicciScalar, cd],
+		einsteincc	= GiveSymbol[EinsteinCC, cd],
+		metric 		= MetricOfCovD@cd,
+		d 			= DimOfManifold@ManifoldOfCovD@cd
+	},
 	expr /. ricci[inds__] :> (einsteincc[LI[K], inds] - 1/2 metric[inds] (-rs[] + (d - 2) (d - 1) K))
 ];
 
@@ -440,7 +452,13 @@ xTrasDefTensor[head_[indices___], dependencies_, sym_, options___] :=
 
 (* The pattern only matches if the index belongs to the correct tangent bundle. *)
 DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], metric_?MetricQ] := Module[
-	{vb, cd,riemann,l1patt,l2patt},
+	{
+		vb 		= VBundleOfMetric[metric],
+		cd 		= CovDOfMetric[metric],
+		riemann = GiveSymbol[Riemann, CovDOfMetric@metric],
+		l1patt 	= PatternSequence[L1]/.LI[___]->LI[___],
+		l2patt 	= PatternSequence[L2]/.LI[___]->LI[___]
+	},
 
 	If[$DefInfoQ,
 		Print[
@@ -448,13 +466,6 @@ DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], me
 			" to be a Killing vector of the metric ", PrintAs@metric, "."
 		];
 	];
-
-	(* Set up some variables. *)
-	vb 		= VBundleOfMetric@metric;
-	cd 		= CovDOfMetric[metric];
-	riemann = GiveSymbol[Riemann, cd];
-	l1patt 	= PatternSequence[L1]/.LI[___]->LI[___];
-	l2patt 	= PatternSequence[L2]/.LI[___]->LI[___];
 
 	(* Set the symmetry. Thanks to JMM for pointing out how this works. *)
 	SymmetryOf[cd[x_][xi[l1:l1patt,y_,l2:l2patt]]] ^:= Symmetry[
