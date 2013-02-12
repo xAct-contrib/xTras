@@ -15,7 +15,7 @@
 			<attribute name="tag" />
 			<attribute name="num" />
 			<sequential>
-				<exec dir="." executable="git" failonerror="true" outputproperty="git.date.@{num}">
+				<exec dir="." executable="/usr/local/git/bin/git" failonerror="true" outputproperty="git.date.@{num}">
 					<arg line="log @{tag} --simplify-by-decoration --pretty=format:%ad --date=short --reverse -1" />
 				</exec>
 			</sequential>
@@ -26,7 +26,7 @@
 			<attribute name="range" />
 			<attribute name="numlog" />
 			<sequential>
-				<exec dir="." executable="git" failonerror="true" outputproperty="git.fulllog.@{numlog}">
+				<exec dir="." executable="/usr/local/git/bin/git" failonerror="true" outputproperty="git.fulllog.@{numlog}">
 					<arg line="log --pretty=format:%s @{range} xAct" />
 				</exec>
 				<echo file="log.temp">${git.fulllog.@{numlog}}</echo>
@@ -37,12 +37,12 @@
 		</macrodef>
 		
 		<!-- Get a list of tags from Git. -->
-		<exec dir="." executable="git" failonerror="true" outputproperty="git.tags">
+		<exec dir="." executable="/usr/local/git/bin/git" failonerror="true" outputproperty="git.tags">
 			<arg line="for-each-ref --sort='*authordate' --format='%(refname:short)' refs/tags" />
 		</exec>
 		
 		<!-- Get the current tag from Git. If the current commit doesn't have a tag, it fails. -->
-		<exec dir="." executable="git" failonerror="false" outputproperty="git.currenttag">
+		<exec dir="." executable="/usr/local/git/bin/git" failonerror="false" outputproperty="git.currenttag">
 			<arg line="describe --exact-match HEAD" />
 		</exec>
 		<echo>${git.currenttag}</echo>

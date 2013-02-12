@@ -20,7 +20,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = {"1.1.2pre", {2013, 1, 27}};
+xAct`xTras`$Version = {"1.1.2pre", {2013, 2, 12}};
 xAct`xTras`$xTensorVersionExpected = {"1.0.5", {2013, 1, 27}};
 xAct`xTras`$MathematicaVersionNeeded = 6.;
 
