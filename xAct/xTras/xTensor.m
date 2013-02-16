@@ -277,22 +277,27 @@ xTrasxTensorDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= With[
 			cd[cpat]@einsteincc[LI[_],___,dpat,___] /; c === ChangeIndex[d] ^= 0;
 			einsteincc[LI[K_], cpat, dpat] /; c === ChangeIndex[d] := (1/ 2 (D-2)(D-1) D K + (1-D/2) rs[]);
 			
-			(* Contracted Bianchi identities *)
-			cd /: CurvatureRelationsBianchi[cd, Riemann] = MakeRule[
-				{
-					cd[-d]@riemann[d,a,b,c],
-					$RicciSign*(cd[b]@ricci[a,c] - cd[c]@ricci[a,b])
-				},
-				MetricOn -> All,
-				UseSymmetries -> True 
+			(* Contracted Bianchi identities. *)
+			(* Only set them when the LHS is not zero (which is the case for flat metrics etc). *)
+			If[cd[-d]@riemann[d,a,b,c] =!= 0,
+				cd /: CurvatureRelationsBianchi[cd, Riemann] = MakeRule[
+					{
+						cd[-d]@riemann[d,a,b,c],
+						$RicciSign*(cd[b]@ricci[a,c] - cd[c]@ricci[a,b])
+					},
+					MetricOn -> All,
+					UseSymmetries -> True 
+				]
 			];
-			cd /: CurvatureRelationsBianchi[cd, Ricci] = MakeRule[
-				{
-					cd[-a]@ricci[a,b], 
-					1/2 cd[b]@rs[]
-				},
-				MetricOn -> All,
-				UseSymmetries -> True
+			If[cd[-a]@ricci[a,b] =!= 0,
+				cd /: CurvatureRelationsBianchi[cd, Ricci] = MakeRule[
+					{
+						cd[-a]@ricci[a,b], 
+						1/2 cd[b]@rs[]
+					},
+					MetricOn -> All,
+					UseSymmetries -> True
+				]
 			];
 		]
 	]
