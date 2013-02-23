@@ -392,35 +392,20 @@ Options[SolveTensors] ^= {
 	SortMethod -> Sort
 }
 
-(* Public function with specified tensors. *)
-SolveTensors[expr_, tensors_List, options___?OptionQ] := SolveTensors1[
-	CollectTensors[
-		expr, 
-		RemoveTensorWrapper -> False, 
-		CollectMethod -> Identity, 
-		SimplifyMethod -> Identity
-	],
-	TensorWrapper[tensors],
-	False,
-	options
-];
+(* User driver with a list of tensors. *)
+SolveTensors[expr_, tensors_List, options___?OptionQ] :=
+	SolveTensors1[expr, tensors, SortMethod -> Identity, options];
 
-(* Public function withouth specified tensors: try to solve for all tensors. *)
-SolveTensors[expr_, options___?OptionQ] := 
-SolveTensors1[
-	#,
-	Union@Cases[#, HoldPattern@TensorWrapper[_], {0, Infinity}, Heads -> True],
-	True,
-	options
-]& @ CollectTensors[
-	expr, 
-	RemoveTensorWrapper -> False, 
-	CollectMethod -> Identity, 
-	SimplifyMethod -> Identity
-];
+(* User driver with a single tensor. *)
+SolveTensors[expr_, tensor_, options___?OptionQ] /; Head[tensor] =!= Rule && Head[tensor] =!= List :=
+	SolveTensors1[expr, {tensor}, SortMethod -> Identity, options];
 
-(* Main driver. *)
-SolveTensors1[eqs_,tensors_List, sortq_, options___?OptionQ] := Module[{mr,sm,mrrule,ntw,sorted},
+(* User driver with no tensors. *)
+SolveTensors[expr_, options___?OptionQ] :=
+	SolveTensors1[expr, {_}, options];
+
+(* Internal driver. *)
+SolveTensors1[expr_, patterns_List, options___?OptionQ] := Module[{mr,sm,collected,tensors,ntw,sorted,mrrule},
 	(* Get options. *)	
 	{mr,sm} = {MakeRule,SortMethod} 
 		/. CheckOptions[options] 
@@ -440,21 +425,39 @@ SolveTensors1[eqs_,tensors_List, sortq_, options___?OptionQ] := Module[{mr,sm,mr
 		],
 		mrrule = {}
 	];
+	(* Apply tensor wrappers. *)
+	collected = CollectTensors[
+		expr, 
+		RemoveTensorWrapper -> False, 
+		CollectMethod -> Identity, 
+		SimplifyMethod -> Identity
+	];
+	(* Find tensors. We don't want to solve for the unit constant, so remove that one. *)
+	tensors = DeleteCases[
+		Union@Cases[collected, HoldPattern@TensorWrapper[_], {0, Infinity}, Heads -> True],
+		TensorWrapper@UnitConstant
+	];
+	(* Select tensors with patterns. The map is over patterns and not tensors to preserve the
+	   ordering of patterns. *)
+	tensors = Flatten[
+		Map[
+			Function[patt,Select[tensors,MatchQ[#,HoldPattern@TensorWrapper@patt]&]],
+			patterns
+		]
+		,
+		1
+	];
 	(* Sort the tensors. Because the sort method might not work on the TensorWrapper head
 	   (because the user doesn't know SolveTensors uses TensorWrappers internally, and didn't 
 	   take that into account), we need to make sure we sort without TensorWrappers. *)
 	ntw 	= RemoveTensorWrapper[tensors];
-	sorted 	= If[TrueQ@sortq,
-		Part[
+	sorted 	= Part[
 			tensors, 
 			Flatten[Position[ntw,#,{1}]& /@ sm[ntw] ]
-		],
-		tensors
 	];
 	(* Solve the equation(s). *)
-	RemoveTensorWrapper[Solve[eqs, sorted]] /. mrrule
-];
-
+	RemoveTensorWrapper[Solve[collected, sorted]] /. mrrule	
+]; 
 
 
 

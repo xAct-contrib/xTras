@@ -225,7 +225,7 @@ Test[
 	,
 	{}
 	,
-	TestID->"Algebra-20130103-W1T0R0"
+	TestID->"Algebra-20130223-S6I8X7"
 ]
 
 Test[
@@ -234,4 +234,48 @@ Test[
 	{{RicciCD[a,b] -> - metric[a,b] }}
 	,
 	TestID->"Algebra-20130103-V5C1P7"
+]
+
+Test[
+	SolveTensors[metric[a,b] + RicciCD[a,b] == 0, {RicciCD[__]}, MakeRule -> False ]
+	,
+	{{RicciCD[a,b] -> - metric[a,b] }}
+	,
+	TestID->"Algebra-20130223-S0E6R9"
+]
+
+Test[
+	SolveTensors[metric[a,b] + RicciCD[a,b] == 0, RicciCD[__], MakeRule -> False ]
+	,
+	{{RicciCD[a,b] -> - metric[a,b] }}
+	,
+	TestID->"Algebra-20130223-B7Z9V2"
+]
+
+Test[
+	SolveTensors[metric[a,b] + RicciCD[a,b] == 0, MakeRule -> False ]
+	,
+	{{RicciCD[a,b] -> - metric[a,b] }}
+	,
+	Solve::svars
+	,	
+	TestID->"Algebra-20130223-J1X2G1"
+]
+
+Test[
+	SolveTensors[metric[a,b] + RicciCD[a,b] == 0, SortMethod -> Reverse, MakeRule -> False ]
+	,
+	{{metric[a,b] -> - RicciCD[a,b] }}
+	,
+	Solve::svars
+	,
+	TestID->"Algebra-20130223-N8Y8T4"
+]
+
+Test[
+	SolveTensors[metric[a,b] + RicciCD[a,b] == 0, metric[__], MakeRule -> False ]
+	,
+	{{metric[a,b] -> - RicciCD[a,b] }}
+	,
+	TestID->"Algebra-20130223-H6H3Q7"
 ]
