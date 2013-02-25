@@ -390,11 +390,11 @@ YoungTableauQ[_] := False;
 
 ExprYoungQ[expr_,tableau_] := And[
 	YoungTableauQ[tableau],
-	Sort@IndicesOf[Free][expr] === IndexList @@ Sort@Flatten[tableau]
+	Complement[Flatten[tableau],List@@IndicesOf[Free][expr]] === {}
 ];
 TnsrYoungQ[tnsr_,tableau_] := And[
 	YoungTableauQ[tableau],
-	Total[Length /@ tableau] === Length[SlotsOfTensor@tnsr]
+	Total[Length /@ tableau] <= Length[SlotsOfTensor@tnsr]
 ];
 
 YoungSymmetrize[expr_, tableau_] := Module[{transpose, sym},
