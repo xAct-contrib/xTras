@@ -279,7 +279,9 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 		tcs /. HoldPattern@TensorWrapper[arg_] :> TensorWrapper[
 			xAct`xTensor`Private`ReplaceDummies2[method@arg,dummies]
 		];
-	tcscanondd = Union@tcscanon;
+	(* Take a union and delete zeros. The zeros can come from canonicalization, and 
+	   prevent Collect from working correctly. *)
+	tcscanondd = DeleteCases[Union@tcscanon, 0];
 	print["Canonicalized " <> ToString@Length@tcscanondd <> " TensorWrappers"];
 	
 	(* Reinsert canonicalized TensorWrappers. *)
@@ -456,7 +458,7 @@ SolveTensors1[expr_, patterns_List, options___?OptionQ] := Module[{mr,sm,collect
 			Flatten[Position[ntw,#,{1}]& /@ sm[ntw] ]
 	];
 	(* Solve the equation(s). *)
-	RemoveTensorWrapper[Solve[collected, sorted]] /. mrrule	
+	Simplify@RemoveTensorWrapper[Solve[collected, sorted]] /. mrrule	
 ]; 
 
 
