@@ -463,7 +463,7 @@ progress and the estimated time remaining.\\nMapTimed[f, expr, \
 Description->\\\"text\\\"] gives a description to the monitor.\\nMapTimed[f, \
 expr, Parallelization->True] performs a ParallelMap instead of a Map.\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3567742506-8569677"]
+ CellTags->"Info3571572636-1077280"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -476,10 +476,15 @@ Cell[BoxData[
        RowBox[{"10000", ",", "20000"}], "}"}], "]"}], ",", 
      RowBox[{"{", "100", "}"}]}], "]"}]}], ";"}]], "Input"],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[
  RowBox[{
   RowBox[{"MapTimed", "[", 
    RowBox[{"PartitionsQ", ",", "data"}], "]"}], ";"}]], "Input"],
+
+Cell[BoxData["$Aborted"], "Output"]
+}, Open  ]],
 
 Cell["\<\
 MapTimed has two options: Description and Parallelize.
@@ -18736,11 +18741,10 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"Solve", "::", "svars"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Equations may not give solutions for all \\\"solve\\\" \
-variables. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
+   RowBox[{"Solve", "::", "svars"}], "MessageName"], ":", 
+  " ", "\<\"Equations may not give solutions for all \\\"solve\\\" variables. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
 ButtonNote -> \\\"Solve::svars\\\"]\\)\"\>"}]], "Message", "MSG"],
 
 Cell[BoxData[
@@ -20785,8 +20789,26 @@ indices of expr. \\nYoungProject[tensor,tableau] projects the tensor \
 (withouth the [] on tensor) onto tableau, where the entries of tableau are \
 integers. \\n\\nThe difference between projecting and symmetrizing is that \
 the projection has a different overall factor, such that repeatedly \
-projecting does not change the result.\"\>", "MSG"]], "Print", "PrintUsage",
- CellTags->"Info3566458656-1250689"]
+projecting does not change the result.\\n\\nSee also the option \
+ManifestSymmetry.\"\>", "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3571572749-7572928"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "ManifestSymmetry"}]], "Input"],
+
+Cell[BoxData[
+ StyleBox["\<\"ManifestSymmetry is an option for YoungSymmetrize and \
+YoungProject that specifies with what convention the Young diagram is \
+symmetrized. \\n\\nThe default is Antisymmetric, with which first the rows of \
+the diagram are symmetrized and lastly the columns antisymmetrized, resulting \
+in an expression with manifest\\ncolumn antisymmetry.\\n\\nThe other setting \
+is Symmetric, with which first the columns are antisymmetrized and lastly the \
+rows are symmetrized, resulting in an expression with manifest row \
+symmetry.\"\>", "MSG"]], "Print", "PrintUsage",
+ CellTags->"Info3571572811-7572928"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -28216,6 +28238,7 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`xTensor`"], 
          ButtonBox["SortCovDsToDiv",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
            "Info3568218943-1755474", {
             "SortCovDsToDiv", "xAct`xTras`xTensor`"}},
@@ -28777,6 +28800,7 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`Algebra`"], 
          ButtonBox["$TensorWrapperColor",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
            "Info3568218944-1755474", {
             "$TensorWrapperColor", "xAct`xTras`Algebra`"}},
@@ -28929,8 +28953,8 @@ Cell[BoxData[
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1060, 736},
-WindowMargins->{{Automatic, 96}, {25, Automatic}},
+WindowSize->{1064, 667},
+WindowMargins->{{Automatic, 366}, {231, Automatic}},
 ShowSelection->True,
 FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 20, \
 2012)",

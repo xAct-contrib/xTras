@@ -76,13 +76,25 @@ tableau, and False otherwhise. A proper Young tableau is a list of \
 lists of integers or symbols, whose intersection is empty. \
 Furthermore the length of the lists has to decrease monotonically.";
 
+ManifestSymmetry::usage =
+	"ManifestSymmetry is an option for YoungSymmetrize and YoungProject that specifies \
+with what convention the Young diagram is symmetrized. \n
+The default is \
+Antisymmetric, with which first the rows of the diagram are symmetrized \
+and lastly the columns antisymmetrized, resulting in an expression with manifest
+column antisymmetry.\n
+The other setting is Symmetric, with which first the columns are antisymmetrized \
+and lastly the rows are symmetrized, resulting in an expression with manifest \
+row symmetry.";
+
 YoungSymmetrize::usage = 
   "YoungSymmetrize[expr,tableau] symmetrizes a tensorial expression \
 according to tableau, where the entries of the tableau have to be the \
 set of free indices of expr.\n
   YoungSymmetrize[tensor,tableau] symmetrizes the tensor (withouth \
 the [] on tensor) according to tableau, where the entries of tableau \
-are integers.";
+are integers.\n
+See also the option ManifestSymmetry.";
 
 YoungProject::usage = 
   "YoungProject[expr,tableau] projects a tensorial expression onto \
@@ -91,7 +103,8 @@ indices of expr. \nYoungProject[tensor,tableau] projects the tensor \
 (withouth the [] on tensor) onto tableau, where the entries of \
 tableau are integers. \n\nThe difference between projecting and \
 symmetrizing is that the projection has a different overall factor, \
-such that repeatedly projecting does not change the result.";
+such that repeatedly projecting does not change the result.\n
+See also the option ManifestSymmetry.";
 
 RiemannYoungRule::usage = 
   "RiemannYoungRule[CD,n] gives the projection rule of n'th covariant \
@@ -397,22 +410,33 @@ TnsrYoungQ[tnsr_,tableau_] := And[
 	Total[Length /@ tableau] <= Length[SlotsOfTensor@tnsr]
 ];
 
-YoungSymmetrize[expr_, tableau_] := Module[{transpose, sym},
+Options[YoungSymmetrize] ^= {
+	ManifestSymmetry -> Antisymmetric
+};
+
+YoungSymmetrize[expr_, tableau_, options___?OptionQ] := Module[{transpose, sym, manifest},
+	manifest = ManifestSymmetry	/. CheckOptions[options] /. Options[YoungSymmetrize];
 	transpose 	= Transpose@PadRight@tableau /. 0 -> Sequence[];
-	sym 		= Fold[ToCanonical[Symmetrize[#1, #2]] &, expr, tableau];
-	Fold[ToCanonical[Antisymmetrize[#1, #2]] &, sym, transpose]
+	If[manifest === Antisymmetric,
+		sym = Fold[ToCanonical[Symmetrize[#1, #2]] &, expr, tableau];
+		sym	= Fold[ToCanonical[Antisymmetrize[#1, #2]] &, sym, transpose];
+	,
+		sym	= Fold[ToCanonical[Antisymmetrize[#1, #2]] &, expr, transpose];
+		sym = Fold[ToCanonical[Symmetrize[#1, #2]] &, sym, tableau];
+	];
+	sym	
 ] /; ExprYoungQ[expr,tableau];
 
-YoungSymmetrize[tensor_?xTensorQ, tableau : {{___Integer} ...}] := Module[{indices},
+YoungSymmetrize[tensor_?xTensorQ, tableau : {{___Integer} ...}, options___?OptionQ] := Module[{indices},
 	indices = DummyIn /@ SlotsOfTensor@tensor;
-	YoungSymmetrize[tensor @@ indices, indices[[#]] & /@ tableau]
+	YoungSymmetrize[tensor @@ indices, indices[[#]] & /@ tableau, options]
 ] /; TnsrYoungQ[tensor,tableau];
 
-YoungSymmetrize[tensor_?xTensorQ] := Total[YoungSymmetrize[tensor, #] & /@ SymmetryTableauxOfTensor[tensor]];
+YoungSymmetrize[tensor_?xTensorQ, options___?OptionQ] := Total[YoungSymmetrize[tensor, #] & /@ SymmetryTableauxOfTensor[tensor], options];
 
-YoungProject[expr_, tableau_] := Module[{sym1, sym2, n, result},
-	sym1 = YoungSymmetrize[expr, tableau];
-	sym2 = YoungSymmetrize[sym1, tableau];
+YoungProject[expr_, tableau_, options___?OptionQ] := Module[{sym1, sym2, n, result},
+	sym1 = YoungSymmetrize[expr, tableau, options];
+	sym2 = YoungSymmetrize[sym1, tableau, options];
 	Block[{$DefInfoQ = False, $UndefInfoQ = False},
 		(* TODO: compute the overall factor n from group-theoretical arguments
 		   instead of symmetrizing twice *)
@@ -423,9 +447,9 @@ YoungProject[expr_, tableau_] := Module[{sym1, sym2, n, result},
 	result
 ] /; ExprYoungQ[expr,tableau];
 
-YoungProject[tensor_?xTensorQ, tableau : {{___Integer} ...}] := Module[{indices},
+YoungProject[tensor_?xTensorQ, tableau : {{___Integer} ...}, options___?OptionQ] := Module[{indices},
    indices = DummyIn /@ SlotsOfTensor@tensor;
-   YoungProject[tensor @@ indices, indices[[#]] & /@ tableau]
+   YoungProject[tensor @@ indices, indices[[#]] & /@ tableau, options]
 ] /; TnsrYoungQ[tensor,tableau];
 
 
@@ -448,7 +472,7 @@ RiemannYoungRule[cd_?CovDQ, {numcds_Integer}] /; numcds >= 0 := Module[
 	expr 	= Fold[cd[#2][#1] &, riemann @@ indrie, indcds];
 	If[expr === 0,
 		{},
-		MakeRule[Evaluate[{expr, YoungProject[expr, tableau]}]]
+		MakeRule[Evaluate[{expr, YoungProject[expr, tableau, ManifestSymmetry->Antisymmetric]}]]
 	]
 ];
 
