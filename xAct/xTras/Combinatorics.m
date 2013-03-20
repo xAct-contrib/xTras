@@ -7,7 +7,13 @@ BeginPackage["xAct`xTras`Combinatorics`", {
 	"xAct`xTras`Algebra`"
 }]
 
-(* MetricPermutations *)
+MakeAnsatz::usage =
+	"MakeAnsatz is a convenience wrapper for AllContractions. \n\n\
+MakeAnsatz[expr] makes an Ansatz with all possible contractions of expr. \
+The Ansatz is a sum of the contractions multiplied with arbitrary constant symbols. \n\
+MakeAnsatz[expr, ConstantPrefix -> \"prefix\"] gives the constant symbols the given prefix.";
+
+ConstantPrefix::usage = "ConstantPrefix is an option for MakeAnsatz.";
 
 SymmetrizeMethod::usage =
 	"SymmetrizeMethod is an option for AllContractions. Its values can be \
@@ -48,6 +54,7 @@ and varying w.r.t. the auxiliary tensor afterwards. \n\
 AllContractions[expr, indexList, symm] gives all possible contractions of expr \
 with free indices indexList and the symmetry symm imposed on the free indices. \n\
 \n\
+The first argument can also be a list. \n\
 See also the options SymmetrizeMethod, ContractedPairs, and UncontracedPairs.";
 
 
@@ -119,6 +126,40 @@ RiemannYoungProject[expr, cd, n] only projects Riemann tensors of the covariant 
 Begin["`Private`"]
 
 
+DefNiceConstantSymbol[prefix_String, number_Integer] := With[{symbol=GiveSymbol[prefix,number]},
+	Block[{$DefInfoQ = False},
+		Quiet[
+			DefConstantSymbol[
+				symbol,
+				PrintAs -> StringJoin[{"\!\(\*SubscriptBox[\(",ToString@prefix,"\), \(",ToString@number,"\)]\)"}]
+			],
+			{ValidateSymbol::used}
+		]
+	];
+	symbol
+];
+
+Options[MakeAnsatz] ^= {
+	ConstantPrefix -> "C"
+};
+
+MakeAnsatz[expr_, options___?OptionQ] := 
+	MakeAnsatz[expr, IndexList[], options];
+
+MakeAnsatz[expr_, freeIndices:IndexList[___?AIndexQ],options___?OptionQ] :=
+	MakeAnsatz[expr, freeIndices, StrongGenSet[{},GenSet[]], options];
+
+MakeAnsatz[expr_, freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
+	{
+		contractions = AllContractions[expr, freeIndices, symmetry, options],
+		prefix = ConstantPrefix /. CheckOptions[options] /. Options[MakeAnsatz]
+	},
+	Dot[
+		contractions,
+		DefNiceConstantSymbol[prefix,#]& /@ Range@Length@contractions
+	]
+];
+
 
 (**************************************)
 (* Metric contractions & permutations *)
@@ -137,7 +178,33 @@ AllContractions[expr_,options___?OptionQ] :=
 AllContractions[expr_,freeIndices:IndexList[___?AIndexQ],options___?OptionQ] := 
 	AllContractions[expr, freeIndices, StrongGenSet[{},GenSet[]], options];
 
-AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
+AllContractions[expr_List, freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ] :=
+	Apply[
+		Union,
+		AllContractions[#, freeIndices, symmetry, options]& /@ expr
+	];
+
+AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ] /; 
+	( !FreeQ[expr,_?xTensorQ] && FreeQ[expr,x_[___] /; xTensorQ[x] ] ) := 
+	AllContractions[
+		ScreenDollarIndices[
+			expr 
+			//. RuleDelayed[
+				(cd_?CovDQ[x_ /; xTensorQ[x] || CovDQ@Head[x]])^Optional[n_Integer],
+				Product[cd[-DummyIn@First@VBundlesOfCovD@cd][x], {n}]
+			] 
+			/. RuleDelayed[
+				(x_?xTensorQ)^Optional[n_Integer],
+				Product[x @@ DummyIn /@ SlotsOfTensor@x, {n}] 
+			]
+		],
+		freeIndices,
+		symmetry,
+		options
+	];
+
+AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ]  /;
+	( !FreeQ[expr,_?xTensorQ] && !FreeQ[expr,x_[___] /; xTensorQ[x] ] ):= Module[
 	{
 		verbose,symmethod,symm,map,exprIndices,numIndices,VB,metric,
 		auxT,auxTexpr,indexlist,dummylist,dummies,M,removesign,process,step,

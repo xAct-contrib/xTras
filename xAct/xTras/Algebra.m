@@ -458,7 +458,7 @@ SolveTensors1[expr_, patterns_List, options___?OptionQ] := Module[{mr,sm,collect
 			Flatten[Position[ntw,#,{1}]& /@ sm[ntw] ]
 	];
 	(* Solve the equation(s). *)
-	Simplify@RemoveTensorWrapper[Solve[collected, sorted]] /. mrrule	
+	RemoveTensorWrapper@Simplify@Solve[collected, sorted] /. mrrule	
 ]; 
 
 
