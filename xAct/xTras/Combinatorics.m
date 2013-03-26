@@ -7,11 +7,13 @@ BeginPackage["xAct`xTras`Combinatorics`", {
 	"xAct`xTras`Algebra`"
 }]
 
-MakeAnsatz::usage =
-	"MakeAnsatz is a convenience wrapper for AllContractions. \n\n\
-MakeAnsatz[expr] makes an Ansatz with all possible contractions of expr. \
-The Ansatz is a sum of the contractions multiplied with arbitrary constant symbols. \n\
+MakeAnsatz::usage = "MakeAnsatz[list] makes an Ansatz. \
+The Ansatz is a sum of the contractions multiplied with arbitrary constant symbols.\n\
 MakeAnsatz[expr, ConstantPrefix -> \"prefix\"] gives the constant symbols the given prefix.";
+
+MakeContractionAnsatz::usage =
+	"MakeContractionAnsatz[expr] makes an Ansatz with all possible contractions of expr. \n\
+MakeContractionAnsatz is a convenience wrapper for AllContractions and MakeAnsatz.";
 
 ConstantPrefix::usage = "ConstantPrefix is an option for MakeAnsatz.";
 
@@ -143,23 +145,16 @@ Options[MakeAnsatz] ^= {
 	ConstantPrefix -> "C"
 };
 
-MakeAnsatz[expr_, options___?OptionQ] := 
-	MakeAnsatz[expr, IndexList[], options];
-
-MakeAnsatz[expr_, freeIndices:IndexList[___?AIndexQ],options___?OptionQ] :=
-	MakeAnsatz[expr, freeIndices, StrongGenSet[{},GenSet[]], options];
-
-MakeAnsatz[expr_, freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
-	{
-		contractions = AllContractions[expr, freeIndices, symmetry, options],
-		prefix = ConstantPrefix /. CheckOptions[options] /. Options[MakeAnsatz]
-	},
+MakeAnsatz[list_List, options___?OptionQ] := 
 	Dot[
-		contractions,
-		DefNiceConstantSymbol[prefix,#]& /@ Range@Length@contractions
-	]
-];
+		list,
+		DefNiceConstantSymbol[
+			ConstantPrefix /. CheckOptions[options] /. Options[MakeAnsatz],
+			#
+		]& /@ Range@Length@list
+	];
 
+MakeContractionAnsatz[args__, options___?OptionQ] := MakeAnsatz[AllContractions[args, options],options];
 
 (**************************************)
 (* Metric contractions & permutations *)
