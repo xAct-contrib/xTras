@@ -37,6 +37,35 @@ Test[
 	TestID->"Combinatorics-20130106-O0D1Q2"
 ]
 
+
+(***************************)
+(*                         *)
+(*     AllContractions     *)
+(*                         *)
+(***************************)
+
+
+Test[
+	WeylCD[-b,-c,-d,-e] - MakeTraceless[
+		RiemannCD[-b,-c,-d,-e]
+	] // RiemannToWeyl // Simplification
+	,
+	0
+	,
+	TestID->"Combinatorics-20130402-R1X2F7"
+]
+
+
+Test[
+	TFRicciCD[-d,-e] - MakeTraceless[
+		RicciCD[-d,-e]
+	] // RicciToTFRicci // Simplification
+	,
+	0
+	,
+	TestID->"Combinatorics-20130402-Y1I3X5"
+]
+
 (***************************)
 (*                         *)
 (*     AllContractions     *)
