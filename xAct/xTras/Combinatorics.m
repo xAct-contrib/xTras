@@ -59,6 +59,12 @@ with free indices indexList and the symmetry symm imposed on the free indices. \
 The first argument can also be a list. \n\
 See also the options SymmetrizeMethod, ContractedPairs, and UncontracedPairs.";
 
+MakeTraceless::usage =
+	"MakeTraceless[expr] returns the traceless version of expr, if any.";
+
+MakeTraceless::unfixed = "Setting unfixed parameters to zero.";
+
+MakeTraceless::notunique = "More than one traceless solution, returning all.";
 
 IndexConfigurations::usage =
 	"IndexConfigurations[expr] gives a list of all independent index configurations of expr.";
@@ -156,9 +162,93 @@ MakeAnsatz[list_List, options___?OptionQ] :=
 
 MakeContractionAnsatz[args__, options___?OptionQ] := MakeAnsatz[AllContractions[args, options],options];
 
+
+
 (**************************************)
 (* Metric contractions & permutations *)
 (**************************************)
+
+
+Options[MakeTraceless] ^= {Verbose -> False};
+
+MakeTraceless[expr_, options___?OptionQ] := Module[
+	{
+		frees = List@@IndicesOf[Free][expr],
+		sgs = SymmetryOf[expr][[4]],
+		VB, M, metric,
+		auxT, contractions, ansatz, constants, c, sols, result, verbose, map
+	},
+	
+	If[Length@frees < 2,
+		Throw@Message[MakeTraceless::error, "Cannot make traceless."];
+	];
+	
+	verbose = Verbose /. CheckOptions[options] /. Options[MakeTraceless];
+	If[TrueQ[verbose],
+		map = MapTimed,
+		map = Map[#1,#2]&
+	];
+	
+	VB 		= VBundleOfIndex@First@frees;
+	M 		= BaseOfVBundle@VB;
+	metric 	= First@MetricsOfVBundle@VB;
+	
+	Block[{$DefInfoQ=False},DefTensor[auxT@@(ChangeIndex /@ frees), M, sgs]];
+	
+	contractions = AllContractions[
+		auxT@@(DummyIn /@ SlotsOfTensor[auxT]) expr,
+		SymmetrizeMethod -> ImposeSymmetry,
+		UncontractedPairs -> None,
+		Verbose -> verbose
+	];
+	contractions = contractions /. t : auxT[___, a_, ___, b_, ___] /; IndicesOf[Dummy][t] == IndexList[] -> 0 /. 0 -> Sequence[];
+	contractions = map[
+		VarD[auxT@@(ChangeIndex /@ frees), PD], 
+		contractions, 
+		Description -> "Removing auxiliary tensor."
+	];
+
+	Block[{$UndefInfoQ=False},UndefTensor[auxT]];
+	
+	constants = GiveSymbol[c,#]& /@ Range@Length@contractions;
+	Block[{$DefInfoQ=False},DefConstantSymbol /@ constants];
+	
+	ansatz = expr + constants.contractions;
+	If[verbose, PrintTemporary[" ** Solving."]];Quiet[
+		sols = SolveConstants[
+			map[
+				( ToCanonical@ContractMetric[#] == 0 )&,
+				( metric@@(ChangeIndex/@#)&  /@ Subsets[frees, {2}] ) * ansatz,
+				Description -> "Taking single contractions."
+			],
+			constants
+		],
+		{Solve::svars}
+	];
+	
+	result = Switch[
+		Length@sols,
+		0,
+		Throw@Message[MakeTraceless::error, "Cannot make traceless."],
+		1,
+		ansatz /. First@sols,
+		_,
+		Message[MakeTraceless::notunique];
+		ansatz /. sols
+	];
+	
+	If[!FreeQ[result, Alternatives@@constants],
+		Message[MakeTraceless::unfixed];
+		result = result /. (#->0 & /@ constants);
+	];
+	
+	Block[{$UndefInfoQ=False},UndefConstantSymbol /@ constants ];
+	
+	result
+];
+
+
+
 
 Options[AllContractions] ^= {
 	Verbose -> False,
