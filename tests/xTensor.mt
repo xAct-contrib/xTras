@@ -48,6 +48,55 @@ Test[
 ]
 
 
+(*******************************)
+(*                             *)
+(*  Implode / explode indices  *)
+(*                             *)
+(*******************************)
+
+Test[
+	ExplodeIndices[ RiemannCD ]
+	,
+	RiemannCD[-a,-b,-c,-d]
+	,
+	TestID->"xTensor-20130402-W2F7U9"
+]
+
+
+Test[
+	ExplodeIndices[ CD@CD@RicciCD ]
+	,
+	CD[-a]@CD[-b]@RicciCD[-c,-d]
+	,
+	TestID->"xTensor-20130402-H4V1O5"
+]
+
+Test[
+	ExplodeIndices[ CD[-a]@CD[-b]@RicciCD[-c,-d] ]
+	,
+	CD[-a]@CD[-b]@RicciCD[-c,-d]
+	,
+	TestID->"xTensor-20130402-A3J6N8"
+]
+
+Test[
+	ImplodeIndices[ CD[-a]@CD[-b]@RicciCD[-c,-d] ]
+	,
+	CD@CD@RicciCD
+	,
+	TestID->"xTensor-20130402-D1Z2D6"
+]
+
+
+Test[
+	ImplodeIndices[ CD@CD@RicciCD ]
+	,
+	CD@CD@RicciCD
+	,
+	TestID->"xTensor-20130402-C8K9Z4"
+]
+
+
 (*************************)
 (*                       *)
 (*  Curvature relations  *)

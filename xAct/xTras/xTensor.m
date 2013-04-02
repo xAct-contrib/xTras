@@ -126,10 +126,42 @@ MetricOfKillingVector::usage =
 	"MetricOfKillingVector[vector] returns the metric of which the given vector is a Killing vector,\
 and None if it is not a Killing vector.";
 
+ExplodeIndices::usage =
+	"ExplodeIndices[expr] inserts indices in the index-free expression expr.";
+	
+ImplodeIndices::usage =
+	"ImplodeIndices[expr] removes indices from the index-full expression expr.";
+
 Begin["`Private`"]
 
 ConstantExprQ[(Plus | Times | _?ScalarFunctionQ)[args__]] := And @@ Map[ConstantExprQ, List@args];
 ConstantExprQ[x_] := ConstantQ[x];
+
+
+(**********************************)
+(*   Explode / implode indices    *)
+(**********************************)
+
+
+ExplodeIndices[expr_] /; ( !FreeQ[expr,_?xTensorQ] && FreeQ[expr,x_[___] /; xTensorQ[x] ] ) := 
+	ScreenDollarIndices[
+			expr 
+			//. RuleDelayed[
+				(cd_?CovDQ[x_ /; xTensorQ[x] || CovDQ@Head[x]])^Optional[n_Integer],
+				Product[cd[-DummyIn@First@VBundlesOfCovD@cd][x], {n}]
+			] 
+			/. RuleDelayed[
+				(x_?xTensorQ)^Optional[n_Integer],
+				Product[x @@ DummyIn /@ SlotsOfTensor@x, {n}] 
+			]
+		];
+
+ExplodeIndices[expr_] := expr;
+
+ImplodeIndices[expr_] /; ( !FreeQ[expr,_?xTensorQ] && !FreeQ[expr,x_[___] /; xTensorQ[x] ] ) :=
+	expr //. cd_?CovDQ[_][x_] :> cd[x] /. x_?xTensorQ[___] :> x
+
+ImplodeIndices[expr_] := expr;
 
 (*************************)
 (* Clear automatic rules *)

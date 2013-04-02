@@ -4,6 +4,7 @@ BeginPackage["xAct`xTras`Combinatorics`", {
 	"xAct`xTensor`",
 	"xAct`SymManipulator`",
 	"xAct`xTras`xCore`",
+	"xAct`xTras`xTensor`",
 	"xAct`xTras`Algebra`"
 }]
 
@@ -269,29 +270,9 @@ AllContractions[expr_List, freeIndices:IndexList[___?AIndexQ], symmetry_, option
 		AllContractions[#, freeIndices, symmetry, options]& /@ expr
 	];
 
-AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ] /; 
-	( !FreeQ[expr,_?xTensorQ] && FreeQ[expr,x_[___] /; xTensorQ[x] ] ) := 
-	AllContractions[
-		ScreenDollarIndices[
-			expr 
-			//. RuleDelayed[
-				(cd_?CovDQ[x_ /; xTensorQ[x] || CovDQ@Head[x]])^Optional[n_Integer],
-				Product[cd[-DummyIn@First@VBundlesOfCovD@cd][x], {n}]
-			] 
-			/. RuleDelayed[
-				(x_?xTensorQ)^Optional[n_Integer],
-				Product[x @@ DummyIn /@ SlotsOfTensor@x, {n}] 
-			]
-		],
-		freeIndices,
-		symmetry,
-		options
-	];
-
-AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ]  /;
-	( !FreeQ[expr,_?xTensorQ] && !FreeQ[expr,x_[___] /; xTensorQ[x] ] ):= Module[
+AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
 	{
-		verbose,symmethod,symm,map,exprIndices,numIndices,VB,metric,
+		expl,verbose,symmethod,symm,map,exprIndices,numIndices,VB,metric,
 		auxT,auxTexpr,indexlist,dummylist,dummies,M,removesign,process,step,
 		contractions,
 		sym,sgs,frees,dummysets,newdummies,newdummypairs,previousdummies,canon,
@@ -317,8 +298,10 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 		symm = ImposeSym[canon[#],freeIndices,SymmetryGroupOfTensor@auxT]&
 	];
 	
+	expl = ExplodeIndices[expr];
+	
 	(* Get the indices of the complete expression (expr + freeindices), and count them.  *)
-	exprIndices	= Join[freeIndices,IndicesOf[Free][expr]];
+	exprIndices	= Join[freeIndices,IndicesOf[Free][expl]];
 	numIndices 	= Length[exprIndices];
 	
 	If[conpairs === All || unconpairs === None,
@@ -332,7 +315,7 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 	];
 		
 	(* Do some checks *)
-	If[IndicesOf[Dummy][expr] =!= IndexList[],
+	If[IndicesOf[Dummy][expl] =!= IndexList[],
 		Throw@Message[AllContractions::error, "Input expression cannot have dummy indices."];
 	];
 	If[!IntegerQ@numContractions,
@@ -362,7 +345,7 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 	Block[{$DefInfoQ=False},DefTensor[auxT@@freeIndices,M,symmetry]];
 
 	(* Replace indices on the auxT (because they might overlap with expr). *)
-	auxTexpr	= expr * auxT@@Table[DummyIn@VB,{Length@freeIndices}];
+	auxTexpr	= expl * auxT@@Table[DummyIn@VB,{Length@freeIndices}];
 	(* Get the symmetry and its Strong Generating Set. *)
 	sym			= SymmetryOf[auxTexpr];
 	sgs			= sym[[4]];

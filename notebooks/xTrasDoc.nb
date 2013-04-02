@@ -5334,6 +5334,325 @@ Cell[BoxData[
 
 Cell[BoxData["6"], "Output"]
 }, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Imploding / exploding indices", "Subsection"],
+
+Cell["\<\
+For lazy people, xTras can insert indices in \
+\[OpenCurlyDoubleQuote]index-free\[CloseCurlyDoubleQuote] expressions with \
+the command \[OpenCurlyDoubleQuote]ExplodeIndices\[CloseCurlyDoubleQuote]. \
+Index-free means writing the tensors without the indices and their brackets. \
+For instance:\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"RiemannCD", " "}], "\[IndentingNewLine]", 
+ RowBox[{"%", "//", " ", "ExplodeIndices"}]}], "Input"],
+
+Cell[BoxData["RiemannCD"], "Output"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[GridBox[{
+     {
+      RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+      StyleBox[GridBox[{
+         {" ", " ", " ", " "},
+         {"a", "b", "c", "d"}
+        },
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.], {
+             Offset[0.034999999999999996`]}, 
+            Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+             Offset[0.]}}, "RowsIndexed" -> {}}],
+       FontSize->9]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.034999999999999996`]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}],
+   ShowAutoStyles->False,
+   AutoSpacing->False],
+  $CellContext`RiemannCD[-$CellContext`a, -$CellContext`b, -$CellContext`c, \
+-$CellContext`d],
+  Editable->False]], "Output"]
+}, Open  ]],
+
+Cell["\<\
+This is particularly useful when typing products of multiple tensors:\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"RiemannCD", "^", "4"}], "\[IndentingNewLine]", 
+ RowBox[{"%", "//", "ExplodeIndices"}]}], "Input"],
+
+Cell[BoxData[
+ SuperscriptBox["RiemannCD", "4"]], "Output"],
+
+Cell[BoxData[
+ RowBox[{
+  InterpretationBox[
+   StyleBox[GridBox[{
+      {
+       RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+       StyleBox[GridBox[{
+          {" ", " ", " ", " "},
+          {"a", "b", "c", "d"}
+         },
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+              Offset[0.]}}, "RowsIndexed" -> {}}],
+        FontSize->9]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+       "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.034999999999999996`]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   $CellContext`RiemannCD[-$CellContext`a, -$CellContext`b, -$CellContext`c, \
+-$CellContext`d],
+   Editable->False], " ", 
+  InterpretationBox[
+   StyleBox[GridBox[{
+      {
+       RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+       StyleBox[GridBox[{
+          {" ", " ", " ", " "},
+          {"e", "f", "g", "h"}
+         },
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+              Offset[0.]}}, "RowsIndexed" -> {}}],
+        FontSize->9]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+       "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.034999999999999996`]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   $CellContext`RiemannCD[-$CellContext`e, -$CellContext`f, -$CellContext`g, \
+-$CellContext`h],
+   Editable->False], " ", 
+  InterpretationBox[
+   StyleBox[GridBox[{
+      {
+       RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+       StyleBox[GridBox[{
+          {" ", " ", " ", " "},
+          {"i", "j", "k", "l"}
+         },
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+              Offset[0.]}}, "RowsIndexed" -> {}}],
+        FontSize->9]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+       "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.034999999999999996`]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   $CellContext`RiemannCD[-$CellContext`i, -$CellContext`j, -$CellContext`k, \
+-$CellContext`l],
+   Editable->False], " ", 
+  InterpretationBox[
+   StyleBox[GridBox[{
+      {
+       RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+       StyleBox[GridBox[{
+          {"  ", "   ", "   ", "   "},
+          {"l1", "l10", "l11", "l12"}
+         },
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+              Offset[0.]}}, "RowsIndexed" -> {}}],
+        FontSize->9]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+       "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.034999999999999996`]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   $CellContext`RiemannCD[-$CellContext`l1, -$CellContext`l10, \
+-$CellContext`l11, -$CellContext`l12],
+   Editable->False]}]], "Output"]
+}, Open  ]],
+
+Cell["\<\
+Covariant derivatives also work:\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"CD", "@", 
+  RowBox[{"CD", "@", 
+   RowBox[{"CD", "@", 
+    RowBox[{"CD", "@", "RicciCD"}]}]}]}], "\[IndentingNewLine]", 
+ RowBox[{"%", "//", "ExplodeIndices"}]}], "Input"],
+
+Cell[BoxData[
+ RowBox[{"CD", "[", 
+  RowBox[{"CD", "[", 
+   RowBox[{"CD", "[", 
+    RowBox[{"CD", "[", "RicciCD", "]"}], "]"}], "]"}], "]"}]], "Output"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   RowBox[{
+    SubscriptBox["\[EmptyDownTriangle]", "a"], 
+    SubscriptBox["\[EmptyDownTriangle]", "b"], 
+    SubscriptBox["\[EmptyDownTriangle]", "c"], 
+    SubscriptBox["\[EmptyDownTriangle]", "d"], GridBox[{
+      {
+       RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+       StyleBox[GridBox[{
+          {" ", " "},
+          {"e", "f"}
+         },
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+              Offset[0.]}}, "RowsIndexed" -> {}}],
+        FontSize->9]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+       "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.034999999999999996`]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}]}],
+   ShowAutoStyles->False,
+   AutoSpacing->False],
+  $CellContext`CD[-$CellContext`a][
+   $CellContext`CD[-$CellContext`b][
+    $CellContext`CD[-$CellContext`c][
+     $CellContext`CD[-$CellContext`d][
+      $CellContext`RicciCD[-$CellContext`e, -$CellContext`f]]]]],
+  Editable->False]], "Output"]
+}, Open  ]],
+
+Cell["\<\
+For good measure, there is also the command ImplodeIndices, which does the \
+opposite, although it is not immediately useful.\
+\>", "Text"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"CD", "@", 
+  RowBox[{"CD", "@", 
+   RowBox[{"CD", "@", 
+    RowBox[{"CD", "@", "RicciCD"}]}]}]}], "\[IndentingNewLine]", 
+ RowBox[{"%", "//", "ExplodeIndices"}], "\[IndentingNewLine]", 
+ RowBox[{"%", "//", "ImplodeIndices"}]}], "Input"],
+
+Cell[BoxData[
+ RowBox[{"CD", "[", 
+  RowBox[{"CD", "[", 
+   RowBox[{"CD", "[", 
+    RowBox[{"CD", "[", "RicciCD", "]"}], "]"}], "]"}], "]"}]], "Output"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   RowBox[{
+    SubscriptBox["\[EmptyDownTriangle]", "a"], 
+    SubscriptBox["\[EmptyDownTriangle]", "b"], 
+    SubscriptBox["\[EmptyDownTriangle]", "c"], 
+    SubscriptBox["\[EmptyDownTriangle]", "d"], GridBox[{
+      {
+       RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+       StyleBox[GridBox[{
+          {" ", " "},
+          {"e", "f"}
+         },
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+              Offset[0.]}}, "RowsIndexed" -> {}}],
+        FontSize->9]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+       "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.034999999999999996`]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}]}],
+   ShowAutoStyles->False,
+   AutoSpacing->False],
+  $CellContext`CD[-$CellContext`a][
+   $CellContext`CD[-$CellContext`b][
+    $CellContext`CD[-$CellContext`c][
+     $CellContext`CD[-$CellContext`d][
+      $CellContext`RicciCD[-$CellContext`e, -$CellContext`f]]]]],
+  Editable->False]], "Output"],
+
+Cell[BoxData[
+ RowBox[{"CD", "[", 
+  RowBox[{"CD", "[", 
+   RowBox[{"CD", "[", 
+    RowBox[{"CD", "[", "RicciCD", "]"}], "]"}], "]"}], "]"}]], "Output"]
+}, Open  ]]
 }, Closed]]
 }, Open  ]],
 
@@ -5851,8 +6170,7 @@ Cell[BoxData[
             GridBoxSpacings->{"Columns" -> {
                 Offset[0.27999999999999997`], {
                  Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> 
-              {
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
                 Offset[0.2], {
                  Offset[0.4]}, 
                 Offset[0.2]}, "RowsIndexed" -> {}}],
@@ -7366,7 +7684,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
                     FontSize->9]}
                   },
-                  
                   GridBoxAlignment->{
                    "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
                     "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -9399,7 +9716,6 @@ Cell[BoxData[
                    Offset[0.]}}, "RowsIndexed" -> {}}],
              FontSize->9]}
           },
-          
           GridBoxAlignment->{
            "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
             "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -12301,7 +12617,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
-           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -13527,7 +13842,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
-           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -14973,6 +15287,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -16418,7 +16733,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
-           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -31763,7 +32077,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
-           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -32157,7 +32470,8 @@ Cell[BoxData[
            GridBoxSpacings->{"Columns" -> {
                Offset[0.27999999999999997`], {
                 Offset[0.034999999999999996`]}, 
-               Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+               Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+             "Rows" -> {
                Offset[0.2], {
                 Offset[0.4]}, 
                Offset[0.2]}, "RowsIndexed" -> {}}],
@@ -32403,10 +32717,8 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"MakeTraceless", "::", "unfixed"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Setting unfixed parameters to zero.\"\>"}]], "Message", \
-"MSG"],
+   RowBox[{"MakeTraceless", "::", "unfixed"}], "MessageName"], ":", 
+  " ", "\<\"Setting unfixed parameters to zero.\"\>"}]], "Message", "MSG"],
 
 Cell[BoxData["0"], "Output"]
 }, Open  ]],
@@ -34489,9 +34801,7 @@ Cell[BoxData["0"], "Output"],
 Cell[BoxData["0"], "Output"]
 }, Open  ]],
 
-Cell["\<\
-We cannot make a single vector traceless:\
-\>", "Text"],
+Cell["We cannot make a single vector traceless:", "Text"],
 
 Cell[CellGroupData[{
 
@@ -34505,18 +34815,16 @@ Cell[BoxData[{
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"MakeTraceless", "::", "error"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\(\\\"Cannot make \
+   RowBox[{"MakeTraceless", "::", "error"}], "MessageName"], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\\"Cannot make \
 traceless.\\\"\\)\[NoBreak]\"\>"}]], "Message", "MSG"],
 
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"Throw", "::", "nocatch"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Uncaught \[NoBreak]\\!\\(Throw[Null]\\)\[NoBreak] returned \
-to top level. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+   RowBox[{"Throw", "::", "nocatch"}], "MessageName"], ":", 
+  " ", "\<\"Uncaught \[NoBreak]\\!\\(Throw[Null]\\)\[NoBreak] returned to top \
+level. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
 ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
 ButtonData:>\\\"paclet:ref/message/Throw/nocatch\\\", ButtonNote -> \
 \\\"Throw::nocatch\\\"]\\)\"\>"}]], "Message", "MSG"],
@@ -34526,9 +34834,7 @@ Cell[BoxData[
   RowBox[{"Throw", "[", "Null", "]"}], "]"}]], "Output"]
 }, Open  ]],
 
-Cell["\<\
-But we can for a generic 3-tensor:\
-\>", "Text"],
+Cell["But we can for a generic 3-tensor:", "Text"],
 
 Cell[CellGroupData[{
 
@@ -37421,7 +37727,6 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`xCore`"], 
          ButtonBox["TimeString",
           BaseStyle->"InformationLink",
-          
           ButtonData:>{
            "Info3568218942-1755474", {"TimeString", "xAct`xTras`xCore`"}},
           ButtonNote->"xAct`xTras`xCore`"]}
@@ -37797,7 +38102,6 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`xPert`"], 
          ButtonBox["PerturbationParameterOfMetric",
           BaseStyle->"InformationLink",
-          
           ButtonData:>{
            "Info3568218943-1755474", {
             "PerturbationParameterOfMetric", "xAct`xTras`xPert`"}},
