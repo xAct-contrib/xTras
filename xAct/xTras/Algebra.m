@@ -275,10 +275,18 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 	print["Found " <> ToString@Length@tcs <> " TensorWrappers"];
 	
 	(* Canonicalize TensorWrappers. *)
-	tcscanon = 
+	tcscanon = If[!verbose,
 		tcs /. HoldPattern@TensorWrapper[arg_] :> TensorWrapper[
 			xAct`xTensor`Private`ReplaceDummies2[method@arg,dummies]
-		];
+		],
+		MapTimed[ 
+			( # /. HoldPattern@TensorWrapper[arg_] :> TensorWrapper[
+				xAct`xTensor`Private`ReplaceDummies2[method@arg,dummies] 
+			] )&,
+			tcs,
+			Description -> "Canonicalizing TensorWrappers"
+		]
+	];
 	(* Take a union and delete zeros. The zeros can come from canonicalization, and 
 	   prevent Collect from working correctly. *)
 	tcscanondd = DeleteCases[Union@tcscanon, 0];
