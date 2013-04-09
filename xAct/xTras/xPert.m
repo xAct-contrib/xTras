@@ -6,6 +6,9 @@ BeginPackage["xAct`xTras`xPert`", {
 	"xAct`xTras`xTensor`"	
 }]
 
+PerturbationParameter::usage = 
+	"PerturbationParameter is a reserved word in xTras`xPert.";
+
 (* Variational calculus *)
 
 PerturbationParameterOfMetric::usage =
@@ -175,10 +178,14 @@ xTrasxPertDefMetric[signdet_, metric_[-a_, -b_], cd_, options___] := (
 		DefMetricPerturbation[
 			metric,
 			GiveSymbol[Perturbation,metric],
-			GiveSymbol["\[Epsilon]",metric]
+			GiveSymbol[PerturbationParameter,metric]
 		];
 		PrintAs[GiveSymbol[Perturbation,metric]] ^= StringJoin[
 			PrintAs[Perturbation],
+			PrintAs[metric]
+		];
+		PrintAs[GiveSymbol[PerturbationParameter,metric]] ^= StringJoin[
+			"\[CurlyEpsilon]",
 			PrintAs[metric]
 		];
 	];
@@ -367,7 +374,7 @@ SymmetricSpaceRules[CD_?CovDQ, K_?ConstantExprQ] := Module[
 		vb 		= First@VBundlesOfCovD[CD]
 	},
 	{a,b,c,d}		= GetIndicesOfVBundle[vb,4];
-	{pa,pb,pc,pd}	= With[{vbpmq = GiveSymbol[vb,"`pmQ"]},
+	{pa,pb,pc,pd}	= With[{vbpmq = SymbolJoin[vb,"`pmQ"]},
 		PatternTest[Pattern[#,Blank[]],vbpmq]& /@ {a,b,c,d}
 	];
 	

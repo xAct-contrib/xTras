@@ -135,7 +135,7 @@ RiemannYoungProject[expr, cd, n] only projects Riemann tensors of the covariant 
 Begin["`Private`"]
 
 
-DefNiceConstantSymbol[prefix_String, number_Integer] := With[{symbol=GiveSymbol[prefix,number]},
+DefNiceConstantSymbol[prefix_String, number_Integer] := With[{symbol=SymbolJoin[prefix,number]},
 	Block[{$DefInfoQ = False},
 		Quiet[
 			DefConstantSymbol[
@@ -202,7 +202,7 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 		UncontractedPairs -> None,
 		Verbose -> verbose
 	];
-	contractions = contractions /. t : auxT[___, a_, ___, b_, ___] /; IndicesOf[Dummy][t] == IndexList[] -> 0 /. 0 -> Sequence[];
+	contractions = contractions /. t : auxT[___] /; IndicesOf[Dummy][t] == IndexList[] -> 0 /. 0 -> Sequence[];
 	contractions = map[
 		VarD[auxT@@(ChangeIndex /@ frees), PD], 
 		contractions, 
@@ -211,7 +211,7 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 
 	Block[{$UndefInfoQ=False},UndefTensor[auxT]];
 	
-	constants = GiveSymbol[c,#]& /@ Range@Length@contractions;
+	constants = SymbolJoin[c,#]& /@ Range@Length@contractions;
 	Block[{$DefInfoQ=False},DefConstantSymbol /@ constants];
 	
 	ansatz = expr + constants.contractions;

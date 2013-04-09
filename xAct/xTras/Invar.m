@@ -375,7 +375,7 @@ OrderCoefficientString[o_, n_] := \!\(\*
 \)
 
 OrderCoefficient[o_, n_] := Module[{symbol},
-	symbol = GiveSymbol["Co", o/2, "n", n];
+	symbol = SymbolJoin["Co", o/2, "n", n];
 	If[!ConstantSymbolQ[symbol],
 		DefConstantSymbol[symbol]
 	];

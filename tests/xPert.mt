@@ -36,7 +36,7 @@ Test[
 Test[
 	PerturbationParameterOfMetric[metric]
 	,
-	\[Epsilon]metric
+	PerturbationParametermetric
 	,
 	TestID->"xPert-20130102-N7F0U0"
 ]
