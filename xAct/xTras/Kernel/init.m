@@ -9,7 +9,6 @@
  * Undef hooks.
  * Add conditionals for when to define extra curvature tensors (e.g. when there's torsion etc).
  * Switch Modules to With's where approriate.
- * Rewrite SolveTensors with Monomials?
 
 *)
 
@@ -20,8 +19,9 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = {"1.1.3pre", {2013, 4, 9}};
+xAct`xTras`$Version = {"1.1.3pre", {2013, 4, 18}};
 xAct`xTras`$xTensorVersionExpected = {"1.0.5", {2013, 1, 27}};
+xAct`xTras`$SymManipulatorVersionExpected = {"0.8.5", {2013, 4, 13}};
 xAct`xTras`$MathematicaVersionNeeded = 6.;
 
 If[Unevaluated[xAct`xCore`Private`$LastPackage] === xAct`xCore`Private`$LastPackage, 
@@ -42,6 +42,12 @@ BeginPackage["xAct`xTras`"]
 (* Check if we have the correct version of xAct. *)
 If[Not@OrderedQ@Map[Last, {xAct`xTras`$xTensorVersionExpected, xAct`xTensor`$Version}], 
 	Message[General::versions, "xTensor", xAct`xTensor`$Version, xAct`xTras`$xTensorVersionExpected];
+	Abort[]
+];
+
+(* Check if we have the correct version of SymManipulator. *)
+If[Not@OrderedQ@Map[Last, {xAct`xTras`$SymManipulatorVersionExpected, xAct`SymManipulator`$Version}], 
+	Message[General::versions, "SymManipulator", xAct`SymManipulator`$Version, xAct`xTras`$SymManipulatorVersionExpected];
 	Abort[]
 ];
 
