@@ -279,3 +279,23 @@ Test[
 	,
 	TestID->"Algebra-20130223-H6H3Q7"
 ]
+
+Test[
+	SolveTensors[RicciScalarCD[] metric[a,b] + RicciCD[a,b] RicciScalarCD[] == 0, MakeRule -> False ]
+	,
+	{{RicciCD[a, b] -> -metric[a, b]}, {RicciScalarCD[] -> 0}}
+	,
+	Solve::svars
+	,
+	TestID->"Algebra-20130418-P4D4O2"
+]
+
+Test[
+	SolveTensors[RicciScalarCD[] metric[a,b] + RicciCD[a,b] RicciScalarCD[] == 0, MakeRule -> False, BreakInMonomials -> False ]
+	,
+	{{RicciCD[a, b] RicciScalarCD[] -> -metric[a, b] RicciScalarCD[]}}
+	,
+	Solve::svars
+	,
+	TestID->"Algebra-20130418-R7F2C5"
+]

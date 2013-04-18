@@ -40,14 +40,14 @@ Test[
 
 (***************************)
 (*                         *)
-(*     AllContractions     *)
+(*      MakeTraceless      *)
 (*                         *)
 (***************************)
 
 
 Test[
-	WeylCD[-b,-c,-d,-e] - MakeTraceless[
-		RiemannCD[-b,-c,-d,-e]
+	WeylCD[-b,-e,-d,-a] - MakeTraceless[
+		RiemannCD[-b,-e,-d,-a]
 	] // RiemannToWeyl // Simplification
 	,
 	0

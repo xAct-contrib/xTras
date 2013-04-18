@@ -174,11 +174,14 @@ Options[MakeTraceless] ^= {Verbose -> False};
 
 MakeTraceless[expr_, options___?OptionQ] := Module[
 	{
-		frees = List@@IndicesOf[Free][expr],
-		sgs = SymmetryOf[expr][[4]],
+		sym = SymmetryOf[expr],
+		frees, sgs,
 		VB, M, metric,
 		auxT, contractions, ansatz, constants, c, sols, result, verbose, map
 	},
+	
+	frees = Last /@ sym[[3]];
+	sgs = sym[[4]];
 	
 	If[Length@frees < 2,
 		Throw@Message[MakeTraceless::error, "Cannot make traceless."];

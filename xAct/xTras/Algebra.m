@@ -138,6 +138,9 @@ HoldPattern[TensorWrapper[TensorWrapper[expr_]]] := TensorWrapper[expr];
 TensorWrapper[x_ * y_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x TensorWrapper[y];
 TensorWrapper[x_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] && x =!= UnitConstant := x TensorWrapper[ UnitConstant ];
 
+(* Move a tensor wrapper on the unit constant inside another tensor wrapper *)
+TensorWrapper /: TensorWrapper[UnitConstant] * HoldPattern@TensorWrapper[x_] := TensorWrapper[x];
+
 (* TensorWrapper formatting. The same as how Scalar formats, only now in blue. *)
 $TensorWrapperColor = RGBColor[0, 0, 1];
 
@@ -195,6 +198,14 @@ DoTensorCollect[func_][expr_] := MapTensors[func, expr];
 (* CollectTensors *)
 (******************)
 
+(* We need NoScalar to map over List and Equal.
+   TODO: when this is in xAct`xTensor` (1.0.5+), remove it. *)
+
+Unprotect[NoScalar];
+NoScalar[expr_List] := NoScalar /@ expr;
+NoScalar[expr_Equal] := NoScalar /@ expr;
+Protect[NoScalar];
+
 TensorCollect = CollectTensors;
 
 Options[CollectTensors] ^= {
@@ -243,14 +254,14 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 		method = Identity;
 	];
 	If[method === Default,
-		method = ToCanonical@ContractMetric@NoScalar@#&;
+		method = ToCanonical@ContractMetric@#&;
 	];
 	
 	(* Expand. *)
 	If[verbose,
-		mod = MapTimedIfPlus[Expand,expr,Description->"Expanding terms"];
+		mod = MapTimedIfPlus[Expand@NoScalar[#]&,expr,Description->"Expanding terms and removing Scalar heads"];
 	,
-		mod = MapIfPlus[Expand,expr];
+		mod = MapIfPlus[Expand@NoScalar[#]&,expr];
 	];
 	print["Expanded to " <> ToString@Length@mod <> " terms"];
 	
@@ -388,18 +399,11 @@ SolveConstants[expr_,varsdoms__] :=
 (* SolveTensors *)
 (****************)
 
-(* 
-	TODO:
-	
-	Instead of using TensorWrappers, we could use BreakInMonomials, and solve for Monomials.
-	This has the advantage that equations like T1 T2 - T1 T3 == 0 can get solved as
- 	{{T1 -> 0}, {T2 -> T3}} instead of the less general solution {{T1 T2 -> T1 T3}}.
- *)
-
 
 Options[SolveTensors] ^= {
 	MakeRule -> True,
-	SortMethod -> Sort
+	SortMethod -> Sort,
+	BreakInMonomials -> True
 }
 
 (* User driver with a list of tensors. *)
@@ -415,11 +419,16 @@ SolveTensors[expr_, options___?OptionQ] :=
 	SolveTensors1[expr, {_}, options];
 
 (* Internal driver. *)
-SolveTensors1[expr_, patterns_List, options___?OptionQ] := Module[{mr,sm,collected,tensors,ntw,sorted,mrrule},
+SolveTensors1[expr_, patterns_List, options___?OptionQ] := Module[
+	{
+		mr,sm,collected,tensors,ntw,sorted,mrrule,dummies,breakin,breakinrule
+	},
+	
 	(* Get options. *)	
-	{mr,sm} = {MakeRule,SortMethod} 
+	{mr,sm,breakin} = {MakeRule,SortMethod,BreakInMonomials} 
 		/. CheckOptions[options] 
 		/. Options[SolveTensors];
+	
 	(* Rule for making proper xTensor rules. *)
 	If[TrueQ[mr],
 		mrrule = Rule[lhs_,rhs_] :> Sequence@@MakeRule[Evaluate[
@@ -435,18 +444,44 @@ SolveTensors1[expr_, patterns_List, options___?OptionQ] := Module[{mr,sm,collect
 		],
 		mrrule = {}
 	];
+
 	(* Apply tensor wrappers. *)
 	collected = CollectTensors[
 		expr, 
 		RemoveTensorWrapper -> False, 
-		CollectMethod -> Identity, 
+		CollectMethod -> Identity,
 		SimplifyMethod -> Identity
 	];
+	
+	dummies = Sort[xAct`xTensor`Private`IndexName /@ FindDummyIndices[Evaluate@expr]];
+	
+	(* Break the tensor wrappers in monomials *)
+	If[TrueQ[breakin],
+		collected = collected /. RuleDelayed[
+			HoldPattern@TensorWrapper[x_],
+			Apply[
+				Times,
+				xAct`xTensor`Private`MonomialsOfTerm[x]
+					/. Monomial[mono_,inds_] :> TensorWrapper[
+						xAct`xTensor`Private`ReplaceDummies2[mono,dummies]
+					]
+					/. xAct`xTensor`Private`Scalar1 -> TensorWrapper
+			]
+		] /. HoldPattern[TensorWrapper[x_^y_]]:>TensorWrapper[x]^y;
+		breakinrule = RuleDelayed[
+			HoldPattern@TensorWrapper[x_]^Optional[n_] /; ScalarQ[x],
+			TensorWrapper@NoScalar[Scalar[x]^n]
+		];
+	,
+		breakinrule = {};
+	];
+	
 	(* Find tensors. We don't want to solve for the unit constant, so remove that one. *)
 	tensors = DeleteCases[
 		Union@Cases[collected, HoldPattern@TensorWrapper[_], {0, Infinity}, Heads -> True],
 		TensorWrapper@UnitConstant
 	];
+	
 	(* Select tensors with patterns. The map is over patterns and not tensors to preserve the
 	   ordering of patterns. *)
 	tensors = Flatten[
@@ -457,6 +492,7 @@ SolveTensors1[expr_, patterns_List, options___?OptionQ] := Module[{mr,sm,collect
 		,
 		1
 	];
+	
 	(* Sort the tensors. Because the sort method might not work on the TensorWrapper head
 	   (because the user doesn't know SolveTensors uses TensorWrappers internally, and didn't 
 	   take that into account), we need to make sure we sort without TensorWrappers. *)
@@ -465,8 +501,11 @@ SolveTensors1[expr_, patterns_List, options___?OptionQ] := Module[{mr,sm,collect
 			tensors, 
 			Flatten[Position[ntw,#,{1}]& /@ sm[ntw] ]
 	];
+	
 	(* Solve the equation(s). *)
-	RemoveTensorWrapper@Simplify@Solve[collected, sorted] /. mrrule	
+	RemoveTensorWrapper[
+		Simplify@Solve[collected, sorted] /. breakinrule
+	] /. mrrule	
 ]; 
 
 
