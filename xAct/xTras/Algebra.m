@@ -298,9 +298,8 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 			Description -> "Canonicalizing TensorWrappers"
 		]
 	];
-	(* Take a union and delete zeros. The zeros can come from canonicalization, and 
-	   prevent Collect from working correctly. *)
-	tcscanondd = DeleteCases[Union@tcscanon, 0];
+	(* Find unique tensor wrappers. *)
+	tcscanondd = Union[Cases[tcscanon,HoldPattern[TensorWrapper[_]],{0,Infinity},Heads->True]];
 	print["Canonicalized " <> ToString@Length@tcscanondd <> " TensorWrappers"];
 	
 	(* Reinsert canonicalized TensorWrappers. *)
