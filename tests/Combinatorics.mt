@@ -46,7 +46,7 @@ Test[
 
 
 Test[
-	WeylCD[-b,-e,-d,-a] - MakeTraceless[
+	WeylCD[-b,-e,-d,-a] - ExpandSym@MakeTraceless[
 		RiemannCD[-b,-e,-d,-a]
 	] // RiemannToWeyl // Simplification
 	,
@@ -57,7 +57,7 @@ Test[
 
 
 Test[
-	TFRicciCD[-d,-e] - MakeTraceless[
+	TFRicciCD[-d,-e] - ExpandSym@MakeTraceless[
 		RicciCD[-d,-e]
 	] // RicciToTFRicci // Simplification
 	,

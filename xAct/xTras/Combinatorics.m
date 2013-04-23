@@ -46,6 +46,9 @@ Note that when not all index pairs are contracted, AllContractions returns a \
 list with one element for each unique contraction, not taking the ordering of \
 the free indices into account.";
 
+FreeMetrics::usage =
+	"FreeMetrics is an option for AllContractions.";
+
 AllContractions::usage =
 	"AllContractions[expr] returns a sorted list of all possible full contractions of \
 expr over its free indices. expr cannot have dummy indices. The free indices have to belong to the same \
@@ -175,9 +178,8 @@ Options[MakeTraceless] ^= {Verbose -> False};
 MakeTraceless[expr_, options___?OptionQ] := Module[
 	{
 		sym = SymmetryOf[expr],
-		frees, sgs,
-		VB, M, metric,
-		auxT, contractions, ansatz, constants, c, sols, result, verbose, map
+		frees, sgs, metric,
+		contractions, ansatz, constants, c, sols, result, verbose, map
 	},
 	
 	frees = Last /@ sym[[3]];
@@ -193,26 +195,17 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 		map = Map[#1,#2]&
 	];
 	
-	VB 		= VBundleOfIndex@First@frees;
-	M 		= BaseOfVBundle@VB;
-	metric 	= First@MetricsOfVBundle@VB;
-	
-	Block[{$DefInfoQ=False},DefTensor[auxT@@(ChangeIndex /@ frees), M, sgs]];
+	metric = First@MetricsOfVBundle@VBundleOfIndex@First@frees;
 	
 	contractions = AllContractions[
-		auxT@@(DummyIn /@ SlotsOfTensor[auxT]) expr,
-		SymmetrizeMethod -> ImposeSymmetry,
+		expr,
+		IndexList@@frees,
+		sgs,
+		SymmetrizeMethod -> ImposeSym,
 		UncontractedPairs -> None,
+		FreeMetrics -> {1, Infinity},
 		Verbose -> verbose
 	];
-	contractions = contractions /. t : auxT[___] /; IndicesOf[Dummy][t] == IndexList[] -> 0 /. 0 -> Sequence[];
-	contractions = map[
-		VarD[auxT@@(ChangeIndex /@ frees), PD], 
-		contractions, 
-		Description -> "Removing auxiliary tensor."
-	];
-
-	Block[{$UndefInfoQ=False},UndefTensor[auxT]];
 	
 	constants = SymbolJoin[c,#]& /@ Range@Length@contractions;
 	Block[{$DefInfoQ=False},DefConstantSymbol /@ constants];
@@ -222,7 +215,11 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 		sols = SolveConstants[
 			map[
 				( ToCanonical@ContractMetric[#] == 0 )&,
-				( metric@@(ChangeIndex/@#)&  /@ Subsets[frees, {2}] ) * ansatz,
+				( metric@@(ChangeIndex/@#)&  /@ Subsets[frees, {2}] ) * map[
+					ExpandSym[#, SmartExpand -> True]&,
+					ansatz,
+					Description -> "Expanding symmetry."
+				],
 				Description -> "Taking single contractions."
 			],
 			constants
@@ -235,7 +232,7 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 		0,
 		Throw@Message[MakeTraceless::error, "Cannot make traceless."],
 		1,
-		ansatz /. First@sols,
+		ansatz /. Simplify@First@sols,
 		_,
 		Message[MakeTraceless::notunique];
 		ansatz /. sols
@@ -252,13 +249,12 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 ];
 
 
-
-
 Options[AllContractions] ^= {
 	Verbose -> False,
 	SymmetrizeMethod -> ImposeSymmetry,
 	ContractedPairs -> All,
-	UncontractedPairs -> None
+	UncontractedPairs -> None,
+	FreeMetrics -> All
 };
 
 AllContractions[expr_,options___?OptionQ] := 
@@ -280,13 +276,14 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 		contractions,
 		sym,sgs,frees,dummysets,newdummies,newdummypairs,previousdummies,canon,
 		numContractions,unconpairs,conpairs,
+		freeMetrics, countFreeMetrics,
 		removesign2
 	},
 
 	(* Set the options. Note that Function (&) has the HoldAll attribute
 	   so we don't need to use SetDelayed. *)
-	{verbose,symmethod,conpairs,unconpairs} = 
-		{Verbose, SymmetrizeMethod, ContractedPairs, UncontractedPairs} 
+	{verbose,symmethod,conpairs,unconpairs,freeMetrics} = 
+		{Verbose, SymmetrizeMethod, ContractedPairs, UncontractedPairs, FreeMetrics} 
 		/. CheckOptions[options] /. Options[AllContractions];
 	If[TrueQ[verbose],
 		map = MapTimed,
@@ -410,6 +407,31 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 		sym,
 		{1,PermuteList[indexlist,InversePerm@Images[#]]}
 	]& /@ contractions;
+
+	(* Sometimes we can have redundant contractions (most likely from downvalues
+	   on tensors in the original expression). Try to remove the signs before doing anything else. *)
+	removesign2[-x_] := x;
+	removesign2[ x_] := x;
+	contractions = Union[removesign2 /@ contractions];
+	
+	(* Select those contractions with the wanted number of free metrics. *)
+	countFreeMetrics[auxT[inds___] * ___] := 1/2 * Length@IndicesOf[Dummy][auxT[inds]];
+	contractions = Select[
+		contractions,
+		IntervalMemberQ[
+			Interval[ToLevelSpec[freeMetrics]],
+			countFreeMetrics[#]
+		]&
+	];
+
+	(* Now remove redundant contractions with a ToCanonical. *)
+	contractions = Union[
+		map[
+			removesign2@ToCanonical[#]&,
+			contractions,
+			Description -> "Removing duplicates."
+			]
+	];	
 	
 	(* Vary w.r.t. the auxiliary tensor to free the indices. This should be fast,
 	   so we don't need to keep the user informed. *)
@@ -436,13 +458,11 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 	
 	(* Return result. Because tensors might have up/down values, we still need to 
 	   remove signs, zeros, and duplicates. *)
-	removesign2[-x_] := x;
-	removesign2[ x_] := x;	
 	DeleteCases[Union[removesign2 /@ contractions], 0] 
 ];
 
 (* 
- * NextDummyPermutations take a list representating an Images permutation,
+ * NextDummyPermutations take a list representing an Images permutation,
  * a pair of new dummies, and a list of old dummies, and gives all possible
  * permutations of positions of the new dummies in the initial permutation
  * while leaving the old dummies alone.

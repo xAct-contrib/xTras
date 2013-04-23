@@ -11,6 +11,10 @@ BeginPackage["xAct`xTras`xCore`", {
 LevelSpecQ::usage = 
 	"LevelSpecQ[levelspec] yields True if levelspec is a standard levelspec, and false otherwise.";
 
+ToLevelSpec::usage =
+	"ToLevelSpec[levelspec] converts levelspec into the {min,max} format.";
+ToLevelSpec::error = "`1` is not a a valid level spec.";
+
 TimeString::usage = 
 	"TimeString[seconds] nicely formats the amount of seconds as a string.";
 
@@ -60,8 +64,19 @@ TimeString2b[x_,s_]	:= Sequence[", ",ToString[x],s,"s"];
 LevelSpecQ[{x_Integer, y_Integer}] /; x >= 0 && y >= x := True
 LevelSpecQ[x_Integer] /; x >= 0 := True
 LevelSpecQ[{x_Integer}] /; x >= 0 := True
-LevelSpecQ[Infinity] := True
+LevelSpecQ[Infinity] = True
+LevelSpecQ[{x_Integer, Infinity}] /; x >= 0 := True
+LevelSpecQ[{Infinity, Infinity}] = True
 LevelSpecQ[___] := False
+
+ToLevelSpec[x_Integer] /; x >= 0 := {0,x};
+ToLevelSpec[{x_Integer}] /; x >= 0 := {x,x};
+ToLevelSpec[Infinity] = {0,Infinity};
+ToLevelSpec[{Infinity}] = {Infinity,Infinity}; 
+ToLevelSpec[All] = {0,Infinity};
+ToLevelSpec[None] = {0,0};
+ToLevelSpec[x_?LevelSpecQ] := x;
+ToLevelSpec[x_] := Throw@Message[ToLevelSpec::error, x];
 
 
 Options[MapTimed] ^= {
