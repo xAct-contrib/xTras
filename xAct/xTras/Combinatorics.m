@@ -178,8 +178,9 @@ Options[MakeTraceless] ^= {Verbose -> False};
 MakeTraceless[expr_, options___?OptionQ] := Module[
 	{
 		sym = SymmetryOf[expr],
-		frees, sgs, metric,
-		contractions, ansatz, constants, c, sols, result, verbose, map
+		frees, sgs, auxT, VB, M, metric,
+		contractions, ansatz, ansatzExpanded, constants, c, sols, result, verbose, map, removesign,
+		metrics, singlecontractions, uniquemetrics
 	},
 	
 	frees = Last /@ sym[[3]];
@@ -194,32 +195,69 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 		map = MapTimed,
 		map = Map[#1,#2]&
 	];
+
+	(* Init geometric variables. *)
+	VB 		= VBundleOfIndex@First@frees;
+	M 		= BaseOfVBundle@VB;
+	metric 	= First@MetricsOfVBundle@VB;
 	
-	metric = First@MetricsOfVBundle@VBundleOfIndex@First@frees;
+	(* 
+	   Determine the independent single contractions of expr.
+	   To this end we first define a new auxiliary tensor,
+	   because we're interested in the symmetry structure of expr,
+	   and not in possible downvalues its contractions might have.
+	 *)
+	Block[{$DefInfoQ=False},DefTensor[auxT @@ frees, M, sgs]];
+	(* Handy helper function. *)
+	removesign[0] 	 = Sequence[];
+	removesign[-x_] := x;
+	removesign[ x_] := x;
+	(* Get the possibly dependent metrics that form all single contractions. *)
+	metrics 			= metric @@ (ChangeIndex /@ #) & /@ Subsets[frees, {2}];
+	(* The single contractions are then ... *)
+	singlecontractions 	= SameDummies@Map[
+		ChangeFreeIndices[#, frees[[1 ;; -3]]] &,
+		ToCanonical@ContractMetric[metrics * (auxT @@ frees)]
+	];
+	(* The independent metrics that form all unique single contractions are then ... *)
+	uniquemetrics = Function[
+		x, 
+		First@First@Select[Transpose[{metrics, singlecontractions}], MatchQ[Last@#, -x | x ] &, 1]
+	] /@ Union[removesign /@ singlecontractions];
+	(* And undefine the auxiliary tensor. *)
+	Block[{$UndefInfoQ=False},UndefTensor[auxT]];
 	
+	(* 
+	    The actual meat of the algorithm: getting all possible traces with the correct
+	    symmetry. For this, AllContractions comes in very very handy here. 
+	 *)
 	contractions = AllContractions[
 		expr,
 		IndexList@@frees,
 		sgs,
 		SymmetrizeMethod -> ImposeSym,
 		UncontractedPairs -> None,
-		FreeMetrics -> {1, Infinity},
+		FreeMetrics -> {1, Infinity}, (* This is for not getting completely uncontracted traces, of which we only want the original expr *)
 		Verbose -> verbose
 	];
 	
+	(* Define constant symbols for the Ansatz. *)
 	constants = SymbolJoin[c,#]& /@ Range@Length@contractions;
 	Block[{$DefInfoQ=False},DefConstantSymbol /@ constants];
+	(* Make the Ansatz. *)
+	ansatz 			= expr + constants.contractions;
+	ansatzExpanded 	= expr + constants.map[
+		ExpandSym[#, SmartExpand -> False]&,
+		contractions,
+		Description -> "Expanding symmetry."
+	];
 	
-	ansatz = expr + constants.contractions;
+	(* Take single contractions, and demand that they are zero. *)
 	If[verbose, PrintTemporary[" ** Solving."]];Quiet[
 		sols = SolveConstants[
 			map[
 				( ToCanonical@ContractMetric[#] == 0 )&,
-				( metric@@(ChangeIndex/@#)&  /@ Subsets[frees, {2}] ) * map[
-					ExpandSym[#, SmartExpand -> True]&,
-					ansatz,
-					Description -> "Expanding symmetry."
-				],
+				uniquemetrics * ansatzExpanded,
 				Description -> "Taking single contractions."
 			],
 			constants
@@ -227,6 +265,7 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 		{Solve::svars}
 	];
 	
+	(* Some logic for if there are multiple solutions etc. *)
 	result = Switch[
 		Length@sols,
 		0,
@@ -238,13 +277,16 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 		ansatz /. sols
 	];
 	
+	(* Set any unfixed constants to zero. *)
 	If[!FreeQ[result, Alternatives@@constants],
 		Message[MakeTraceless::unfixed];
 		result = result /. (#->0 & /@ constants);
 	];
 	
+	(* Undefine the constants used in the Ansatz. *)
 	Block[{$UndefInfoQ=False},UndefConstantSymbol /@ constants ];
 	
+	(* Return final result. *)
 	result
 ];
 
