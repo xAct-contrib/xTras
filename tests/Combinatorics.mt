@@ -184,3 +184,75 @@ Test[
 	,
 	TestID->"Combinatorics-20130104-Y5K0B7"
 ]
+
+
+(***************************)
+(*                         *)
+(*      YoungSymmetric     *)
+(*                         *)
+(***************************)
+
+Test[
+	YoungSymmetric[{{1}, {2}}, ManifestSymmetry -> Antisymmetric]
+	,
+	StrongGenSet[{1, 2}, GenSet[-Cycles[{1, 2}]]]
+	,
+	TestID->"Combinatorics-20130516-Y8P7U0"
+]
+
+Test[
+	YoungSymmetric[{{1}, {2}}, ManifestSymmetry -> Symmetric]
+	,
+	StrongGenSet[{1, 2}, GenSet[-Cycles[{1,2}]]]
+	,
+	TestID->"Combinatorics-20130516-E5B0W4"
+]
+
+Test[
+	YoungSymmetric[{{1, 2}, {3, 4}}, ManifestSymmetry -> Antisymmetric]
+	,
+	StrongGenSet[{1, 2, 3, 4}, GenSet[-Cycles[{1, 3}], -Cycles[{2, 4}], Cycles[{1, 2}, {3, 4}]]]
+	,
+	TestID->"Combinatorics-20130516-F2U6Y7"
+]
+
+Test[
+	YoungSymmetric[{{1, 2}, {3, 4}}, ManifestSymmetry -> Symmetric]
+	,
+	StrongGenSet[{1, 2, 3, 4}, GenSet[Cycles[{1, 2}], Cycles[{3, 4}], Cycles[{1, 3}, {2, 4}]]]
+	,
+	TestID->"Combinatorics-20130516-D6L5U5"
+]
+
+Test[
+	YoungSymmetric[{{1, 2, 3}, {4}}, ManifestSymmetry -> Antisymmetric]
+	,
+	StrongGenSet[{1, 2, 3, 4}, GenSet[-Cycles[{1, 4}], Cycles[{2, 3}]]]
+	,
+	TestID->"Combinatorics-20130516-O5K0I3"
+]
+
+
+Test[
+	YoungSymmetric[{{1, 2}, {3, 4}, {5}}, ManifestSymmetry -> Symmetric]
+	,
+	StrongGenSet[{1, 2, 3, 4, 5}, GenSet[Cycles[{1, 2}], Cycles[{3, 4}], Cycles[{1, 3}, {2, 4}]]]
+	,
+	TestID->"Combinatorics-20130516-H4X5I5"
+]
+
+Test[
+	YoungSymmetric[{{1, 2}, {3, 4}, {5}}, ManifestSymmetry -> Antisymmetric]
+	,
+	StrongGenSet[{1, 2, 3, 4, 5}, GenSet[-Cycles[{1, 3}], -Cycles[{3, 5}], -Cycles[{2, 4}]]]
+	,
+	TestID->"Combinatorics-20130516-U0L0M6"
+]
+
+Test[
+	YoungSymmetric[{{1, 2, 5}, {3, 4}}, ManifestSymmetry -> Antisymmetric]
+	,
+	StrongGenSet[{1, 2, 3, 4, 5}, GenSet[-Cycles[{1, 3}], -Cycles[{2, 4}], Cycles[{1, 2}, {3, 4}]]]
+	,
+	TestID->"Combinatorics-20130516-P6E3D3"
+]

@@ -135,6 +135,9 @@ RiemannYoungProject[expr] projects all Riemann tensors in expr onto their Young 
 RiemannYoungProject[expr, n] projects also n-fold covariant derivatives of the Riemann tensor.\n\
 RiemannYoungProject[expr, cd, n] only projects Riemann tensors of the covariant derivative cd.";
 
+YoungSymmetric::usage =
+	"YoungSymmetric[tableau] gives the SGS in Cycles notation of the mono-term symmetry of the given tableau.";
+
 Begin["`Private`"]
 
 
@@ -681,6 +684,50 @@ RiemannYoungProject[expr_, cd_?CovDQ, level_:{0}] /; LevelSpecQ[level] :=
 
 RiemannYoungProject[expr_, level_:{0}] /; LevelSpecQ[level] := 
 	Fold[RiemannYoungProject[#1,#2,level]&, expr, DeleteCases[$CovDs, PD]];
+
+
+Options[YoungSymmetric] ^= {
+	ManifestSymmetry -> Antisymmetric
+}
+
+YoungSymmetric[tableau_?YoungTableauQ, options___?OptionQ] := Module[
+	{
+		manifestsym, transpose, sgs, cycles, samelengths, pairs, extracycles, sign
+	},
+	manifestsym = ManifestSymmetry	/. CheckOptions[options] /. Options[YoungSymmetric];
+	transpose 	= Transpose@PadRight@tableau /. 0 -> Sequence[];
+	
+	(* The first set of cycles is simply the (anti)symmetrization of the tableau. *)
+	sgs = If[manifestsym === Antisymmetric,
+		Antisymmetric[#, Cycles]& /@ transpose,
+		Symmetric[#, Cycles]& /@ tableau
+	];
+	cycles = sgs /. StrongGenSet[_List, GenSet[c___]] :> c;
+	
+	(* The second set of cycles comes from the additional symmetry present when two or more
+	   rows or columns have the same length and can be interchanged. *)
+	samelengths = Select[
+		GatherBy[
+			If[manifestsym === Antisymmetric,
+				transpose,
+				tableau
+			],
+			Length
+		],
+		Length[#] > 1 &
+	];
+	If[manifestsym === Antisymmetric,
+		sign = 1,
+		sign = -1
+	];
+	pairs[list_List] := Cycles@@Transpose[{list[[#]], list[[#+1]]}]& /@ Range[Length@list - 1];
+	extracycles = Flatten[ pairs /@ samelengths ] /. c_Cycles :> sign^Length[c] * c;
+	
+	(* The complete SGS is then: *)
+	StrongGenSet[Union@@tableau, GenSet@@Join[cycles, extracycles]]
+];
+
+
 
 End[]
 EndPackage[]
