@@ -96,7 +96,7 @@ lists of integers or symbols, whose intersection is empty. \
 Furthermore the length of the lists has to decrease monotonically.";
 
 ManifestSymmetry::usage =
-	"ManifestSymmetry is an option for YoungSymmetrize and YoungProject that specifies \
+	"ManifestSymmetry is an option for YoungSymmetrize, YoungProject, and TableauSymmetric that specifies \
 with what convention the Young diagram is symmetrized. \n
 The default is \
 Antisymmetric, with which first the rows of the diagram are symmetrized \
@@ -135,8 +135,9 @@ RiemannYoungProject[expr] projects all Riemann tensors in expr onto their Young 
 RiemannYoungProject[expr, n] projects also n-fold covariant derivatives of the Riemann tensor.\n\
 RiemannYoungProject[expr, cd, n] only projects Riemann tensors of the covariant derivative cd.";
 
-YoungSymmetric::usage =
-	"YoungSymmetric[tableau] gives the SGS in Cycles notation of the mono-term symmetry of the given tableau.";
+TableauSymmetric::usage =
+	"TableauSymmetric[tableau] gives the Strong Generating Set in Cycles notation of the \
+mono-term symmetry of the given tableau. It takes the option ManifestSymmetry.";
 
 Begin["`Private`"]
 
@@ -690,7 +691,7 @@ Options[YoungSymmetric] ^= {
 	ManifestSymmetry -> Antisymmetric
 }
 
-YoungSymmetric[tableau_?YoungTableauQ, options___?OptionQ] := Module[
+TableauSymmetric[tableau_?YoungTableauQ, options___?OptionQ] := Module[
 	{
 		manifestsym, transpose, sgs, cycles, samelengths, pairs, extracycles, sign
 	},

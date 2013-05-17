@@ -188,12 +188,12 @@ Test[
 
 (***************************)
 (*                         *)
-(*      YoungSymmetric     *)
+(*     TableauSymmetric    *)
 (*                         *)
 (***************************)
 
 Test[
-	YoungSymmetric[{{1}, {2}}, ManifestSymmetry -> Antisymmetric]
+	TableauSymmetric[{{1}, {2}}, ManifestSymmetry -> Antisymmetric]
 	,
 	StrongGenSet[{1, 2}, GenSet[-Cycles[{1, 2}]]]
 	,
@@ -201,7 +201,7 @@ Test[
 ]
 
 Test[
-	YoungSymmetric[{{1}, {2}}, ManifestSymmetry -> Symmetric]
+	TableauSymmetric[{{1}, {2}}, ManifestSymmetry -> Symmetric]
 	,
 	StrongGenSet[{1, 2}, GenSet[-Cycles[{1,2}]]]
 	,
@@ -209,7 +209,23 @@ Test[
 ]
 
 Test[
-	YoungSymmetric[{{1, 2}, {3, 4}}, ManifestSymmetry -> Antisymmetric]
+	TableauSymmetric[{{1,2}}, ManifestSymmetry -> Antisymmetric]
+	,
+	StrongGenSet[{1, 2}, GenSet[Cycles[{1, 2}]]]
+	,
+	TestID->"Combinatorics-20130517-X0F6A1"
+]
+
+Test[
+	TableauSymmetric[{{1,2}}, ManifestSymmetry -> Symmetric]
+	,
+	StrongGenSet[{1, 2}, GenSet[Cycles[{1,2}]]]
+	,
+	TestID->"Combinatorics-20130517-K7C4F6"
+]
+
+Test[
+	TableauSymmetric[{{1, 2}, {3, 4}}, ManifestSymmetry -> Antisymmetric]
 	,
 	StrongGenSet[{1, 2, 3, 4}, GenSet[-Cycles[{1, 3}], -Cycles[{2, 4}], Cycles[{1, 2}, {3, 4}]]]
 	,
@@ -217,7 +233,7 @@ Test[
 ]
 
 Test[
-	YoungSymmetric[{{1, 2}, {3, 4}}, ManifestSymmetry -> Symmetric]
+	TableauSymmetric[{{1, 2}, {3, 4}}, ManifestSymmetry -> Symmetric]
 	,
 	StrongGenSet[{1, 2, 3, 4}, GenSet[Cycles[{1, 2}], Cycles[{3, 4}], Cycles[{1, 3}, {2, 4}]]]
 	,
@@ -225,7 +241,7 @@ Test[
 ]
 
 Test[
-	YoungSymmetric[{{1, 2, 3}, {4}}, ManifestSymmetry -> Antisymmetric]
+	TableauSymmetric[{{1, 2, 3}, {4}}, ManifestSymmetry -> Antisymmetric]
 	,
 	StrongGenSet[{1, 2, 3, 4}, GenSet[-Cycles[{1, 4}], Cycles[{2, 3}]]]
 	,
@@ -234,7 +250,7 @@ Test[
 
 
 Test[
-	YoungSymmetric[{{1, 2}, {3, 4}, {5}}, ManifestSymmetry -> Symmetric]
+	TableauSymmetric[{{1, 2}, {3, 4}, {5}}, ManifestSymmetry -> Symmetric]
 	,
 	StrongGenSet[{1, 2, 3, 4, 5}, GenSet[Cycles[{1, 2}], Cycles[{3, 4}], Cycles[{1, 3}, {2, 4}]]]
 	,
@@ -242,7 +258,7 @@ Test[
 ]
 
 Test[
-	YoungSymmetric[{{1, 2}, {3, 4}, {5}}, ManifestSymmetry -> Antisymmetric]
+	TableauSymmetric[{{1, 2}, {3, 4}, {5}}, ManifestSymmetry -> Antisymmetric]
 	,
 	StrongGenSet[{1, 2, 3, 4, 5}, GenSet[-Cycles[{1, 3}], -Cycles[{3, 5}], -Cycles[{2, 4}]]]
 	,
@@ -250,7 +266,7 @@ Test[
 ]
 
 Test[
-	YoungSymmetric[{{1, 2, 5}, {3, 4}}, ManifestSymmetry -> Antisymmetric]
+	TableauSymmetric[{{1, 2, 5}, {3, 4}}, ManifestSymmetry -> Antisymmetric]
 	,
 	StrongGenSet[{1, 2, 3, 4, 5}, GenSet[-Cycles[{1, 3}], -Cycles[{2, 4}], Cycles[{1, 2}, {3, 4}]]]
 	,
