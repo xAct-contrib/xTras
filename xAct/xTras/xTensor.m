@@ -299,11 +299,11 @@ xTrasxTensorDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= With[
 			},
 			(* Define the new curvature tensors. *)
 			DefTensor[GiveSymbol[Schouten,cd][-a, -b], 
-				M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];
+				M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd, DefInfo->{"Schouten tensor",""}];
 			DefTensor[GiveSymbol[SchoutenCC,cd][LI[_],-a, -b], 
-				M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd];	
+				M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd, DefInfo->{"cosmological Schouten tensor",""}];	
 			DefTensor[einsteincc[LI[_],-a, -b], 
-				M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Einstein,cd], Master->cd];
+				M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Einstein,cd], Master->cd, DefInfo->{"cosmological Einstein tensor",""}];
 			
 			(* Some identities for the cosmological Einstein tensor. *)
 			cd[cpat]@einsteincc[LI[_],___,dpat,___] /; c === ChangeIndex[d] ^= 0;

@@ -20,9 +20,11 @@ ConstantPrefix::usage = "ConstantPrefix is an option for MakeAnsatz.";
 
 SymmetrizeMethod::usage =
 	"SymmetrizeMethod is an option for AllContractions. Its values can be \
-'ImposeSymmetry' (default) or 'ImposeSym'. The former uses xTensor's explicit \
-symmetrization to symmetrize the free indices, whereas the latter uses \
-SymManipulator's implicit ImposeSym to symmetrize the free indices.";
+'ImposeSymmetry' (default), 'ImposeSym', or 'None'. The first uses xTensor's explicit \
+symmetrization to symmetrize the free indices, whereas the second uses \
+SymManipulator's implicit ImposeSym to symmetrize the free indices. 'None' does not \
+symmetrize the free indices, but instead keeps auxiliary tensor (see also the option \
+AuxiliaryTensor).";
 
 UncontractedPairs::usage = 
 	"UncontractedPairs is an option for AllContractions which specifies how \
@@ -45,6 +47,10 @@ takes precendence. \n\
 Note that when not all index pairs are contracted, AllContractions returns a \
 list with one element for each unique contraction, not taking the ordering of \
 the free indices into account.";
+
+AuxiliaryTensor::usage =
+	"AuxiliaryTensor is an option for AllContractions. It can be used to specify the name\
+of the auxiliary tensor used for the free indices.";
 
 FreeMetrics::usage =
 	"FreeMetrics is an option for AllContractions.";
@@ -138,6 +144,27 @@ RiemannYoungProject[expr, cd, n] only projects Riemann tensors of the covariant 
 TableauSymmetric::usage =
 	"TableauSymmetric[tableau] gives the Strong Generating Set in Cycles notation of the \
 mono-term symmetry of the given tableau. It takes the option ManifestSymmetry.";
+
+
+BasicDDI::usage = 
+	"BasicDDI is a reserved word in xTras`Combinatorics`. It is used to label the various \
+dimensional dependent identities.";
+
+BasicDDIDefQ::usage = 
+	"BasicDDIDefQ[covd] returns True if the basic DDI has been defined for the given covariant \
+derivative, and False otherwise.";
+
+BasicDDIRelations::usage =
+	"BasicDDIRelations[covd] gives the relation of the basic DDI of the given covariant derivative \ 
+to metrics.";
+
+BasicDDITableaux::usage =
+	"BasicDDITableaux[covd] stores the standard Young tableaux of the associated basic DDI.";
+
+ConstructDDIs::usage =
+	"ConstructDDIs[expr, indices, symmetry] constructs all DDIs with the tensor structure of expr. \
+It returns a list of tensorial expressions that are zero due to over-antisymmetrization.";
+
 
 Begin["`Private`"]
 
@@ -300,7 +327,8 @@ Options[AllContractions] ^= {
 	SymmetrizeMethod -> ImposeSymmetry,
 	ContractedPairs -> All,
 	UncontractedPairs -> None,
-	FreeMetrics -> All
+	FreeMetrics -> All,
+	AuxiliaryTensor -> Default
 };
 
 AllContractions[expr_,options___?OptionQ] := 
@@ -317,10 +345,10 @@ AllContractions[expr_List, freeIndices:IndexList[___?AIndexQ], symmetry_, option
 
 AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
 	{
-		expl,verbose,symmethod,symm,map,exprIndices,numIndices,VB,metric,
-		auxT,auxTexpr,indexlist,dummylist,dummies,M,removesign,process,step,
+		expl,verbose,symmethod,map,exprIndices,numIndices,VB,metric,
+		auxT,auxTexpr,auxTname,indexlist,dummylist,dummies,M,removesign,process,step,
 		contractions,
-		sym,sgs,frees,dummysets,newdummies,newdummypairs,previousdummies,canon,
+		sym,sgs,frees,dummysets,newdummies,newdummypairs,previousdummies,
 		numContractions,unconpairs,conpairs,
 		freeMetrics, countFreeMetrics,
 		removesign2
@@ -328,20 +356,15 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 
 	(* Set the options. Note that Function (&) has the HoldAll attribute
 	   so we don't need to use SetDelayed. *)
-	{verbose,symmethod,conpairs,unconpairs,freeMetrics} = 
-		{Verbose, SymmetrizeMethod, ContractedPairs, UncontractedPairs, FreeMetrics} 
+	{verbose,symmethod,conpairs,unconpairs,freeMetrics,auxTname} = 
+		{Verbose, SymmetrizeMethod, ContractedPairs, UncontractedPairs, FreeMetrics, AuxiliaryTensor} 
 		/. CheckOptions[options] /. Options[AllContractions];
 	If[TrueQ[verbose],
 		map = MapTimed,
 		map = Map[#1,#2]&
 	];
-	
-	canon = ReplaceDummies[ToCanonical@ContractMetric[#],dummylist]&;
-	If[symmethod === ImposeSymmetry,
-		(* ImposeSymmetry: impose symmetry first, and then canonalize later. *)
-		symm = canon@ImposeSymmetry[#,freeIndices,SymmetryGroupOfTensor@auxT]&,
-		(* ImposeSym: canocalize first (to contract metrics generated at the previous step), then symmetrize. *)
-		symm = ImposeSym[canon[#],freeIndices,SymmetryGroupOfTensor@auxT]&
+	If[auxTname =!= Default,
+		auxT = auxTname
 	];
 	
 	expl = ExplodeIndices[expr];
@@ -479,32 +502,45 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 			]
 	];	
 	
-	(* Vary w.r.t. the auxiliary tensor to free the indices. This should be fast,
-	   so we don't need to keep the user informed. *)
-	contractions = ReplaceAll[
-		contractions,
-		auxT[inds___] :> Inner[
-			delta, 
-			IndexList[inds], 
-			freeIndices, 
-			Times
-		]
-	];
-	
-	(* Impose symmetry. *)
-	contractions = map[
-		symm,
-		contractions,
-		Description -> "Imposing symmetry and canonicalizing."
-	];
+	(* Remove the auxiliary tensor. *)
+	contractions = RemoveAuxT[contractions, auxT, freeIndices, dummylist, symmethod];
 	
 	(* Lastly, undefine the auxiliary tensor. We couldn't do this before
 	   because we needed its symmetry in the previous step. *)
-	Block[{$UndefInfoQ=False},UndefTensor[auxT]];
+	If[FreeQ[contractions,auxT],
+		Block[{$UndefInfoQ=False},UndefTensor[auxT]]
+	];
 	
 	(* Return result. Because tensors might have up/down values, we still need to 
 	   remove signs, zeros, and duplicates. *)
 	DeleteCases[Union[removesign2 /@ contractions], 0] 
+];
+
+RemoveAuxT[list_List, auxT_?xTensorQ, frees_, dummies_, symmethod_] := Module[
+	{
+		canon = ReplaceDummies[ToCanonical@ContractMetric[#],dummies]&,
+		symm
+	},
+	Switch[symmethod,
+		(* ImposeSymmetry: impose symmetry first, and then canonalize later. *)
+		ImposeSymmetry,
+		symm = canon@ImposeSymmetry[#,frees,SymmetryGroupOfTensor@auxT]&,
+		(* ImposeSym: canocalize first (to contract metrics generated at the previous step), then symmetrize. *)
+		ImposeSym,
+		symm = ImposeSym[canon[#],frees,SymmetryGroupOfTensor@auxT]&,
+		_,
+		Return[list];
+	];
+	
+	symm /@ ReplaceAll[
+		list,
+		auxT[inds___] :> Inner[
+			delta, 
+			IndexList[inds], 
+			IndexList@@frees, 
+			Times
+		]
+	]	
 ];
 
 (* 
@@ -729,6 +765,194 @@ TableauSymmetric[tableau_?YoungTableauQ, options___?OptionQ] := Module[
 ];
 
 
+
+(**************************************)
+(* Dimensional Depedendent Identities *)
+(**************************************)
+
+BasicDDIDefQ[_] = False;
+
+BasicDDIRelations[] := Apply[Join, Map[BasicDDIRelations, $CovDs]];
+BasicDDIRelations[_] = {};
+
+DefBasicDDI[cd_?CovDQ] := Module[
+	{
+		M 		= ManifoldOfCovD[cd],
+		D 		= DimOfManifold@ManifoldOfCovD[cd],
+		metric 	= MetricOfCovD[cd],
+		basic	= GiveSymbol[BasicDDI,cd],
+		indices, tableau, asymmetrics, contractions, set, subsets, standard
+	},
+	
+	(* Some preliminary tests. *)
+	If[!IntegerQ[D] || D < 1,
+		Throw::Message[
+			DefBasicDD, 
+			"Cannot define the basic DDI if the dimension of the manifold is not a positive integer."
+		]
+	];
+	If[BasicDDIDefQ[cd],
+		Return[]
+	];
+	
+	(* Get the sorted lower indices of the tangent bundle. *)
+	indices = ChangeIndex /@ Sort@GetIndicesOfVBundle[ First@VBundlesOfCovD@cd, 2(D+1) ];
+	(* Construct the right Young tableau for the basic DDI. The Tranpose is to make sure 
+	   the basic DDI will be antisymmetric in its first and last half set of indices. *)
+	tableau = Transpose@Partition[indices, D+1];
+	
+	(* Define the basic DDI. *)
+	DefTensor[
+		basic@@indices, 
+		M, 
+		TableauSymmetric[tableau, ManifestSymmetry -> Antisymmetric],
+		PrintAs -> GiveOutputString[BasicDDI,cd],
+		DefInfo -> {"basic dimensional dependent identity",""}
+	];
+	BasicDDIDefQ[cd] ^= True;
+	
+	(* Rules for sending the basic DDIs to antisymemtrized metrics. *)
+	asymmetrics = ToCanonical[
+		(D+1)! Antisymmetrize[
+			Apply[
+				Times,
+				metric@@#& /@ tableau
+			],
+			indices[[1;;D+1]]
+		]
+	];
+	BasicDDIRelations[cd] ^= MakeRule[
+		Evaluate@{basic@@indices, asymmetrics},
+		PatternIndices -> All, TestIndices -> True, MetricOn -> All, UseSymmetries -> False
+	];
+	
+	(* Make the basic DDI traceless. *)
+	contractions = ContractMetric[
+		basic@@indices * ( metric @@ # & /@ Subsets[ChangeIndex /@ indices, {2}] )
+	];
+	AutomaticRules[
+		Evaluate[basic],
+		Union@@(MakeRule[
+			Evaluate@{#, 0}, 
+			PatternIndices -> All, TestIndices -> True, MetricOn -> All, UseSymmetries -> False
+		] & /@ contractions),
+		Verbose -> False
+	];
+	
+	(* Determine the independent index configurations of the basic DDI. These are in 1-to-1
+	   correspondence with the Young tableaux of the basic DDI.
+	   Instead of a 'proper' algorithm to find all standard tableaux, we'll use the following trick:
+	   The first and last labels are always 1 and 2(D+1), otherwise the tableau is never standard.
+	   The remaining 2D labels are uniquely fixed by choosing a subset of D labels for the left 
+	   column and demanding that the tableau is standard, which fixes the right column.
+	   This gives us slightly more tableaux than just the standard ones, so we select only 
+	   the standard ones afterwards. *)
+	
+	(* Strip the first and last of the indices. *)
+	set = Rest@Most@indices;
+	(* Find all subsets of length D (i.e. all left rows). *)
+	subsets = Subsets[set, {D}];
+	(* Reinsert the first and the last of the indices and construct the right row. *)
+	subsets = {
+		Prepend[#,First@indices], 
+		Append[Complement[set, #], Last@indices]
+	}& /@ subsets;
+	(* Select only the standard Young tableaux. *)
+	standard = Select[subsets, And @@ OrderedQ /@ Transpose@# &];
+	(* Stored the standard tableaux. *)
+	BasicDDITableaux[cd] ^= basic @@ Join @@ # & /@ standard;
+];
+
+GiveOutputString[BasicDDI, covd_] := StringJoin["B", "[", SymbolOfCovD[covd][[2]], "]"];
+
+
+ClearAll[RemoveFactor];
+RemoveFactor[list_List]:=Union[RemoveFactor1/@list];
+RemoveFactor1[0]=Sequence[];
+RemoveFactor1[sum_Plus]:=#/First@First@SortBy[RemoveFactor2/@List@@sum,Last]&/@sum
+RemoveFactor1[x_]:=Last@RemoveFactor2@x;
+RemoveFactor2[product:Times[int_,x__]]/;Head[int]===Integer||Head[int]===Rational:={int,Times[x]}
+RemoveFactor2[x_]:={1,x};
+
+ConstructDDIs[expr_,options___?OptionQ] := 
+	ConstructDDIs[expr, IndexList[], options];
+
+ConstructDDIs[expr_,freeIndices:IndexList[___?AIndexQ],options___?OptionQ] := 
+	ConstructDDIs[expr, freeIndices, StrongGenSet[{},GenSet[]], options];
+
+ConstructDDIs[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
+	{
+		auxT, auxTname, D, contractions, tensors, cd, basic, frees, tableaux, 
+		ddis, verbose, symmethod, map, dummies
+	},
+	
+	(* Set options. *)
+	{verbose, symmethod, auxTname} = {Verbose, SymmetrizeMethod, AuxiliaryTensor} 
+		/. CheckOptions[options] 
+		/. Options[AllContractions];
+		
+	If[TrueQ[verbose],
+		map = MapTimed,
+		map = Map[#1,#2]&
+	];
+	
+	If[auxTname =!= Default,
+		auxT = auxTname
+	];
+
+	(* Init geometric variables. *)
+	tensors = Union@Cases[expr, _?xTensorQ, {0, Infinity}, Heads -> True];
+	cd 		= CovDOfMetric@First@MetricsOfVBundle@First@Cases[SlotsOfTensor /@ tensors, _?VBundleQ, {0, Infinity}, Heads -> True];
+	D 		= DimOfManifold@ManifoldOfCovD@cd;
+	basic 	= GiveSymbol[BasicDDI, cd];
+	
+	(* Define the basic DDI. *)
+	DefBasicDDI[cd];
+	
+	(* Take all contractions of expr with D+1 uncontracted index pairs. *)
+	contractions = AllContractions[
+		expr, freeIndices, symmetry,
+		SymmetrizeMethod -> None, 
+		UncontractedPairs -> D + 1,
+		FreeMetrics -> All, 
+		AuxiliaryTensor -> auxT,
+		Verbose -> verbose
+	];
+	
+	If[contractions === {}, Return[{}]];
+	
+	frees 		= List@@IndicesOf[Free][First@contractions];
+	dummies		= Union[UpIndex /@ IndicesOf[][contractions]];
+	tableaux 	= ChangeFreeIndices[#, ChangeIndex /@ frees]& /@ BasicDDITableaux[cd];
+	
+	(* Take all possible combinations with the basic DDI.*)
+	ddis = RemoveFactor@map[
+		ToCanonical,
+ 		Flatten@Outer[
+			Times,
+			tableaux,
+			contractions
+		],
+		Description -> "Removing duplicate identities."
+	];
+	
+	(* Expand the basic DDI. *)
+	ddis = RemoveFactor@map[
+		ToCanonical@ContractMetric[# /. BasicDDIRelations[cd]]&,
+		ddis,
+		Description->"Expanding DDIs."
+	];
+	
+	(* Remove the auxiliary tensor. *)
+	ddis = RemoveFactor@RemoveAuxT[ddis, auxT, freeIndices, dummies, symmethod];
+	
+	If[FreeQ[ddis,auxT],
+		Block[{$UndefInfoQ=False},UndefTensor[auxT]]
+	];
+	
+	(* Return. *)
+	ddis
+];
 
 End[]
 EndPackage[]
