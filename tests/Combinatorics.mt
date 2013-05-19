@@ -141,14 +141,6 @@ Test[
 	TestID->"Combinatorics-20130104-X6T4E6"
 ]
 
-Test[
-	AllContractions[ RiemannCD[a,b,c,d], ContractedPairs -> 1 ]
-	,
-	{ RicciCD[a,b] }
-	,
-	TestID->"Combinatorics-20130104-A0G2Q0"
-]
-
 
 (***************************)
 (*                         *)

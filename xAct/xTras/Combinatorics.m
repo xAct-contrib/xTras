@@ -31,25 +31,12 @@ UncontractedPairs::usage =
 many index pairs should not be contracted. The default is None, which amounts to \
 contracting all indices. It can also be an integer in the range from 0 to half the number \
 total indices. \n\
-When UncontractedPairs and ContractedPairs have conflicting values, UncontractedPairs \
-takes precendence. \n\
-Note that when not all index pairs are contracted, AllContractions returns a \
-list with one element for each unique contraction, not taking the ordering of \
-the free indices into account.";
-
-ContractedPairs::usage =
-	"ContractedPairs is an option for AllContractions which specifies how \
-many index pairs should be contracted. The default is All, which amounts to \
-contracting all indices. It can also be an integer in the range from 0 to half the number \
-total indices. \n\
-When UncontractedPairs and ContractedPairs have conflicting values, UncontractedPairs \
-takes precendence. \n\
-Note that when not all index pairs are contracted, AllContractions returns a \
-list with one element for each unique contraction, not taking the ordering of \
+Note that when not all indices are contracted, AllContractions returns a \
+list containing one element per contraction, not taking the ordering of \
 the free indices into account.";
 
 AuxiliaryTensor::usage =
-	"AuxiliaryTensor is an option for AllContractions. It can be used to specify the name\
+	"AuxiliaryTensor is an option for AllContractions. It can be used to specify the name \
 of the auxiliary tensor used for the free indices.";
 
 FreeMetrics::usage =
@@ -67,7 +54,7 @@ AllContractions[expr, indexList, symm] gives all possible contractions of expr \
 with free indices indexList and the symmetry symm imposed on the free indices. \n\
 \n\
 The first argument can also be a list. \n\
-See also the options SymmetrizeMethod, ContractedPairs, and UncontracedPairs.";
+See also the options SymmetrizeMethod and UncontracedPairs.";
 
 MakeTraceless::usage =
 	"MakeTraceless[expr] returns the traceless version of expr, if any.";
@@ -169,6 +156,22 @@ It returns a list of tensorial expressions that are zero due to over-antisymmetr
 Begin["`Private`"]
 
 
+(* DeleteDuplicateFactors is similiar to Union, except that it removes any overall integer or
+   rational factor, and throws away zeros. *)
+(* Main driver over lists. *)
+DeleteDuplicateFactors[list_List] := Union[DeleteDuplicateFactors1 /@ list];
+(* Over single entries. Throw away zeros. *)
+DeleteDuplicateFactors1[0] = Sequence[];
+(* Remove overall integer and rational factors. *)
+(* Over sums: sort by the non-(integer/rational) parts of the sum, and remove the first overall factor. *)
+DeleteDuplicateFactors1[sum_Plus] := #/First@First@SortBy[DeleteDuplicateFactors2/@List@@sum,Last]&/@sum
+(* Over non-sums: *)
+DeleteDuplicateFactors1[x_] := Last@DeleteDuplicateFactors2@x;
+(* Helper function. *)
+DeleteDuplicateFactors2[product:Times[int_,x__]]/;Head[int]===Integer||Head[int]===Rational:={int,Times[x]}
+DeleteDuplicateFactors2[x_] := {1,x};
+
+
 DefNiceConstantSymbol[prefix_String, number_Integer] := With[{symbol=SymbolJoin[prefix,number]},
 	Block[{$DefInfoQ = False},
 		Quiet[
@@ -210,7 +213,7 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 	{
 		sym = SymmetryOf[expr],
 		frees, sgs, auxT, VB, M, metric,
-		contractions, ansatz, ansatzExpanded, constants, c, sols, result, verbose, map, removesign,
+		contractions, ansatz, ansatzExpanded, constants, c, sols, result, verbose, map,
 		metrics, singlecontractions, uniquemetrics
 	},
 	
@@ -239,10 +242,6 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 	   and not in possible downvalues its contractions might have.
 	 *)
 	Block[{$DefInfoQ=False},DefTensor[auxT @@ frees, M, sgs]];
-	(* Handy helper function. *)
-	removesign[0] 	 = Sequence[];
-	removesign[-x_] := x;
-	removesign[ x_] := x;
 	(* Get the possibly dependent metrics that form all single contractions. *)
 	metrics 			= metric @@ (ChangeIndex /@ #) & /@ Subsets[frees, {2}];
 	(* The single contractions are then ... *)
@@ -254,7 +253,7 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 	uniquemetrics = Function[
 		x, 
 		First@First@Select[Transpose[{metrics, singlecontractions}], MatchQ[Last@#, -x | x ] &, 1]
-	] /@ Union[removesign /@ singlecontractions];
+	] /@ DeleteDuplicateFactors[singlecontractions];
 	(* And undefine the auxiliary tensor. *)
 	Block[{$UndefInfoQ=False},UndefTensor[auxT]];
 	
@@ -325,7 +324,6 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 Options[AllContractions] ^= {
 	Verbose -> False,
 	SymmetrizeMethod -> ImposeSymmetry,
-	ContractedPairs -> All,
 	UncontractedPairs -> None,
 	FreeMetrics -> All,
 	AuxiliaryTensor -> Default
@@ -349,15 +347,13 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 		auxT,auxTexpr,auxTname,indexlist,dummylist,dummies,M,removesign,process,step,
 		contractions,
 		sym,sgs,frees,dummysets,newdummies,newdummypairs,previousdummies,
-		numContractions,unconpairs,conpairs,
-		freeMetrics, countFreeMetrics,
-		removesign2
+		numContractions,unconpairs,
+		freeMetrics, countFreeMetrics
 	},
 
-	(* Set the options. Note that Function (&) has the HoldAll attribute
-	   so we don't need to use SetDelayed. *)
-	{verbose,symmethod,conpairs,unconpairs,freeMetrics,auxTname} = 
-		{Verbose, SymmetrizeMethod, ContractedPairs, UncontractedPairs, FreeMetrics, AuxiliaryTensor} 
+	(* Set the options. *)
+	{verbose,symmethod,unconpairs,freeMetrics,auxTname} = 
+		{Verbose, SymmetrizeMethod, UncontractedPairs, FreeMetrics, AuxiliaryTensor} 
 		/. CheckOptions[options] /. Options[AllContractions];
 	If[TrueQ[verbose],
 		map = MapTimed,
@@ -373,13 +369,8 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 	exprIndices	= Join[freeIndices,IndicesOf[Free][expl]];
 	numIndices 	= Length[exprIndices];
 	
-	If[conpairs === All || unconpairs === None,
-		numContractions = numIndices / 2;
-	];
-	If[conpairs =!= All,
-		numContractions = conpairs;
-	];	
-	If[unconpairs =!= None,
+	If[unconpairs === None,
+		numContractions = numIndices / 2,
 		numContractions = numIndices / 2 - unconpairs;
 	];
 		
@@ -479,9 +470,7 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 
 	(* Sometimes we can have redundant contractions (most likely from downvalues
 	   on tensors in the original expression). Try to remove the signs before doing anything else. *)
-	removesign2[-x_] := x;
-	removesign2[ x_] := x;
-	contractions = Union[removesign2 /@ contractions];
+	contractions = DeleteDuplicateFactors[contractions];
 	
 	(* Select those contractions with the wanted number of free metrics. *)
 	countFreeMetrics[auxT[inds___] * ___] := 1/2 * Length@IndicesOf[Dummy][auxT[inds]];
@@ -494,9 +483,9 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 	];
 
 	(* Now remove redundant contractions with a ToCanonical. *)
-	contractions = Union[
+	contractions = DeleteDuplicateFactors[
 		map[
-			removesign2@ToCanonical[#]&,
+			ToCanonical[#]&,
 			contractions,
 			Description -> "Removing duplicates."
 			]
@@ -513,7 +502,7 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 	
 	(* Return result. Because tensors might have up/down values, we still need to 
 	   remove signs, zeros, and duplicates. *)
-	DeleteCases[Union[removesign2 /@ contractions], 0] 
+	DeleteDuplicateFactors[contractions] 
 ];
 
 RemoveAuxT[list_List, auxT_?xTensorQ, frees_, dummies_, symmethod_] := Module[
@@ -866,14 +855,6 @@ DefBasicDDI[cd_?CovDQ] := Module[
 GiveOutputString[BasicDDI, covd_] := StringJoin["B", "[", SymbolOfCovD[covd][[2]], "]"];
 
 
-ClearAll[RemoveFactor];
-RemoveFactor[list_List]:=Union[RemoveFactor1/@list];
-RemoveFactor1[0]=Sequence[];
-RemoveFactor1[sum_Plus]:=#/First@First@SortBy[RemoveFactor2/@List@@sum,Last]&/@sum
-RemoveFactor1[x_]:=Last@RemoveFactor2@x;
-RemoveFactor2[product:Times[int_,x__]]/;Head[int]===Integer||Head[int]===Rational:={int,Times[x]}
-RemoveFactor2[x_]:={1,x};
-
 ConstructDDIs[expr_,options___?OptionQ] := 
 	ConstructDDIs[expr, IndexList[], options];
 
@@ -926,7 +907,7 @@ ConstructDDIs[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?Op
 	tableaux 	= ChangeFreeIndices[#, ChangeIndex /@ frees]& /@ BasicDDITableaux[cd];
 	
 	(* Take all possible combinations with the basic DDI.*)
-	ddis = RemoveFactor@map[
+	ddis = DeleteDuplicateFactors@map[
 		ToCanonical,
  		Flatten@Outer[
 			Times,
@@ -937,14 +918,14 @@ ConstructDDIs[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?Op
 	];
 	
 	(* Expand the basic DDI. *)
-	ddis = RemoveFactor@map[
+	ddis = DeleteDuplicateFactors@map[
 		ToCanonical@ContractMetric[# /. BasicDDIRelations[cd]]&,
 		ddis,
 		Description->"Expanding DDIs."
 	];
 	
 	(* Remove the auxiliary tensor. *)
-	ddis = RemoveFactor@RemoveAuxT[ddis, auxT, freeIndices, dummies, symmethod];
+	ddis = DeleteDuplicateFactors@RemoveAuxT[ddis, auxT, freeIndices, dummies, symmethod];
 	
 	If[FreeQ[ddis,auxT],
 		Block[{$UndefInfoQ=False},UndefTensor[auxT]]
