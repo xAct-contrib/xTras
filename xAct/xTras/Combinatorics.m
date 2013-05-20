@@ -400,9 +400,19 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 	If[xAct`xTensor`Private`SymmetryOfMetric[metric] =!= 1,
 		Throw@Message[AllContractions::error, "Can't do contractions for non-symmetric metrics."];
 	];
-		
-	(* Define an auxilary tensor. We vary w.r.t. to this tensor afterwards to free the indices. *)
-	Block[{$DefInfoQ=False},DefTensor[auxT@@freeIndices,M,symmetry]];
+	
+	(* Define an auxilary tensor if it is not already defined. 
+	   We vary w.r.t. to this tensor afterwards to free the indices. *)
+	If[xTensorQ[auxT],
+		If[
+			SymmetryGroupOfTensor[auxT] =!= (xAct`xTensor`Private`SGSofsym[symmetry] /. Thread[List@@freeIndices -> Range@Length@freeIndices])
+		|| 	SlotsOfTensor[auxT] =!= (List@@freeIndices /. i_?AbstractIndexQ :> VBundleOfIndex[i])
+		,
+			Throw@Message[AllContractions::error, "Existing auxiliary tensor has wrong index structure and / or symmetry."];
+		],
+		ValidateSymbol[Evaluate@auxT];
+		Block[{$DefInfoQ=False},DefTensor[auxT@@freeIndices,M,symmetry]];
+	];
 
 	(* Replace indices on the auxT (because they might overlap with expr). *)
 	auxTexpr	= expl * auxT@@Table[DummyIn@VB,{Length@freeIndices}];
@@ -800,7 +810,7 @@ DefBasicDDI[cd_?CovDQ] := Module[
 	];
 	BasicDDIDefQ[cd] ^= True;
 	
-	(* Rules for sending the basic DDIs to antisymemtrized metrics. *)
+	(* Rules for sending the basic DDIs to antisymmetrized metrics. *)
 	asymmetrics = ToCanonical[
 		(D+1)! Antisymmetrize[
 			Apply[
