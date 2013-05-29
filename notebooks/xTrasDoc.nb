@@ -36567,7 +36567,9 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["Dimensional Dependent Identities", "Subsection"],
+Cell["\<\
+Dimensional Dependent Identities (DDIs)\
+\>", "Subsection"],
 
 Cell[CellGroupData[{
 
@@ -36582,6 +36584,11 @@ that are zero due to over-antisymmetrization.\"\>",
  CellTags->"Info3577805098-5489598"]
 }, Open  ]],
 
+Cell["\<\
+We need to set a specific integer dimension, otherwise we can\
+\[CloseCurlyQuote]t construct DDIs.\
+\>", "Text"],
+
 Cell[CellGroupData[{
 
 Cell[BoxData[
@@ -36589,6 +36596,12 @@ Cell[BoxData[
 
 Cell[BoxData["4"], "Output"]
 }, Open  ]],
+
+Cell["\<\
+As an example, we\[CloseCurlyQuote]ll show that the Euler density in four \
+dimensions is a total derivative, i.e. it\[CloseCurlyQuote]s equations of \
+motion vanish. First, get the Euler density:\
+\>", "Text"],
 
 Cell[CellGroupData[{
 
@@ -36728,6 +36741,10 @@ Cell[BoxData[
 $CellContext`d],
     Editable->False]}]}]], "Output"]
 }, Open  ]],
+
+Cell["\<\
+Compute its equations of motion.\
+\>", "Text"],
 
 Cell[CellGroupData[{
 
@@ -37428,6 +37445,8 @@ $CellContext`d]]],
      Editable->False], ")"}]}]}]], "Output"]
 }, Open  ]],
 
+Cell["Try to simplify it:", "Text"],
+
 Cell[CellGroupData[{
 
 Cell[BoxData[
@@ -37872,18 +37891,11 @@ $CellContext`f],
     Editable->False]}]}]], "Output"]
 }, Open  ]],
 
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"E4eom", " ", 
-   RowBox[{"metric", "[", 
-    RowBox[{
-     RowBox[{"-", "a"}], ",", 
-     RowBox[{"-", "b"}]}], "]"}]}], "//", "CollectTensors"}]], "Input"],
-
-Cell[BoxData["0"], "Output"]
-}, Open  ]],
+Cell["\<\
+This isn\[CloseCurlyQuote]t obviously zero, but it should be. Let\
+\[CloseCurlyQuote]s see if it\[CloseCurlyQuote]s a DDI. Construct all DDIs of \
+this form (two curvature tennsors and two free symmetric indices):\
+\>", "Text"],
 
 Cell[CellGroupData[{
 
@@ -39720,6 +39732,11 @@ $CellContext`f],
       Editable->False]}]}]}], "}"}]], "Output"]
 }, Open  ]],
 
+Cell["\<\
+Solve the DDIs as replacement rules, and plug these into the equations of \
+motion:\
+\>", "Text"],
+
 Cell[CellGroupData[{
 
 Cell[BoxData[
@@ -39742,7 +39759,11 @@ ButtonNote -> \\\"Solve::svars\\\"]\\)\"\>"}]], "Message", "MSG"],
 
 Cell[BoxData[
  RowBox[{"{", "0", "}"}]], "Output"]
-}, Open  ]]
+}, Open  ]],
+
+Cell["\<\
+So indeed the equations of motion vanish due to a DDI.\
+\>", "Text"]
 }, Closed]]
 }, Open  ]],
 
@@ -39990,6 +40011,7 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`xTensor`"], 
          ButtonBox["RicciToSchouten",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
            "Info3577769256-3630280", {
             "RicciToSchouten", "xAct`xTras`xTensor`"}},
@@ -40180,6 +40202,7 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`xPert`"], 
          ButtonBox["PerturbBackground",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
            "Info3577769256-3630280", {
             "PerturbBackground", "xAct`xTras`xPert`"}},
@@ -40361,6 +40384,7 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`Invar`"], 
          ButtonBox["SingleInvariants",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
            "Info3577769257-3630280", {
             "SingleInvariants", "xAct`xTras`Invar`"}},
