@@ -6,6 +6,7 @@
 
 (*
 
+ * Add SyntaxInformation and argx messages to each function.
  * Undef hooks.
  * Add conditionals for when to define extra curvature tensors (e.g. when there's torsion etc).
  * Switch Modules to With's where approriate.
@@ -19,7 +20,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = {"1.1.3pre", {2013, 4, 24}};
+xAct`xTras`$Version = {"1.1.3", {2013, 5, 29}};
 xAct`xTras`$xTensorVersionExpected = {"1.0.5", {2013, 1, 27}};
 xAct`xTras`$SymManipulatorVersionExpected = {"0.8.5", {2013, 4, 13}};
 xAct`xTras`$MathematicaVersionNeeded = 6.;
