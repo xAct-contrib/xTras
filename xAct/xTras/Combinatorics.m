@@ -168,7 +168,7 @@ DeleteDuplicateFactors1[sum_Plus] := #/First@First@SortBy[DeleteDuplicateFactors
 (* Over non-sums: *)
 DeleteDuplicateFactors1[x_] := Last@DeleteDuplicateFactors2@x;
 (* Helper function. *)
-DeleteDuplicateFactors2[product:Times[int_,x__]]/;Head[int]===Integer||Head[int]===Rational:={int,Times[x]}
+DeleteDuplicateFactors2[product:Times[constant_?ConstantQ, x__]] := {constant,Times[x]}
 DeleteDuplicateFactors2[x_] := {1,x};
 
 
