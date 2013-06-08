@@ -1,9 +1,3 @@
-BeginPackage["xAct`xTras`Algebra`", {
-	"xAct`xCore`",
-	"xAct`xTensor`",
-	"xAct`xTras`xCore`"
-}]
-
 (* TensorCollect et al *)
 
 TensorCollector::usage =
@@ -266,6 +260,7 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 	print["Expanded to " <> ToString@Length@mod <> " terms"];
 	
 	(* Find dummies. *)
+	(* TODO: this doesn't work when expr is a list whose free indices are not uniform. *)
 	dummies = Sort[xAct`xTensor`Private`IndexName /@ FindDummyIndices[Evaluate@mod]];
 	print["Found " <> ToString@Length@dummies <> " dummies, " <> ToString@Shallow[List@@dummies]];
 	
@@ -527,4 +522,3 @@ SetAttributes[MakeEquationRule,HoldFirst];
 
 
 End[]
-EndPackage[]

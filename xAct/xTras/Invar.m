@@ -1,11 +1,3 @@
-BeginPackage["xAct`xTras`Invar`", {
-	"xAct`xCore`",
-	"xAct`xTensor`",
-	"xAct`Invar`",
-	"xAct`xTras`xTensor`"
-}]
-
-
 EulerDensity::usage = 
   "EulerDensity[CD] give the Euler density of the curvature tensor of \
 the covariant derivative CD. If the manifold has generic dimension, \
@@ -384,4 +376,3 @@ OrderCoefficient[o_, n_] := Module[{symbol},
 ];
 
 End[]
-EndPackage[]

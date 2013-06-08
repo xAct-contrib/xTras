@@ -1,13 +1,3 @@
-BeginPackage["xAct`xTras`Combinatorics`", {
-	"xAct`xCore`",
-	"xAct`xPerm`",
-	"xAct`xTensor`",
-	"xAct`SymManipulator`",
-	"xAct`xTras`xCore`",
-	"xAct`xTras`xTensor`",
-	"xAct`xTras`Algebra`"
-}]
-
 MakeAnsatz::usage = "MakeAnsatz[list] makes an Ansatz. \
 The Ansatz is a sum of the contractions multiplied with arbitrary constant symbols.\n\
 MakeAnsatz[expr, ConstantPrefix -> \"prefix\"] gives the constant symbols the given prefix.";
@@ -363,7 +353,7 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 		auxT = auxTname
 	];
 	
-	expl = ExplodeIndices[expr];
+	expl = FromIndexFree[expr];
 	
 	(* Get the indices of the complete expression (expr + freeindices), and count them.  *)
 	exprIndices	= Join[freeIndices,IndicesOf[Free][expl]];
@@ -946,4 +936,3 @@ ConstructDDIs[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?Op
 ];
 
 End[]
-EndPackage[]

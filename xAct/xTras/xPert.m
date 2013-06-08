@@ -1,11 +1,3 @@
-BeginPackage["xAct`xTras`xPert`", {
-	"xAct`xCore`",
-	"xAct`xPerm`",
-	"xAct`xTensor`",
-	"xAct`xPert`",
-	"xAct`xTras`xTensor`"	
-}]
-
 PerturbationParameter::usage = 
 	"PerturbationParameter is a reserved word in xTras`xPert.";
 
@@ -445,4 +437,3 @@ EinsteinSpaceRules[CD_?CovDQ, K_?ConstantExprQ] :=
 	Part[SymmetricSpaceRules[CD,K], Span[4, -1]];
 
 End[]
-EndPackage[]

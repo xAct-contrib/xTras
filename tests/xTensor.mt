@@ -50,12 +50,12 @@ Test[
 
 (*******************************)
 (*                             *)
-(*  Implode / explode indices  *)
+(*     Index free notation     *)
 (*                             *)
 (*******************************)
 
 Test[
-	ExplodeIndices[ RiemannCD ]
+	FromIndexFree[ IndexFree@RiemannCD ]
 	,
 	RiemannCD[-a,-b,-c,-d]
 	,
@@ -64,7 +64,7 @@ Test[
 
 
 Test[
-	ExplodeIndices[ CD@CD@RicciCD ]
+	FromIndexFree[ IndexFree@CD@CD@RicciCD ]
 	,
 	CD[-a]@CD[-b]@RicciCD[-c,-d]
 	,
@@ -72,7 +72,7 @@ Test[
 ]
 
 Test[
-	ExplodeIndices[ CD[-a]@CD[-b]@RicciCD[-c,-d] ]
+	FromIndexFree[ CD[-a]@CD[-b]@RicciCD[-c,-d] ]
 	,
 	CD[-a]@CD[-b]@RicciCD[-c,-d]
 	,
@@ -80,22 +80,30 @@ Test[
 ]
 
 Test[
-	ImplodeIndices[ CD[-a]@CD[-b]@RicciCD[-c,-d] ]
+	ToIndexFree[ CD[-a]@CD[-b]@RicciCD[-c,-d] ]
 	,
-	CD@CD@RicciCD
+	IndexFree[ CD@CD@RicciCD ]
 	,
 	TestID->"xTensor-20130402-D1Z2D6"
 ]
 
 
 Test[
-	ImplodeIndices[ CD@CD@RicciCD ]
+	ToIndexFree[ IndexFree@CD@CD@RicciCD ]
 	,
-	CD@CD@RicciCD
+	IndexFree@CD@CD@RicciCD
 	,
 	TestID->"xTensor-20130402-C8K9Z4"
 ]
 
+
+Test[
+	TermsOf[ RiemannCD[-a,-b,-c,-d] RicciCD[c,d] + metric[-a,-b] + RicciCD[-a,-b]  ]
+	,
+	{ IndexFree[ metric ], IndexFree[ RicciCD ], IndexFree[ RicciCD RiemannCD ] }
+	,
+	TestID->"xTensor-20130608-I5K8V6"
+]
 
 (*************************)
 (*                       *)

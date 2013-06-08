@@ -1,10 +1,3 @@
-BeginPackage["xAct`xTras`xTensor`", {
-	"xAct`xCore`",
-	"xAct`xPerm`",
-	"xAct`xTensor`",
-	"xAct`xTras`xCore`"
-}]
-
 ConstantExprQ::usage = 
   "ConstantExprQ[expr] returns True if expr only contains contains \
 constants (i.e. constant symbols and integers, fractions, etc), and \
@@ -126,11 +119,21 @@ MetricOfKillingVector::usage =
 	"MetricOfKillingVector[vector] returns the metric of which the given vector is a Killing vector,\
 and None if it is not a Killing vector.";
 
-ExplodeIndices::usage =
-	"ExplodeIndices[expr] inserts indices in the index-free expression expr.";
+
+(* Pseudo index-free notation. *)
+
+IndexFree::usage =
+	"IndexFree[expr] indicates that expr is in pseudo index-free notation.";
+
+FromIndexFree::usage =
+	"FromIndexFree[expr] inserts indices in the index-free expression expr.";
 	
-ImplodeIndices::usage =
-	"ImplodeIndices[expr] removes indices from the index-full expression expr.";
+ToIndexFree::usage =
+	"ToIndexFree[expr] removes indices from the index-full expression expr.";
+
+TermsOf::usage = 
+	"TermsOf[expr] gives all the different tensorial terms of expr in index-free notation.";
+
 
 Begin["`Private`"]
 
@@ -139,11 +142,28 @@ ConstantExprQ[x_] := ConstantQ[x];
 
 
 (**********************************)
-(*   Explode / implode indices    *)
+(*      Index-free notation       *)
 (**********************************)
 
 
-ExplodeIndices[expr_] /; ( !FreeQ[expr,_?xTensorQ] && FreeQ[expr,x_[___] /; xTensorQ[x] ] ) := 
+IndexFree@IndexFree[x_] := IndexFree[x];
+IndexFree[list_List] := IndexFree /@ list;
+
+(* Formatting. *)
+MakeBoxes[IndexFree[expr_], StandardForm] := 
+	Block[{bla},
+		ToBoxes[
+			expr /. x_?xTensorQ :> PrintAs[x] 
+				//. cd_[x_] /; CovDQ[cd] :> bla[Last@SymbolOfCovD[cd], x] 
+				 /. bla -> StringJoin
+		]
+	]
+
+
+FromIndexFree[expr_] :=
+	expr /. HoldPattern[IndexFree[sub_]] :> FromIndexFree1[sub];
+
+FromIndexFree1[expr_] :=
 	ScreenDollarIndices[
 			expr 
 			//. RuleDelayed[
@@ -156,12 +176,16 @@ ExplodeIndices[expr_] /; ( !FreeQ[expr,_?xTensorQ] && FreeQ[expr,x_[___] /; xTen
 			]
 		];
 
-ExplodeIndices[expr_] := expr;
+ToIndexFree[expr_] :=
+	IndexFree[expr //. cd_?CovDQ[_][x_] :> cd[x] /. x_?xTensorQ[___] :> x];
 
-ImplodeIndices[expr_] /; ( !FreeQ[expr,_?xTensorQ] && !FreeQ[expr,x_[___] /; xTensorQ[x] ] ) :=
-	expr //. cd_?CovDQ[_][x_] :> cd[x] /. x_?xTensorQ[___] :> x
 
-ImplodeIndices[expr_] := expr;
+ClearAll[TermsOf]
+TermsOf[expr_List] 	:= Union@Flatten[TermsOf /@ expr];
+TermsOf[expr_Plus] 	:= Union@TermsOf[List @@ expr];
+TermsOf[expr_] 		:= Union@Cases[ToIndexFree@expr, IndexFree[_],{0,Infinity},Heads->True];
+
+
 
 (*************************)
 (* Clear automatic rules *)
@@ -528,4 +552,3 @@ DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], me
 
 
 End[]
-EndPackage[]

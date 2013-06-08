@@ -1,7 +1,3 @@
-BeginPackage["xAct`xTras`xCore`", {
-	"xAct`xCore`"
-}]
-
 (*********************)
 (*                   *)
 (*  Public messages  *)
@@ -9,7 +5,7 @@ BeginPackage["xAct`xTras`xCore`", {
 (*********************)
 
 LevelSpecQ::usage = 
-	"LevelSpecQ[levelspec] yields True if levelspec is a standard levelspec, and false otherwise.";
+	"LevelSpecQ[levelspec] yields True if levelspec is a standard levelspec, and False otherwise.";
 
 ToLevelSpec::usage =
 	"ToLevelSpec[levelspec] converts levelspec into the {min,max} format.";
@@ -18,7 +14,7 @@ ToLevelSpec::error = "`1` is not a a valid level spec.";
 TimeString::usage = 
 	"TimeString[seconds] nicely formats the amount of seconds as a string.";
 
-Description::usage = "Option for MapTimed.";
+Description::usage = "Description is an option for MapTimed.";
 
 MapTimed::usage = "\
 MapTimed[f, expr] maps f over expr while monitoring the progress and the estimated time remaining.\n\
@@ -133,4 +129,3 @@ MapTimedIfPlus[f_, expr_, rest___] := f[expr];
 
 
 End[]
-EndPackage[]

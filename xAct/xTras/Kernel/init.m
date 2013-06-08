@@ -20,7 +20,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = {"1.1.3", {2013, 5, 29}};
+xAct`xTras`$Version = {"1.1.4pre", {2013, 6, 3}};
 xAct`xTras`$xTensorVersionExpected = {"1.0.5", {2013, 1, 27}};
 xAct`xTras`$SymManipulatorVersionExpected = {"0.8.5", {2013, 4, 13}};
 xAct`xTras`$MathematicaVersionNeeded = 6.;
@@ -29,6 +29,20 @@ If[Unevaluated[xAct`xCore`Private`$LastPackage] === xAct`xCore`Private`$LastPack
 	xAct`xCore`Private`$LastPackage = "xAct`xTras`"
 ];
 
+If[Unevaluated[xAct`xTras`Private`$xTrasContext] === xAct`xTras`Private`$xTrasContext,
+	xAct`xTras`Private`$xTrasContext = "xAct`xTras`"
+];
+
+BeginPackage[xAct`xTras`Private`$xTrasContext, {
+	"xAct`xCore`",
+	"xAct`xPerm`",
+	"xAct`xTensor`",
+	"xAct`xPert`",
+	"xAct`Invar`",
+	"xAct`xCoba`",
+	"xAct`SymManipulator`"
+}]
+
 Get["xAct`xTras`xCore`"];
 Get["xAct`xTras`xTensor`"];
 Get["xAct`xTras`xPert`"];
@@ -36,8 +50,6 @@ Get["xAct`xTras`Invar`"];
 Get["xAct`xTras`xCoba`"];
 Get["xAct`xTras`Algebra`"];
 Get["xAct`xTras`Combinatorics`"];
-
-BeginPackage["xAct`xTras`"]
 
 
 (* Check if we have the correct version of xAct. *)

@@ -1,8 +1,3 @@
-BeginPackage["xAct`xTras`xCoba`", {
-	"xAct`xTensor`",
-	"xAct`xCoba`"
-}]
-
 ComputeBasisValues::usage =
 	"ComputeBasisValues[chart1,chart2] computes and stores the values of the \
 basis elements relating chart1 to chart2 and vice versa. Thus it computes \
@@ -74,4 +69,3 @@ ToBasis[basis_][expr_] /; Apply[And, AIndexQ /@ IndicesOf[][expr]] :=
 *)
 
 End[]
-EndPackage[]
