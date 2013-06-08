@@ -20,7 +20,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = {"1.1.4pre", {2013, 6, 3}};
+xAct`xTras`$Version = {"1.1.4pre", {2013, 6, 8}};
 xAct`xTras`$xTensorVersionExpected = {"1.0.5", {2013, 1, 27}};
 xAct`xTras`$SymManipulatorVersionExpected = {"0.8.5", {2013, 4, 13}};
 xAct`xTras`$MathematicaVersionNeeded = 6.;
@@ -29,6 +29,11 @@ If[Unevaluated[xAct`xCore`Private`$LastPackage] === xAct`xCore`Private`$LastPack
 	xAct`xCore`Private`$LastPackage = "xAct`xTras`"
 ];
 
+(* 
+ * This is a (possibly dangerous) hack in order to enable the documentation tools in Workbench, 
+ * which only works for top-level packages. Set this to "xTras" before loading the package,
+ * and you can use the documentation tools.
+ *)   
 If[Unevaluated[xAct`xTras`Private`$xTrasContext] === xAct`xTras`Private`$xTrasContext,
 	xAct`xTras`Private`$xTrasContext = "xAct`xTras`"
 ];
@@ -84,5 +89,35 @@ redistribute it under certain conditions. See the General Public \
 License for details."];
 	Print[xAct`xCore`Private`bars]
 ];
+
+
+(*
+ * The following is a dirty hack to get URI links in the Information output of all usage messages.
+ * For "top-level" packages (i.e. packages whose symbols are all in one top-level context,
+ * like "myPackage`") this isn't necessary, as then everythings works out of the box
+ * But because we had to hack our way around the documentation tools because xTras lives 
+ * in "xAct`xTras`", the links do not work by themselves.
+ * Therefor, we set for each public symbol the paclet link manually.
+ *) 
+
+(* First, unprotect Documentation`CreateMessageLink. *)
+Unprotect[Documentation`CreateMessageLink];
+
+(* For each public symbol, overwrite its output. *)
+Map[
+	Function[
+		symbol,
+		Documentation`CreateMessageLink[
+			xAct`xTras`Private`$xTrasContext, 
+			ToString@symbol, 
+			"usage", 
+			"English"
+		] = "paclet:xTras/ref/" <> ToString@symbol
+	],
+	Names[xAct`xTras`Private`$xTrasContext <> "*"]
+];
+
+(* Finally, protect Documentation`CreateMessageLink again. *)
+Protect[Documentation`CreateMessageLink];
 
 EndPackage[]
