@@ -1,3 +1,7 @@
+DefNiceConstantSymbol::usage =
+	"DefNiceConstantSymbol[ head[i1,-i2,...] ] defines the constant symbol headi1i2 \
+that prints as head^i1_i2.";
+
 ConstantExprQ::usage = 
   "ConstantExprQ[expr] returns True if expr only contains contains \
 constants (i.e. constant symbols and integers, fractions, etc), and \
@@ -112,7 +116,7 @@ the given metric, and False otherwise.\n\
 KillingVectorQ[tensor] returns KillingVectorQ[tensor, MetricOfKillingVector[tensor]].";
 
 KillingVectorOf::usage = 
-  "Option for DefTensor. Setting the value of KillingVectorOf to a metric while defining a vector \
+  "KillingVectorOf is an option for DefTensor. Setting the value of KillingVectorOf to a metric while defining a vector \
 defines the vector as a Killing vector of that metric (e.g. \"DefTensor[\[Xi][a], KillingVectorOf->metric]\").";
 
 MetricOfKillingVector::usage =
@@ -140,6 +144,33 @@ Begin["`Private`"]
 ConstantExprQ[(Plus | Times | _?ScalarFunctionQ)[args__]] := And @@ Map[ConstantExprQ, List@args];
 ConstantExprQ[x_] := ConstantQ[x];
 
+
+
+DefNiceConstantSymbol[ head_[inds___] ] := 
+	With[
+		{
+			upstring 	= StringJoin[ToString/@Select[List[inds],! MatchQ[#, -_ | _Integer] || Sign[#] > 0 &]],
+			downstring	= StringJoin[ToString/@-Select[List[inds],MatchQ[#, -_] || Sign[#] < 0 &] ]
+		},
+		Block[{$DefInfoQ = False},
+			Quiet[
+				DefConstantSymbol[
+					SymbolJoin[head, downstring, upstring],
+					PrintAs -> StringJoin[
+						"\!\(\*SubsuperscriptBox[\(",
+						ToString@head,
+						"\), \(",
+						downstring,
+						"\), \(",
+						upstring,
+						"\)]\)"
+					]
+				],
+				{ValidateSymbol::used}
+			] (* Quiet *)
+		]; (* Block *)
+		SymbolJoin[head, downstring, upstring]
+	]; (* With *)
 
 (**********************************)
 (*      Index-free notation       *)

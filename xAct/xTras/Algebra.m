@@ -35,12 +35,6 @@ MapTimedTensors::usage =
 MapTensors::usage =
 	"MapTensors[f,expr] maps f over all tensorial expressions in expr.";
 
-DoTensorCollect::usage = 
-  "Deprecated. Superseded by MapTensors / MapTimedTensors. \n \n \
-DoTensorCollect[func][expr] maps func on every collected tensor in \
-expr. This is useful if you have an expression with one tensor object \
-with lots of different constants.";
-
 
 CollectMethod::usage =
 	"CollectMethod is an option for CollectTensors that specifies which \
@@ -70,13 +64,6 @@ SolveTensors[equation] attempts to solve equation for any tensors in it.";
 
 SortMethod::usage =
 	"SortMethod is an option for SolveTensors.";
-
-MakeEquationRule::usage = 
-  "Deprecated.\n\n\
-MakeEquationRule[{equation,pattern,cond}] returns rules for \
-tensors matching pattern in the given equation.\
-\nNote that is extremely similar to IndexSolve.\
-\nMakeEquationRule is deprecated; it has been superseded by SolveTensors.";
 
 ToConstantSymbolEquations::usage =
 	"ToConstantSymbolEquations[eq] takes the tensorial equation eq \
@@ -184,8 +171,6 @@ MapTensors1[func_, expr_, mapmethod_,options___] := Module[
 	wrapped /. Inner[Rule,wrappers,fwrappers, List]
 ];
 
-
-DoTensorCollect[func_][expr_] := MapTensors[func, expr];
 
 
 (******************)
@@ -503,22 +488,6 @@ SolveTensors1[expr_, patterns_List, options___?OptionQ] := Module[
 ]; 
 
 
-
-(* Deprecated, superseded by SolveTensors. *)
-MakeEquationRule[{Equal[LHS_,RHS_], pattern_, cond___}, options___?OptionQ]:=
-  Module[{expanded, list, terms, coefficient, lhs, rhs},
-	expanded	= CollectTensors[LHS - RHS, CollectMethod->Default, SimplifyMethod->Identity];
-	list		= If[Head[expanded] === Plus, List@@expanded, List@expanded];
-	terms = Cases[list, (Optional[c_] * t_) /; ConstantExprQ[c] && MatchQ[t, HoldPattern@pattern] :> {t, c}];
-	If[Length[terms] =!=1, Return[{}]];
-	coefficient	= terms[[1,2]];
-	lhs			= terms[[1,1]];
-	rhs			= Simplification[lhs - (expanded/coefficient)];
-	If[Length[IndicesOf[][lhs]] === 0, rhs = PutScalar[rhs]];
-	MakeRule[Evaluate[{lhs, rhs, cond}], options]
-];
-
-SetAttributes[MakeEquationRule,HoldFirst];
 
 
 End[]

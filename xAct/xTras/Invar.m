@@ -18,9 +18,6 @@ ToCanonical etc, and works on more general expressions. \
 \nNote that it only simplifies expression consisting of Riccis and Riemanns, \
 and not of other curvature tensors.";
 
-FS::usage = 
-  "FS is an alias of FullSimplification. Kept for backwards compatibility.";
-
 FullSimplification::usage =
 	"FullSimplification[metric][expr] tries to simplify expr as much as possible, \
 taking Bianchi identities into account and sorting covariant derivatives. \
@@ -31,12 +28,16 @@ Riccis and Riemanns (but not of other curvature tensors like the Weyl tensor).";
 (* Monomials *)
 
 IncludeDuals::usage = 
-  "Option for SingleInvariants, ProductInvariants, RangeInvariants, \
+  "IncludeDuals is an option for SingleInvariants, ProductInvariants, RangeInvariants, \
 and InvarLagrangian whether to include dual invariants or not.";
 
-Coefficients::usage = "Option for InvarInvariants.";
+Coefficients::usage = 
+	"Coefficients is an option for InvarLagrangian that specifies the coefficients in the Lagrangian. \
+It can either be a function that takes two arguments, or None.";
 
-OrderParameter::usage = "Options for InvarLagrangian.";
+OrderParameter::usage = 
+	"OrderParameter is an option for InvarLagrangian that specifies \
+the parameter that labels the order of derivatives. The default is 1.";
 
 SingleInvariants::noduals = 
   "Omitting dual invariants because dimension is other than 4 (due to \
@@ -58,10 +59,6 @@ specification)";
 InvarLagrangian::usage = 
   "InvarLagrangian[metric, maxorder] gives the most general Lagrangian up to \
 maxorder in derivatives of the metric, consisting solely of curvature tensors.";
-
-OrderCoefficient::usage = 
-  "OrderCoefficient[order,n] gives a constant symbol for InvarLagrangian.";
-
 
 
 
@@ -186,8 +183,6 @@ RiemannSimplification[metric_?MetricQ, level_Integer][expr_] := Module[
 	]
 ];
 
-FS = FullSimplification;
-
 Options[FullSimplification] ^= {SortCovDs -> True};
 
 FullSimplification[options___?OptionQ][expr_] := Fold[FullSimplification[#2, options][#1] &, expr, $Metrics];
@@ -306,7 +301,7 @@ ProductInvariants[metric_?MetricQ, {order_Integer}, options___?OptionQ] /; order
 ProductInvariants[_?MetricQ, {0}, ___?OptionQ] := {1};
 
 Options[InvarLagrangian] ^= {
-	Coefficients -> OrderCoefficient, 
+	Coefficients -> (DefNiceConstantSymbol["C"["o", #1/2, -"n", -#2]]&), 
 	OrderParameter -> 1
 };
 
@@ -342,37 +337,6 @@ InvarLagrangian[metric_?MetricQ, {order_Integer}, options___?OptionQ] := Module[
 	NoScalar[
 		orderPar^order * q.Sort[invariants //. CurvatureRelations@CovDOfMetric@metric] 
 	]   
-];
-
-OrderCoefficientString[o_, n_] := \!\(\*
-	TagBox[
-		StyleBox[
-			RowBox[{
-				"\"\<\\!\\(\\*SubsuperscriptBox[\\(c\\), \\(\>\"", 
-				"<>", 
-				RowBox[{"ToString", "[", "n", "]"}],
-				"<>", 
-				"\"\<\\), \\(\>\"", 
-				"<>", 
-				RowBox[{"ToString", "[", "o", "]"}], 
-				"<>", 
-				"\"\<\\)]\\)\>\""
-			}],
-			ShowSpecialCharacters -> False,
-			ShowStringCharacters -> True,
-			NumberMarks -> True
-		],
-		FullForm
-	]
-\)
-
-OrderCoefficient[o_, n_] := Module[{symbol},
-	symbol = SymbolJoin["Co", o/2, "n", n];
-	If[!ConstantSymbolQ[symbol],
-		DefConstantSymbol[symbol]
-	];
-	PrintAs[symbol] ^= OrderCoefficientString[o/2, n];
-	symbol
 ];
 
 End[]

@@ -10100,18 +10100,18 @@ Cell[BoxData[
  RowBox[{
   InterpretationBox[
    StyleBox[
-    SubsuperscriptBox["c", "1", "0"],
+    SubsuperscriptBox["C", "n1", "o"],
     ShowAutoStyles->False,
     AutoSpacing->False],
-   $CellContext`Co0n1,
+   $CellContext`Cn1o,
    Editable->False], "+", 
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubsuperscriptBox["c", "2", "2"],
+     SubsuperscriptBox["C", "n2", "o2"],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    $CellContext`Co2n2,
+    $CellContext`Cn2o2,
     Editable->False], " ", 
    InterpretationBox[
     StyleBox[GridBox[{
@@ -10174,10 +10174,10 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubsuperscriptBox["c", "1", "1"],
+     SubsuperscriptBox["C", "n1", "o1"],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    $CellContext`Co1n1,
+    $CellContext`Cn1o1,
     Editable->False], " ", 
    InterpretationBox[
     StyleBox[
@@ -10189,10 +10189,10 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubsuperscriptBox["c", "1", "2"],
+     SubsuperscriptBox["C", "n1", "o2"],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    $CellContext`Co2n1,
+    $CellContext`Cn1o2,
     Editable->False], " ", 
    SuperscriptBox[
     InterpretationBox[
@@ -10205,10 +10205,10 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubsuperscriptBox["c", "3", "2"],
+     SubsuperscriptBox["C", "n3", "o2"],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    $CellContext`Co2n3,
+    $CellContext`Cn3o2,
     Editable->False], " ", 
    InterpretationBox[
     StyleBox[GridBox[{
@@ -10273,10 +10273,10 @@ $CellContext`d],
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubsuperscriptBox["c", "4", "2"],
+     SubsuperscriptBox["C", "n4", "o2"],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    $CellContext`Co2n4,
+    $CellContext`Cn4o2,
     Editable->False], " ", 
    RowBox[{"(", 
     InterpretationBox[
@@ -22139,7 +22139,8 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"AllContractions", "[", 
-  RowBox[{"T", " ", "S"}], "]"}]], "Input"],
+  RowBox[{"IndexFree", "[", 
+   RowBox[{"T", " ", "S"}], "]"}], "]"}]], "Input"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -22321,7 +22322,8 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"AllContractions", "[", 
-  RowBox[{"S", "^", "4"}], "]"}]], "Input"],
+  RowBox[{"IndexFree", "[", 
+   RowBox[{"S", "^", "4"}], "]"}], "]"}]], "Input"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -28585,7 +28587,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "1"],
+     SubsuperscriptBox["C", "1", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C1,
@@ -28649,7 +28651,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "2"],
+     SubsuperscriptBox["C", "2", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C2,
@@ -28713,7 +28715,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "3"],
+     SubsuperscriptBox["C", "3", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C3,
@@ -28780,14 +28782,15 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"MakeContractionAnsatz", "[", 
-  RowBox[{"S", " ", "T"}], "]"}]], "Input"],
+  RowBox[{"IndexFree", "[", 
+   RowBox[{"S", " ", "T"}], "]"}], "]"}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "1"],
+     SubsuperscriptBox["C", "1", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C1,
@@ -28851,7 +28854,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "2"],
+     SubsuperscriptBox["C", "2", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C2,
@@ -28915,7 +28918,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "3"],
+     SubsuperscriptBox["C", "3", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C3,
@@ -28983,7 +28986,8 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"MakeContractionAnsatz", "[", 
   RowBox[{
-   RowBox[{"S", " ", "T"}], ",", " ", 
+   RowBox[{"IndexFree", "[", 
+    RowBox[{"S", " ", "T"}], "]"}], ",", " ", 
    RowBox[{"IndexList", "[", 
     RowBox[{"a", ",", "b"}], "]"}]}], "]"}]], "Input"],
 
@@ -28992,7 +28996,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "1"],
+     SubsuperscriptBox["C", "1", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C1,
@@ -29056,7 +29060,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "2"],
+     SubsuperscriptBox["C", "2", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C2,
@@ -29120,7 +29124,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "3"],
+     SubsuperscriptBox["C", "3", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C3,
@@ -29184,7 +29188,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "4"],
+     SubsuperscriptBox["C", "4", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C4,
@@ -29248,7 +29252,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "5"],
+     SubsuperscriptBox["C", "5", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C5,
@@ -29312,7 +29316,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "6"],
+     SubsuperscriptBox["C", "6", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C6,
@@ -29376,7 +29380,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "7"],
+     SubsuperscriptBox["C", "7", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C7,
@@ -29440,7 +29444,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "8"],
+     SubsuperscriptBox["C", "8", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C8,
@@ -29504,7 +29508,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "9"],
+     SubsuperscriptBox["C", "9", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C9,
@@ -29568,7 +29572,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "10"],
+     SubsuperscriptBox["C", "10", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C10,
@@ -29632,7 +29636,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "11"],
+     SubsuperscriptBox["C", "11", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C11,
@@ -29724,7 +29728,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "12"],
+     SubsuperscriptBox["C", "12", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C12,
@@ -29788,7 +29792,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "13"],
+     SubsuperscriptBox["C", "13", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C13,
@@ -29852,7 +29856,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "14"],
+     SubsuperscriptBox["C", "14", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C14,
@@ -29944,7 +29948,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "15"],
+     SubsuperscriptBox["C", "15", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C15,
@@ -30040,7 +30044,8 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"MakeContractionAnsatz", "[", 
   RowBox[{
-   RowBox[{"S", " ", "T"}], ",", " ", 
+   RowBox[{"IndexFree", "[", 
+    RowBox[{"S", " ", "T"}], "]"}], ",", " ", 
    RowBox[{"IndexList", "[", 
     RowBox[{"a", ",", "b"}], "]"}], ",", 
    RowBox[{"Symmetric", "[", 
@@ -30052,7 +30057,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "1"],
+     SubsuperscriptBox["C", "1", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C1,
@@ -30060,7 +30065,6 @@ Cell[BoxData[
    RowBox[{"(", 
     RowBox[{
      RowBox[{
-      FractionBox["1", "2"], " ", 
       InterpretationBox[
        StyleBox[GridBox[{
           {"S", 
@@ -30118,7 +30122,6 @@ Cell[BoxData[
        $CellContext`T[$CellContext`a, $CellContext`b],
        Editable->False]}], "+", 
      RowBox[{
-      FractionBox["1", "2"], " ", 
       InterpretationBox[
        StyleBox[GridBox[{
           {"S", 
@@ -30178,7 +30181,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "2"],
+     SubsuperscriptBox["C", "2", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C2,
@@ -30186,7 +30189,6 @@ Cell[BoxData[
    RowBox[{"(", 
     RowBox[{
      RowBox[{
-      FractionBox["1", "2"], " ", 
       InterpretationBox[
        StyleBox[GridBox[{
           {"S", 
@@ -30244,7 +30246,6 @@ Cell[BoxData[
        $CellContext`T[$CellContext`a, -$CellContext`c],
        Editable->False]}], "+", 
      RowBox[{
-      FractionBox["1", "2"], " ", 
       InterpretationBox[
        StyleBox[GridBox[{
           {"S", 
@@ -30304,7 +30305,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "3"],
+     SubsuperscriptBox["C", "3", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C3,
@@ -30312,7 +30313,6 @@ Cell[BoxData[
    RowBox[{"(", 
     RowBox[{
      RowBox[{
-      FractionBox["1", "2"], " ", 
       InterpretationBox[
        StyleBox[GridBox[{
           {"S", 
@@ -30370,7 +30370,6 @@ Cell[BoxData[
        $CellContext`T[$CellContext`a, -$CellContext`c],
        Editable->False]}], "+", 
      RowBox[{
-      FractionBox["1", "2"], " ", 
       InterpretationBox[
        StyleBox[GridBox[{
           {"S", 
@@ -30430,7 +30429,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "4"],
+     SubsuperscriptBox["C", "4", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C4,
@@ -30438,7 +30437,6 @@ Cell[BoxData[
    RowBox[{"(", 
     RowBox[{
      RowBox[{
-      FractionBox["1", "2"], " ", 
       InterpretationBox[
        StyleBox[GridBox[{
           {"S", 
@@ -30496,7 +30494,6 @@ Cell[BoxData[
        $CellContext`T[-$CellContext`c, $CellContext`a],
        Editable->False]}], "+", 
      RowBox[{
-      FractionBox["1", "2"], " ", 
       InterpretationBox[
        StyleBox[GridBox[{
           {"S", 
@@ -30556,7 +30553,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "5"],
+     SubsuperscriptBox["C", "5", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C5,
@@ -30564,7 +30561,6 @@ Cell[BoxData[
    RowBox[{"(", 
     RowBox[{
      RowBox[{
-      FractionBox["1", "2"], " ", 
       InterpretationBox[
        StyleBox[GridBox[{
           {"S", 
@@ -30622,7 +30618,6 @@ Cell[BoxData[
        $CellContext`T[-$CellContext`c, $CellContext`a],
        Editable->False]}], "+", 
      RowBox[{
-      FractionBox["1", "2"], " ", 
       InterpretationBox[
        StyleBox[GridBox[{
           {"S", 
@@ -30682,7 +30677,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "6"],
+     SubsuperscriptBox["C", "6", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C6,
@@ -30774,7 +30769,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "7"],
+     SubsuperscriptBox["C", "7", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C7,
@@ -30782,7 +30777,6 @@ Cell[BoxData[
    RowBox[{"(", 
     RowBox[{
      RowBox[{
-      FractionBox["1", "2"], " ", 
       InterpretationBox[
        StyleBox[GridBox[{
           {"S", 
@@ -30840,7 +30834,6 @@ Cell[BoxData[
        $CellContext`T[$CellContext`c, -$CellContext`c],
        Editable->False]}], "+", 
      RowBox[{
-      FractionBox["1", "2"], " ", 
       InterpretationBox[
        StyleBox[GridBox[{
           {"S", 
@@ -30900,7 +30893,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "8"],
+     SubsuperscriptBox["C", "8", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C8,
@@ -30992,7 +30985,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "9"],
+     SubsuperscriptBox["C", "9", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C9,
@@ -31088,7 +31081,8 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"MakeContractionAnsatz", "[", 
   RowBox[{
-   RowBox[{"T", "^", "3"}], ",", " ", 
+   RowBox[{"IndexFree", "[", 
+    RowBox[{"T", "^", "3"}], "]"}], ",", " ", 
    RowBox[{"ConstantPrefix", "\[Rule]", "\"\<z\>\""}]}], "]"}]], "Input"],
 
 Cell[BoxData[
@@ -31096,7 +31090,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["z", "1"],
+     SubsuperscriptBox["z", "1", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`z1,
@@ -31188,7 +31182,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["z", "2"],
+     SubsuperscriptBox["z", "2", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`z2,
@@ -31280,7 +31274,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["z", "3"],
+     SubsuperscriptBox["z", "3", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`z3,
@@ -31372,7 +31366,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["z", "4"],
+     SubsuperscriptBox["z", "4", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`z4,
@@ -31464,7 +31458,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["z", "5"],
+     SubsuperscriptBox["z", "5", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`z5,
@@ -31559,18 +31553,19 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"MakeContractionAnsatz", "[", 
-  RowBox[{"{", 
-   RowBox[{
-    RowBox[{"S", " ", "S"}], ",", " ", 
-    RowBox[{"T", " ", "S"}], ",", " ", 
-    RowBox[{"T", " ", "T"}]}], "}"}], "]"}]], "Input"],
+  RowBox[{"IndexFree", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"S", " ", "S"}], ",", " ", 
+     RowBox[{"T", " ", "S"}], ",", " ", 
+     RowBox[{"T", " ", "T"}]}], "}"}], "]"}], "]"}]], "Input"],
 
 Cell[BoxData[
  RowBox[{
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "1"],
+     SubsuperscriptBox["C", "1", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C1,
@@ -31634,7 +31629,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "2"],
+     SubsuperscriptBox["C", "2", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C2,
@@ -31698,7 +31693,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "3"],
+     SubsuperscriptBox["C", "3", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C3,
@@ -31762,7 +31757,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "4"],
+     SubsuperscriptBox["C", "4", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C4,
@@ -31826,7 +31821,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "5"],
+     SubsuperscriptBox["C", "5", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C5,
@@ -31890,7 +31885,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "6"],
+     SubsuperscriptBox["C", "6", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C6,
@@ -31954,7 +31949,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "7"],
+     SubsuperscriptBox["C", "7", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C7,
@@ -32018,7 +32013,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "8"],
+     SubsuperscriptBox["C", "8", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C8,
@@ -32082,7 +32077,7 @@ Cell[BoxData[
   RowBox[{
    InterpretationBox[
     StyleBox[
-     SubscriptBox["C", "9"],
+     SubsuperscriptBox["C", "9", ""],
      ShowAutoStyles->False,
      AutoSpacing->False],
     $CellContext`C9,
@@ -36567,9 +36562,7 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["\<\
-Dimensional Dependent Identities (DDIs)\
-\>", "Subsection"],
+Cell["Dimensional Dependent Identities (DDIs)", "Subsection"],
 
 Cell[CellGroupData[{
 
@@ -36742,9 +36735,7 @@ $CellContext`d],
     Editable->False]}]}]], "Output"]
 }, Open  ]],
 
-Cell["\<\
-Compute its equations of motion.\
-\>", "Text"],
+Cell["Compute its equations of motion.", "Text"],
 
 Cell[CellGroupData[{
 
@@ -39761,9 +39752,7 @@ Cell[BoxData[
  RowBox[{"{", "0", "}"}]], "Output"]
 }, Open  ]],
 
-Cell["\<\
-So indeed the equations of motion vanish due to a DDI.\
-\>", "Text"]
+Cell["So indeed the equations of motion vanish due to a DDI.", "Text"]
 }, Closed]]
 }, Open  ]],
 
@@ -40592,7 +40581,6 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`Algebra`"], 
          ButtonBox["$TensorWrapperColor",
           BaseStyle->"InformationLink",
-          
           ButtonData:>{
            "Info3577769257-3630280", {
             "$TensorWrapperColor", "xAct`xTras`Algebra`"}},
@@ -40798,7 +40786,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 WindowSize->{902, 884},
-WindowMargins->{{176, Automatic}, {Automatic, 0}},
+WindowMargins->{{231, Automatic}, {Automatic, 0}},
 ShowSelection->True,
 FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
 2013)",

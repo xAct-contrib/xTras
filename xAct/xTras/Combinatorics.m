@@ -56,18 +56,6 @@ MakeTraceless::notunique = "More than one traceless solution, returning all.";
 IndexConfigurations::usage =
 	"IndexConfigurations[expr] gives a list of all independent index configurations of expr.";
 
-MetricPermutations::usage =
-	"MetricPermutations[metric,indices] gives a list of all possible \
-permutations of indices distributed over n/2 metrics (n being the number of indices). \
-Thus MetricPermutations[g][{a,b,c,d}] gives {g[a,b]g[c,d], g[a,c]g[b,d], g[a,d]g[b,c]}. \
-\n\nNaively this gives n! combinations, but because the metric is symmetric and the \
-ordering of the product is irrelevant, the number of permutations reduces to \
-(n-1)!!, which is roughly the square root of n!. MetricPermutations takes \
-this simplification into account.";
-
-UnorderedPairsPermutations::usage =
-	"UnorderPairsPermutations[list] gives all permutations of the elements of \
-list that are unorder pairs. list has to have an even number of elements.";
 
 
 (* Young tableaux *)
@@ -162,19 +150,6 @@ DeleteDuplicateFactors2[product:Times[constant_?ConstantQ, x__]] := {constant,Ti
 DeleteDuplicateFactors2[x_] := {1,x};
 
 
-DefNiceConstantSymbol[prefix_String, number_Integer] := With[{symbol=SymbolJoin[prefix,number]},
-	Block[{$DefInfoQ = False},
-		Quiet[
-			DefConstantSymbol[
-				symbol,
-				PrintAs -> StringJoin[{"\!\(\*SubscriptBox[\(",ToString@prefix,"\), \(",ToString@number,"\)]\)"}]
-			],
-			{ValidateSymbol::used}
-		]
-	];
-	symbol
-];
-
 Options[MakeAnsatz] ^= {
 	ConstantPrefix -> "C"
 };
@@ -183,8 +158,7 @@ MakeAnsatz[list_List, options___?OptionQ] :=
 	Dot[
 		list,
 		DefNiceConstantSymbol[
-			ConstantPrefix /. CheckOptions[options] /. Options[MakeAnsatz],
-			#
+			(ConstantPrefix /. CheckOptions[options] /. Options[MakeAnsatz])[-#]
 		]& /@ Range@Length@list
 	];
 
@@ -553,40 +527,6 @@ NextDummyPermutations[perm_List, {newDummy1_,newDummy2_}, previousDummies_] := W
 	]& /@ subsets
 ];
 
-(* 
- *	MetricPermutations is no longer used by AllContractions, 
- *  and is superseded by IndexConfigurations, but let's keep it anyhow.
- *)
-
-MetricPermutations[metric_?MetricQ, list_] /; EvenQ@Length@list := 
-	Map[Times @@ Map[metric @@ # &, #] &, UnorderedPairsPermutations[list]];
-
-UnorderedPairsPermutations[list_] /; EvenQ@Length@list := 
-	Partition[#, 2] & /@ UnorderedPairsPermutations1[list];
-
-(* The actual workhorse. *)
-UnorderedPairsPermutations1[list_] /; Length[list] == 2 := {list};
-UnorderedPairsPermutations1[list_] /; Length[list] > 2 && EvenQ[Length[list]] := Module[
-	{
-		previous, last
-	},
-	last 		= list[[-2 ;; -1]];
-	previous 	= UnorderedPairsPermutations1[list[[1 ;; -3]]];
-	Flatten[Map[PairPermuteJoin[#, last] &, previous], 1]
-];
-
-(* Internal function. *)
-PairPermuteJoin[list_, newPair_] := Module[{joined1, joined2, cycles, positions},
-	joined1 	= Join[list, newPair];
-	joined2 	= Join[list, Reverse@newPair];
-	positions 	= 2 Range[Length[list]/2]; 
-	cycles 		= xAct`xPerm`Cycles[{#, Length[list] + 1}] & /@ positions;
-	Join[
-		{joined1},
-		xAct`xPerm`PermuteList[joined1, #] & /@ cycles,
-		xAct`xPerm`PermuteList[joined2, #] & /@ cycles
-	]
-];
 
 
 
