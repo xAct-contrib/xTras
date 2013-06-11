@@ -214,7 +214,7 @@ ToIndexFree[expr_] :=
 ClearAll[TermsOf]
 TermsOf[expr_List] 	:= Union@Flatten[TermsOf /@ expr];
 TermsOf[expr_Plus] 	:= Union@TermsOf[List @@ expr];
-TermsOf[expr_] 		:= Union@Cases[ToIndexFree@expr, IndexFree[_],{0,Infinity},Heads->True];
+TermsOf[expr_] 		:= Union@Cases[ToIndexFree@RemoveConstants@expr, IndexFree[_],{0,Infinity},Heads->True];
 
 
 
