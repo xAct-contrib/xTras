@@ -134,7 +134,7 @@ Test[
 ]
 
 Test[
-	AllContractions[ RiemannCD[a,b,c,d], UncontractedPairs -> 1 ]
+	AllContractions[ RiemannCD[a,b,c,d], UncontractedIndices -> 2 ]
 	,
 	{ RicciCD[a,b] }
 	,

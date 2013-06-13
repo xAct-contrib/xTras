@@ -138,6 +138,10 @@ ToIndexFree::usage =
 TermsOf::usage = 
 	"TermsOf[expr] gives all the different tensorial terms of expr in index-free notation.";
 
+(* Create RemoveConstants in the non-private context, because we need it here. *)
+RemoveConstants::usage = "bla";
+
+
 
 Begin["`Private`"]
 

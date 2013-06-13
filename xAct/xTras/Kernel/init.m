@@ -20,7 +20,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = {"1.1.4pre", {2013, 6, 8}};
+xAct`xTras`$Version = {"1.1.4pre", {2013, 6, 13}};
 xAct`xTras`$xTensorVersionExpected = {"1.0.5", {2013, 1, 27}};
 xAct`xTras`$SymManipulatorVersionExpected = {"0.8.5", {2013, 4, 13}};
 xAct`xTras`$MathematicaVersionNeeded = 6.;
@@ -100,24 +100,30 @@ License for details."];
  * Therefor, we set for each public symbol the paclet link manually.
  *) 
 
-(* First, unprotect Documentation`CreateMessageLink. *)
-Unprotect[Documentation`CreateMessageLink];
-
-(* For each public symbol, overwrite its output. *)
-Map[
-	Function[
-		symbol,
-		Documentation`CreateMessageLink[
-			xAct`xTras`Private`$xTrasContext, 
-			ToString@symbol, 
-			"usage", 
-			"English"
-		] = "paclet:xTras/ref/" <> ToString@symbol
-	],
-	Names[xAct`xTras`Private`$xTrasContext <> "*"]
+(* Only do this when MMA can find the documentation. (Otherwise it's pointless). *)
+If[
+	(* Search for the AllContractions documentation. If it's there, good chance the rest is too. *)
+	Documentation`CreateMessageLink["xTras`", "AllContractions", "usage", "English"] == "paclet:xTras/ref/AllContractions"
+,
+	(* First, unprotect Documentation`CreateMessageLink. *)
+	Unprotect[Documentation`CreateMessageLink];
+	
+	(* For each public symbol, overwrite its output. *)
+	Map[
+		Function[
+			symbol,
+			Documentation`CreateMessageLink[
+				xAct`xTras`Private`$xTrasContext, 
+				ToString@symbol, 
+				"usage", 
+				"English"
+			] = "paclet:xTras/ref/" <> ToString@symbol
+		],
+		Names[xAct`xTras`Private`$xTrasContext <> "*"]
+	];
+	
+	(* Finally, protect Documentation`CreateMessageLink again. *)
+	Protect[Documentation`CreateMessageLink];
 ];
-
-(* Finally, protect Documentation`CreateMessageLink again. *)
-Protect[Documentation`CreateMessageLink];
 
 EndPackage[]

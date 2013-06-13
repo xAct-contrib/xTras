@@ -16,10 +16,10 @@ SymManipulator's implicit ImposeSym to symmetrize the free indices. 'None' does 
 symmetrize the free indices, but instead keeps auxiliary tensor (see also the option \
 AuxiliaryTensor).";
 
-UncontractedPairs::usage = 
-	"UncontractedPairs is an option for AllContractions which specifies how \
+UncontractedIndices::usage = 
+	"UncontractedIndices is an option for AllContractions which specifies how \
 many index pairs should not be contracted. The default is None, which amounts to \
-contracting all indices. It can also be an integer in the range from 0 to half the number \
+contracting all indices. It can also be an integer in the range from 0 to the number \
 total indices. \n\
 Note that when not all indices are contracted, AllContractions returns a \
 list containing one element per contraction, not taking the ordering of \
@@ -33,18 +33,14 @@ FreeMetrics::usage =
 	"FreeMetrics is an option for AllContractions.";
 
 AllContractions::usage =
-	"AllContractions[expr] returns a sorted list of all possible full contractions of \
-expr over its free indices. expr cannot have dummy indices. The free indices have to belong to the same \
-tangent bundle, which also has to have a symmetric metric. \n\
-AllContractions[expr, indexList] gives all possible contractions of expr that \
-have free indices specified by indexList. This is equivalent to adding an \
-auxiliary tensor with indices 'indexList' to expr, computing all contractions, \
-and varying w.r.t. the auxiliary tensor afterwards. \n\
-AllContractions[expr, indexList, symm] gives all possible contractions of expr \
-with free indices indexList and the symmetry symm imposed on the free indices. \n\
-\n\
-The first argument can also be a list. \n\
-See also the options SymmetrizeMethod and UncontracedPairs.";
+	"AllContractions[\!\(\*\nStyleBox[\"expr\", \"TI\"]\)] returns a sorted list of all possible \
+full contractions of \!\(\*\nStyleBox[\"expr\", \"TI\"]\) over its free indices.\n\
+AllContractions[\!\(\*\nStyleBox[\"expr\", \"TI\"]\), \!\(\*\nStyleBox[\"frees\", \"TI\"]\)] \
+returns all possible contractions of \!\(\*\nStyleBox[\"expr\", \"TI\"]\) that have \
+\!\(\*\nStyleBox[\"frees\", \"TI\"]\) as free indices.\n\
+AllContractions[\!\(\*\nStyleBox[\"expr\", \"TI\"]\), \!\(\*\nStyleBox[\"frees\", \"TI\"]\), \!\(\*\nStyleBox[\"sym\", \"TI\"]\)] \
+returns all possible contractions of \!\(\*\nStyleBox[\"expr\", \"TI\"]\) with the symmetry \
+\!\(\*\nStyleBox[\"sym\", \"TI\"]\) imposed on the free indices \!\(\*\nStyleBox[\"frees\", \"TI\"]\)."
 
 MakeTraceless::usage =
 	"MakeTraceless[expr] returns the traceless version of expr, if any.";
@@ -230,7 +226,7 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 		IndexList@@frees,
 		sgs,
 		SymmetrizeMethod -> ImposeSym,
-		UncontractedPairs -> None,
+		UncontractedIndices -> None,
 		FreeMetrics -> {1, Infinity}, (* This is for not getting completely uncontracted traces, of which we only want the original expr *)
 		Verbose -> verbose
 	];
@@ -288,7 +284,7 @@ MakeTraceless[expr_, options___?OptionQ] := Module[
 Options[AllContractions] ^= {
 	Verbose -> False,
 	SymmetrizeMethod -> ImposeSymmetry,
-	UncontractedPairs -> None,
+	UncontractedIndices -> None,
 	FreeMetrics -> All,
 	AuxiliaryTensor -> Default
 };
@@ -311,13 +307,13 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 		auxT,auxTexpr,auxTname,indexlist,dummylist,dummies,M,removesign,process,step,
 		contractions,
 		sym,sgs,frees,dummysets,newdummies,newdummypairs,previousdummies,
-		numContractions,unconpairs,
+		numContractions,uncons,
 		freeMetrics, countFreeMetrics
 	},
 
 	(* Set the options. *)
-	{verbose,symmethod,unconpairs,freeMetrics,auxTname} = 
-		{Verbose, SymmetrizeMethod, UncontractedPairs, FreeMetrics, AuxiliaryTensor} 
+	{verbose,symmethod,uncons,freeMetrics,auxTname} = 
+		{Verbose, SymmetrizeMethod, UncontractedIndices, FreeMetrics, AuxiliaryTensor} 
 		/. CheckOptions[options] /. Options[AllContractions];
 	If[TrueQ[verbose],
 		map = MapTimed,
@@ -333,9 +329,9 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 	exprIndices	= Join[freeIndices,IndicesOf[Free][expl]];
 	numIndices 	= Length[exprIndices];
 	
-	If[unconpairs === None,
+	If[uncons === None,
 		numContractions = numIndices / 2,
-		numContractions = numIndices / 2 - unconpairs;
+		numContractions = numIndices / 2 - uncons / 2;
 	];
 		
 	(* Do some checks *)
@@ -407,8 +403,8 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 
 	(* Initiliaze some variables for below. *)
 	step 			= 1;
-	contractions 	= {Range@numIndices};		
-	newdummypairs 	= Reverse@Partition[Range@numIndices,{2}];
+	contractions 	= {Range@numIndices};
+	newdummypairs 	= Reverse /@ Partition[Reverse@Range@numIndices, {2}];
 
 	(* Apply the processing function numContraction times, starting from the seed. *)
 	map[(
@@ -830,11 +826,11 @@ ConstructDDIs[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?Op
 	(* Define the basic DDI. *)
 	DefBasicDDI[cd];
 	
-	(* Take all contractions of expr with D+1 uncontracted index pairs. *)
+	(* Take all contractions of expr with 2(D+1) uncontracted indices. *)
 	contractions = AllContractions[
 		expr, freeIndices, symmetry,
 		SymmetrizeMethod -> None, 
-		UncontractedPairs -> D + 1,
+		UncontractedIndices -> 2(D + 1),
 		FreeMetrics -> All, 
 		AuxiliaryTensor -> auxT,
 		Verbose -> verbose
