@@ -301,7 +301,7 @@ ProductInvariants[metric_?MetricQ, {order_Integer}, options___?OptionQ] /; order
 ProductInvariants[_?MetricQ, {0}, ___?OptionQ] := {1};
 
 Options[InvarLagrangian] ^= {
-	Coefficients -> (DefNiceConstantSymbol["C"["o", #1/2, -"n", -#2]]&), 
+	Coefficients -> (DefNiceConstantSymbol["C", {"n", #2}, {"o", #1/2}]&), 
 	OrderParameter -> 1
 };
 

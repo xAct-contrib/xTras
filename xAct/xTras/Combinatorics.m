@@ -154,7 +154,8 @@ MakeAnsatz[list_List, options___?OptionQ] :=
 	Dot[
 		list,
 		DefNiceConstantSymbol[
-			(ConstantPrefix /. CheckOptions[options] /. Options[MakeAnsatz])[-#]
+			ConstantPrefix /. CheckOptions[options] /. Options[MakeAnsatz],
+			#
 		]& /@ Range@Length@list
 	];
 
@@ -560,7 +561,7 @@ IndexConfigurations[expr_] := Module[
 YoungTableauQ[tableau:{{___Integer}...}|{{(-_Symbol|_Symbol)...}...}] := And[
 	Reverse[Length /@ tableau] === Sort[Length /@ tableau],
 	If[Length@tableau > 1, 
-		Intersection @@ tableau === {}, 
+		Length@Union@Flatten@tableau === Length@Flatten@tableau, 
 		True
 	]
 ];
@@ -618,15 +619,15 @@ YoungProject[tensor_?xTensorQ, tableau : {{___Integer} ...}, options___?OptionQ]
 ] /; TnsrYoungQ[tensor,tableau];
 
 
-RiemannYoungRule[cd_?CovDQ] := RiemannYoungRule[cd,{0}];
+RiemannYoungRule[cd_?CovDQ, options___?OptionQ] := RiemannYoungRule[cd,{0},options];
 
-RiemannYoungRule[cd_?CovDQ, numcds_Integer] /; numcds >= 0 :=
-	RiemannYoungRule[cd,{0,numcds}];
+RiemannYoungRule[cd_?CovDQ, numcds_Integer,options___?OptionQ] /; numcds >= 0 :=
+	RiemannYoungRule[cd,{0,numcds}, options];
 
-RiemannYoungRule[cd_?CovDQ, {min_Integer,max_Integer}] /; max >= min && min >=0 :=
-	Flatten[RiemannYoungRule[cd,{#}]&/@Range[min,max]];
+RiemannYoungRule[cd_?CovDQ, {min_Integer,max_Integer}, options___?OptionQ] /; max >= min && min >=0 :=
+	Flatten[RiemannYoungRule[cd,{#}, options]&/@Range[min,max]];
 
-RiemannYoungRule[cd_?CovDQ, {numcds_Integer}] /; numcds >= 0 := Module[
+RiemannYoungRule[cd_?CovDQ, {numcds_Integer}, options___?OptionQ] /; numcds >= 0 := Module[
 	{
 		riemann, indrie, indcds, tableau, expr
 	},
@@ -637,15 +638,15 @@ RiemannYoungRule[cd_?CovDQ, {numcds_Integer}] /; numcds >= 0 := Module[
 	expr 	= Fold[cd[#2][#1] &, riemann @@ indrie, indcds];
 	If[expr === 0,
 		{},
-		MakeRule[Evaluate[{expr, YoungProject[expr, tableau, ManifestSymmetry->Antisymmetric]}]]
+		MakeRule[Evaluate[{expr, YoungProject[expr, tableau, options]}]]
 	]
 ];
 
-RiemannYoungProject[expr_, cd_?CovDQ, level_:{0}] /; LevelSpecQ[level] :=
-	expr /. RiemannYoungRule[cd, level];
+RiemannYoungProject[expr_, cd_?CovDQ, level_:{0}, options___?OptionQ] /; LevelSpecQ[level] :=
+	expr /. RiemannYoungRule[cd, level, options];
 
-RiemannYoungProject[expr_, level_:{0}] /; LevelSpecQ[level] := 
-	Fold[RiemannYoungProject[#1,#2,level]&, expr, DeleteCases[$CovDs, PD]];
+RiemannYoungProject[expr_, level_:{0}, options___?OptionQ] /; LevelSpecQ[level] := 
+	Fold[RiemannYoungProject[#1, #2, level, options]&, expr, DeleteCases[$CovDs, PD]];
 
 
 Options[YoungSymmetric] ^= {

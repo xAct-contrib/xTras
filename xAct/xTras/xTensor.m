@@ -149,20 +149,31 @@ ConstantExprQ[(Plus | Times | _?ScalarFunctionQ)[args__]] := And @@ Map[Constant
 ConstantExprQ[x_] := ConstantQ[x];
 
 
+DefNiceConstantSymbol[ symbol_ ] := 
+	DefNiceConstantSymbol[ symbol, {}, {} ];
 
-DefNiceConstantSymbol[ head_[inds___] ] := 
+DefNiceConstantSymbol[ symbol_, down_List ] := 
+	DefNiceConstantSymbol[ symbol, down, {} ];
+
+DefNiceConstantSymbol[ symbol_, down_ ] /; Head[down] =!= List := 
+	DefNiceConstantSymbol[ symbol, {down}, {} ];
+
+DefNiceConstantSymbol[ symbol_, down_ , up_ ] /; Head[down] =!= List && Head[up] =!= List := 
+	DefNiceConstantSymbol[ symbol, {down}, {up} ]; 
+
+DefNiceConstantSymbol[ symbol_, down_List, up_List ] := 
 	With[
 		{
-			upstring 	= StringJoin[ToString/@Select[List[inds],! MatchQ[#, -_ | _Integer] || Sign[#] > 0 &]],
-			downstring	= StringJoin[ToString/@-Select[List[inds],MatchQ[#, -_] || Sign[#] < 0 &] ]
+			upstring 	= StringJoin[ToString/@up],
+			downstring	= StringJoin[ToString/@down]
 		},
 		Block[{$DefInfoQ = False},
 			Quiet[
 				DefConstantSymbol[
-					SymbolJoin[head, downstring, upstring],
+					SymbolJoin[symbol, downstring, upstring],
 					PrintAs -> StringJoin[
 						"\!\(\*SubsuperscriptBox[\(",
-						ToString@head,
+						ToString@symbol,
 						"\), \(",
 						downstring,
 						"\), \(",
@@ -173,7 +184,7 @@ DefNiceConstantSymbol[ head_[inds___] ] :=
 				{ValidateSymbol::used}
 			] (* Quiet *)
 		]; (* Block *)
-		SymbolJoin[head, downstring, upstring]
+		SymbolJoin[symbol, downstring, upstring]
 	]; (* With *)
 
 (**********************************)

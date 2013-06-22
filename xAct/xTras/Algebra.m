@@ -1,8 +1,5 @@
 (* TensorCollect et al *)
 
-TensorCollector::usage =
-	"TensorCollector is an alias for TensorWrapper. Kept for backwards compatibility. Deprecated.";
-
 UnitConstant::usage =
 	"UnitConstant is a constant whose value is one. It prints as 1, and is used with TensorWrapper.";
 
@@ -51,9 +48,6 @@ CollectTensors::usage =
 CollectTensors::denominator = 
 	"There are denominators with a sum inside TensorWrappers. \
 Things might not have been fully collected.";
-
-TensorCollect::usage =
-	"TensorCollect is an alias for CollectTensors. Kept for backwards compatibility. Deprecated.";
 
 CollectConstants::usage =
 	"CollectConstants[expr] collects all constant symbols of expr. It behaves as Collect[expr, constantsof[expr]].";
@@ -142,8 +136,6 @@ RemoveTensorWrapper[expr_] := expr /. FoldedRule[
 ];
 
 
-TensorCollector = TensorWrapper;
-
 
 (***********************************)
 (* RemoveConstants / RemoveTensors *)
@@ -184,8 +176,6 @@ Unprotect[NoScalar];
 NoScalar[expr_List] := NoScalar /@ expr;
 NoScalar[expr_Equal] := NoScalar /@ expr;
 Protect[NoScalar];
-
-TensorCollect = CollectTensors;
 
 Options[CollectTensors] ^= {
 	CollectMethod -> Default, 

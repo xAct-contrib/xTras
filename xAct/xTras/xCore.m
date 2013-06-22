@@ -33,11 +33,11 @@ If[System`$VersionNumber < 8.,
 Begin["`Private`"]
 
 
-TimeString[seconds_Integer]/;seconds > 31536000:=TimeString1[seconds,31536000,2628000," year"," month"];
-TimeString[seconds_Integer]/;seconds > 2628000:=TimeString1[seconds,2628000,86400," month"," day"];
-TimeString[seconds_Integer]/;seconds > 86400:=TimeString1[seconds,86400,3600," day"," hour"];
-TimeString[seconds_Integer]/;seconds > 3600:=TimeString1[seconds,3600,60," hour"," minute"];
-TimeString[seconds_Integer]/;seconds > 60:=TimeString1[seconds,60,1," minute"," second"];
+TimeString[seconds_Integer]/;seconds >= 31536000:=TimeString1[seconds,31536000,2628000," year"," month"];
+TimeString[seconds_Integer]/;seconds >= 2628000:=TimeString1[seconds,2628000,86400," month"," day"];
+TimeString[seconds_Integer]/;seconds >= 86400:=TimeString1[seconds,86400,3600," day"," hour"];
+TimeString[seconds_Integer]/;seconds >= 3600:=TimeString1[seconds,3600,60," hour"," minute"];
+TimeString[seconds_Integer]/;seconds >= 60:=TimeString1[seconds,60,1," minute"," second"];
 TimeString[seconds_Integer]/;seconds > 1:=StringJoin[ToString[seconds], " seconds"];
 TimeString[1] := "1 second";
 TimeString[0] := "0 seconds";
@@ -76,7 +76,7 @@ ToLevelSpec[x_] := Throw@Message[ToLevelSpec::error, x];
 
 
 Options[MapTimed] ^= {
-	Description -> "", 
+	Description -> None, 
 	Parallelization -> False
 };
 
@@ -89,9 +89,9 @@ MapTimed[func_,expr_,levelspec_: {1},options___?OptionQ]/;LevelSpecQ[levelspec] 
 	
 	(* Determine the options. *)
 	{desc,parallel} = {Description,Parallelization}  /. CheckOptions[options] /. Options[MapTimed];
-	desc = ToString@desc;
-	If[desc =!= "", 
-		desc = " " <> desc;
+	If[desc === None,
+		desc = "", 
+		desc = " " <> ToString@desc;
 		If[StringTake[desc,-1]=!=".",
 			desc = desc <> ".";
 		]

@@ -90,6 +90,26 @@ License for details."];
 	Print[xAct`xCore`Private`bars]
 ];
 
+(*
+ * Add the xAct directory to the path of the PacletManager.
+ * This allows it to find the documentation in xAct/xTras/Documentation.
+ * We could have used xAct`xCore`$xActDirectory, but this is a bit more general.
+ *)
+PacletManager`PacletDirectoryAdd[
+	StringTake[
+		First@Select[
+			(* Find files / directories with "xTras" in their name *)
+			FileNames["xTras", {$UserBaseDirectory, $BaseDirectory, $InstallationDirectory}, Infinity], 
+			(* Select the xTras directory *)
+			StringMatchQ[#, "*xAct/xTras"] &
+		], 
+		(* Strip the "/xTras" from it *)
+		{1, -7}
+	]
+];
+(* Rebuild the PacletData. Necessary on MMA 6. *)
+PacletManager`RebuildPacletData[];
+
 
 (*
  * The following is a dirty hack to get URI links in the Information output of all usage messages.
@@ -125,5 +145,6 @@ If[
 	(* Finally, protect Documentation`CreateMessageLink again. *)
 	Protect[Documentation`CreateMessageLink];
 ];
+
 
 EndPackage[]

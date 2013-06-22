@@ -14,10 +14,6 @@ VarL::usage =
 	"VarL[ g[a,b] ][ L ] performs a variation of \!\(TraditionalForm\`\*SqrtBox[\(-g\)]L\) \
 with respect to the metric g, and divides with \!\(TraditionalForm\`\*SqrtBox[\(-g\)]\) afterwards.";
 
-ExpandPerturbationDer::usage = 
-	"ExpandPerturbationDer expands the perturbations of derivatives. \
-It's similar to the private xAct function ExpandPerturbationDer, but not quite.";
-
 
 (* Background perturbations *)
 
@@ -133,9 +129,6 @@ xAct`xPert`Private`DefGenPertDet[vbundle_, metric_, pert_] := With[
 (* Variations *)
 (**************)
 
-ExpandPerturbationDer[expr_] := SeparateMetric[][expr] //. 
-	subexpr : Perturbation[_Symbol?CovDQ[_][_] | LieD[_][_] | Bracket[_][_, _], _.] :> 
-		xAct`xPert`Private`ExpandPerturbationDer[subexpr]
 (* 
 	The xTensor VarD works fine, but there's a better method using the xPert 
 	package. This is due to Cyril Pitrou. See
