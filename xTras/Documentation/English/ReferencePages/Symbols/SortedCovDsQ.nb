@@ -1,0 +1,393 @@
+Notebook[{
+Cell[TextData[{
+ "New in: ",
+ Cell["1.0.3", "HistoryData",
+  CellTags->"New"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete"],
+ " | Excised in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Excised"]
+}], "History",
+ CellChangeTimes->{{3.580396157550928*^9, 3.580396158935433*^9}},
+ CellID->1247902091],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1122911449],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->686433507],
+
+Cell["xTras Package", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->744020979],
+
+Cell["xTras`", "Categorization",
+ CellLabel->"Context",
+ CellID->2110801219],
+
+Cell["xTras/ref/SortedCovDsQ", "Categorization",
+ CellLabel->"URI",
+ CellID->1953722940]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->477174294],
+
+Cell["XXXX", "Keywords",
+ CellID->1164421360]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->1872225408],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->1562036412],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->158391909],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->1360575930],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->793782254]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Details", "DetailsSection",
+ CellID->307771771],
+
+Cell["XXXX", "Details",
+ CellLabel->"Lead",
+ CellID->670882175],
+
+Cell["XXXX", "Details",
+ CellLabel->"Developers",
+ CellID->350963985],
+
+Cell["XXXX", "Details",
+ CellLabel->"Authors",
+ CellID->8391405],
+
+Cell["XXXX", "Details",
+ CellLabel->"Feature Name",
+ CellID->3610269],
+
+Cell["XXXX", "Details",
+ CellLabel->"QA",
+ CellID->401364205],
+
+Cell["XXXX", "Details",
+ CellLabel->"DA",
+ CellID->350204745],
+
+Cell["XXXX", "Details",
+ CellLabel->"Docs",
+ CellID->732958810],
+
+Cell["XXXX", "Details",
+ CellLabel->"Features Page Notes",
+ CellID->222905350],
+
+Cell["XXXX", "Details",
+ CellLabel->"Comments",
+ CellID->240026365]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["SortedCovDsQ", "ObjectName",
+ CellID->1224892054],
+
+Cell[TextData[{
+ Cell["   ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{"SortedCovDsQ", "[", 
+   StyleBox["expr", "TI"], "]"}]], "InlineFormula"],
+ "\[LineSeparator]returns True if the ",
+ StyleBox["expr", "TI"],
+ " has all its covariant derivatives sorted, and False otherwise. \n",
+ Cell["   ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{"SortedCovDsQ", "[", 
+   RowBox[{
+    StyleBox["expr", "TI"], ",", 
+    ButtonBox[
+     StyleBox["cd", "TI"],
+     BaseStyle->"Link"]}], "]"}]], "InlineFormula"],
+ "\[LineSeparator]only checks the covariant derivative ",
+ StyleBox["cd", "TI"],
+ "."
+}], "Usage",
+ CellChangeTimes->{{3.579753744743278*^9, 3.579753744951626*^9}, {
+  3.580394643079015*^9, 3.580394668727441*^9}}],
+
+Cell[TextData[{
+ "Derivatives are sorted ascending with respect to postfix notation and \
+descending with respect to prefix notation. Thus ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["T", 
+     RowBox[{
+      StyleBox["ab",
+       FontSlant->"Italic"], ";", 
+      StyleBox["c",
+       FontSlant->"Italic"], 
+      StyleBox[";",
+       FontSlant->"Italic"], 
+      StyleBox["d",
+       FontSlant->"Italic"]}]], "\[LongEqual]", 
+    RowBox[{
+     SubscriptBox["\[Del]", "d"], 
+     RowBox[{
+      SubscriptBox["\[Del]", "c"], 
+      SubscriptBox["T", 
+       StyleBox["ab",
+        FontSlant->"Italic"]]}]}]}], TraditionalForm]], "InlineMath"],
+ " is sorted, whereas ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["T", 
+     RowBox[{
+      StyleBox["ab",
+       FontSlant->"Italic"], ";", 
+      StyleBox["d",
+       FontSlant->"Italic"], 
+      StyleBox[";",
+       FontSlant->"Italic"], 
+      StyleBox["c",
+       FontSlant->"Italic"]}]], "\[LongEqual]", 
+    RowBox[{
+     SubscriptBox["\[Del]", "c"], 
+     RowBox[{
+      SubscriptBox["\[Del]", "d"], 
+      SubscriptBox["T", 
+       StyleBox["ab",
+        FontSlant->"Italic"]]}]}]}], TraditionalForm]], "InlineMath"],
+ " is unsorted."
+}], "Notes",
+ CellChangeTimes->{{3.5803946905843563`*^9, 3.58039484401915*^9}, {
+  3.5803948874797792`*^9, 3.5803949674882317`*^9}},
+ CellID->1067943069]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tutorials", "TutorialsSection",
+ CellID->250839057],
+
+Cell["XXXX", "Tutorials",
+ CellID->341631938]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Demonstrations", "RelatedDemonstrationsSection",
+ CellID->1268215905],
+
+Cell["XXXX", "RelatedDemonstrations",
+ CellID->1129518860]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Links", "RelatedLinksSection",
+ CellID->1584193535],
+
+Cell["XXXX", "RelatedLinks",
+ CellID->1038487239]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["See Also", "SeeAlsoSection",
+ CellID->1255426704],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["SortCovDsToDiv",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/SortCovDsToDiv"]], "InlineFormula"],
+ " \[EmptyVerySmallSquare] ",
+ Cell[BoxData[
+  ButtonBox["SortCovDsToBox",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/SortCovDsToBox"]], "InlineFormula"],
+ " \[EmptyVerySmallSquare] ",
+ Cell[BoxData[
+  ButtonBox["DivFreeQ",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/DivFreeQ"]], "InlineFormula"],
+ " \[EmptyVerySmallSquare] ",
+ Cell[BoxData[
+  ButtonBox["FullSimplification",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/FullSimplification"]], "InlineFormula"]
+}], "SeeAlso",
+ CellChangeTimes->{{3.580396248730451*^9, 3.5803962960902147`*^9}, {
+  3.580461380948813*^9, 3.580461390909458*^9}},
+ CellID->929782353]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More About", "MoreAboutSection",
+ CellID->38303248],
+
+Cell["XXXX", "MoreAbout",
+ CellID->1665078683]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox["Examples", "PrimaryExamplesSection"], 
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->880084151],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"SortedCovDsQ", "[", 
+  RowBox[{
+   RowBox[{"CD", "[", 
+    RowBox[{"-", "a"}], "]"}], "@", 
+   RowBox[{
+    RowBox[{"CD", "[", 
+     RowBox[{"-", "b"}], "]"}], "@", 
+    RowBox[{"RicciCD", "[", 
+     RowBox[{
+      RowBox[{"-", "c"}], ",", 
+      RowBox[{"-", "d"}]}], "]"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.5803960238659678`*^9, 3.580396042659837*^9}},
+ CellLabel->"In[3]:=",
+ CellID->1919761846],
+
+Cell[BoxData["False"], "Output",
+ CellChangeTimes->{{3.5803960249319*^9, 3.580396043126499*^9}, 
+   3.580396092121891*^9},
+ CellLabel->"Out[3]=",
+ CellID->1597454435]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"SortedCovDsQ", "[", 
+  RowBox[{
+   RowBox[{"CD", "[", 
+    RowBox[{"-", "b"}], "]"}], "@", 
+   RowBox[{
+    RowBox[{"CD", "[", 
+     RowBox[{"-", "a"}], "]"}], "@", 
+    RowBox[{"RicciCD", "[", 
+     RowBox[{
+      RowBox[{"-", "c"}], ",", 
+      RowBox[{"-", "d"}]}], "]"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.580396105724859*^9, 3.580396107778615*^9}},
+ CellLabel->"In[4]:=",
+ CellID->576134251],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.580396108229508*^9},
+ CellLabel->"Out[4]=",
+ CellID->84592234]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More Examples", "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->1854448968],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Scope", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1293636265],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Generalizations & Extensions", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1020263627],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["Options", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2061341341],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1757724783],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1295379749]
+}, Closed]],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Applications", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->258228157],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Properties & Relations", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2123667759],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Possible Issues", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1305812373],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Interactive Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1653164318],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Neat Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->589267740]
+}, Open  ]]
+},
+WindowSize->{807, 782},
+WindowMargins->{{4, Automatic}, {Automatic, 0}},
+CellContext->"Global`",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
+2011)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

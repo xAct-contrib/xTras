@@ -1,0 +1,381 @@
+Notebook[{
+Cell[TextData[{
+ "New in: ",
+ Cell["1.0.6", "HistoryData",
+  CellTags->"New"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete"],
+ " | Excised in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Excised"]
+}], "History",
+ CellChangeTimes->{{3.580377509317296*^9, 3.580377512585676*^9}},
+ CellID->1247902091],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1122911449],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->686433507],
+
+Cell["xTras Package", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->1964678491],
+
+Cell["xTras`", "Categorization",
+ CellLabel->"Context",
+ CellID->642841965],
+
+Cell["xTras/ref/MapTimedIfPlus", "Categorization",
+ CellLabel->"URI",
+ CellID->254677698]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->477174294],
+
+Cell["XXXX", "Keywords",
+ CellID->1164421360]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->1872225408],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->1562036412],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->158391909],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->1360575930],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->793782254]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Details", "DetailsSection",
+ CellID->307771771],
+
+Cell["XXXX", "Details",
+ CellLabel->"Lead",
+ CellID->670882175],
+
+Cell["XXXX", "Details",
+ CellLabel->"Developers",
+ CellID->350963985],
+
+Cell["XXXX", "Details",
+ CellLabel->"Authors",
+ CellID->8391405],
+
+Cell["XXXX", "Details",
+ CellLabel->"Feature Name",
+ CellID->3610269],
+
+Cell["XXXX", "Details",
+ CellLabel->"QA",
+ CellID->401364205],
+
+Cell["XXXX", "Details",
+ CellLabel->"DA",
+ CellID->350204745],
+
+Cell["XXXX", "Details",
+ CellLabel->"Docs",
+ CellID->732958810],
+
+Cell["XXXX", "Details",
+ CellLabel->"Features Page Notes",
+ CellID->222905350],
+
+Cell["XXXX", "Details",
+ CellLabel->"Comments",
+ CellID->240026365]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["MapTimedIfPlus", "ObjectName",
+ CellID->1224892054],
+
+Cell[TextData[{
+ Cell["   ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{"MapTimedIfPlus", "[", 
+   RowBox[{
+    StyleBox["f", "TI"], ",", " ", 
+    StyleBox["expr", "TI"]}], "]"}]], "InlineFormula"],
+ "\[LineSeparator]applies ",
+ StyleBox["f", "TI"],
+ " to each element on the first level in ",
+ StyleBox["expr", "TI"],
+ " while monitoring the progress and the estimated time remaining only if ",
+ StyleBox["f", "TI"],
+ " has head ",
+ Cell[BoxData["Plus"], "InlineFormula",
+  FormatType->"StandardForm"],
+ ".\n",
+ Cell["      ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{"MapTimedIfPlus", "[", 
+   RowBox[{
+    StyleBox["f", "TI"], ",", " ", 
+    StyleBox["expr", "TI"], 
+    StyleBox[",", "TI"], 
+    StyleBox[" ", "TI"], 
+    StyleBox["levelspec", "TI"]}], "]"}]], "InlineFormula"],
+ "\[LineSeparator]applies ",
+ StyleBox["f", "TI"],
+ " to parts of ",
+ StyleBox["expr", "TI"],
+ " specified by ",
+ StyleBox["levelspec", "TI"],
+ " while monitoring the progress and the estimated time remaining only if ",
+ StyleBox["f", "TI"],
+ " has head ",
+ Cell[BoxData["Plus"], "InlineFormula",
+  FormatType->"StandardForm"],
+ ". ",
+ Cell["", "ModInfo"]
+}], "Usage",
+ CellChangeTimes->{
+  3.579753729808524*^9, {3.58037713957378*^9, 3.580377214738858*^9}}],
+
+Cell[TextData[{
+ "If ",
+ StyleBox["expr", "TI"],
+ " does not have head ",
+ Cell[BoxData["Plus"], "InlineFormula",
+  FormatType->"StandardForm"],
+ ", ",
+ Cell[BoxData[
+  RowBox[{"MapTimedIfPlus", "[", 
+   RowBox[{
+    StyleBox["f", "TI"], ",", " ", 
+    StyleBox["expr", "TI"]}], "]"}]], "InlineFormula"],
+ " returns ",
+ Cell[BoxData[
+  RowBox[{
+   StyleBox["f", "TI"], "@", 
+   StyleBox["expr", "TI"]}]], "InlineFormula",
+  FormatType->"StandardForm"],
+ "."
+}], "Notes",
+ CellChangeTimes->{{3.580377386604157*^9, 3.580377467869378*^9}},
+ CellID->379050979],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["MapTimedIfPlus",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/MapTimedIfPlus"]], "InlineFormula"],
+ " takes the same options as ",
+ Cell[BoxData[
+  ButtonBox["MapTimed",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/MapTimed"]], "InlineFormula"],
+ "."
+}], "Notes",
+ CellChangeTimes->{{3.580377216757359*^9, 3.580377258740594*^9}},
+ CellID->1067943069]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tutorials", "TutorialsSection",
+ CellID->250839057],
+
+Cell["XXXX", "Tutorials",
+ CellID->341631938]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Demonstrations", "RelatedDemonstrationsSection",
+ CellID->1268215905],
+
+Cell["XXXX", "RelatedDemonstrations",
+ CellID->1129518860]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Links", "RelatedLinksSection",
+ CellID->1584193535],
+
+Cell["XXXX", "RelatedLinks",
+ CellID->1038487239]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["See Also", "SeeAlsoSection",
+ CellID->1255426704],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["MapTimed",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/MapTimed"]], "InlineFormula"],
+ " \[EmptyVerySmallSquare] ",
+ ButtonBox["Map",
+  BaseStyle->"Link",
+  ButtonData->"paclet:ref/Map"]
+}], "SeeAlso",
+ CellChangeTimes->{{3.580377227636693*^9, 3.580377244929822*^9}},
+ CellID->929782353]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More About", "MoreAboutSection",
+ CellID->38303248],
+
+Cell["XXXX", "MoreAbout",
+ CellID->1665078683]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox["Examples", "PrimaryExamplesSection"], 
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->880084151],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MapTimedIfPlus", "[", 
+  RowBox[{"f", ",", 
+   RowBox[{"a", "+", "b", "+", "c", "+", "d"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.580377315995216*^9, 3.580377330359788*^9}},
+ CellLabel->"In[23]:=",
+ CellID->1480925980],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"f", "[", "a", "]"}], "+", 
+  RowBox[{"f", "[", "b", "]"}], "+", 
+  RowBox[{"f", "[", "c", "]"}], "+", 
+  RowBox[{"f", "[", "d", "]"}]}]], "Output",
+ CellChangeTimes->{3.5803773316548986`*^9},
+ CellLabel->"Out[23]=",
+ CellID->1745798651]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MapTimedIfPlus", "[", 
+  RowBox[{"f", ",", 
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.5803773340892143`*^9, 3.5803773410073547`*^9}},
+ CellLabel->"In[24]:=",
+ CellID->568858396],
+
+Cell[BoxData[
+ RowBox[{"f", "[", 
+  RowBox[{"{", 
+   RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "}"}], "]"}]], "Output",
+ CellChangeTimes->{3.5803773416014967`*^9},
+ CellLabel->"Out[24]=",
+ CellID->205865128]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More Examples", "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->1854448968],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Scope", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1293636265],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Generalizations & Extensions", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1020263627],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["Options", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2061341341],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1757724783],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1295379749]
+}, Closed]],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Applications", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->258228157],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Properties & Relations", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2123667759],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Possible Issues", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1305812373],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Interactive Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1653164318],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Neat Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->589267740]
+}, Open  ]]
+},
+WindowSize->{700, 770},
+WindowMargins->{{201, Automatic}, {Automatic, 14}},
+CellContext->"Global`",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
+2011)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

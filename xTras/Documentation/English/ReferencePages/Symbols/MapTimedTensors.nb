@@ -1,0 +1,603 @@
+Notebook[{
+Cell[TextData[{
+ "New in: ",
+ Cell["1.1.0", "HistoryData",
+  CellTags->"New"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete"],
+ " | Excised in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Excised"]
+}], "History",
+ CellChangeTimes->{{3.580815592676558*^9, 3.5808155956195602`*^9}},
+ CellID->1247902091],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1122911449],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->686433507],
+
+Cell["xTras Package", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->1750322774],
+
+Cell["xTras`", "Categorization",
+ CellLabel->"Context",
+ CellID->1443866012],
+
+Cell["xTras/ref/MapTimedTensors", "Categorization",
+ CellLabel->"URI",
+ CellID->490852584]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->477174294],
+
+Cell["XXXX", "Keywords",
+ CellID->1164421360]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->1872225408],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->1562036412],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->158391909],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->1360575930],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->793782254]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Details", "DetailsSection",
+ CellID->307771771],
+
+Cell["XXXX", "Details",
+ CellLabel->"Lead",
+ CellID->670882175],
+
+Cell["XXXX", "Details",
+ CellLabel->"Developers",
+ CellID->350963985],
+
+Cell["XXXX", "Details",
+ CellLabel->"Authors",
+ CellID->8391405],
+
+Cell["XXXX", "Details",
+ CellLabel->"Feature Name",
+ CellID->3610269],
+
+Cell["XXXX", "Details",
+ CellLabel->"QA",
+ CellID->401364205],
+
+Cell["XXXX", "Details",
+ CellLabel->"DA",
+ CellID->350204745],
+
+Cell["XXXX", "Details",
+ CellLabel->"Docs",
+ CellID->732958810],
+
+Cell["XXXX", "Details",
+ CellLabel->"Features Page Notes",
+ CellID->222905350],
+
+Cell["XXXX", "Details",
+ CellLabel->"Comments",
+ CellID->240026365]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["MapTimedTensors", "ObjectName",
+ CellID->1224892054],
+
+Cell[TextData[{
+ Cell["   ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{"MapTimedTensors", "[", 
+   RowBox[{
+    StyleBox["f", "TI"], ",", 
+    StyleBox["expr", "TI"]}], "]"}]], "InlineFormula"],
+ "\[LineSeparator]maps ",
+ StyleBox["f", "TI"],
+ " over all tensorial expressions in ",
+ StyleBox["expr", "TI"],
+ " while displaying progress information."
+}], "Usage",
+ CellChangeTimes->{
+  3.579753718837463*^9, {3.580815478542901*^9, 3.580815488706477*^9}, {
+   3.580815909579615*^9, 3.580815919750867*^9}}],
+
+Cell["\<\
+MapTimedTensors doesn't map over prefactors with constant symbols, which may \
+lead to an increase in performance.\
+\>", "Notes",
+ CellChangeTimes->{{3.58081563738846*^9, 3.580815666046958*^9}, {
+  3.580815808021742*^9, 3.580815813525622*^9}},
+ CellID->1067943069]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tutorials", "TutorialsSection",
+ CellID->250839057],
+
+Cell["XXXX", "Tutorials",
+ CellID->341631938]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Demonstrations", "RelatedDemonstrationsSection",
+ CellID->1268215905],
+
+Cell["XXXX", "RelatedDemonstrations",
+ CellID->1129518860]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Links", "RelatedLinksSection",
+ CellID->1584193535],
+
+Cell["XXXX", "RelatedLinks",
+ CellID->1038487239]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["See Also", "SeeAlsoSection",
+ CellID->1255426704],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["MapTimed",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/MapTimed"]], "InlineFormula"],
+ " \[EmptyVerySmallSquare] ",
+ Cell[BoxData[
+  ButtonBox["MapTensors",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/MapTensors"]], "InlineFormula"]
+}], "SeeAlso",
+ CellChangeTimes->{{3.5808155114990997`*^9, 3.580815534085952*^9}},
+ CellID->929782353]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More About", "MoreAboutSection",
+ CellID->38303248],
+
+Cell["XXXX", "MoreAbout",
+ CellID->1665078683]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox["Examples", "PrimaryExamplesSection"], 
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->880084151],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"DefNiceConstantSymbol", "[", 
+    RowBox[{"\"\<c\>\"", ",", "#"}], "]"}], "&"}], "/@", 
+  RowBox[{"Range", "[", "3", "]"}]}]], "Input",
+ CellLabel->"In[277]:=",
+ CellID->584509320],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   InterpretationBox[
+    StyleBox[
+     SubsuperscriptBox["c", "1", ""],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`c1,
+    Editable->False], ",", 
+   InterpretationBox[
+    StyleBox[
+     SubsuperscriptBox["c", "2", ""],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`c2,
+    Editable->False], ",", 
+   InterpretationBox[
+    StyleBox[
+     SubsuperscriptBox["c", "3", ""],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`c3,
+    Editable->False]}], "}"}]], "Output",
+ CellChangeTimes->{3.5808074308094683`*^9},
+ CellLabel->"Out[277]=",
+ CellID->1257939862]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"c2", " ", 
+    RowBox[{"RicciCD", "[", 
+     RowBox[{
+      RowBox[{"-", "a"}], ",", 
+      RowBox[{"-", "b"}]}], "]"}]}], " ", "+", " ", 
+   RowBox[{"c3", " ", 
+    RowBox[{"metric", "[", 
+     RowBox[{
+      RowBox[{"-", "b"}], ",", 
+      RowBox[{"-", "a"}]}], "]"}]}]}], " "}], "\[IndentingNewLine]", 
+ RowBox[{"MapTimedTensors", "[", 
+  RowBox[{"F", ",", "%"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.580305527721472*^9, 3.580305544500875*^9}, {
+  3.580305785038747*^9, 3.5803057863015003`*^9}, {3.5803060540109167`*^9, 
+  3.580306054170693*^9}, {3.580806413470196*^9, 3.5808064178380632`*^9}, {
+  3.580807436197995*^9, 3.5808074398771067`*^9}, {3.580815697761939*^9, 
+  3.580815733685637*^9}},
+ CellLabel->"In[35]:=",
+ CellID->924466334],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   InterpretationBox[
+    StyleBox[
+     SubsuperscriptBox["c", "3", ""],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`c3,
+    Editable->False], " ", 
+   InterpretationBox[
+    StyleBox[GridBox[{
+       {"g", 
+        StyleBox[GridBox[{
+           {" ", " "},
+           {"b", "a"}
+          },
+          GridBoxSpacings->{"Columns" -> {
+              Offset[0.], {
+               Offset[0.034999999999999996`]}, 
+              Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+               Offset[0.]}}, "RowsIndexed" -> {}}],
+         FontSize->9]}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.034999999999999996`]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`metric[-$CellContext`b, -$CellContext`a],
+    Editable->False]}], "+", 
+  RowBox[{
+   InterpretationBox[
+    StyleBox[
+     SubsuperscriptBox["c", "2", ""],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`c2,
+    Editable->False], " ", 
+   InterpretationBox[
+    StyleBox[GridBox[{
+       {
+        RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+        StyleBox[GridBox[{
+           {" ", " "},
+           {"a", "b"}
+          },
+          GridBoxSpacings->{"Columns" -> {
+              Offset[0.], {
+               Offset[0.034999999999999996`]}, 
+              Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+               Offset[0.]}}, "RowsIndexed" -> {}}],
+         FontSize->9]}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.034999999999999996`]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`RicciCD[-$CellContext`a, -$CellContext`b],
+    Editable->False]}]}]], "Output",
+ CellChangeTimes->{
+  3.5803055449929934`*^9, 3.5803057867260523`*^9, 3.580306054675405*^9, 
+   3.580806418361536*^9, 3.5808074409082613`*^9, {3.58081570407712*^9, 
+   3.580815735105501*^9}},
+ CellLabel->"Out[35]=",
+ CellID->1605266511],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   InterpretationBox[
+    StyleBox[
+     SubsuperscriptBox["c", "3", ""],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`c3,
+    Editable->False], " ", 
+   RowBox[{"F", "[", 
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"g", 
+         StyleBox[GridBox[{
+            {" ", " "},
+            {"b", "a"}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`metric[-$CellContext`b, -$CellContext`a],
+     Editable->False], "]"}]}], "+", 
+  RowBox[{
+   InterpretationBox[
+    StyleBox[
+     SubsuperscriptBox["c", "2", ""],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`c2,
+    Editable->False], " ", 
+   RowBox[{"F", "[", 
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {
+         RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+         StyleBox[GridBox[{
+            {" ", " "},
+            {"a", "b"}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`RicciCD[-$CellContext`a, -$CellContext`b],
+     Editable->False], "]"}]}]}]], "Output",
+ CellChangeTimes->{
+  3.5803055449929934`*^9, 3.5803057867260523`*^9, 3.580306054675405*^9, 
+   3.580806418361536*^9, 3.5808074409082613`*^9, {3.58081570407712*^9, 
+   3.580815735205924*^9}},
+ CellLabel->"Out[36]=",
+ CellID->509463957]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"c2", " ", 
+    RowBox[{"RicciScalarCD", "[", "]"}]}], " ", "+", " ", "c3"}], 
+  " "}], "\[IndentingNewLine]", 
+ RowBox[{"MapTimedTensors", "[", 
+  RowBox[{"F", ",", "%"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.580305527721472*^9, 3.580305544500875*^9}, {
+  3.580305785038747*^9, 3.5803057863015003`*^9}, {3.5803060540109167`*^9, 
+  3.580306054170693*^9}, {3.580806413470196*^9, 3.5808064178380632`*^9}, {
+  3.580807436197995*^9, 3.5808074398771067`*^9}, {3.580815697761939*^9, 
+  3.580815766171712*^9}, {3.580815836081806*^9, 3.5808158425330973`*^9}},
+ CellLabel->"In[42]:=",
+ CellID->543424710],
+
+Cell[BoxData[
+ RowBox[{
+  InterpretationBox[
+   StyleBox[
+    SubsuperscriptBox["c", "3", ""],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   $CellContext`c3,
+   Editable->False], "+", 
+  RowBox[{
+   InterpretationBox[
+    StyleBox[
+     SubsuperscriptBox["c", "2", ""],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`c2,
+    Editable->False], " ", 
+   InterpretationBox[
+    StyleBox[
+     RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`RicciScalarCD[],
+    Editable->False]}]}]], "Output",
+ CellChangeTimes->{
+  3.5803055449929934`*^9, 3.5803057867260523`*^9, 3.580306054675405*^9, 
+   3.580806418361536*^9, 3.5808074409082613`*^9, {3.58081570407712*^9, 
+   3.580815735105501*^9}, 3.580815766537456*^9, {3.580815839671743*^9, 
+   3.5808158428576*^9}},
+ CellLabel->"Out[42]=",
+ CellID->1966460285],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   InterpretationBox[
+    StyleBox[
+     SubsuperscriptBox["c", "3", ""],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`c3,
+    Editable->False], " ", 
+   RowBox[{"F", "[", "1", "]"}]}], "+", 
+  RowBox[{
+   InterpretationBox[
+    StyleBox[
+     SubsuperscriptBox["c", "2", ""],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`c2,
+    Editable->False], " ", 
+   RowBox[{"F", "[", 
+    InterpretationBox[
+     StyleBox[
+      RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`RicciScalarCD[],
+     Editable->False], "]"}]}]}]], "Output",
+ CellChangeTimes->{
+  3.5803055449929934`*^9, 3.5803057867260523`*^9, 3.580306054675405*^9, 
+   3.580806418361536*^9, 3.5808074409082613`*^9, {3.58081570407712*^9, 
+   3.580815735105501*^9}, 3.580815766537456*^9, {3.580815839671743*^9, 
+   3.580815842941791*^9}},
+ CellLabel->"Out[43]=",
+ CellID->773696073]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More Examples", "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->1854448968],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Scope", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1293636265],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Generalizations & Extensions", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1020263627],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["Options", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2061341341],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1757724783],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1295379749]
+}, Closed]],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Applications", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->258228157],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Properties & Relations", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2123667759],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Possible Issues", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1305812373],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Interactive Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1653164318],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Neat Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->589267740]
+}, Open  ]]
+},
+WindowSize->{700, 770},
+WindowMargins->{{4, Automatic}, {Automatic, 0}},
+CellContext->"Global`",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
+2011)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

@@ -1,0 +1,602 @@
+Notebook[{
+Cell[TextData[{
+ "New in: ",
+ Cell["1.0.0", "HistoryData",
+  CellTags->"New"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete"],
+ " | Excised in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Excised"]
+}], "History",
+ CellChangeTimes->{{3.580390002169623*^9, 3.5803900032375937`*^9}},
+ CellID->1247902091],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1122911449],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->686433507],
+
+Cell["xTras Package", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->679530746],
+
+Cell["xTras`", "Categorization",
+ CellLabel->"Context",
+ CellID->555213276],
+
+Cell["xTras/ref/ClearAutomaticRules", "Categorization",
+ CellLabel->"URI",
+ CellID->653083517]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->477174294],
+
+Cell["XXXX", "Keywords",
+ CellID->1164421360]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->1872225408],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->1562036412],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->158391909],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->1360575930],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->793782254]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Details", "DetailsSection",
+ CellID->307771771],
+
+Cell["XXXX", "Details",
+ CellLabel->"Lead",
+ CellID->670882175],
+
+Cell["XXXX", "Details",
+ CellLabel->"Developers",
+ CellID->350963985],
+
+Cell["XXXX", "Details",
+ CellLabel->"Authors",
+ CellID->8391405],
+
+Cell["XXXX", "Details",
+ CellLabel->"Feature Name",
+ CellID->3610269],
+
+Cell["XXXX", "Details",
+ CellLabel->"QA",
+ CellID->401364205],
+
+Cell["XXXX", "Details",
+ CellLabel->"DA",
+ CellID->350204745],
+
+Cell["XXXX", "Details",
+ CellLabel->"Docs",
+ CellID->732958810],
+
+Cell["XXXX", "Details",
+ CellLabel->"Features Page Notes",
+ CellID->222905350],
+
+Cell["XXXX", "Details",
+ CellLabel->"Comments",
+ CellID->240026365]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["ClearAutomaticRules", "ObjectName",
+ CellID->1224892054],
+
+Cell[TextData[{
+ Cell["   ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{"ClearAutomaticRules", "[", 
+   RowBox[{
+    StyleBox["symbol", "TI"], ",", 
+    StyleBox["rules", "TI"]}], "]"}]], "InlineFormula"],
+ "\[LineSeparator]tries to remove ",
+ StyleBox["rules", "TI"],
+ " from the upvalues and downvalues of ",
+ StyleBox["symbol", "TI"],
+ "."
+}], "Usage",
+ CellChangeTimes->{3.579753693782894*^9}],
+
+Cell[TextData[{
+ "Automatic rules are usually set via the function ",
+ Cell[BoxData["AutomaticRules"], "InlineFormula",
+  FormatType->"StandardForm"],
+ "."
+}], "Notes",
+ CellChangeTimes->{{3.580393888454727*^9, 3.580393929515621*^9}},
+ CellID->1629279589],
+
+Cell["The following options can be given: ", "Notes",
+ CellID->320479275],
+
+Cell[BoxData[GridBox[{
+   {Cell["   ", "ModInfo"], 
+    ButtonBox["Verbose",
+     BaseStyle->"Link"], "True", Cell["\<\
+display extra information about if the rules are cleared or not\
+\>", "TableText"]}
+  }]], "3ColumnTableMod",
+ CellChangeTimes->{{3.579767529868553*^9, 3.579767622781605*^9}, {
+   3.579767656179701*^9, 3.5797676561798077`*^9}, {3.5797679972821217`*^9, 
+   3.5797680439932327`*^9}, {3.579768100072884*^9, 3.579768107855693*^9}, {
+   3.579768261172038*^9, 3.579768304621511*^9}, {3.5797691419191723`*^9, 
+   3.579769141969328*^9}, 3.579769275228362*^9, {3.580189909333795*^9, 
+   3.580189922710552*^9}, {3.580189968041004*^9, 3.580189968295454*^9}, 
+   3.580383949663721*^9, {3.580383990495257*^9, 3.580383991150942*^9}, {
+   3.5803937735170393`*^9, 3.580393805713599*^9}},
+ CellID->406188249],
+
+Cell[TextData[{
+ "Possible settings for ",
+ Cell[BoxData["Verbose"], "InlineFormula"],
+ " include:"
+}], "Notes",
+ CellChangeTimes->{{3.579768416355085*^9, 3.579768433300432*^9}},
+ CellID->1904209340],
+
+Cell[BoxData[GridBox[{
+   {Cell["      ", "ModInfo"], "False", Cell[
+    "don't display any extra information", "TableText"]},
+   {Cell["      ", "ModInfo"], "True", Cell[
+    "display extra information", "TableText"]}
+  }]], "2ColumnTableMod",
+ CellChangeTimes->{{3.579768990235324*^9, 3.5797690309572563`*^9}, {
+  3.580383980610268*^9, 3.580383984193397*^9}, {3.580384019266459*^9, 
+  3.580384024534576*^9}},
+ CellID->1884398803]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tutorials", "TutorialsSection",
+ CellID->250839057],
+
+Cell["XXXX", "Tutorials",
+ CellID->341631938]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Demonstrations", "RelatedDemonstrationsSection",
+ CellID->1268215905],
+
+Cell["XXXX", "RelatedDemonstrations",
+ CellID->1129518860]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Links", "RelatedLinksSection",
+ CellID->1584193535],
+
+Cell["XXXX", "RelatedLinks",
+ CellID->1038487239]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["See Also", "SeeAlsoSection",
+ CellID->1255426704],
+
+Cell["XXXX", "SeeAlso",
+ CellID->929782353]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More About", "MoreAboutSection",
+ CellID->38303248],
+
+Cell["XXXX", "MoreAbout",
+ CellID->1665078683]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox["Examples", "PrimaryExamplesSection"], 
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->880084151],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"rules", " ", "=", " ", 
+  RowBox[{"MakeRule", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"RicciCD", "[", 
+      RowBox[{"a", ",", "b"}], "]"}], ",", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], 
+      RowBox[{"metric", "[", 
+       RowBox[{"a", ",", "b"}], "]"}], 
+      RowBox[{"RicciScalarCD", "[", "]"}]}]}], "}"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.580383692247273*^9, 3.5803837311046963`*^9}},
+ CellLabel->"In[18]:=",
+ CellID->1410521944],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"HoldPattern", "[", 
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {
+         RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+         StyleBox[GridBox[{
+            {
+             UnderscriptBox[
+              UnderscriptBox["a", "_"], "_"], 
+             UnderscriptBox[
+              UnderscriptBox["b", "_"], "_"]},
+            {" ", " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`RicciCD[
+      PatternTest[
+       Pattern[$CellContext`a, 
+        Blank[]], TangentM`pmQ], 
+      PatternTest[
+       Pattern[$CellContext`b, 
+        Blank[]], TangentM`pmQ]],
+     Editable->False], "]"}], "\[RuleDelayed]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "}"}], ",", 
+     RowBox[{
+      FractionBox["1", "2"], " ", 
+      InterpretationBox[
+       StyleBox[GridBox[{
+          {"g", 
+           StyleBox[GridBox[{
+              {"a", "b"},
+              {" ", " "}
+             },
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                  Offset[0.]}}, "RowsIndexed" -> {}}],
+            FontSize->9]}
+         },
+         GridBoxAlignment->{
+          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}, "RowsIndexed" -> {}}],
+        ShowAutoStyles->False,
+        AutoSpacing->False],
+       $CellContext`metric[$CellContext`a, $CellContext`b],
+       Editable->False], " ", 
+      InterpretationBox[
+       StyleBox[
+        RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}],
+        ShowAutoStyles->False,
+        AutoSpacing->False],
+       $CellContext`RicciScalarCD[],
+       Editable->False]}]}], "]"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.5803837316645803`*^9, 3.580389936663905*^9},
+ CellLabel->"Out[18]=",
+ CellID->2125160271]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AutomaticRules", "[", 
+  RowBox[{"RicciCD", ",", "rules"}], "]"}]], "Input",
+ CellChangeTimes->{{3.580383680662112*^9, 3.580383682547069*^9}, {
+  3.5803837358253403`*^9, 3.5803837391512613`*^9}},
+ CellLabel->"In[21]:=",
+ CellID->914300947],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"   Rules \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", "1", "}"}], 
+   "\[InvisibleSpace]", "\<\" have been declared as DownValues for \"\>", 
+   "\[InvisibleSpace]", "RicciCD", "\[InvisibleSpace]", "\<\".\"\>"}],
+  SequenceForm["   Rules ", 
+   Shallow[{1}], 
+   " have been declared as DownValues for ", $CellContext`RicciCD, "."],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.580383739624065*^9, {3.5803899509192657`*^9, 3.580389976843418*^9}},
+ CellLabel->"During evaluation of In[21]:=",
+ CellID->1401497732]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RicciCD", "[", 
+  RowBox[{"a", ",", "b"}], "]"}]], "Input",
+ CellChangeTimes->{{3.580383742775997*^9, 3.5803837461826963`*^9}},
+ CellLabel->"In[20]:=",
+ CellID->2060048023],
+
+Cell[BoxData[
+ RowBox[{
+  FractionBox["1", "2"], " ", 
+  InterpretationBox[
+   StyleBox[GridBox[{
+      {"g", 
+       StyleBox[GridBox[{
+          {"a", "b"},
+          {" ", " "}
+         },
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+              Offset[0.]}}, "RowsIndexed" -> {}}],
+        FontSize->9]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+       "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.034999999999999996`]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   $CellContext`metric[$CellContext`a, $CellContext`b],
+   Editable->False], " ", 
+  InterpretationBox[
+   StyleBox[
+    RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   $CellContext`RicciScalarCD[],
+   Editable->False]}]], "Output",
+ CellChangeTimes->{3.580383746616852*^9},
+ CellLabel->"Out[20]=",
+ CellID->1495765627]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ClearAutomaticRules", "[", 
+  RowBox[{"RicciCD", ",", "rules"}], "]"}]], "Input",
+ CellChangeTimes->{{3.580383669160619*^9, 3.5803836734914017`*^9}, {
+  3.580383751150304*^9, 3.580383757797914*^9}},
+ CellLabel->"In[21]:=",
+ CellID->770143288],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"   Rules \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", "1", "}"}], 
+   "\[InvisibleSpace]", "\<\" have been removed as DownValues for \"\>", 
+   "\[InvisibleSpace]", "RicciCD", "\[InvisibleSpace]", "\<\".\"\>"}],
+  SequenceForm["   Rules ", 
+   Shallow[{1}], 
+   " have been removed as DownValues for ", $CellContext`RicciCD, "."],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580383760204629*^9},
+ CellLabel->"During evaluation of In[21]:=",
+ CellID->889321207]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RicciCD", "[", 
+  RowBox[{"a", ",", "b"}], "]"}]], "Input",
+ CellChangeTimes->{{3.5803837616052923`*^9, 3.580383763813469*^9}},
+ CellLabel->"In[22]:=",
+ CellID->335342929],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[GridBox[{
+     {
+      RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+      StyleBox[GridBox[{
+         {"a", "b"},
+         {" ", " "}
+        },
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.], {
+             Offset[0.034999999999999996`]}, 
+            Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+             Offset[0.]}}, "RowsIndexed" -> {}}],
+       FontSize->9]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.034999999999999996`]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}],
+   ShowAutoStyles->False,
+   AutoSpacing->False],
+  $CellContext`RicciCD[$CellContext`a, $CellContext`b],
+  Editable->False]], "Output",
+ CellChangeTimes->{3.5803837642442703`*^9},
+ CellLabel->"Out[22]=",
+ CellID->1111517975]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More Examples", "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->1854448968],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Scope", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1293636265],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Generalizations & Extensions", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1020263627],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["Options", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2061341341],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["Verbose", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellChangeTimes->{{3.5803898177658453`*^9, 3.580389832614285*^9}},
+ CellID->1757724783],
+
+Cell[BoxData[
+ RowBox[{"ClearAutomaticRules", "[", 
+  RowBox[{"RicciCD", ",", "rules", ",", 
+   RowBox[{"Verbose", "\[Rule]", "False"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.5803899621720257`*^9, 3.58038996439065*^9}},
+ CellLabel->"In[20]:=",
+ CellID->1067453472],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ClearAutomaticRules", "[", 
+  RowBox[{"RicciCD", ",", "rules", ",", 
+   RowBox[{"Verbose", "\[Rule]", "True"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.5803899735637093`*^9, 3.5803899739219103`*^9}},
+ CellLabel->"In[22]:=",
+ CellID->612116866],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"   Rules \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", "1", "}"}], 
+   "\[InvisibleSpace]", "\<\" have been removed as DownValues for \"\>", 
+   "\[InvisibleSpace]", "RicciCD", "\[InvisibleSpace]", "\<\".\"\>"}],
+  SequenceForm["   Rules ", 
+   Shallow[{1}], 
+   " have been removed as DownValues for ", $CellContext`RicciCD, "."],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580389979146826*^9},
+ CellLabel->"During evaluation of In[22]:=",
+ CellID->1371741428]
+}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1295379749]
+}, Open  ]],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Applications", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->258228157],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Properties & Relations", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2123667759],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Possible Issues", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1305812373],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Interactive Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1653164318],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Neat Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->589267740]
+}, Open  ]]
+},
+WindowSize->{956, 771},
+WindowMargins->{{21, Automatic}, {Automatic, 19}},
+CellContext->"Global`",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
+2011)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

@@ -1,0 +1,388 @@
+Notebook[{
+Cell[TextData[{
+ "New in: ",
+ Cell["1.0.0", "HistoryData",
+  CellTags->"New"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete"],
+ " | Excised in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Excised"]
+}], "History",
+ CellChangeTimes->{{3.580361886965823*^9, 3.5803618892036953`*^9}},
+ CellID->1247902091],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1122911449],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->686433507],
+
+Cell["xTras Package", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->572504657],
+
+Cell["xTras`", "Categorization",
+ CellLabel->"Context",
+ CellID->1359031639],
+
+Cell["xTras/ref/TimeString", "Categorization",
+ CellLabel->"URI",
+ CellID->608687181]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->477174294],
+
+Cell["XXXX", "Keywords",
+ CellID->1164421360]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->1872225408],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->1562036412],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->158391909],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->1360575930],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->793782254]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Details", "DetailsSection",
+ CellID->307771771],
+
+Cell["XXXX", "Details",
+ CellLabel->"Lead",
+ CellID->670882175],
+
+Cell["XXXX", "Details",
+ CellLabel->"Developers",
+ CellID->350963985],
+
+Cell["XXXX", "Details",
+ CellLabel->"Authors",
+ CellID->8391405],
+
+Cell["XXXX", "Details",
+ CellLabel->"Feature Name",
+ CellID->3610269],
+
+Cell["XXXX", "Details",
+ CellLabel->"QA",
+ CellID->401364205],
+
+Cell["XXXX", "Details",
+ CellLabel->"DA",
+ CellID->350204745],
+
+Cell["XXXX", "Details",
+ CellLabel->"Docs",
+ CellID->732958810],
+
+Cell["XXXX", "Details",
+ CellLabel->"Features Page Notes",
+ CellID->222905350],
+
+Cell["XXXX", "Details",
+ CellLabel->"Comments",
+ CellID->240026365]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["TimeString", "ObjectName",
+ CellID->1224892054],
+
+Cell[TextData[{
+ Cell["   ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{"TimeString", "[", 
+   StyleBox["seconds", "TI"], "]"}]], "InlineFormula"],
+ "\[LineSeparator]formats ",
+ StyleBox["seconds", "TI"],
+ " as a string of the form \"",
+ StyleBox["10 minutes, 5 seconds",
+  FontSlant->"Italic"],
+ "\"."
+}], "Usage",
+ CellChangeTimes->{
+  3.5797537558268538`*^9, {3.580361287869377*^9, 3.580361341244481*^9}, {
+   3.5803613841568203`*^9, 3.580361384865911*^9}}],
+
+Cell["XXXX", "Notes",
+ CellID->1067943069]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tutorials", "TutorialsSection",
+ CellID->250839057],
+
+Cell["XXXX", "Tutorials",
+ CellID->341631938]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Demonstrations", "RelatedDemonstrationsSection",
+ CellID->1268215905],
+
+Cell["XXXX", "RelatedDemonstrations",
+ CellID->1129518860]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Links", "RelatedLinksSection",
+ CellID->1584193535],
+
+Cell["XXXX", "RelatedLinks",
+ CellID->1038487239]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["See Also", "SeeAlsoSection",
+ CellID->1255426704],
+
+Cell["XXXX", "SeeAlso",
+ CellID->929782353]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More About", "MoreAboutSection",
+ CellID->38303248],
+
+Cell["XXXX", "MoreAbout",
+ CellID->1665078683]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox["Examples", "PrimaryExamplesSection"], 
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->880084151],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TimeString", "[", "60", "]"}]], "Input",
+ CellChangeTimes->{{3.580361718458186*^9, 3.580361725164336*^9}},
+ CellLabel->"In[8]:=",
+ CellID->432288378],
+
+Cell[BoxData["\<\"1 minute\"\>"], "Output",
+ CellChangeTimes->{3.580361725605076*^9},
+ CellLabel->"Out[8]=",
+ CellID->533591245]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TimeString", "[", "70", "]"}]], "Input",
+ CellChangeTimes->{{3.580361732087563*^9, 3.580361735145356*^9}},
+ CellLabel->"In[10]:=",
+ CellID->300343441],
+
+Cell[BoxData["\<\"1 minute, 10 seconds\"\>"], "Output",
+ CellChangeTimes->{3.580361735593754*^9},
+ CellLabel->"Out[10]=",
+ CellID->1285642437]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TimeString", "[", "3600", "]"}]], "Input",
+ CellChangeTimes->{{3.580361209603956*^9, 3.58036121349477*^9}, {
+  3.5803612557803583`*^9, 3.580361256732815*^9}},
+ CellLabel->"In[11]:=",
+ CellID->449985556],
+
+Cell[BoxData["\<\"1 hour\"\>"], "Output",
+ CellChangeTimes->{
+  3.580361213995146*^9, 3.5803612571203737`*^9, 3.58036153092354*^9, {
+   3.580361728210971*^9, 3.580361738449562*^9}},
+ CellLabel->"Out[11]=",
+ CellID->1959466192]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TimeString", "[", "3610", "]"}]], "Input",
+ CellChangeTimes->{{3.580361739418997*^9, 3.5803617465511723`*^9}},
+ CellLabel->"In[12]:=",
+ CellID->1086562199],
+
+Cell[BoxData["\<\"1 hour\"\>"], "Output",
+ CellChangeTimes->{3.5803617470003023`*^9},
+ CellLabel->"Out[12]=",
+ CellID->1797428152]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TimeString", "[", "3700", "]"}]], "Input",
+ CellChangeTimes->{{3.580361751696286*^9, 3.580361755731718*^9}},
+ CellLabel->"In[13]:=",
+ CellID->722488315],
+
+Cell[BoxData["\<\"1 hour, 1 minute\"\>"], "Output",
+ CellChangeTimes->{3.580361756153166*^9},
+ CellLabel->"Out[13]=",
+ CellID->988570067]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"TimeString", "[", 
+     RowBox[{"10", "^", 
+      RowBox[{"(", 
+       RowBox[{"#", "-", "1"}], ")"}]}], "]"}], "&"}], "/@", 
+   RowBox[{"Range", "[", "10", "]"}]}], "//", "TableForm"}]], "Input",
+ CellChangeTimes->{{3.5803617767495337`*^9, 3.5803618197656307`*^9}},
+ CellLabel->"In[17]:=",
+ CellID->2121500350],
+
+Cell[BoxData[
+ TagBox[
+  TagBox[GridBox[{
+     {"\<\"1 second\"\>"},
+     {"\<\"10 seconds\"\>"},
+     {"\<\"1 minute, 40 seconds\"\>"},
+     {"\<\"16 minutes, 40 seconds\"\>"},
+     {"\<\"2 hours, 46 minutes\"\>"},
+     {"\<\"1 day, 3 hours\"\>"},
+     {"\<\"11 days, 13 hours\"\>"},
+     {"\<\"3 months, 24 days\"\>"},
+     {"\<\"3 years, 2 months\"\>"},
+     {"\<\"31 years, 8 months\"\>"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.5599999999999999]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}],
+   Column],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.580361793967493*^9, 3.580361820358165*^9}},
+ CellLabel->"Out[17]//TableForm=",
+ CellID->1070790665]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More Examples", "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->1854448968],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Scope", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1293636265],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Generalizations & Extensions", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1020263627],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["Options", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2061341341],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1757724783],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1295379749]
+}, Closed]],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Applications", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->258228157],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Properties & Relations", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2123667759],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Possible Issues", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1305812373],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Interactive Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1653164318],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Neat Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->589267740]
+}, Open  ]]
+},
+WindowSize->{700, 770},
+WindowMargins->{{4, Automatic}, {Automatic, 0}},
+CellContext->"Global`",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
+2011)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

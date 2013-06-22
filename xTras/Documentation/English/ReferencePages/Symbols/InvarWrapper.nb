@@ -1,0 +1,624 @@
+Notebook[{
+Cell[TextData[{
+ "New in: ",
+ Cell["1.0.0", "HistoryData",
+  CellTags->"New"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete"],
+ " | Excised in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Excised"]
+}], "History",
+ CellChangeTimes->{{3.5805531724102697`*^9, 3.580553174087913*^9}},
+ CellID->1247902091],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1122911449],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->686433507],
+
+Cell["xTras Package", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->371233772],
+
+Cell["xTras`", "Categorization",
+ CellLabel->"Context",
+ CellID->886011469],
+
+Cell["xTras/ref/InvarWrapper", "Categorization",
+ CellLabel->"URI",
+ CellID->543151185]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->477174294],
+
+Cell["XXXX", "Keywords",
+ CellID->1164421360]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->1872225408],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->1562036412],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->158391909],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->1360575930],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->793782254]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Details", "DetailsSection",
+ CellID->307771771],
+
+Cell["XXXX", "Details",
+ CellLabel->"Lead",
+ CellID->670882175],
+
+Cell["XXXX", "Details",
+ CellLabel->"Developers",
+ CellID->350963985],
+
+Cell["XXXX", "Details",
+ CellLabel->"Authors",
+ CellID->8391405],
+
+Cell["XXXX", "Details",
+ CellLabel->"Feature Name",
+ CellID->3610269],
+
+Cell["XXXX", "Details",
+ CellLabel->"QA",
+ CellID->401364205],
+
+Cell["XXXX", "Details",
+ CellLabel->"DA",
+ CellID->350204745],
+
+Cell["XXXX", "Details",
+ CellLabel->"Docs",
+ CellID->732958810],
+
+Cell["XXXX", "Details",
+ CellLabel->"Features Page Notes",
+ CellID->222905350],
+
+Cell["XXXX", "Details",
+ CellLabel->"Comments",
+ CellID->240026365]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["InvarWrapper", "ObjectName",
+ CellID->1224892054],
+
+Cell[TextData[{
+ Cell["      ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{
+   RowBox[{"InvarWrapper", "[", 
+    RowBox[{
+     StyleBox["f", "TI"], ",", 
+     StyleBox["g", "TI"]}], "]"}], "[", 
+   StyleBox["expr", "TI"], "]"}]], "InlineFormula"],
+ "\[LineSeparator]returns the result of ",
+ Cell[BoxData[
+  RowBox[{
+   StyleBox["f", "TI"], "[", 
+   StyleBox[
+    RowBox[{"g", ",", "expr"}], "TI"], "]"}]], "InlineFormula"],
+ " while temporarily configuring settings associated to the metric ",
+ StyleBox["g", "TI"],
+ " to ",
+ StyleBox["Invar",
+  FontSlant->"Italic"],
+ " compatible values.\n",
+ Cell["      ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{
+   RowBox[{"InvarWrapper", "[", 
+    RowBox[{
+     StyleBox["f", "TI"], ",", 
+     StyleBox["g", "TI"]}], "]"}], "[", 
+   RowBox[{
+    StyleBox["expr", "TI"], ",", 
+    StyleBox["args", "TI"]}], "]"}]], "InlineFormula"],
+ "\[LineSeparator]returns ",
+ Cell[BoxData[
+  RowBox[{
+   StyleBox["f", "TI"], "[", 
+   RowBox[{
+    StyleBox["g", "TI"], 
+    StyleBox[",", "TI"], 
+    StyleBox["expr", "TI"], ",", 
+    StyleBox["args", "TI"]}], "]"}]], "InlineFormula"],
+ " while temporarily configuring settings associated to the metric ",
+ StyleBox["g", "TI"],
+ " to ",
+ StyleBox["Invar",
+  FontSlant->"Italic"],
+ " compatible values.."
+}], "Usage",
+ CellChangeTimes->{
+  3.5797537471307373`*^9, {3.580552303513228*^9, 3.580552327731391*^9}, {
+   3.580552358336385*^9, 3.580552450165847*^9}, {3.5805524976540728`*^9, 
+   3.580552631397183*^9}, {3.580552667370984*^9, 3.580552846895409*^9}, {
+   3.580552883588746*^9, 3.580552884913394*^9}, {3.580553418571864*^9, 
+   3.58055347212035*^9}}],
+
+Cell[TextData[{
+ "InvarWrapper temporarily sets the option ",
+ Cell[BoxData["UseMetricOnVBundle"], "InlineFormula"],
+ " of ",
+ Cell[BoxData["ToCanonical"], "InlineFormula"],
+ " to ",
+ Cell[BoxData["All"], "InlineFormula"],
+ ", the option ",
+ Cell[BoxData["AllowUpperDerivatives"], "InlineFormula"],
+ " of ",
+ Cell[BoxData["ContractMetric"], "InlineFormula"],
+ " to ",
+ Cell[BoxData["True"], "InlineFormula"],
+ ", ",
+ Cell[BoxData["$CommuteCovDsOnScalars"], "InlineFormula"],
+ " to ",
+ Cell[BoxData["True"], "InlineFormula"],
+ ", and disables automatic curvature relations. It reverts these settings to \
+their original value afterwards."
+}], "Notes",
+ CellChangeTimes->{{3.5805528695335293`*^9, 3.580552922647794*^9}, {
+  3.580552960871814*^9, 3.580553116427528*^9}, {3.5805531942987423`*^9, 
+  3.580553197911119*^9}, {3.5805669640120068`*^9, 3.580566968967567*^9}},
+ CellID->1067943069]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tutorials", "TutorialsSection",
+ CellID->250839057],
+
+Cell["XXXX", "Tutorials",
+ CellID->341631938]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Demonstrations", "RelatedDemonstrationsSection",
+ CellID->1268215905],
+
+Cell["XXXX", "RelatedDemonstrations",
+ CellID->1129518860]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Links", "RelatedLinksSection",
+ CellID->1584193535],
+
+Cell["XXXX", "RelatedLinks",
+ CellID->1038487239]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["See Also", "SeeAlsoSection",
+ CellID->1255426704],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["RiemannSimplification",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/RiemannSimplification"]], "InlineFormula"],
+ " \[EmptyVerySmallSquare] ",
+ Cell[BoxData[
+  ButtonBox["InvarLagrangian",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/InvarLagrangian"]], "InlineFormula"]
+}], "SeeAlso",
+ CellChangeTimes->{{3.580567102836246*^9, 3.580567113596135*^9}, {
+  3.580795452604582*^9, 3.580795463451606*^9}},
+ CellID->929782353]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More About", "MoreAboutSection",
+ CellID->38303248],
+
+Cell["XXXX", "MoreAbout",
+ CellID->1665078683]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox["Examples", "PrimaryExamplesSection"], 
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->880084151],
+
+Cell["\<\
+Using Invar functions directly usually fails or gives the wrong result, \
+because some settings do not have compatible values:\
+\>", "ExampleText",
+ CellChangeTimes->{{3.580553350719309*^9, 3.5805534013695803`*^9}, {
+  3.580565842147277*^9, 3.580565849618722*^9}},
+ CellID->1529154825],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"expr", " ", "=", " ", 
+  RowBox[{
+   RowBox[{"CD", "[", "a", "]"}], "@", 
+   RowBox[{
+    RowBox[{"CD", "[", "b", "]"}], "@", 
+    RowBox[{"RicciCD", "[", 
+     RowBox[{
+      RowBox[{"-", "a"}], ",", 
+      RowBox[{"-", "b"}]}], "]"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.580553280407515*^9, 3.5805532847072077`*^9}, 
+   3.5805533243069572`*^9, {3.580553543996751*^9, 3.5805535664900084`*^9}, 
+   3.580565792167099*^9, {3.580565826793242*^9, 3.5805658364485826`*^9}},
+ CellLabel->"In[210]:=",
+ CellID->1866744454],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   RowBox[{
+    SuperscriptBox["\[EmptyDownTriangle]", "a"], 
+    SuperscriptBox["\[EmptyDownTriangle]", "b"], GridBox[{
+      {
+       RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+       StyleBox[GridBox[{
+          {" ", " "},
+          {"a", "b"}
+         },
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+              Offset[0.]}}, "RowsIndexed" -> {}}],
+        FontSize->9]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+       "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.034999999999999996`]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}]}],
+   ShowAutoStyles->False,
+   AutoSpacing->False],
+  $CellContext`CD[$CellContext`a][
+   $CellContext`CD[$CellContext`b][
+    $CellContext`RicciCD[-$CellContext`a, -$CellContext`b]]],
+  Editable->False]], "Output",
+ CellChangeTimes->{
+  3.580553326043873*^9, {3.5805535450266933`*^9, 3.580553568228174*^9}, 
+   3.580565793141746*^9, {3.580565829379262*^9, 3.5805658368774433`*^9}},
+ CellLabel->"Out[210]=",
+ CellID->580492892]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RiemannSimplify", "[", 
+  RowBox[{"expr", ",", " ", "4", ",", " ", "True", ",", " ", "metric"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.5805532555067177`*^9, 3.580553279539505*^9}, {
+  3.580553328242084*^9, 3.580553333391534*^9}},
+ CellLabel->"In[211]:=",
+ CellID->1923863898],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   RowBox[{
+    StyleBox["(",
+     FontColor->RGBColor[1, 0, 0]], 
+    InterpretationBox[
+     StyleBox[
+      RowBox[{
+       SubscriptBox["\[EmptyDownTriangle]", "a"], 
+       SuperscriptBox["\[EmptyDownTriangle]", "a"], 
+       RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}]}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`CD[-$CellContext`a][
+      $CellContext`CD[$CellContext`a][
+       $CellContext`RicciScalarCD[]]],
+     Editable->False], 
+    StyleBox[")",
+     FontColor->RGBColor[1, 0, 0]]}],
+   ShowAutoStyles->False,
+   AutoSpacing->False],
+  xAct`xTensor`Scalar[
+   $CellContext`CD[-$CellContext`a][
+    $CellContext`CD[$CellContext`a][
+     $CellContext`RicciScalarCD[]]]],
+  Editable->False]], "Output",
+ CellChangeTimes->{
+  3.580553334171707*^9, {3.580553546377376*^9, 3.5805535691953707`*^9}, 
+   3.580565795764494*^9, {3.580565830548386*^9, 3.580565838280259*^9}},
+ CellLabel->"Out[211]=",
+ CellID->325827523]
+}, Open  ]],
+
+Cell[TextData[{
+ "Wrapping ",
+ Cell[BoxData["RiemannSimplify"], "InlineFormula"],
+ " in ",
+ Cell[BoxData["InvarWrapper"], "InlineFormula"],
+ " does work:"
+}], "ExampleText",
+ CellChangeTimes->{{3.580553486870647*^9, 3.5805535045484343`*^9}},
+ CellID->1568340126],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"InvarWrapper", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"RiemannSimplify", "[", 
+      RowBox[{"#2", ",", "4", ",", "True", ",", "#1"}], "]"}], "&"}], ",", 
+    "metric"}], "]"}], "[", "expr", "]"}]], "Input",
+ CellChangeTimes->{{3.5805535173958063`*^9, 3.580553524852829*^9}},
+ CellLabel->"In[207]:=",
+ CellID->878214404],
+
+Cell[BoxData[
+ RowBox[{
+  FractionBox["1", "2"], " ", 
+  InterpretationBox[
+   StyleBox[
+    RowBox[{
+     StyleBox["(",
+      FontColor->RGBColor[1, 0, 0]], 
+     InterpretationBox[
+      StyleBox[
+       RowBox[{
+        SubscriptBox["\[EmptyDownTriangle]", "a"], 
+        SuperscriptBox["\[EmptyDownTriangle]", "a"], 
+        RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}]}],
+       ShowAutoStyles->False,
+       AutoSpacing->False],
+      $CellContext`CD[-$CellContext`a][
+       $CellContext`CD[$CellContext`a][
+        $CellContext`RicciScalarCD[]]],
+      Editable->False], 
+     StyleBox[")",
+      FontColor->RGBColor[1, 0, 0]]}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   xAct`xTensor`Scalar[
+    $CellContext`CD[-$CellContext`a][
+     $CellContext`CD[$CellContext`a][
+      $CellContext`RicciScalarCD[]]]],
+   Editable->False]}]], "Output",
+ CellChangeTimes->{{3.580553527982568*^9, 3.580553573088225*^9}, 
+   3.580565799405355*^9},
+ CellLabel->"Out[207]=",
+ CellID->1918916058]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["\t", "ExampleDelimiter"],
+  $Line = 0; Null]], "ExampleDelimiter",
+ CellID->99879211],
+
+Cell[TextData[{
+ "Writing the ",
+ StyleBox["Invar",
+  FontSlant->"Italic"],
+ " function ",
+ Cell[BoxData["f"], "InlineFormula"],
+ " as a ",
+ ButtonBox["pure function",
+  BaseStyle->"Link",
+  ButtonData->"paclet:ref/Function"],
+ " gives flexibility in the argument positions:"
+}], "ExampleText",
+ CellChangeTimes->{{3.580565982045939*^9, 3.580566023577883*^9}, {
+  3.5805660776376133`*^9, 3.580566088570002*^9}, {3.580566278581807*^9, 
+  3.580566296326384*^9}},
+ CellID->1657109302],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"InvarWrapper", "[", 
+   RowBox[{"f", ",", "metric"}], "]"}], "[", "x", "]"}]], "Input",
+ CellChangeTimes->{{3.5805659099455557`*^9, 3.580565964809108*^9}},
+ CellLabel->"In[215]:=",
+ CellID->1485170970],
+
+Cell[BoxData[
+ RowBox[{"f", "[", 
+  RowBox[{"metric", ",", "x"}], "]"}]], "Output",
+ CellChangeTimes->{{3.580565920107554*^9, 3.580565965310349*^9}},
+ CellLabel->"Out[215]=",
+ CellID->685857193]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"InvarWrapper", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"f", "[", 
+      RowBox[{"#1", ",", "#2"}], "]"}], "&"}], ",", "metric"}], "]"}], "[", 
+  "x", "]"}]], "Input",
+ CellChangeTimes->{{3.580566105169928*^9, 3.580566115077758*^9}},
+ CellLabel->"In[216]:=",
+ CellID->1465551196],
+
+Cell[BoxData[
+ RowBox[{"f", "[", 
+  RowBox[{"metric", ",", "x"}], "]"}]], "Output",
+ CellChangeTimes->{3.580566116706903*^9},
+ CellLabel->"Out[216]=",
+ CellID->2029003729]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"InvarWrapper", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"f", "[", 
+      RowBox[{"#2", ",", "#1"}], "]"}], "&"}], ",", "metric"}], "]"}], "[", 
+  "x", "]"}]], "Input",
+ CellChangeTimes->{{3.580566124842876*^9, 3.58056612606462*^9}},
+ CellLabel->"In[217]:=",
+ CellID->1572842590],
+
+Cell[BoxData[
+ RowBox[{"f", "[", 
+  RowBox[{"x", ",", "metric"}], "]"}]], "Output",
+ CellChangeTimes->{3.580566126558302*^9},
+ CellLabel->"Out[217]=",
+ CellID->1389199207]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"InvarWrapper", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"f", "[", 
+       RowBox[{"#2", ",", "#1"}], "]"}], "[", "#3", "]"}], "&"}], ",", 
+    "metric"}], "]"}], "[", 
+  RowBox[{"x", ",", "y"}], "]"}]], "Input",
+ CellChangeTimes->{{3.58056621261209*^9, 3.5805662624575233`*^9}},
+ CellLabel->"In[218]:=",
+ CellID->828861865],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"f", "[", 
+   RowBox[{"x", ",", "metric"}], "]"}], "[", "y", "]"}]], "Output",
+ CellChangeTimes->{3.5805662632401733`*^9},
+ CellLabel->"Out[218]=",
+ CellID->2102430613]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More Examples", "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->1854448968],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Scope", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1293636265],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Generalizations & Extensions", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1020263627],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["Options", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2061341341],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1757724783],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1295379749]
+}, Closed]],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Applications", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->258228157],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Properties & Relations", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2123667759],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Possible Issues", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1305812373],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Interactive Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1653164318],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Neat Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->589267740]
+}, Open  ]]
+},
+WindowSize->{927, 812},
+WindowMargins->{{51, Automatic}, {Automatic, 0}},
+CellContext->"Global`",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
+2011)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

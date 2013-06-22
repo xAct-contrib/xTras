@@ -1,0 +1,412 @@
+Notebook[{
+Cell[TextData[{
+ "New in: ",
+ Cell["1.0.0", "HistoryData",
+  CellTags->"New"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete"],
+ " | Excised in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Excised"]
+}], "History",
+ CellChangeTimes->{{3.580532696612617*^9, 3.580532699106168*^9}},
+ CellID->1247902091],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1122911449],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->686433507],
+
+Cell["xTras Package", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->655582225],
+
+Cell["xTras`", "Categorization",
+ CellLabel->"Context",
+ CellID->1779346465],
+
+Cell["xTras/ref/ToBackground", "Categorization",
+ CellLabel->"URI",
+ CellID->1766252780]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->477174294],
+
+Cell["XXXX", "Keywords",
+ CellID->1164421360]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->1872225408],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->1562036412],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->158391909],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->1360575930],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->793782254]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Details", "DetailsSection",
+ CellID->307771771],
+
+Cell["XXXX", "Details",
+ CellLabel->"Lead",
+ CellID->670882175],
+
+Cell["XXXX", "Details",
+ CellLabel->"Developers",
+ CellID->350963985],
+
+Cell["XXXX", "Details",
+ CellLabel->"Authors",
+ CellID->8391405],
+
+Cell["XXXX", "Details",
+ CellLabel->"Feature Name",
+ CellID->3610269],
+
+Cell["XXXX", "Details",
+ CellLabel->"QA",
+ CellID->401364205],
+
+Cell["XXXX", "Details",
+ CellLabel->"DA",
+ CellID->350204745],
+
+Cell["XXXX", "Details",
+ CellLabel->"Docs",
+ CellID->732958810],
+
+Cell["XXXX", "Details",
+ CellLabel->"Features Page Notes",
+ CellID->222905350],
+
+Cell["XXXX", "Details",
+ CellLabel->"Comments",
+ CellID->240026365]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["ToBackground", "ObjectName",
+ CellID->1224892054],
+
+Cell[TextData[{
+ Cell["   ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{"ToBackground", "[", 
+   StyleBox["expr", "TI"], "]"}]], "InlineFormula"],
+ "\[LineSeparator]send the unperturbed (curvature) tensors to background \
+values."
+}], "Usage",
+ CellChangeTimes->{
+  3.579753743791217*^9, {3.580532466005724*^9, 3.580532506670805*^9}}],
+
+Cell[TextData[{
+ Cell[BoxData["ToBackground"], "InlineFormula"],
+ " does not touch tensors inside ",
+ Cell[BoxData["Perturbation"], "InlineFormula"],
+ " heads."
+}], "Notes",
+ CellChangeTimes->{{3.580532529897935*^9, 3.580532552132725*^9}},
+ CellID->1273227259],
+
+Cell[TextData[{
+ "The background values can be set with the options ",
+ Cell[BoxData[
+  ButtonBox["BackgroundSolution",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/BackgroundSolution"]], "InlineFormula"],
+ " and ",
+ Cell[BoxData[
+  ButtonBox["ExtraRules",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ExtraRules"]], "InlineFormula"],
+ "."
+}], "Notes",
+ CellChangeTimes->{{3.5805325567356997`*^9, 3.5805325823384457`*^9}, {
+  3.5805334399686193`*^9, 3.580533440251473*^9}, {3.580534819848106*^9, 
+  3.580534822626677*^9}},
+ CellID->1603483305],
+
+Cell["The following options can be given: ", "Notes"],
+
+Cell[BoxData[GridBox[{
+   {Cell["   ", "ModInfo"], 
+    ButtonBox["BackgroundSolution",
+     BaseStyle->"Link",
+     ButtonData->"paclet:xTras/ref/BackgroundSolution"], 
+    RowBox[{"{", "}"}], Cell["\<\
+a list of replacement rules that send curvature tensors to their background \
+values\
+\>", "TableText"]},
+   {Cell["   ", "ModInfo"], 
+    ButtonBox["ExtraRules",
+     BaseStyle->"Link",
+     ButtonData->"paclet:xTras/ref/ExtraRules"], 
+    RowBox[{"{", "}"}], Cell[
+    "a list of replacement rules for other tensors", "TableText"]}
+  }]], "3ColumnTableMod",
+ CellChangeTimes->{{3.580532598224065*^9, 3.58053267191895*^9}, {
+  3.580532813233181*^9, 3.580532813920368*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tutorials", "TutorialsSection",
+ CellID->250839057],
+
+Cell["XXXX", "Tutorials",
+ CellID->341631938]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Demonstrations", "RelatedDemonstrationsSection",
+ CellID->1268215905],
+
+Cell["XXXX", "RelatedDemonstrations",
+ CellID->1129518860]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Links", "RelatedLinksSection",
+ CellID->1584193535],
+
+Cell["XXXX", "RelatedLinks",
+ CellID->1038487239]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["See Also", "SeeAlsoSection",
+ CellID->1255426704],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["PerturbBackground",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/PerturbBackground"]], "InlineFormula"],
+ " \[EmptyVerySmallSquare] ",
+ Cell[BoxData[
+  ButtonBox["ExpandBackground",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ExpandBackground"]], "InlineFormula"]
+}], "SeeAlso",
+ CellChangeTimes->{{3.580532828493753*^9, 3.580532845866392*^9}},
+ CellID->929782353]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More About", "MoreAboutSection",
+ CellID->38303248],
+
+Cell["XXXX", "MoreAbout",
+ CellID->1665078683]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox["Examples", "PrimaryExamplesSection"], 
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->880084151],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"expr", " ", "=", " ", 
+  RowBox[{"Perturbation", "[", 
+   RowBox[{
+    RowBox[{"RicciScalarCD", "[", "]"}], "^", "2"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.580532739289474*^9, 3.580532752337205*^9}},
+ CellLabel->"In[145]:=",
+ CellID->663318472],
+
+Cell[BoxData[
+ RowBox[{"2", " ", 
+  InterpretationBox[
+   StyleBox[
+    RowBox[{"\[EmptyUpTriangle]", "[", 
+     InterpretationBox[
+      StyleBox[
+       RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}],
+       ShowAutoStyles->False,
+       AutoSpacing->False],
+      $CellContext`RicciScalarCD[],
+      Editable->False], "]"}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   xAct`xPert`Perturbation[
+    $CellContext`RicciScalarCD[]],
+   Editable->False], " ", 
+  InterpretationBox[
+   StyleBox[
+    RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   $CellContext`RicciScalarCD[],
+   Editable->False]}]], "Output",
+ CellChangeTimes->{3.580532752849718*^9},
+ CellLabel->"Out[145]=",
+ CellID->805947327]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ToBackground", "[", 
+  RowBox[{"expr", ",", 
+   RowBox[{"BackgroundSolution", "\[Rule]", " ", 
+    RowBox[{"SymmetricSpaceRules", "[", 
+     RowBox[{"CD", ",", "\[CapitalLambda]"}], "]"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.580532762891161*^9, 3.580532788318802*^9}, 
+   3.580534214110175*^9},
+ CellLabel->"In[154]:=",
+ CellID->1377363260],
+
+Cell[BoxData[
+ RowBox[{"2", " ", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{"-", "1"}], "+", 
+    InterpretationBox[
+     StyleBox["d",
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`Invar`dim,
+     Editable->False]}], ")"}], " ", 
+  InterpretationBox[
+   StyleBox["d",
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   xAct`Invar`dim,
+   Editable->False], " ", 
+  InterpretationBox[
+   StyleBox["\[CapitalLambda]",
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   $CellContext`\[CapitalLambda],
+   Editable->False], " ", 
+  InterpretationBox[
+   StyleBox[
+    RowBox[{"\[EmptyUpTriangle]", "[", 
+     InterpretationBox[
+      StyleBox[
+       RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}],
+       ShowAutoStyles->False,
+       AutoSpacing->False],
+      $CellContext`RicciScalarCD[],
+      Editable->False], "]"}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   xAct`xPert`Perturbation[
+    $CellContext`RicciScalarCD[]],
+   Editable->False]}]], "Output",
+ CellChangeTimes->{3.580532789064712*^9, 3.580534215513611*^9},
+ CellLabel->"Out[154]=",
+ CellID->1631772842]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More Examples", "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->1854448968],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Scope", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1293636265],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Generalizations & Extensions", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1020263627],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["Options", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection"],
+
+Cell[BoxData[
+ InterpretationBox[Cell["BackgroundSolution", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection"],
+
+Cell[BoxData[
+ InterpretationBox[Cell["ExtraRules", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection"]
+}, Closed]],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Applications", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->258228157],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Properties & Relations", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2123667759],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Possible Issues", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1305812373],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Interactive Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1653164318],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Neat Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->589267740]
+}, Open  ]]
+},
+WindowSize->{1152, 856},
+WindowMargins->{{4, Automatic}, {Automatic, 0}},
+CellContext->"Global`",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
+2011)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

@@ -1,0 +1,649 @@
+Notebook[{
+Cell[TextData[{
+ "New in: ",
+ Cell["1.1.3", "HistoryData",
+  CellTags->"New"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete"],
+ " | Excised in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Excised"]
+}], "History",
+ CellChangeTimes->{{3.580896266168659*^9, 3.580896267071849*^9}},
+ CellID->1247902091],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1122911449],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->686433507],
+
+Cell["xTras Package", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->1945277603],
+
+Cell["xTras`", "Categorization",
+ CellLabel->"Context",
+ CellID->989631693],
+
+Cell["xTras/ref/TableauSymmetric", "Categorization",
+ CellLabel->"URI",
+ CellID->479018236]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->477174294],
+
+Cell["XXXX", "Keywords",
+ CellID->1164421360]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->1872225408],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->1562036412],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->158391909],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->1360575930],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->793782254]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Details", "DetailsSection",
+ CellID->307771771],
+
+Cell["XXXX", "Details",
+ CellLabel->"Lead",
+ CellID->670882175],
+
+Cell["XXXX", "Details",
+ CellLabel->"Developers",
+ CellID->350963985],
+
+Cell["XXXX", "Details",
+ CellLabel->"Authors",
+ CellID->8391405],
+
+Cell["XXXX", "Details",
+ CellLabel->"Feature Name",
+ CellID->3610269],
+
+Cell["XXXX", "Details",
+ CellLabel->"QA",
+ CellID->401364205],
+
+Cell["XXXX", "Details",
+ CellLabel->"DA",
+ CellID->350204745],
+
+Cell["XXXX", "Details",
+ CellLabel->"Docs",
+ CellID->732958810],
+
+Cell["XXXX", "Details",
+ CellLabel->"Features Page Notes",
+ CellID->222905350],
+
+Cell["XXXX", "Details",
+ CellLabel->"Comments",
+ CellID->240026365]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["TableauSymmetric", "ObjectName",
+ CellID->1224892054],
+
+Cell[TextData[{
+ Cell["   ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{"TableauSymmetric", "[", 
+   StyleBox["tab", "TI"], "]"}]], "InlineFormula"],
+ "\[LineSeparator]gives the symmetry of the tableau ",
+ Cell[BoxData[
+  StyleBox["tab", "TI"]], "InlineFormula"],
+ " as a Strong Generating Set."
+}], "Usage",
+ CellChangeTimes->{
+  3.579753706367806*^9, {3.5808960146775723`*^9, 3.580896079402965*^9}}],
+
+Cell[TextData[{
+ "The Young tableau has to be given as an array. For example, the array ",
+ Cell[BoxData[
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"a", ",", "b"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"c", ",", "d"}], "}"}]}], "}"}]], "InlineFormula"],
+ " represents the tableau  ",
+ Cell[BoxData[GridBox[{
+    {"a", "b"},
+    {"c", "d"}
+   },
+   GridBoxDividers->{
+    "Columns" -> {{True}}, "ColumnsIndexed" -> {}, "Rows" -> {{True}}, 
+     "RowsIndexed" -> {}}]]],
+ ". See also ",
+ Cell[BoxData[
+  ButtonBox["YoungTableauQ",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/YoungTableauQ"]], "InlineFormula"],
+ "."
+}], "Notes",
+ CellChangeTimes->{{3.58089332190831*^9, 3.580893435252836*^9}, {
+  3.580897259273785*^9, 3.580897267530698*^9}},
+ CellID->1691640915],
+
+Cell["The Strong Generating Set is given in Cycles notation.", "Notes",
+ CellChangeTimes->{{3.580896084202574*^9, 3.5808961012888803`*^9}},
+ CellID->1067943069],
+
+Cell["\<\
+The resulting Strong Generating Set only captures the mono-term symmetries of \
+the Young tableau.\
+\>", "Notes",
+ CellChangeTimes->{{3.580896129582727*^9, 3.580896154893664*^9}},
+ CellID->639835375],
+
+Cell["\<\
+If the tableau is a single row, the result reduces to that of Symmetric.\
+\>", "Notes",
+ CellChangeTimes->{{3.5808961781355762`*^9, 3.5808961987708406`*^9}},
+ CellID->1262527096],
+
+Cell["\<\
+If the tableau is a single column, the result reduces to that of \
+Antisymmetric.\
+\>", "Notes",
+ CellChangeTimes->{{3.580896200203179*^9, 3.580896213529859*^9}},
+ CellID->6986465],
+
+Cell["\<\
+If the tableau is a window, the result reduces to that of RiemannSymmetric.\
+\>", "Notes",
+ CellChangeTimes->{{3.580896222505898*^9, 3.580896232464465*^9}},
+ CellID->1457400317],
+
+Cell["The following options can be given: ", "Notes",
+ CellID->2050901525],
+
+Cell[BoxData[GridBox[{
+   {Cell["   ", "ModInfo"], 
+    ButtonBox["ManifestSymmetry",
+     BaseStyle->"Link",
+     ButtonData->"paclet:xTras/ref/ManifestSymmetry"], 
+    ButtonBox["Antisymmetric",
+     BaseStyle->"Link",
+     ButtonData->"paclet:xActxPerm/ref/Antisymmetric"], Cell[
+    "with what manifest symmetry the result is symmetrized", "TableText"]}
+  }]], "3ColumnTableMod",
+ CellChangeTimes->{{3.580893112621456*^9, 3.580893131303644*^9}},
+ CellID->241912678],
+
+Cell[TextData[{
+ "Possible settings for ",
+ Cell[BoxData["ManifestSymmetry"], "InlineFormula"],
+ " include:"
+}], "Notes",
+ CellChangeTimes->{{3.579768416355085*^9, 3.579768433300432*^9}, {
+  3.580893157583132*^9, 3.5808931603685713`*^9}},
+ CellID->1904209340],
+
+Cell[BoxData[GridBox[{
+   {Cell["      ", "ModInfo"], "Antisymmetric", Cell[
+    "first symmetrize rows and then antisymmetrize columns", "TableText"]},
+   {Cell["      ", "ModInfo"], "Symmetric", Cell[
+    "first antisymmetrize columns and then symmetrize rows", "TableText"]}
+  }]], "2ColumnTableMod",
+ CellChangeTimes->{{3.579768990235324*^9, 3.5797690309572563`*^9}, {
+  3.5808931631916428`*^9, 3.580893227909968*^9}},
+ CellID->1884398803]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tutorials", "TutorialsSection",
+ CellID->250839057],
+
+Cell["XXXX", "Tutorials",
+ CellID->341631938]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Demonstrations", "RelatedDemonstrationsSection",
+ CellID->1268215905],
+
+Cell["XXXX", "RelatedDemonstrations",
+ CellID->1129518860]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Links", "RelatedLinksSection",
+ CellID->1584193535],
+
+Cell["XXXX", "RelatedLinks",
+ CellID->1038487239]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["See Also", "SeeAlsoSection",
+ CellID->1255426704],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["YoungProject",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/YoungProject"]], "InlineFormula"],
+ " \[EmptyVerySmallSquare] ",
+ Cell[BoxData[
+  ButtonBox["YoungSymmetrize",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/YoungSymmetrize"]], "InlineFormula"]
+}], "SeeAlso",
+ CellChangeTimes->{{3.58089677551263*^9, 3.5808967934535522`*^9}},
+ CellID->929782353]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More About", "MoreAboutSection",
+ CellID->38303248],
+
+Cell["XXXX", "MoreAbout",
+ CellID->1665078683]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox["Examples", "PrimaryExamplesSection"], 
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->880084151],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TableauSymmetric", "[", 
+  RowBox[{"{", 
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "}"}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{{3.580896273583153*^9, 3.580896280536063*^9}},
+ CellLabel->"In[22]:=",
+ CellID->328650137],
+
+Cell[BoxData[
+ RowBox[{"StrongGenSet", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "}"}], ",", 
+   RowBox[{"GenSet", "[", 
+    RowBox[{
+     RowBox[{"Cycles", "[", 
+      RowBox[{"{", 
+       RowBox[{"a", ",", "b"}], "}"}], "]"}], ",", 
+     RowBox[{"Cycles", "[", 
+      RowBox[{"{", 
+       RowBox[{"b", ",", "c"}], "}"}], "]"}], ",", 
+     RowBox[{"Cycles", "[", 
+      RowBox[{"{", 
+       RowBox[{"c", ",", "d"}], "}"}], "]"}]}], "]"}]}], "]"}]], "Output",
+ CellChangeTimes->{{3.580896281096943*^9, 3.5808963085198727`*^9}},
+ CellLabel->"Out[22]=",
+ CellID->1485435230]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"%", "\[Equal]", 
+  RowBox[{"Symmetric", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "}"}], ",", "Cycles"}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.580896287755611*^9, 3.5808963065671473`*^9}},
+ CellLabel->"In[23]:=",
+ CellID->201710049],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{{3.5808963012932568`*^9, 3.58089630928813*^9}},
+ CellLabel->"Out[23]=",
+ CellID->1212514235]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["\t", "ExampleDelimiter"],
+  $Line = 0; Null]], "ExampleDelimiter",
+ CellID->1211187835],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TableauSymmetric", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", "a", "}"}], ",", 
+    RowBox[{"{", "b", "}"}], ",", 
+    RowBox[{"{", "c", "}"}], ",", 
+    RowBox[{"{", "d", "}"}]}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{{3.580896314130876*^9, 3.580896331244965*^9}},
+ CellLabel->"In[24]:=",
+ CellID->1254421262],
+
+Cell[BoxData[
+ RowBox[{"StrongGenSet", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "}"}], ",", 
+   RowBox[{"GenSet", "[", 
+    RowBox[{
+     RowBox[{"-", 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", 
+        RowBox[{"a", ",", "b"}], "}"}], "]"}]}], ",", 
+     RowBox[{"-", 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", 
+        RowBox[{"b", ",", "c"}], "}"}], "]"}]}], ",", 
+     RowBox[{"-", 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", 
+        RowBox[{"c", ",", "d"}], "}"}], "]"}]}]}], "]"}]}], "]"}]], "Output",
+ CellChangeTimes->{3.580896332675802*^9},
+ CellLabel->"Out[24]=",
+ CellID->436452932]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"%", "\[Equal]", 
+  RowBox[{"Antisymmetric", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "}"}], ",", "Cycles"}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.580896339838718*^9, 3.580896342970892*^9}},
+ CellLabel->"In[25]:=",
+ CellID->1807773619],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.580896343825382*^9},
+ CellLabel->"Out[25]=",
+ CellID->652576777]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["\t", "ExampleDelimiter"],
+  $Line = 0; Null]], "ExampleDelimiter",
+ CellID->658905810],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TableauSymmetric", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"1", ",", "3"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"2", ",", "4"}], "}"}]}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{{3.580896357099311*^9, 3.5808963642669287`*^9}, {
+  3.5808965775996304`*^9, 3.580896581125401*^9}},
+ CellLabel->"In[50]:=",
+ CellID->1804264738],
+
+Cell[BoxData[
+ RowBox[{"StrongGenSet", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], ",", 
+   RowBox[{"GenSet", "[", 
+    RowBox[{
+     RowBox[{"-", 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "2"}], "}"}], "]"}]}], ",", 
+     RowBox[{"-", 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", 
+        RowBox[{"3", ",", "4"}], "}"}], "]"}]}], ",", 
+     RowBox[{"Cycles", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", "3"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "4"}], "}"}]}], "]"}]}], "]"}]}], "]"}]], "Output",
+ CellChangeTimes->{
+  3.580896366862748*^9, {3.580896435253089*^9, 3.580896499437789*^9}, 
+   3.580896581702407*^9, 3.5808966139855423`*^9, 3.580896680825137*^9},
+ CellLabel->"Out[50]=",
+ CellID->1369985344]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Equal", "@@", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Sort", "@", 
+      RowBox[{"Dimino", "@", 
+       RowBox[{"Last", "[", "#", "]"}]}]}], "&"}], "/@", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{"%", ",", "\[IndentingNewLine]", 
+      RowBox[{"RiemannSymmetric", "[", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "2", ",", "3", ",", "4"}], "}"}], "]"}]}], 
+     "\[IndentingNewLine]", "}"}]}], ")"}]}]], "Input",
+ CellChangeTimes->{{3.5808965839409847`*^9, 3.580896611171083*^9}, {
+  3.580896642560946*^9, 3.580896704831336*^9}},
+ CellLabel->"In[51]:=",
+ CellID->1795663790],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{{3.5808965867929583`*^9, 3.580896615355898*^9}, 
+   3.58089668234289*^9},
+ CellLabel->"Out[51]=",
+ CellID->24013474]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More Examples", "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->1854448968],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Scope", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1293636265],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Generalizations & Extensions", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1020263627],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["Options", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2061341341],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["ManifestSymmetry", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1473508818],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TableauSymmetric", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "c"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"b", ",", "d"}], "}"}]}], "}"}], ",", 
+   RowBox[{"ManifestSymmetry", "\[Rule]", "Symmetric"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.580893660730549*^9, 3.580893666192103*^9}, {
+  3.580893941128079*^9, 3.580893942646324*^9}, {3.5808968114690113`*^9, 
+  3.5808968191584263`*^9}, {3.5808968682698383`*^9, 3.580896875473206*^9}},
+ CellLabel->"In[54]:=",
+ CellID->1786393854],
+
+Cell[BoxData[
+ RowBox[{"StrongGenSet", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "}"}], ",", 
+   RowBox[{"GenSet", "[", 
+    RowBox[{
+     RowBox[{"Cycles", "[", 
+      RowBox[{"{", 
+       RowBox[{"a", ",", "c"}], "}"}], "]"}], ",", 
+     RowBox[{"Cycles", "[", 
+      RowBox[{"{", 
+       RowBox[{"b", ",", "d"}], "}"}], "]"}], ",", 
+     RowBox[{"Cycles", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"a", ",", "b"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"c", ",", "d"}], "}"}]}], "]"}]}], "]"}]}], "]"}]], "Output",
+ CellChangeTimes->{3.5808936668131037`*^9, 3.580893943229763*^9, 
+  3.5808968195773706`*^9, 3.580896875999056*^9},
+ CellLabel->"Out[54]=",
+ CellID->437332796]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TableauSymmetric", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "c"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"b", ",", "d"}], "}"}]}], "}"}], ",", 
+   RowBox[{"ManifestSymmetry", "\[Rule]", "Antisymmetric"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.580893660730549*^9, 3.580893666192103*^9}, {
+   3.580893941128079*^9, 3.580893942646324*^9}, {3.5808968114690113`*^9, 
+   3.580896825749979*^9}, 3.5808968830849257`*^9},
+ CellLabel->"In[55]:=",
+ CellID->548882713],
+
+Cell[BoxData[
+ RowBox[{"StrongGenSet", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "}"}], ",", 
+   RowBox[{"GenSet", "[", 
+    RowBox[{
+     RowBox[{"-", 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", 
+        RowBox[{"a", ",", "b"}], "}"}], "]"}]}], ",", 
+     RowBox[{"-", 
+      RowBox[{"Cycles", "[", 
+       RowBox[{"{", 
+        RowBox[{"c", ",", "d"}], "}"}], "]"}]}], ",", 
+     RowBox[{"Cycles", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"a", ",", "c"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"b", ",", "d"}], "}"}]}], "]"}]}], "]"}]}], "]"}]], "Output",
+ CellChangeTimes->{
+  3.5808936668131037`*^9, 3.580893943229763*^9, {3.5808968195773706`*^9, 
+   3.580896826689107*^9}, 3.580896883929641*^9},
+ CellLabel->"Out[55]=",
+ CellID->1563262338]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Applications", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->258228157],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Properties & Relations", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2123667759],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Possible Issues", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1305812373],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Interactive Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1653164318],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Neat Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->589267740]
+}, Open  ]]
+},
+WindowSize->{884, 774},
+WindowMargins->{{4, Automatic}, {Automatic, 0}},
+ShowSelection->True,
+CellContext->"Global`",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
+2011)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

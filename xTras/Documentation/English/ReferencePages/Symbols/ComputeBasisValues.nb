@@ -1,0 +1,3503 @@
+Notebook[{
+Cell[TextData[{
+ "New in: ",
+ Cell["1.0.4", "HistoryData",
+  CellTags->"New"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete"],
+ " | Excised in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Excised"]
+}], "History",
+ CellChangeTimes->{{3.58090440163894*^9, 3.580904402840253*^9}},
+ CellID->1247902091],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1122911449],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->686433507],
+
+Cell["xTras Package", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->887494487],
+
+Cell["xTras`", "Categorization",
+ CellLabel->"Context",
+ CellID->1845914594],
+
+Cell["xTras/ref/ComputeBasisValues", "Categorization",
+ CellLabel->"URI",
+ CellID->1737816796]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->477174294],
+
+Cell["XXXX", "Keywords",
+ CellID->1164421360]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->1872225408],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->1562036412],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->158391909],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->1360575930],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->793782254]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Details", "DetailsSection",
+ CellID->307771771],
+
+Cell["XXXX", "Details",
+ CellLabel->"Lead",
+ CellID->670882175],
+
+Cell["XXXX", "Details",
+ CellLabel->"Developers",
+ CellID->350963985],
+
+Cell["XXXX", "Details",
+ CellLabel->"Authors",
+ CellID->8391405],
+
+Cell["XXXX", "Details",
+ CellLabel->"Feature Name",
+ CellID->3610269],
+
+Cell["XXXX", "Details",
+ CellLabel->"QA",
+ CellID->401364205],
+
+Cell["XXXX", "Details",
+ CellLabel->"DA",
+ CellID->350204745],
+
+Cell["XXXX", "Details",
+ CellLabel->"Docs",
+ CellID->732958810],
+
+Cell["XXXX", "Details",
+ CellLabel->"Features Page Notes",
+ CellID->222905350],
+
+Cell["XXXX", "Details",
+ CellLabel->"Comments",
+ CellID->240026365]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["ComputeBasisValues", "ObjectName",
+ CellID->1224892054],
+
+Cell[TextData[{
+ Cell["   ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{"ComputeBasisValues", "[", 
+   RowBox[{
+    SubscriptBox[
+     StyleBox["chart", "TI"], 
+     StyleBox["1", "TR"]], ",", 
+    SubscriptBox[
+     StyleBox["chart", "TI"], 
+     StyleBox["2", "TR"]]}], "]"}]], "InlineFormula"],
+ "\[LineSeparator]computes and stores the values of the basis elements \
+relating ",
+ Cell[BoxData[
+  SubscriptBox[
+   StyleBox["chart", "TI"], 
+   StyleBox["1", "TR"]]]],
+ " to ",
+ Cell[BoxData[
+  SubscriptBox[
+   StyleBox["chart", "TI"], 
+   StyleBox["2", "TR"]]]],
+ " and vice versa."
+}], "Usage",
+ CellChangeTimes->{
+  3.579753696762205*^9, {3.580904418507182*^9, 3.580904463191277*^9}}],
+
+Cell[TextData[{
+ "ComputeBasisValues computes ",
+ Cell[BoxData[
+  RowBox[{"Basis", "[", 
+   RowBox[{
+    RowBox[{"-", "chart1"}], ",", "chart2"}], "]"}]], "InlineFormula",
+  FormatType->"StandardForm"],
+ " and ",
+ Cell[BoxData[
+  RowBox[{"Basis", "[", 
+   RowBox[{
+    RowBox[{"-", "chart2"}], ",", "chart1"}], "]"}]], "InlineFormula",
+  FormatType->"StandardForm"],
+ ". "
+}], "Notes",
+ CellChangeTimes->{{3.580904435235571*^9, 3.58090443779844*^9}, {
+  3.58090448054554*^9, 3.580904485111127*^9}},
+ CellID->1719832907],
+
+Cell[TextData[{
+ "Note that ",
+ Cell[BoxData[
+  ButtonBox["ComputeBasisValues",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ComputeBasisValues"]], "InlineFormula"],
+ " internally uses ",
+ Cell[BoxData["InChart"], "InlineFormula",
+  FormatType->"StandardForm"],
+ ", so it is preferable to define the transformations of the coordinates from \
+",
+ Cell[BoxData[
+  SubscriptBox[
+   StyleBox["chart", "TI"], 
+   StyleBox["1", "TR"]]]],
+ " to ",
+ Cell[BoxData[
+  SubscriptBox[
+   StyleBox["chart", "TI"], 
+   StyleBox["2", "TR"]]]],
+ " and vice versa with ",
+ Cell[BoxData["InChart"], "InlineFormula",
+  FormatType->"StandardForm"],
+ " before using ",
+ Cell[BoxData[
+  ButtonBox["ComputeBasisValues",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ComputeBasisValues"]], "InlineFormula"],
+ "."
+}], "Notes",
+ CellChangeTimes->{
+  3.5809044254868507`*^9, {3.580904494436961*^9, 3.580904517380365*^9}},
+ CellID->1067943069]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tutorials", "TutorialsSection",
+ CellID->250839057],
+
+Cell["XXXX", "Tutorials",
+ CellID->341631938]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Demonstrations", "RelatedDemonstrationsSection",
+ CellID->1268215905],
+
+Cell["XXXX", "RelatedDemonstrations",
+ CellID->1129518860]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Links", "RelatedLinksSection",
+ CellID->1584193535],
+
+Cell["XXXX", "RelatedLinks",
+ CellID->1038487239]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["See Also", "SeeAlsoSection",
+ CellID->1255426704],
+
+Cell["XXXX", "SeeAlso",
+ CellID->929782353]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More About", "MoreAboutSection",
+ CellID->38303248],
+
+Cell["XXXX", "MoreAbout",
+ CellID->1665078683]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox["Examples", "PrimaryExamplesSection"], 
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->880084151],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"dim", "=", "4"}]], "Input",
+ CellChangeTimes->{3.580904545242866*^9},
+ CellLabel->"In[96]:=",
+ CellID->1208199491],
+
+Cell[BoxData["4"], "Output",
+ CellChangeTimes->{3.5809045458108892`*^9},
+ CellLabel->"Out[96]=",
+ CellID->1750962852]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"DefChart", "[", 
+   RowBox[{"B1", ",", "M", ",", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "1", ",", "2", ",", "3"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"t", "[", "]"}], ",", 
+      RowBox[{"r", "[", "]"}], ",", 
+      RowBox[{"\[Theta]", "[", "]"}], ",", 
+      RowBox[{"\[Phi]", "[", "]"}]}], "}"}], ",", 
+    RowBox[{"BasisColor", "\[Rule]", 
+     RowBox[{"RGBColor", "[", 
+      RowBox[{"0", ",", "0.7", ",", "0"}], "]"}]}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"DefChart", "[", 
+   RowBox[{"B2", ",", "M", ",", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "1", ",", "2", ",", "3"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"\[Tau]", "[", "]"}], ",", 
+      RowBox[{"\[Rho]", "[", "]"}], ",", 
+      RowBox[{"\[Theta]", "[", "]"}], ",", 
+      RowBox[{"\[Phi]", "[", "]"}]}], "}"}], ",", 
+    RowBox[{"BasisColor", "\[Rule]", 
+     RowBox[{"RGBColor", "[", 
+      RowBox[{"1", ",", "0", ",", "0"}], "]"}]}]}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.580904541520117*^9, 3.580904549780377*^9}},
+ CellLabel->"In[97]:=",
+ CellID->101779329],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefBasis", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"basis \"\>", "\[InvisibleSpace]", "B1", 
+   "\[InvisibleSpace]", "\<\". \"\>", "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xCoba`DefBasis, ": Defining ", "basis ", $CellContext`B1, ". ", 
+   ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904551133485*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->1464238723],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefCovD", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"parallel derivative \"\>", "\[InvisibleSpace]", 
+   RowBox[{"PDB1", "[", 
+    RowBox[{"-", "a"}], "]"}], "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefCovD, ": Defining ", "parallel derivative ", 
+   $CellContext`PDB1[-$CellContext`a], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.58090455113553*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->1445106488],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"vanishing torsion tensor \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"TorsionPDB1", "[", 
+    RowBox[{"a", ",", 
+     RowBox[{"-", "b"}], ",", 
+     RowBox[{"-", "c"}]}], "]"}], "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefTensor, ": Defining ", "vanishing torsion tensor ", 
+   $CellContext`TorsionPDB1[$CellContext`a, -$CellContext`b, -$CellContext`c],
+    ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904551138381*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->2012179893],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"symmetric Christoffel tensor \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"ChristoffelPDB1", "[", 
+    RowBox[{"a", ",", 
+     RowBox[{"-", "b"}], ",", 
+     RowBox[{"-", "c"}]}], "]"}], "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefTensor, ": Defining ", 
+   "symmetric Christoffel tensor ", 
+   $CellContext`ChristoffelPDB1[$CellContext`a, -$CellContext`b, \
+-$CellContext`c], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.5809045511416397`*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->134988695],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"vanishing Riemann tensor \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"RiemannPDB1", "[", 
+    RowBox[{
+     RowBox[{"-", "a"}], ",", 
+     RowBox[{"-", "b"}], ",", 
+     RowBox[{"-", "c"}], ",", "d"}], "]"}], "\[InvisibleSpace]", "\<\". \"\>",
+    "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefTensor, ": Defining ", "vanishing Riemann tensor ", 
+   $CellContext`RiemannPDB1[-$CellContext`a, -$CellContext`b, \
+-$CellContext`c, $CellContext`d], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904551144915*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->1012265633],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"vanishing Ricci tensor \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"RicciPDB1", "[", 
+    RowBox[{
+     RowBox[{"-", "a"}], ",", 
+     RowBox[{"-", "b"}]}], "]"}], "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefTensor, ": Defining ", "vanishing Ricci tensor ", 
+   $CellContext`RicciPDB1[-$CellContext`a, -$CellContext`b], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.5809045511476793`*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->783042297],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"antisymmetric +1 density \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"etaUpB1", "[", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "]"}], 
+   "\[InvisibleSpace]", "\<\". \"\>", "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefTensor, ": Defining ", "antisymmetric +1 density ", 
+   $CellContext`etaUpB1[$CellContext`a, $CellContext`b, $CellContext`c, \
+$CellContext`d], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.58090455115058*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->812096863],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"antisymmetric -1 density \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"etaDownB1", "[", 
+    RowBox[{
+     RowBox[{"-", "a"}], ",", 
+     RowBox[{"-", "b"}], ",", 
+     RowBox[{"-", "c"}], ",", 
+     RowBox[{"-", "d"}]}], "]"}], "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefTensor, ": Defining ", "antisymmetric -1 density ", 
+   $CellContext`etaDownB1[-$CellContext`a, -$CellContext`b, -$CellContext`c, \
+-$CellContext`d], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.5809045511536007`*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->1653399756],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"tensor \"\>", "\[InvisibleSpace]", 
+   RowBox[{"\[Tau]", "[", "]"}], "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm["** ", xAct`xTensor`DefTensor, ": Defining ", "tensor ", 
+   $CellContext`\[Tau][], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.58090455115654*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->251306912],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"tensor \"\>", "\[InvisibleSpace]", 
+   RowBox[{"\[Rho]", "[", "]"}], "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm["** ", xAct`xTensor`DefTensor, ": Defining ", "tensor ", 
+   $CellContext`\[Rho][], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904551159629*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->1762419982],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefBasis", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"basis \"\>", "\[InvisibleSpace]", "B2", 
+   "\[InvisibleSpace]", "\<\". \"\>", "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xCoba`DefBasis, ": Defining ", "basis ", $CellContext`B2, ". ", 
+   ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904551162488*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->750694403],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefCovD", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"parallel derivative \"\>", "\[InvisibleSpace]", 
+   RowBox[{"PDB2", "[", 
+    RowBox[{"-", "a"}], "]"}], "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefCovD, ": Defining ", "parallel derivative ", 
+   $CellContext`PDB2[-$CellContext`a], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904551165327*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->454405096],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"vanishing torsion tensor \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"TorsionPDB2", "[", 
+    RowBox[{"a", ",", 
+     RowBox[{"-", "b"}], ",", 
+     RowBox[{"-", "c"}]}], "]"}], "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefTensor, ": Defining ", "vanishing torsion tensor ", 
+   $CellContext`TorsionPDB2[$CellContext`a, -$CellContext`b, -$CellContext`c],
+    ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904551168222*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->734599740],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"symmetric Christoffel tensor \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"ChristoffelPDB2", "[", 
+    RowBox[{"a", ",", 
+     RowBox[{"-", "b"}], ",", 
+     RowBox[{"-", "c"}]}], "]"}], "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefTensor, ": Defining ", 
+   "symmetric Christoffel tensor ", 
+   $CellContext`ChristoffelPDB2[$CellContext`a, -$CellContext`b, \
+-$CellContext`c], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.5809045511711283`*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->534343577],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"vanishing Riemann tensor \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"RiemannPDB2", "[", 
+    RowBox[{
+     RowBox[{"-", "a"}], ",", 
+     RowBox[{"-", "b"}], ",", 
+     RowBox[{"-", "c"}], ",", "d"}], "]"}], "\[InvisibleSpace]", "\<\". \"\>",
+    "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefTensor, ": Defining ", "vanishing Riemann tensor ", 
+   $CellContext`RiemannPDB2[-$CellContext`a, -$CellContext`b, \
+-$CellContext`c, $CellContext`d], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904551174079*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->2083370532],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"vanishing Ricci tensor \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"RicciPDB2", "[", 
+    RowBox[{
+     RowBox[{"-", "a"}], ",", 
+     RowBox[{"-", "b"}]}], "]"}], "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefTensor, ": Defining ", "vanishing Ricci tensor ", 
+   $CellContext`RicciPDB2[-$CellContext`a, -$CellContext`b], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904551176997*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->487666989],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"antisymmetric +1 density \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"etaUpB2", "[", 
+    RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "]"}], 
+   "\[InvisibleSpace]", "\<\". \"\>", "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefTensor, ": Defining ", "antisymmetric +1 density ", 
+   $CellContext`etaUpB2[$CellContext`a, $CellContext`b, $CellContext`c, \
+$CellContext`d], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.58090455117988*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->1421487171],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"antisymmetric -1 density \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"etaDownB2", "[", 
+    RowBox[{
+     RowBox[{"-", "a"}], ",", 
+     RowBox[{"-", "b"}], ",", 
+     RowBox[{"-", "c"}], ",", 
+     RowBox[{"-", "d"}]}], "]"}], "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefTensor, ": Defining ", "antisymmetric -1 density ", 
+   $CellContext`etaDownB2[-$CellContext`a, -$CellContext`b, -$CellContext`c, \
+-$CellContext`d], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.5809045511827908`*^9},
+ CellLabel->"During evaluation of In[97]:=",
+ CellID->179310122]
+}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"\[Rho]", "/:", 
+   RowBox[{"InChart", "[", 
+    RowBox[{
+     RowBox[{"\[Rho]", "[", "]"}], ",", "B1"}], "]"}], "=", 
+   RowBox[{"Function", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"t", ",", "r", ",", "\[Theta]", ",", "\[Phi]"}], "}"}], ",", 
+     RowBox[{"ArcSinh", "[", 
+      RowBox[{"r", "/", "\[CapitalLambda]"}], "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[Tau]", "/:", 
+   RowBox[{"InChart", "[", 
+    RowBox[{
+     RowBox[{"\[Tau]", "[", "]"}], ",", "B1"}], "]"}], "=", 
+   RowBox[{"Function", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"t", ",", "r", ",", "\[Theta]", ",", "\[Phi]"}], "}"}], ",", 
+     RowBox[{"t", "/", "\[CapitalLambda]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"r", "/:", 
+   RowBox[{"InChart", "[", 
+    RowBox[{
+     RowBox[{"r", "[", "]"}], ",", "B2"}], "]"}], "=", 
+   RowBox[{"Function", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]", ",", "\[Rho]", ",", "\[Theta]", ",", "\[Phi]"}], 
+      "}"}], ",", 
+     RowBox[{"\[CapitalLambda]", " ", 
+      RowBox[{"Sinh", "[", "\[Rho]", "]"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"t", "/:", 
+   RowBox[{"InChart", "[", 
+    RowBox[{
+     RowBox[{"t", "[", "]"}], ",", "B2"}], "]"}], "=", 
+   RowBox[{"Function", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Tau]", ",", "\[Rho]", ",", "\[Theta]", ",", "\[Phi]"}], 
+      "}"}], ",", 
+     RowBox[{"\[CapitalLambda]", " ", "\[Tau]"}]}], "]"}]}], ";"}]}], "Input",
+ 
+ CellLabel->"In[99]:=",
+ CellID->745663713],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MatrixForm", "/@", 
+  RowBox[{"ComputeBasisValues", "[", 
+   RowBox[{"B1", ",", "B2"}], "]"}]}]], "Input",
+ CellLabel->"In[103]:=",
+ CellID->1802944146],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["0",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["0",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{0, -$CellContext`B2}, {0, $CellContext`B1}],
+     Editable->False], "\[Rule]", 
+    InterpretationBox[
+     StyleBox["\[CapitalLambda]",
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`\[CapitalLambda],
+     Editable->False]}], "\[InvisibleSpace]", "\<\" for tensor \"\>", 
+   "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{0, -$CellContext`B2}, {
+     0, $CellContext`B1}] -> $CellContext`\[CapitalLambda], " for tensor ", 
+   xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570435842*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->1088002652],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["0",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["1",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{1, -$CellContext`B2}, {0, $CellContext`B1}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{1, -$CellContext`B2}, {0, $CellContext`B1}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570438788*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->237317959],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["0",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["2",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{2, -$CellContext`B2}, {0, $CellContext`B1}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{2, -$CellContext`B2}, {0, $CellContext`B1}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570442835*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->725804434],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["0",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["3",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{3, -$CellContext`B2}, {0, $CellContext`B1}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{3, -$CellContext`B2}, {0, $CellContext`B1}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570446734*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->888007278],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["1",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["0",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{0, -$CellContext`B2}, {1, $CellContext`B1}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{0, -$CellContext`B2}, {1, $CellContext`B1}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.58090457045098*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->1874458343],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["1",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["1",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{1, -$CellContext`B2}, {1, $CellContext`B1}],
+     Editable->False], "\[Rule]", 
+    RowBox[{
+     InterpretationBox[
+      StyleBox["\[CapitalLambda]",
+       ShowAutoStyles->False,
+       AutoSpacing->False],
+      $CellContext`\[CapitalLambda],
+      Editable->False], " ", 
+     RowBox[{
+      InterpretationBox[
+       StyleBox["Cosh",
+        ShowAutoStyles->False,
+        AutoSpacing->False],
+       Cosh,
+       Editable->False], "[", 
+      InterpretationBox[
+       StyleBox["\[Rho]",
+        ShowAutoStyles->False,
+        AutoSpacing->False],
+       $CellContext`\[Rho][],
+       Editable->False], "]"}]}]}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{1, -$CellContext`B2}, {
+     1, $CellContext`B1}] -> $CellContext`\[CapitalLambda] Cosh[
+      $CellContext`\[Rho][]], " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570455451*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->436269311],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["1",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["2",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{2, -$CellContext`B2}, {1, $CellContext`B1}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{2, -$CellContext`B2}, {1, $CellContext`B1}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570459134*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->869139119],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["1",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["3",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{3, -$CellContext`B2}, {1, $CellContext`B1}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{3, -$CellContext`B2}, {1, $CellContext`B1}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.5809045704631243`*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->437406139],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["2",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["0",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{0, -$CellContext`B2}, {2, $CellContext`B1}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{0, -$CellContext`B2}, {2, $CellContext`B1}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.5809045704671707`*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->648454492],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["2",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["1",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{1, -$CellContext`B2}, {2, $CellContext`B1}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{1, -$CellContext`B2}, {2, $CellContext`B1}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570471197*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->95138519],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["2",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["2",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{2, -$CellContext`B2}, {2, $CellContext`B1}],
+     Editable->False], "\[Rule]", "1"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{2, -$CellContext`B2}, {2, $CellContext`B1}] -> 1, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.5809045704751587`*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->1265255465],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["2",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["3",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{3, -$CellContext`B2}, {2, $CellContext`B1}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{3, -$CellContext`B2}, {2, $CellContext`B1}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.5809045704790916`*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->765527661],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["3",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["0",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{0, -$CellContext`B2}, {3, $CellContext`B1}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{0, -$CellContext`B2}, {3, $CellContext`B1}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.5809045704831247`*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->648869250],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["3",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["1",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{1, -$CellContext`B2}, {3, $CellContext`B1}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{1, -$CellContext`B2}, {3, $CellContext`B1}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.58090457048713*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->623525284],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["3",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["2",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{2, -$CellContext`B2}, {3, $CellContext`B1}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{2, -$CellContext`B2}, {3, $CellContext`B1}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570491103*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->2016734475],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["3",
+              FontColor->RGBColor[0., 0.7, 0.]]},
+            {
+             StyleBox["3",
+              FontColor->RGBColor[1., 0., 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{3, -$CellContext`B2}, {3, $CellContext`B1}],
+     Editable->False], "\[Rule]", "1"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{3, -$CellContext`B2}, {3, $CellContext`B1}] -> 1, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570494713*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->1521920724],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["0",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["0",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{0, -$CellContext`B1}, {0, $CellContext`B2}],
+     Editable->False], "\[Rule]", 
+    FractionBox["1", 
+     InterpretationBox[
+      StyleBox["\[CapitalLambda]",
+       ShowAutoStyles->False,
+       AutoSpacing->False],
+      $CellContext`\[CapitalLambda],
+      Editable->False]]}], "\[InvisibleSpace]", "\<\" for tensor \"\>", 
+   "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{0, -$CellContext`B1}, {
+     0, $CellContext`B2}] -> $CellContext`\[CapitalLambda]^(-1), 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570498416*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->243888851],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["0",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["1",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{1, -$CellContext`B1}, {0, $CellContext`B2}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{1, -$CellContext`B1}, {0, $CellContext`B2}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570502734*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->1641120281],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["0",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["2",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{2, -$CellContext`B1}, {0, $CellContext`B2}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{2, -$CellContext`B1}, {0, $CellContext`B2}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.5809045705063963`*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->28600699],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["0",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["3",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{3, -$CellContext`B1}, {0, $CellContext`B2}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{3, -$CellContext`B1}, {0, $CellContext`B2}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570509997*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->1803094812],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["1",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["0",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{0, -$CellContext`B1}, {1, $CellContext`B2}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{0, -$CellContext`B1}, {1, $CellContext`B2}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570513631*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->1472762467],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["1",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["1",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{1, -$CellContext`B1}, {1, $CellContext`B2}],
+     Editable->False], "\[Rule]", 
+    FractionBox["1", 
+     RowBox[{
+      InterpretationBox[
+       StyleBox["\[CapitalLambda]",
+        ShowAutoStyles->False,
+        AutoSpacing->False],
+       $CellContext`\[CapitalLambda],
+       Editable->False], " ", 
+      SqrtBox[
+       RowBox[{"1", "+", 
+        FractionBox[
+         SuperscriptBox[
+          InterpretationBox[
+           StyleBox["r",
+            ShowAutoStyles->False,
+            AutoSpacing->False],
+           $CellContext`r[],
+           Editable->False], "2"], 
+         SuperscriptBox[
+          InterpretationBox[
+           StyleBox["\[CapitalLambda]",
+            ShowAutoStyles->False,
+            AutoSpacing->False],
+           $CellContext`\[CapitalLambda],
+           Editable->False], "2"]]}]]}]]}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{1, -$CellContext`B1}, {
+     1, $CellContext`B2}] -> $CellContext`\[CapitalLambda]^(-1) (
+      1 + $CellContext`\[CapitalLambda]^(-2) $CellContext`r[]^2)^
+     Rational[-1, 2], " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.5809045705173883`*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->822267547],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["1",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["2",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{2, -$CellContext`B1}, {1, $CellContext`B2}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{2, -$CellContext`B1}, {1, $CellContext`B2}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570521118*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->793393984],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["1",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["3",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{3, -$CellContext`B1}, {1, $CellContext`B2}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{3, -$CellContext`B1}, {1, $CellContext`B2}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570524661*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->846724865],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["2",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["0",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{0, -$CellContext`B1}, {2, $CellContext`B2}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{0, -$CellContext`B1}, {2, $CellContext`B2}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570528213*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->1678161033],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["2",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["1",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{1, -$CellContext`B1}, {2, $CellContext`B2}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{1, -$CellContext`B1}, {2, $CellContext`B2}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570531925*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->1949745580],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["2",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["2",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{2, -$CellContext`B1}, {2, $CellContext`B2}],
+     Editable->False], "\[Rule]", "1"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{2, -$CellContext`B1}, {2, $CellContext`B2}] -> 1, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570535728*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->920993487],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["2",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["3",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{3, -$CellContext`B1}, {2, $CellContext`B2}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{3, -$CellContext`B1}, {2, $CellContext`B2}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570539369*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->75408433],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["3",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["0",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{0, -$CellContext`B1}, {3, $CellContext`B2}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{0, -$CellContext`B1}, {3, $CellContext`B2}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570542955*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->374181701],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["3",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["1",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{1, -$CellContext`B1}, {3, $CellContext`B2}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{1, -$CellContext`B1}, {3, $CellContext`B2}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570546521*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->1039730291],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["3",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["2",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{2, -$CellContext`B1}, {3, $CellContext`B2}],
+     Editable->False], "\[Rule]", "0"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{2, -$CellContext`B1}, {3, $CellContext`B2}] -> 0, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.5809045705500603`*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->672565198],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Added independent rule \"\>", "\[InvisibleSpace]", 
+   RowBox[{
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"e", 
+         StyleBox[GridBox[{
+            {" ", 
+             StyleBox["3",
+              FontColor->RGBColor[1., 0., 0.]]},
+            {
+             StyleBox["3",
+              FontColor->RGBColor[0., 0.7, 0.]], " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     xAct`xTensor`Basis[{3, -$CellContext`B1}, {3, $CellContext`B2}],
+     Editable->False], "\[Rule]", "1"}], 
+   "\[InvisibleSpace]", "\<\" for tensor \"\>", "\[InvisibleSpace]", "Basis"}],
+  SequenceForm[
+  "Added independent rule ", 
+   xAct`xTensor`Basis[{3, -$CellContext`B1}, {3, $CellContext`B2}] -> 1, 
+   " for tensor ", xAct`xTensor`Basis],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.580904570553631*^9},
+ CellLabel->"During evaluation of In[103]:=",
+ CellID->1596848625]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["0",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["0",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{0, -$CellContext`B2}, {0, $CellContext`B1}],
+          Editable->False], "\[Rule]", 
+         InterpretationBox[
+          StyleBox["\[CapitalLambda]",
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`\[CapitalLambda],
+          Editable->False]}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["0",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["1",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{1, -$CellContext`B2}, {0, $CellContext`B1}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["0",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["2",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{2, -$CellContext`B2}, {0, $CellContext`B1}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["0",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["3",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{3, -$CellContext`B2}, {0, $CellContext`B1}],
+          Editable->False], "\[Rule]", "0"}]},
+       {
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["1",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["0",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{0, -$CellContext`B2}, {1, $CellContext`B1}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["1",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["1",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{1, -$CellContext`B2}, {1, $CellContext`B1}],
+          Editable->False], "\[Rule]", 
+         RowBox[{
+          InterpretationBox[
+           StyleBox["\[CapitalLambda]",
+            ShowAutoStyles->False,
+            AutoSpacing->False],
+           $CellContext`\[CapitalLambda],
+           Editable->False], " ", 
+          RowBox[{
+           InterpretationBox[
+            StyleBox["Cosh",
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            Cosh,
+            Editable->False], "[", 
+           InterpretationBox[
+            StyleBox["\[Rho]",
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`\[Rho][],
+            Editable->False], "]"}]}]}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["1",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["2",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{2, -$CellContext`B2}, {1, $CellContext`B1}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["1",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["3",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{3, -$CellContext`B2}, {1, $CellContext`B1}],
+          Editable->False], "\[Rule]", "0"}]},
+       {
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["2",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["0",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{0, -$CellContext`B2}, {2, $CellContext`B1}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["2",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["1",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{1, -$CellContext`B2}, {2, $CellContext`B1}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["2",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["2",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{2, -$CellContext`B2}, {2, $CellContext`B1}],
+          Editable->False], "\[Rule]", "1"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["2",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["3",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{3, -$CellContext`B2}, {2, $CellContext`B1}],
+          Editable->False], "\[Rule]", "0"}]},
+       {
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["3",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["0",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{0, -$CellContext`B2}, {3, $CellContext`B1}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["3",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["1",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{1, -$CellContext`B2}, {3, $CellContext`B1}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["3",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["2",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{2, -$CellContext`B2}, {3, $CellContext`B1}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["3",
+                   FontColor->RGBColor[0., 0.7, 0.]]},
+                 {
+                  StyleBox["3",
+                   FontColor->RGBColor[1., 0., 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{3, -$CellContext`B2}, {3, $CellContext`B1}],
+          Editable->False], "\[Rule]", "1"}]}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]], ",", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["0",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["0",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{0, -$CellContext`B1}, {0, $CellContext`B2}],
+          Editable->False], "\[Rule]", 
+         FractionBox["1", 
+          InterpretationBox[
+           StyleBox["\[CapitalLambda]",
+            ShowAutoStyles->False,
+            AutoSpacing->False],
+           $CellContext`\[CapitalLambda],
+           Editable->False]]}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["0",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["1",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{1, -$CellContext`B1}, {0, $CellContext`B2}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["0",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["2",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{2, -$CellContext`B1}, {0, $CellContext`B2}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["0",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["3",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{3, -$CellContext`B1}, {0, $CellContext`B2}],
+          Editable->False], "\[Rule]", "0"}]},
+       {
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["1",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["0",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{0, -$CellContext`B1}, {1, $CellContext`B2}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["1",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["1",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{1, -$CellContext`B1}, {1, $CellContext`B2}],
+          Editable->False], "\[Rule]", 
+         FractionBox["1", 
+          RowBox[{
+           InterpretationBox[
+            StyleBox["\[CapitalLambda]",
+             ShowAutoStyles->False,
+             AutoSpacing->False],
+            $CellContext`\[CapitalLambda],
+            Editable->False], " ", 
+           SqrtBox[
+            RowBox[{"1", "+", 
+             FractionBox[
+              SuperscriptBox[
+               InterpretationBox[
+                StyleBox["r",
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`r[],
+                Editable->False], "2"], 
+              SuperscriptBox[
+               InterpretationBox[
+                StyleBox["\[CapitalLambda]",
+                 ShowAutoStyles->False,
+                 AutoSpacing->False],
+                $CellContext`\[CapitalLambda],
+                Editable->False], "2"]]}]]}]]}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["1",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["2",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{2, -$CellContext`B1}, {1, $CellContext`B2}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["1",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["3",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{3, -$CellContext`B1}, {1, $CellContext`B2}],
+          Editable->False], "\[Rule]", "0"}]},
+       {
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["2",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["0",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{0, -$CellContext`B1}, {2, $CellContext`B2}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["2",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["1",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{1, -$CellContext`B1}, {2, $CellContext`B2}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["2",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["2",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{2, -$CellContext`B1}, {2, $CellContext`B2}],
+          Editable->False], "\[Rule]", "1"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["2",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["3",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{3, -$CellContext`B1}, {2, $CellContext`B2}],
+          Editable->False], "\[Rule]", "0"}]},
+       {
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["3",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["0",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{0, -$CellContext`B1}, {3, $CellContext`B2}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["3",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["1",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{1, -$CellContext`B1}, {3, $CellContext`B2}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["3",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["2",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{2, -$CellContext`B1}, {3, $CellContext`B2}],
+          Editable->False], "\[Rule]", "0"}], 
+        RowBox[{
+         InterpretationBox[
+          StyleBox[GridBox[{
+             {"e", 
+              StyleBox[GridBox[{
+                 {" ", 
+                  StyleBox["3",
+                   FontColor->RGBColor[1., 0., 0.]]},
+                 {
+                  StyleBox["3",
+                   FontColor->RGBColor[0., 0.7, 0.]], " "}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          xAct`xTensor`Basis[{3, -$CellContext`B1}, {3, $CellContext`B2}],
+          Editable->False], "\[Rule]", "1"}]}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+        "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.7]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}], "}"}]], "Output",
+ CellChangeTimes->{3.580904570569915*^9},
+ CellLabel->"Out[103]=",
+ CellID->1131703816]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More Examples", "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->1854448968],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Scope", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1293636265],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Generalizations & Extensions", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1020263627],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["Options", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2061341341],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1757724783],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1295379749]
+}, Closed]],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Applications", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->258228157],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Properties & Relations", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2123667759],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Possible Issues", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1305812373],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Interactive Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1653164318],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Neat Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->589267740]
+}, Open  ]]
+},
+WindowSize->{891, 745},
+WindowMargins->{{4, Automatic}, {Automatic, 0}},
+CellContext->"Global`",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
+2011)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+
