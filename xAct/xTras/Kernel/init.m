@@ -56,6 +56,8 @@ Get["xAct`xTras`xCoba`"];
 Get["xAct`xTras`Algebra`"];
 Get["xAct`xTras`Combinatorics`"];
 
+(* Load fancy usage messages. *)
+Get["xAct`xTras`UsageMessages`"];
 
 (* Check if we have the correct version of xAct. *)
 If[Not@OrderedQ@Map[Last, {xAct`xTras`$xTensorVersionExpected, xAct`xTensor`$Version}], 
