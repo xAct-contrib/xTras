@@ -141,8 +141,7 @@ covariant derivatives.\n",
    3.580460449173658*^9, 3.580460516506019*^9}}],
 
 Cell[TextData[{
- Cell[BoxData["FullSimplification"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["FullSimplification"], "InlineFormula"],
  " also uses to power of the ",
  StyleBox["Invar",
   FontSlant->"Italic"],
@@ -195,7 +194,10 @@ Cell[CellGroupData[{
 Cell["Tutorials", "TutorialsSection",
  CellID->250839057],
 
-Cell["XXXX", "Tutorials",
+Cell[TextData[ButtonBox["Metric Variations",
+ BaseStyle->"Link",
+ ButtonData->"paclet:xTras/tutorial/MetricVariations"]], "Tutorials",
+ CellChangeTimes->{{3.58096304004589*^9, 3.580963070670217*^9}},
  CellID->341631938]
 }, Open  ]],
 

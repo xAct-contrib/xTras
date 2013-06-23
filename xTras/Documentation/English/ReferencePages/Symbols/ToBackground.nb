@@ -121,11 +121,12 @@ Cell[TextData[{
  Cell[BoxData[
   RowBox[{"ToBackground", "[", 
    StyleBox["expr", "TI"], "]"}]], "InlineFormula"],
- "\[LineSeparator]send the unperturbed (curvature) tensors to background \
+ "\[LineSeparator]sends unperturbed (curvature) tensors to background \
 values."
 }], "Usage",
  CellChangeTimes->{
-  3.579753743791217*^9, {3.580532466005724*^9, 3.580532506670805*^9}}],
+  3.579753743791217*^9, {3.580532466005724*^9, 3.580532506670805*^9}, 
+   3.580963263839851*^9, {3.580963310770693*^9, 3.5809633112170677`*^9}}],
 
 Cell[TextData[{
  Cell[BoxData["ToBackground"], "InlineFormula"],
@@ -181,7 +182,10 @@ Cell[CellGroupData[{
 Cell["Tutorials", "TutorialsSection",
  CellID->250839057],
 
-Cell["XXXX", "Tutorials",
+Cell[TextData[ButtonBox["AdS Perturbations",
+ BaseStyle->"Link",
+ ButtonData->"paclet:xTras/tutorial/AdSPerturbations"]], "Tutorials",
+ CellChangeTimes->{3.580965459636786*^9},
  CellID->341631938]
 }, Open  ]],
 

@@ -175,8 +175,7 @@ Cell[TextData[{
  CellID->1067943069],
 
 Cell[TextData[{
- Cell[BoxData["SymmetricSpaceRules"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["SymmetricSpaceRules"], "InlineFormula"],
  " gives replacement rules for the Riemann, Weyl, Ricci, tracefree Ricci, \
 (cosmological) Einstein, (cosmological) Schouten tensors, and the Ricci and \
 Kretschmann scalars."
@@ -191,7 +190,10 @@ Cell[CellGroupData[{
 Cell["Tutorials", "TutorialsSection",
  CellID->250839057],
 
-Cell["XXXX", "Tutorials",
+Cell[TextData[ButtonBox["AdS Perturbations",
+ BaseStyle->"Link",
+ ButtonData->"paclet:xTras/tutorial/AdSPerturbations"]], "Tutorials",
+ CellChangeTimes->{{3.580965409855545*^9, 3.580965418891716*^9}},
  CellID->341631938]
 }, Open  ]],
 

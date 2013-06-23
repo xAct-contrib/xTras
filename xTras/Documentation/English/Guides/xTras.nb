@@ -1,7 +1,7 @@
 Notebook[{
 Cell[TextData[{
  "New in: ",
- Cell["1.1", "HistoryData",
+ Cell["1.2", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
  Cell[" ", "HistoryData",
@@ -13,6 +13,7 @@ Cell[TextData[{
  Cell[" ", "HistoryData",
   CellTags->"Excised"]
 }], "History",
+ CellChangeTimes->{{3.580906000389572*^9, 3.58090602990597*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -93,37 +94,534 @@ Cell["xTras package", "GuideTitle",
  CellChangeTimes->{{3.580189423538473*^9, 3.580189424793303*^9}},
  CellID->942062912],
 
-Cell["\<\
-xTras is a field-theory inspired add-on package for xAct.\
-\>", "GuideAbstract",
- CellChangeTimes->{{3.5801894604015102`*^9, 3.580189494508747*^9}},
+Cell[TextData[{
+ StyleBox["xTras",
+  FontSlant->"Italic"],
+ " is a field-theory inspired add-on package for xAct. It contains new \
+functions for doing tensor algebra, making Ansatze, computing contractions, \
+and much more."
+}], "GuideAbstract",
+ CellChangeTimes->{{3.5801894604015102`*^9, 3.580189494508747*^9}, {
+  3.580913308693431*^9, 3.5809133450959473`*^9}, {3.580913401764153*^9, 
+  3.580913403363968*^9}},
  CellID->2001916300]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["", "GuideFunctionsSection",
+ CellChangeTimes->{{3.5809116169600573`*^9, 3.580911619245491*^9}, {
+   3.580913692434009*^9, 3.580913703305634*^9}, 3.580957056735777*^9, 
+   3.580965917943681*^9},
  CellID->1866139230],
 
+Cell[CellGroupData[{
+
+Cell["Basic functions", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.580911704564745*^9, 3.5809117154230433`*^9}},
+ CellID->357840792],
+
 Cell[TextData[{
- Cell[BoxData["XXXX"], "InlineGuideFunction"],
- " \[LongDash] XXXX"
+ Cell[BoxData[
+  ButtonBox["MapTimed",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/MapTimed"]], "InlineGuideFunction"],
+ " \[LongDash] timed version of ",
+ ButtonBox["Map",
+  BaseStyle->"Link",
+  ButtonData->"paclet:ref/Map"]
 }], "GuideText",
+ CellChangeTimes->{{3.580911721022377*^9, 3.5809117579065113`*^9}},
+ CellID->1275979544],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["MapTensors",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/MapTensors"]], "InlineGuideFunction"],
+ " \[LongDash] map over tensors"
+}], "GuideText",
+ CellChangeTimes->{{3.580911724751416*^9, 3.5809117541327763`*^9}},
+ CellID->616497066],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["MapTimedTensors",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/MapTimedTensors"]], "InlineFormula"],
+ " . ",
+ Cell[BoxData[
+  ButtonBox["MapTimedIfPlus",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/MapTimedIfPlus"]], "InlineFormula"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.580912026407628*^9, 3.580912057216456*^9}},
+ CellID->1773709513]
+}, Open  ]],
+
+Cell["\t", "GuideDelimiter",
+ CellID->984388414],
+
+Cell[CellGroupData[{
+
+Cell["Combinatorics", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.5809118008448553`*^9, 3.580911802977848*^9}},
+ CellID->402057610],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["AllContractions",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/AllContractions"]], "InlineGuideFunction"],
+ " \[LongDash] gives all contractions of an expression"
+}], "GuideText",
+ CellChangeTimes->{{3.580911809462722*^9, 3.580911820329094*^9}, {
+  3.5809118662217484`*^9, 3.580911866294113*^9}},
+ CellID->1398697808],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["MakeTraceless",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/MakeTraceless"]], "InlineGuideFunction"],
+ " \[LongDash] makes an expression traceless"
+}], "GuideText",
+ CellChangeTimes->{{3.580911828077593*^9, 3.580911869732753*^9}, {
+  3.580911905270185*^9, 3.58091193796135*^9}},
+ CellID->1558058994],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ConstructDDIs",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ConstructDDIs"]], "InlineGuideFunction"],
+ " \[LongDash] constructs dimensionally dependent identities"
+}], "GuideText",
+ CellChangeTimes->{{3.5809118446184683`*^9, 3.580911873474349*^9}},
+ CellID->2029404287],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["IndexConfigurations",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/IndexConfigurations"]], "InlineFormula"],
+ " . ",
+ Cell[BoxData[
+  ButtonBox["MakeAnsatz",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/MakeAnsatz"]], "InlineFormula"],
+ " . ",
+ Cell[BoxData[
+  ButtonBox["MakeContractionAnsatz",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/MakeContractionAnsatz"]], "InlineFormula"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.5809119456783323`*^9, 3.580911968463826*^9}},
+ CellID->1862569955]
+}, Open  ]],
+
+Cell["\t", "GuideDelimiter",
+ CellID->344111366],
+
+Cell[CellGroupData[{
+
+Cell["Tensor algebra", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.580912002503883*^9, 3.580912004765306*^9}},
+ CellID->306266991],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["CollectTensors",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/CollectTensors"]], "InlineGuideFunction"],
+ " \[LongDash] collects all tensorial terms"
+}], "GuideText",
+ CellChangeTimes->{{3.58091206423489*^9, 3.580912065967223*^9}, {
+  3.5809121060793962`*^9, 3.580912122030109*^9}},
+ CellID->2058499525],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["CollectConstants",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/CollectConstants"]], "InlineGuideFunction"],
+ " \[LongDash] collects all constant symbols"
+}], "GuideText",
+ CellChangeTimes->{{3.5809120677540293`*^9, 3.58091206948916*^9}, {
+  3.5809121091717243`*^9, 3.580912127621009*^9}},
+ CellID->1239963505],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["SolveConstants",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/SolveConstants"]], "InlineGuideFunction"],
+ " \[LongDash] solves equations with respect to constant symbols"
+}], "GuideText",
+ CellChangeTimes->{{3.580912070977996*^9, 3.580912072661097*^9}, {
+  3.580912112026495*^9, 3.5809121401161327`*^9}},
+ CellID->885318047],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["SolveTensors",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/SolveTensors"]], "InlineGuideFunction"],
+ " \[LongDash] solves equations with respect to tensors"
+}], "GuideText",
+ CellChangeTimes->{{3.5809120827620153`*^9, 3.580912084348653*^9}, {
+  3.580912115060049*^9, 3.5809121509876223`*^9}},
+ CellID->1515280984]
+}, Open  ]],
+
+Cell["\t", "GuideDelimiter",
+ CellID->318928315],
+
+Cell[CellGroupData[{
+
+Cell["Young tableaux", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.580912888904119*^9, 3.580912890620907*^9}},
+ CellID->109007293],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["YoungProject",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/YoungProject"]], "InlineGuideFunction"],
+ " \[LongDash] projects tensors onto a Young tableau"
+}], "GuideText",
+ CellChangeTimes->{{3.580912907395842*^9, 3.580912923706629*^9}, {
+  3.580913010351145*^9, 3.58091301048812*^9}},
+ CellID->456756991],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["RiemannYoungProject",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/RiemannYoungProject"]], 
+  "InlineGuideFunction"],
+ " \[LongDash] projects Riemann tensors onto their Young tableau"
+}], "GuideText",
+ CellChangeTimes->{{3.5809129402162457`*^9, 3.5809129521049213`*^9}, {
+  3.580913006105115*^9, 3.580913006179201*^9}},
+ CellID->676603571],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["TableauSymmetric",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/TableauSymmetric"]], "InlineGuideFunction"],
+ " \[LongDash] generates the SGS of a Young tableau"
+}], "GuideText",
+ CellChangeTimes->{{3.580912960916731*^9, 3.580912994844244*^9}},
+ CellID->750306932]
+}, Open  ]],
+
+Cell["\t", "GuideDelimiter",
+ CellID->1608193359],
+
+Cell[CellGroupData[{
+
+Cell["Simplification", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.580913082363441*^9, 3.5809130835120983`*^9}},
+ CellID->384630940],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["FullSimplification",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/FullSimplification"]], "InlineGuideFunction"],
+ " \[LongDash] simplifies curvature tensors as much as possible"
+}], "GuideText",
+ CellChangeTimes->{{3.580913091152483*^9, 3.580913093341655*^9}, {
+  3.580913190580409*^9, 3.580913218112029*^9}},
+ CellID->566431110],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["SortCovDsToDiv",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/SortCovDsToDiv"]], "InlineGuideFunction"],
+ " \[LongDash] automatically sorts covariant derivatives to divergences"
+}], "GuideText",
+ CellChangeTimes->{{3.580913102556666*^9, 3.580913104941484*^9}, {
+  3.580913149031361*^9, 3.580913162051435*^9}, {3.5809132210959473`*^9, 
+  3.580913221166625*^9}},
+ CellID->740620925],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["SortCovDsToBox",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/SortCovDsToBox"]], "InlineGuideFunction"],
+ " \[LongDash] automatically sorts covariant derivatives to boxes"
+}], "GuideText",
+ CellChangeTimes->{{3.5809131064099083`*^9, 3.580913109546812*^9}, {
+  3.580913164235936*^9, 3.580913173130828*^9}, {3.580913224405447*^9, 
+  3.580913224472618*^9}},
+ CellID->800668463]
+}, Open  ]],
+
+Cell["\t", "GuideDelimiter",
+ CellID->2005075134],
+
+Cell[CellGroupData[{
+
+Cell["New curvature tensors", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.580906650747198*^9, 3.5809066534565287`*^9}},
+ CellID->966281796],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["Schouten",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/Schouten"]], "InlineGuideFunction"],
+ " \[LongDash] the Schouten tensor"
+}], "GuideText",
+ CellChangeTimes->{{3.580906695455699*^9, 3.5809067289872303`*^9}},
+ CellID->452319137],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["SchoutenCC",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/SchoutenCC"]], "InlineGuideFunction"],
+ " \[LongDash] the cosmological Schouten tensor"
+}], "GuideText",
+ CellChangeTimes->{{3.580906698008108*^9, 3.580906737966137*^9}},
+ CellID->35625179],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["EinsteinCC",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/EinsteinCC"]], "InlineGuideFunction"],
+ " \[LongDash] the cosmological Einstein tensor"
+}], "GuideText",
+ CellChangeTimes->{{3.580906681448494*^9, 3.5809067416012373`*^9}},
+ CellID->1713209559]
+}, Open  ]],
+
+Cell["\t", "GuideDelimiter",
+ CellID->1751929587],
+
+Cell[CellGroupData[{
+
+Cell["Killing vectors", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.580906809777569*^9, 3.580906811622958*^9}},
+ CellID->532284692],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KillingVectorOf",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/KillingVectorOf"]], "InlineGuideFunction"],
+ " \[LongDash] defines a Killing vector"
+}], "GuideText",
+ CellChangeTimes->{{3.580906820267861*^9, 3.580906841727376*^9}},
+ CellID->1839428689],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["KillingVectorQ",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/KillingVectorQ"]], "InlineFormula"],
+ " . ",
+ Cell[BoxData[
+  ButtonBox["MetricOfKillingVector",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/MetricOfKillingVector"]], "InlineFormula"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.580906856245413*^9, 3.580906876272684*^9}},
+ CellID->103393811]
+}, Open  ]],
+
+Cell["\t", "GuideDelimiter",
+ CellID->425511054],
+
+Cell[CellGroupData[{
+
+Cell["Pseudo index-free notation", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.580906977895131*^9, 3.580907006026697*^9}},
+ CellID->443740068],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["IndexFree",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/IndexFree"]], "InlineGuideFunction"],
+ " \[LongDash] head for pseudo index-free expressions"
+}], "GuideText",
+ CellChangeTimes->{{3.580907013654831*^9, 3.580907073292111*^9}},
+ CellID->1876100492],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ToIndexFree",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ToIndexFree"]], "InlineGuideFunction"],
+ " \[LongDash] converts to pseudo index-free"
+}], "GuideText",
+ CellChangeTimes->{{3.580907043306574*^9, 3.580907075931307*^9}},
+ CellID->118580143],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["FromIndexFree",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/FromIndexFree"]], "InlineGuideFunction"],
+ " \[LongDash] converts from pseudo index-free"
+}], "GuideText",
+ CellChangeTimes->{{3.580907047025804*^9, 3.580907078616887*^9}},
+ CellID->111638985]
+}, Open  ]],
+
+Cell["\t", "GuideDelimiter",
+ CellID->1026806758],
+
+Cell[CellGroupData[{
+
+Cell["Perturbations on (A)dS and flat backgrounds", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.580906128181065*^9, 3.580906135905999*^9}, {
+  3.5809063570789013`*^9, 3.5809063585801783`*^9}},
+ CellID->1131996527],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["SymmetricSpaceRules",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/SymmetricSpaceRules"]], 
+  "InlineGuideFunction"],
+ " \[LongDash] rules for (A)dS backgrounds"
+}], "GuideText",
+ CellChangeTimes->{{3.580906365319803*^9, 3.580906429783093*^9}},
  CellID->203374175],
 
 Cell[TextData[{
- Cell[BoxData["XXXX"], "InlineGuideFunction"],
- " \[LongDash] XXXX"
+ Cell[BoxData[
+  ButtonBox["ExpandBackground",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ExpandBackground"]], "InlineGuideFunction"],
+ " \[LongDash] perturb and expand on generic backgrounds"
 }], "GuideText",
+ CellChangeTimes->{{3.580906434778287*^9, 3.580906496516*^9}},
  CellID->1463276848],
 
-Cell[CellGroupData[{
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ExpandFlat",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ExpandFlat"]], "InlineGuideFunction"],
+ " \[LongDash] perturb and expand on flat backgrounds"
+}], "GuideText",
+ CellChangeTimes->{{3.580906542980691*^9, 3.580906565496188*^9}},
+ CellID->745876830],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["PerturbBackground",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/PerturbBackground"]], "InlineFormula"],
+ " . ",
+ Cell[BoxData[
+  ButtonBox["PerturbFlat",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/PerturbFlat"]], "InlineFormula"],
+ " . ",
+ Cell[BoxData[
+  ButtonBox["ToBackground",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ToBackground"]], "InlineFormula"],
+ " . ",
+ Cell[BoxData[
+  ButtonBox["ToFlat",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ToFlat"]], "InlineFormula"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.580906584121325*^9, 3.580906624991522*^9}},
+ CellID->58033752]
+}, Open  ]],
 
 Cell["\t", "GuideDelimiter",
  CellID->311258892],
 
-Cell["XXXX . XXXX . ", "InlineGuideFunctionListing",
- CellID->58033752]
+Cell[CellGroupData[{
+
+Cell["Invariants of Riemann tensors", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.580913445304451*^9, 3.5809134493931427`*^9}, {
+  3.580913502774787*^9, 3.580913510861351*^9}},
+ CellID->390617342],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["EulerDensity",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/EulerDensity"]], "InlineGuideFunction"],
+ " \[LongDash] gives the Euler density"
+}], "GuideText",
+ CellChangeTimes->{{3.580913460638194*^9, 3.580913468344121*^9}, {
+  3.5809135154944477`*^9, 3.580913515566395*^9}},
+ CellID->248158115],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ProductInvariants",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ProductInvariants"]], 
+  "InlineGuideFunction"],
+ " \[LongDash] gives a basis for invariants of Riemann tensors"
+}], "GuideText",
+ CellChangeTimes->{{3.580913472688243*^9, 3.580913518586043*^9}},
+ CellID->380196331],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["SingleInvariants",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/SingleInvariants"]], "InlineFormula"],
+ " . ",
+ Cell[BoxData[
+  ButtonBox["InvarLagrangian",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/InvarLagrangian"]], "InlineFormula"],
+ " "
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.580913532286601*^9, 3.580913547968265*^9}},
+ CellID->1195885292]
+}, Open  ]],
+
+Cell["\t", "GuideDelimiter",
+ CellID->944650371],
+
+Cell[CellGroupData[{
+
+Cell["xCoba extensions", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.580913646287456*^9, 3.580913649388352*^9}},
+ CellID->392183126],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ComputeBasisValues",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ComputeBasisValues"]], "InlineGuideFunction"],
+ " \[LongDash] computes values of basis elements"
+}], "GuideText",
+ CellChangeTimes->{{3.580913662188469*^9, 3.5809136649424143`*^9}, {
+  3.580913727204956*^9, 3.580913747142413*^9}},
+ CellID->794486039],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ImplodedTensorValues",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ImplodedTensorValues"]], 
+  "InlineGuideFunction"],
+ " \[LongDash] computes values of derivatives of tensors"
+}], "GuideText",
+ CellChangeTimes->{{3.5809136722704144`*^9, 3.5809136747590857`*^9}, {
+  3.5809137311055183`*^9, 3.5809137311707497`*^9}, {3.580913766631508*^9, 
+  3.580913780788105*^9}},
+ CellID->2021024074]
 }, Open  ]]
 }, Open  ]],
 
@@ -132,10 +630,18 @@ Cell[CellGroupData[{
 Cell["Tutorials", "GuideTutorialsSection",
  CellID->415694126],
 
-Cell["XXXX", "GuideTutorial",
+Cell[TextData[ButtonBox["Metric Variations",
+ BaseStyle->"Link",
+ ButtonData->"paclet:xTras/tutorial/MetricVariations"]], "GuideTutorial",
+ CellChangeTimes->{{3.5809140329039793`*^9, 3.5809140755147247`*^9}, 
+   3.5809141559897614`*^9},
  CellID->806871991],
 
-Cell["XXXX", "GuideTutorial",
+Cell[TextData[ButtonBox["AdS Perturbations",
+ BaseStyle->"Link",
+ ButtonData->"paclet:xTras/tutorial/AdSPerturbations"]], "GuideTutorial",
+ CellChangeTimes->{{3.580914040035799*^9, 3.580914043379352*^9}, {
+   3.5809141192650537`*^9, 3.580914124063583*^9}, 3.580914160186502*^9},
  CellID->1885805579]
 }, Open  ]],
 
@@ -154,10 +660,10 @@ Cell["XXXX", "GuideMoreAbout",
 Cell["Related Links", "GuideRelatedLinksSection",
  CellID->415694148]
 },
-WindowSize->{700, 770},
-WindowMargins->{{4, Automatic}, {Automatic, 0}},
-FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
-2013)",
+WindowSize->{1027, 770},
+WindowMargins->{{136, Automatic}, {37, Automatic}},
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
+2011)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "GuidePageStyles.nb", 
   CharacterEncoding -> "UTF-8"]
 ]
