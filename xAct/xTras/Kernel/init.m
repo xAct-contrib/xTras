@@ -57,7 +57,7 @@ Get["xAct`xTras`Algebra`"];
 Get["xAct`xTras`Combinatorics`"];
 
 (* Load fancy usage messages. *)
-Get["xAct`xTras`UsageMessages`"];
+Get["xAct`xTras`Interface`"];
 
 (* Check if we have the correct version of xAct. *)
 If[Not@OrderedQ@Map[Last, {xAct`xTras`$xTensorVersionExpected, xAct`xTensor`$Version}], 
@@ -91,6 +91,8 @@ redistribute it under certain conditions. See the General Public \
 License for details."];
 	Print[xAct`xCore`Private`bars]
 ];
+
+Begin["`Private`"]
 
 (*
  * Add the xAct directory to the path of the PacletManager.
@@ -148,5 +150,5 @@ If[
 	Protect[Documentation`CreateMessageLink];
 ];
 
-
+End[]
 EndPackage[]
