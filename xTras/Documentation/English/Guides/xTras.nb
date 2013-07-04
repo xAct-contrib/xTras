@@ -97,14 +97,28 @@ Cell["xTras package", "GuideTitle",
 Cell[TextData[{
  StyleBox["xTras",
   FontSlant->"Italic"],
- " is a field-theory inspired add-on package for xAct. It contains new \
-functions for doing tensor algebra, making Ansatze, computing contractions, \
-and much more."
+ " is a field-theory inspired add-on package for ",
+ StyleBox["xAct",
+  FontSlant->"Italic"],
+ ". It contains new functions for doing tensor algebra, making Ansatze, \
+computing contractions, and much more."
 }], "GuideAbstract",
  CellChangeTimes->{{3.5801894604015102`*^9, 3.580189494508747*^9}, {
   3.580913308693431*^9, 3.5809133450959473`*^9}, {3.580913401764153*^9, 
   3.580913403363968*^9}},
- CellID->2001916300]
+ CellID->2001916300],
+
+Cell[TextData[{
+ "Below is a list of new functionality in ",
+ StyleBox["xTras",
+  FontSlant->"Italic"],
+ ". If you're new to xAct, have a look at the ",
+ ButtonBox["introduction to xAct.",
+  BaseStyle->"Link",
+  ButtonData->"paclet:xTras/tutorial/Introduction"]
+}], "GuideAbstract",
+ CellChangeTimes->{{3.581849975328466*^9, 3.5818500451118298`*^9}},
+ CellID->287967502]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -629,6 +643,13 @@ Cell[CellGroupData[{
 
 Cell["Tutorials", "GuideTutorialsSection",
  CellID->415694126],
+
+Cell[TextData[ButtonBox["Introduction to xAct",
+ BaseStyle->"Link",
+ ButtonData->"paclet:xTras/tutorial/Introduction"]], "GuideTutorial",
+ CellChangeTimes->{{3.581849903114408*^9, 3.581849922758565*^9}, {
+  3.581849958493327*^9, 3.581849958565012*^9}},
+ CellID->1287459582],
 
 Cell[TextData[ButtonBox["Metric Variations",
  BaseStyle->"Link",

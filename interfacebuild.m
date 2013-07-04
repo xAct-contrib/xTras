@@ -9,7 +9,7 @@ ProcessDirectory::usage =
 notebooks in inputDir and writes the output to outputFile.";
 
 ProcessSourceNB::usage =
-	"ProcessSourceNB[nbFile_, outputFile] parses the usage messages for the given documentation \
+	"ProcessSourceNB[nbFile, outputFile] parses the usage messages for the given documentation \
 notebook and appends the output to outputFile.";
 
 
@@ -49,11 +49,11 @@ WriteUsageMessage[{symbol_,usagem_}, outputFile_, log_:Print] :=
 		log["Wrote usage message for " <> symbol];
 	];
 
-WriteUsageMessage[{nbName_,Null}, _, log_:Print] :=
+WriteUsageMessage[{nbName_,$Failed}, _, log_:Print] :=
 	log["Skipped notebook " <> nbName];
 
 
-(* Returns {symbolName, usageMessage}, or {Null, Null} if nothing was found. *)
+(* Returns {symbolName, usageMessage}, or {symbolName, $Failed} if nothing was found. *)
 GetUsageMessage[sourceNB_] := 
 	Module[
 		{
@@ -66,11 +66,13 @@ GetUsageMessage[sourceNB_] :=
 		
 		(* Return *)
 		If[ Length /@ {objectName, usages} =!= {1,1},
-			{Last@FileNameSplit[sourceNB], Null},
+			{Last@FileNameSplit[sourceNB], $Failed},
 			First /@ {objectName, usages}
 		]
 	];
 
+
+ParseUsageMessage[{symbol_,$Failed}] := {symbol, $Failed};
 
 ParseUsageMessage[{symbol_,usage_}] := 
 	Module[
