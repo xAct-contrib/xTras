@@ -101,14 +101,7 @@ Cell[TextData[{
  StyleBox["xAct",
   FontSlant->"Italic"],
  ". It contains new functions for doing tensor algebra, making Ansatze, \
-computing contractions, and much more."
-}], "GuideAbstract",
- CellChangeTimes->{{3.5801894604015102`*^9, 3.580189494508747*^9}, {
-  3.580913308693431*^9, 3.5809133450959473`*^9}, {3.580913401764153*^9, 
-  3.580913403363968*^9}},
- CellID->2001916300],
-
-Cell[TextData[{
+computing contractions, and much more.\[LineSeparator]\[LineSeparator]",
  "Below is a list of new functionality in ",
  StyleBox["xTras",
   FontSlant->"Italic"],
@@ -117,8 +110,10 @@ Cell[TextData[{
   BaseStyle->"Link",
   ButtonData->"paclet:xTras/tutorial/Introduction"]
 }], "GuideAbstract",
- CellChangeTimes->{{3.581849975328466*^9, 3.5818500451118298`*^9}},
- CellID->287967502]
+ CellChangeTimes->{{3.5801894604015102`*^9, 3.580189494508747*^9}, {
+  3.580913308693431*^9, 3.5809133450959473`*^9}, {3.580913401764153*^9, 
+  3.580913403363968*^9}, {3.581920076768135*^9, 3.581920077624528*^9}},
+ CellID->2001916300]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -657,6 +652,11 @@ Cell[TextData[ButtonBox["Metric Variations",
  CellChangeTimes->{{3.5809140329039793`*^9, 3.5809140755147247`*^9}, 
    3.5809141559897614`*^9},
  CellID->806871991],
+
+Cell[TextData[ButtonBox["Spin 2 on a flat background",
+ BaseStyle->"Link",
+ ButtonData->"paclet:xTras/tutorial/SpinTwo"]], "GuideTutorial",
+ CellID->441045137],
 
 Cell[TextData[ButtonBox["AdS Perturbations",
  BaseStyle->"Link",

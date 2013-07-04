@@ -158,9 +158,8 @@ Cell[BoxData[GridBox[{
      BaseStyle->"Link",
      ButtonData->"paclet:xTras/ref/ConstantPrefix"], 
     ButtonBox["\"\<C\>\"",
-     BaseStyle->"Link"], Cell["\<\
-what prefix for the constant symbols to use\
-\>", "TableText"]}
+     BaseStyle->"Link"], Cell[
+    "what prefix for the constant symbols to use", "TableText"]}
   }]], "3ColumnTableMod",
  CellChangeTimes->{{3.5808794976206636`*^9, 3.580879534161775*^9}}]
 }, Open  ]],
@@ -170,7 +169,10 @@ Cell[CellGroupData[{
 Cell["Tutorials", "TutorialsSection",
  CellID->250839057],
 
-Cell["XXXX", "Tutorials",
+Cell[TextData[ButtonBox["Spin 2 on a flat background",
+ BaseStyle->"Link",
+ ButtonData->"paclet:xTras/tutorial/SpinTwo"]], "Tutorials",
+ CellChangeTimes->{3.581924872233673*^9},
  CellID->341631938]
 }, Open  ]],
 

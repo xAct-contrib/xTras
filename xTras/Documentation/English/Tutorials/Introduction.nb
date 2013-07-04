@@ -141,20 +141,17 @@ Cell[BoxData[GridBox[{
 Cell[TextData[{
  StyleBox["xAct",
   FontSlant->"Italic"],
- " 'kernel' packages"
+ " kernel packages"
 }], "Caption",
  CellChangeTimes->{{3.581830867979205*^9, 3.581830870538293*^9}, {
-  3.581831349078306*^9, 3.581831365498844*^9}},
+  3.581831349078306*^9, 3.581831365498844*^9}, {3.58192000379527*^9, 
+  3.5819200055939302`*^9}},
  CellID->1891092685],
 
 Cell[BoxData[GridBox[{
-   {"xPert", Cell["\<\
-high-order perturbation theory in GR\
-\>", "TableText"]},
+   {"xPert", Cell["high-order perturbation theory in GR", "TableText"]},
    {"Harmonics", Cell["tensor spherical harmonics", "TableText"]},
-   {"Invar", Cell["\<\
-polynomial invariants of the Riemann tensor\
-\>", "TableText"]},
+   {"Invar", Cell["polynomial invariants of the Riemann tensor", "TableText"]},
    {"Spinors", Cell["spinor computations in GR", "TableText"]}
   }]], "DefinitionBox",
  CellChangeTimes->{{3.581830826215315*^9, 3.5818309733044443`*^9}, {
@@ -166,11 +163,11 @@ polynomial invariants of the Riemann tensor\
 Cell[TextData[{
  StyleBox["xAct",
   FontSlant->"Italic"],
- " 'application' packages"
+ " application packages"
 }], "Caption",
  CellChangeTimes->{{3.581830867979205*^9, 3.581830870538293*^9}, {
   3.581831349078306*^9, 3.581831365498844*^9}, {3.581849492717749*^9, 
-  3.581849495018771*^9}},
+  3.581849495018771*^9}, {3.581920009092599*^9, 3.581920011587369*^9}},
  CellID->914182813],
 
 Cell[BoxData[GridBox[{
@@ -193,9 +190,7 @@ Cell[BoxData[GridBox[{
         SingleLetterItalics->False], TraditionalForm]]],
      " code to formatting"
     }], "TableText"]},
-   {"xPand", Cell["\<\
-cosmological perturbation theory\
-\>", "TableText"]}
+   {"xPand", Cell["cosmological perturbation theory", "TableText"]}
   }]], "DefinitionBox",
  CellChangeTimes->{{3.581830826215315*^9, 3.5818309733044443`*^9}, {
    3.5818310772260237`*^9, 3.5818311467082157`*^9}, {3.581831236121224*^9, 
@@ -206,14 +201,15 @@ cosmological perturbation theory\
  CellID->1256384716],
 
 Cell[TextData[{
- "contributed ",
+ "Contributed ",
  StyleBox["xAct",
   FontSlant->"Italic"],
  " packages"
 }], "Caption",
  CellChangeTimes->{{3.581830867979205*^9, 3.581830870538293*^9}, {
   3.581831349078306*^9, 3.581831365498844*^9}, {3.581849492717749*^9, 
-  3.581849495018771*^9}, {3.58184954746515*^9, 3.581849553358933*^9}},
+  3.581849495018771*^9}, {3.58184954746515*^9, 3.581849553358933*^9}, {
+  3.581920018235711*^9, 3.581920018604753*^9}},
  CellID->1998704508],
 
 Cell[CellGroupData[{
@@ -288,17 +284,13 @@ Cell[BoxData[GridBox[{
   3.581850547575849*^9}},
  CellID->1578102565],
 
-Cell["\<\
-Command for defining manifolds, metrics, and tensors.\
-\>", "Caption",
+Cell["Command for defining manifolds, metrics, and tensors.", "Caption",
  CellChangeTimes->{{3.581850567168826*^9, 3.581850582198028*^9}},
  CellID->1746769505],
 
 Cell[CellGroupData[{
 
-Cell["\<\
-First, load the xTensor package.\
-\>", "MathCaption",
+Cell["First, load the xTensor package.", "MathCaption",
  CellChangeTimes->{{3.581850156419126*^9, 3.581850167031723*^9}},
  CellID->836781195],
 
@@ -420,9 +412,7 @@ handles the group theoretical computations needed for canonicalizing tensors.\
 
 Cell[CellGroupData[{
 
-Cell["\<\
-DefManifold[M, 4, {a,b,c,d,e,f}]\
-\>", "Input",
+Cell["DefManifold[M, 4, {a,b,c,d,e,f}]", "Input",
  CellChangeTimes->{{3.5818507005181437`*^9, 3.581850738395988*^9}},
  CellLabel->"In[1]:=",
  CellID->1950147529],
@@ -465,8 +455,7 @@ Cell[CellGroupData[{
 Cell[TextData[{
  "You'll notice that besides defining a manifold, this also defined a vector \
 bundle ",
- Cell[BoxData["TangentM"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["TangentM"], "InlineFormula"],
  " where our tensors will live. In fact, ",
  StyleBox["xAct",
   FontSlant->"Italic"],
@@ -1094,9 +1083,8 @@ $CellContext`d],
 
 Cell[CellGroupData[{
 
-Cell["\<\
-We can define other tensors with the DefTensor command:\
-\>", "MathCaption",
+Cell["We can define other tensors with the DefTensor command:", "MathCaption",
+ 
  CellChangeTimes->{3.5818512148644457`*^9},
  CellID->688413559],
 
@@ -1276,9 +1264,7 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["\<\
-Canonicalizing and contracting indices\
-\>", "Section",
+Cell["Canonicalizing and contracting indices", "Section",
  CellChangeTimes->{{3.5818513374462337`*^9, 3.581851348661264*^9}},
  CellID->640312604],
 
@@ -1678,9 +1664,7 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["\<\
-We can contract indices with the metric:\
-\>", "MathCaption",
+Cell["We can contract indices with the metric:", "MathCaption",
  CellChangeTimes->{3.581851643568318*^9},
  CellID->349387879],
 
@@ -1847,8 +1831,8 @@ Cell[BoxData[
          Offset[0.2]}, "RowsIndexed" -> {}}],
     ShowAutoStyles->False,
     AutoSpacing->False],
-   $CellContext`RiemannCD[-$CellContext`a, -$CellContext`b, -$CellContext`c, \
--$CellContext`d],
+   $CellContext`RiemannCD[-$CellContext`a, -$CellContext`b, -$CellContext`c,
+     -$CellContext`d],
    Editable->False]}]], "Output",
  CellChangeTimes->{3.581851671216851*^9, 3.581851854875708*^9, 
   3.581851898060851*^9},
@@ -1894,9 +1878,7 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["\<\
-This is automatically converted to the Ricci tensor:\
-\>", "MathCaption",
+Cell["This is automatically converted to the Ricci tensor:", "MathCaption",
  CellChangeTimes->{3.581851685236595*^9},
  CellID->1455023930],
 
@@ -1917,9 +1899,8 @@ Cell["RicciCD[-b, -d]", "Output",
 
 Cell[CellGroupData[{
 
-Cell["\<\
-Contracting again gives, as expected, the Ricci scalar:\
-\>", "MathCaption",
+Cell["Contracting again gives, as expected, the Ricci scalar:", "MathCaption",
+ 
  CellChangeTimes->{3.581851881722371*^9},
  CellID->136315597],
 
