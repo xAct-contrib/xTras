@@ -35,7 +35,7 @@
 	<property name="pacletContainer" value="xTras"/>
 	<property name="docInputDir" value="xTras/Documentation"/>
 	<property name="docOutputDir" value="Documentation"/>
-	<property name="dist" value="${basedir}/build" />
+	<property name="dist" value="${basedir}/docbuild" />
 	
 	<target name="clean">
 		<delete  dir="${dist}" />

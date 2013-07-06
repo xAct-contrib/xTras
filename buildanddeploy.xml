@@ -45,7 +45,17 @@
 		<exec dir="." executable="/usr/local/git/bin/git" failonerror="false" outputproperty="git.currenttag">
 			<arg line="describe --exact-match HEAD" />
 		</exec>
-		<echo>${git.currenttag}</echo>
+		<echo>Current tag: ${git.currenttag}</echo>
+		
+		<exec dir="." executable="/usr/local/git/bin/git" failonerror="false" outputproperty="git.lasttag">
+					<arg line="describe --abbrev=0" />
+		</exec>
+		<echo>Last tag: ${git.lasttag}</echo>
+		
+		<exec dir="." executable="/usr/local/git/bin/git" failonerror="false" outputproperty="git.commitssincetag">
+					<arg line="rev-list ${git.lasttag}..HEAD --count" />
+		</exec>
+		<echo>Commits since last tag: ${git.commitssincetag}</echo>
 		
 		<!-- Parse the Git tags into a nicely formatted log with Javascript. -->
 		<script language="javascript">
@@ -96,12 +106,11 @@
 			}
 			else
 			{
-				var splitted 	= String(lastversion).split(".");
-				var lastnumber 	= String(Number(splitted.pop())+1);
-				var newversion 	= splitted.join(".") + "." + lastnumber + "pre";
+				var newversion 	= lastversion + "." + String(project.getProperty("git.commitssincetag"));
 			    var newdate 	= project.getProperty("TODAY_XACT").split("-").join(", ");
 			}
 			project.setProperty("git.newversion",newversion);
+			project.setProperty("quoted.version","\"" + newversion + "\"");
 			
 			/* Also set a string that matches the formatting in the init.m file. */
 			project.setProperty(
@@ -122,17 +131,19 @@
 
 		<!-- Replace the version number and date in the init.m file. -->
 		<replaceregexp file="xAct/xTras/Kernel/init.m" match="Version = (.*)" replace="Version = ${xact.version};" byline="true" />
+		<!-- Replace the version number in the PacletInfo.m file. -->
+		<replaceregexp file="PacletInfo.m" match=" Version -> (.*)" replace=" Version -> ${quoted.version}," byline="true" />
+		<replaceregexp file="docbuild/xTras/PacletInfo.m" match=" Version -> (.*)" replace=" Version -> ${quoted.version}," byline="true" />
 
 		<!-- Lastly, zip everything in a distributable file. -->
 		<zip destfile="dist/xTras.v${git.newversion}.zip" basedir="." includes="INSTALL,xAct/**" update="no">
-			<!-- Move the documentation and example notebooks to the xAct documentation directory. -->
-			<zipfileset dir="notebooks" includes="xTrasDoc.nb" prefix="xAct/Documentation/English" />
-			<zipfileset dir="notebooks/examples" prefix="xAct/Documentation/English/xTras" />
+			<!-- Move the pre-build documentation to the xTras documentation directory. -->
+			<zipfileset dir="docbuild/xTras" prefix="xAct/xTras" />
 		</zip>
 
 	</target>
 
-	<!-- Task the deploys xTras into the local Mathematica user directory. -->
+	<!-- Task that deploys xTras into the local Mathematica user directory. -->
 	<target name="deploy">
 		<copy todir="${user.home}/Library/Mathematica/Applications/xAct">
 			<fileset dir="xAct" />

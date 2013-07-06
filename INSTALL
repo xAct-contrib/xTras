@@ -10,9 +10,14 @@ functionality altogether. The directory structure of xTras is
 /
   INSTALL				(this file)
   xAct/
-    xTras/				(copy this subdirectory entirely into your xAct directory)
+    xTras/				(copy this subdirectory into your xAct directory)
       Kernel/
         init.m
+      Documentation/
+        English/
+          ...
+      Interface.m
+      PacletInfo.m
       xCore.m
       xTensor.m
       xPert.m
@@ -21,14 +26,7 @@ functionality altogether. The directory structure of xTras is
       Algebra.m
       Combinatorics.m
       xTras.history
-    Documentation/		(can also be copied into xAct directory; not necessary though)
-      English/
-        xTrasDoc.nb		(documentation notebook)
-        xTras/
-          ...			(example notebooks)     
 
-The init.m file calls the other seven packages in the xTras folder; it does not contain
-any new functions. The notebook "xTrasDoc.nb" contains a bit of documentation.
 The xTras subdirectory must be copied in its entirety into the directory where you've installed xAct.
 The xAct folder is most likely the following on the respective operating systems:
 

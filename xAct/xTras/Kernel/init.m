@@ -20,7 +20,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = {"1.1.4pre", {2013, 6, 13}};
+xAct`xTras`$Version = {"1.1.3.14", {2013, 7, 6}};
 xAct`xTras`$xTensorVersionExpected = {"1.0.5", {2013, 1, 27}};
 xAct`xTras`$SymManipulatorVersionExpected = {"0.8.5", {2013, 4, 13}};
 xAct`xTras`$MathematicaVersionNeeded = 6.;
@@ -99,8 +99,11 @@ Begin["`Private`"]
  * This allows it to find the documentation in xAct/xTras/Documentation.
  * We could have used xAct`xCore`$xActDirectory, but this is a bit more general.
  *)
-PacletManager`PacletDirectoryAdd[
-	StringTake[
+
+If[
+	System`$VersionNumber < 7.
+, 
+	xActDir = StringTake[
 		First@Select[
 			(* Find files / directories with "xTras" in their name *)
 			FileNames["xTras", {$UserBaseDirectory, $BaseDirectory, $InstallationDirectory}, Infinity], 
@@ -110,7 +113,10 @@ PacletManager`PacletDirectoryAdd[
 		(* Strip the "/xTras" from it *)
 		{1, -7}
 	]
+,
+	xActDir = FileNameJoin@Drop[FileNameSplit@FindFile["xAct`xTras`"], -3]
 ];
+PacletManager`PacletDirectoryAdd[xActDir];
 (* Rebuild the PacletData. Necessary on MMA 6. *)
 PacletManager`RebuildPacletData[];
 
