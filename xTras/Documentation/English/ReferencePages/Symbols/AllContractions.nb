@@ -157,12 +157,33 @@ Cell[TextData[{
   3.579767356934888*^9, 3.579767380186286*^9}, {3.5797674107777348`*^9, 
   3.579767429332328*^9}, {3.579778768713862*^9, 3.579778769139179*^9}}],
 
-Cell["The input expression cannot have dummy indices.", "Notes",
- CellChangeTimes->{{3.579754141740531*^9, 3.579754148296451*^9}},
+Cell["\<\
+The indices in the second argument have to be given as an IndexList or as a \
+List.\
+\>", "Notes",
+ CellChangeTimes->{{3.579767025623665*^9, 3.579767046940851*^9}, {
+   3.57976708969366*^9, 3.5797670959330463`*^9}, 3.5797681671080093`*^9, {
+   3.58210693698037*^9, 3.582106939786765*^9}},
+ CellID->235029229],
+
+Cell[TextData[{
+ "The input expression ",
+ StyleBox["expr", "TI"],
+ " cannot have dummy indices."
+}], "Notes",
+ CellChangeTimes->{{3.579754141740531*^9, 3.579754148296451*^9}, {
+  3.58210692370205*^9, 3.582106924619672*^9}},
  CellID->1895409007],
 
-Cell["The number of free indices of the input has to be even.", "Notes",
- CellChangeTimes->{{3.579768185640726*^9, 3.579768192797247*^9}},
+Cell[TextData[{
+ "The number of free indices of ",
+ StyleBox["expr", "TI"],
+ " plus those in ",
+ StyleBox["frees", "TI"],
+ " has to be even."
+}], "Notes",
+ CellChangeTimes->{{3.579768185640726*^9, 3.579768192797247*^9}, {
+  3.5821068834820967`*^9, 3.5821069030853367`*^9}},
  CellID->652395325],
 
 Cell["\<\
@@ -174,13 +195,6 @@ The free indices of the input have to belong to the same tangent bundle.\
 Cell["The metric of that tangent bundle has to be symmetric.", "Notes",
  CellChangeTimes->{{3.579754195757156*^9, 3.579754210344883*^9}},
  CellID->874917267],
-
-Cell["\<\
-The indices in the second argument have to be given as an IndexList.\
-\>", "Notes",
- CellChangeTimes->{{3.579767025623665*^9, 3.579767046940851*^9}, {
-   3.57976708969366*^9, 3.5797670959330463`*^9}, 3.5797681671080093`*^9},
- CellID->235029229],
 
 Cell[TextData[{
  "The first argument can also be a list, in which case ",
@@ -201,7 +215,8 @@ Cell[TextData[{
 }], "Notes",
  CellChangeTimes->{{3.579771401627903*^9, 3.5797714145437603`*^9}, {
   3.5804791979556932`*^9, 3.580479203111433*^9}, {3.580879956051346*^9, 
-  3.580879966888853*^9}},
+  3.580879966888853*^9}, {3.582107034288711*^9, 3.582107034342602*^9}, {
+  3.582107079981791*^9, 3.5821070800305433`*^9}},
  CellID->1682459412],
 
 Cell[TextData[{
@@ -8258,7 +8273,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 WindowSize->{1217, 675},
-WindowMargins->{{-18, Automatic}, {Automatic, 12}},
+WindowMargins->{{48, Automatic}, {Automatic, 26}},
 CellContext->"Global`",
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
 2011)",
