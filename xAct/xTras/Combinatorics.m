@@ -293,16 +293,16 @@ Options[AllContractions] ^= {
 AllContractions[expr_,options___?OptionQ] := 
 	AllContractions[expr, IndexList[], options];
 
-AllContractions[expr_,freeIndices:IndexList[___?AIndexQ],options___?OptionQ] := 
+AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ],options___?OptionQ] := 
 	AllContractions[expr, freeIndices, StrongGenSet[{},GenSet[]], options];
 
-AllContractions[expr_List, freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ] :=
+AllContractions[expr_List, freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, options___?OptionQ] :=
 	Apply[
 		Union,
 		AllContractions[#, freeIndices, symmetry, options]& /@ expr
 	];
 
-AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
+AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
 	{
 		expl,verbose,symmethod,map,exprIndices,numIndices,VB,metric,
 		auxT,auxTexpr,auxTname,indexlist,dummylist,dummies,M,removesign,process,step,
@@ -327,7 +327,7 @@ AllContractions[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?
 	expl = FromIndexFree[expr];
 	
 	(* Get the indices of the complete expression (expr + freeindices), and count them.  *)
-	exprIndices	= Join[freeIndices,IndicesOf[Free][expl]];
+	exprIndices	= Join[IndexList@@freeIndices,IndicesOf[Free][expl]];
 	numIndices 	= Length[exprIndices];
 	
 	If[uncons === None,
@@ -795,10 +795,10 @@ GiveOutputString[BasicDDI, covd_] := StringJoin["B", "[", SymbolOfCovD[covd][[2]
 ConstructDDIs[expr_,options___?OptionQ] := 
 	ConstructDDIs[expr, IndexList[], options];
 
-ConstructDDIs[expr_,freeIndices:IndexList[___?AIndexQ],options___?OptionQ] := 
+ConstructDDIs[expr_,freeIndices:(IndexList|List)[___?AIndexQ],options___?OptionQ] := 
 	ConstructDDIs[expr, freeIndices, StrongGenSet[{},GenSet[]], options];
 
-ConstructDDIs[expr_,freeIndices:IndexList[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
+ConstructDDIs[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
 	{
 		auxT, auxTname, D, contractions, tensors, cd, basic, frees, tableaux, 
 		ddis, verbose, symmethod, map, dummies
