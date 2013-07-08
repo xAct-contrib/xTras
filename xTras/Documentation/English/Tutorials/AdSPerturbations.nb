@@ -98,10 +98,719 @@ Cell[TextData[{
  StyleBox["xTras",
   FontSlant->"Italic"],
  " has a number of functions that allow for perturbations around (A)dS \
-backgrounds."
+backgrounds. Before discussing them, we'll first have a look at the basic \
+functionality provided in the native ",
+ StyleBox["xAct",
+  FontSlant->"Italic"],
+ " package ",
+ StyleBox["xPert",
+  FontSlant->"Italic"],
+ "."
 }], "Text",
- CellChangeTimes->{{3.580963135271583*^9, 3.5809631612823877`*^9}},
+ CellChangeTimes->{{3.580963135271583*^9, 3.5809631612823877`*^9}, {
+  3.582261373504054*^9, 3.582261398710156*^9}},
  CellID->1534169418],
+
+Cell[CellGroupData[{
+
+Cell["xPert functions", "Section",
+ CellChangeTimes->{{3.582261361607966*^9, 3.5822613638782253`*^9}},
+ CellID->38451827],
+
+Cell[BoxData[GridBox[{
+   {
+    RowBox[{"Perturbation", "[", 
+     RowBox[{
+      StyleBox["expr", "TI"], ",", 
+      StyleBox["n", "TI"]}], "]"}], Cell[TextData[{
+     "returns the ",
+     StyleBox["n", "TI"],
+     "th order perturbation of ",
+     StyleBox["expr", "TI"]
+    }], "TableText"]},
+   {
+    RowBox[{"ExpandPerturbation", "[", 
+     StyleBox["expr", "TI"], "]"}], Cell[TextData[{
+     "expand any unexpanded ",
+     StyleBox["Perturbation[tensor]", "InlineCode"],
+     " terms in ",
+     StyleBox["expr", "TI"]
+    }], "TableText"]},
+   {
+    RowBox[{"DefTensorPerturbation", "[", 
+     RowBox[{
+      StyleBox["pert", "TI"], ",", 
+      StyleBox["tens", "TI"], ",", 
+      StyleBox["M", "TI"]}], "]"}], Cell[TextData[{
+     "defines the perturbation ",
+     StyleBox["pert", "TI"],
+     " for the tensor ",
+     StyleBox["tens", "TI"],
+     " on the manifold ",
+     StyleBox["M", "TI"]
+    }], "TableText"]},
+   {
+    RowBox[{"DeMetricPerturbation", "[", 
+     RowBox[{
+      StyleBox["g", "TI"], ",", 
+      StyleBox["pert", "TI"], ",", 
+      StyleBox["par", "TI"]}], "]"}], Cell[TextData[{
+     "defines the perturbation ",
+     StyleBox["pert", "TI"],
+     " of the metric ",
+     StyleBox["g", "TI"],
+     " and the perturbations of the associated curvature tensors, with \
+expansion parameter ",
+     StyleBox["par", "TI"]
+    }], "TableText"]}
+  }]], "DefinitionBox",
+ CellChangeTimes->{{3.582261425354595*^9, 3.582261491943613*^9}, {
+  3.58226153145965*^9, 3.5822615674345083`*^9}, {3.582261609719104*^9, 
+  3.5822616139938583`*^9}, {3.582263065515605*^9, 3.5822630682490387`*^9}, {
+  3.5822631061225243`*^9, 3.5822631824951143`*^9}},
+ CellID->1710487748],
+
+Cell["Main xPert functions.", "Caption",
+ CellChangeTimes->{{3.582261320537006*^9, 3.582261337309993*^9}},
+ CellID->1951481894],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Expression can be perturbed with ",
+ Cell[BoxData["Perturbation"], "InlineFormula",
+  FormatType->"StandardForm"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.5822632007091084`*^9, 3.582263201478483*^9}, {
+  3.5822633071270323`*^9, 3.582263335501204*^9}, {3.582263442901821*^9, 
+  3.5822634598138742`*^9}},
+ CellID->2014762289],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Perturbation", "[", 
+  RowBox[{"metric", "[", 
+   RowBox[{
+    RowBox[{"-", "a"}], ",", 
+    RowBox[{"-", "b"}]}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.5822634871421843`*^9, 3.582263492437344*^9}},
+ CellLabel->"In[11]:=",
+ CellID->1144277440],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[GridBox[{
+     {"\[EmptyUpTriangle]g", 
+      StyleBox[GridBox[{
+         {"1", " ", " "},
+         {" ", "a", "b"}
+        },
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.], {
+             Offset[0.034999999999999996`]}, 
+            Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+             Offset[0.]}}, "RowsIndexed" -> {}}],
+       FontSize->9]}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.034999999999999996`]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}],
+   ShowAutoStyles->False,
+   AutoSpacing->False],
+  $CellContext`Perturbationmetric[
+   xAct`xTensor`LI[1], -$CellContext`a, -$CellContext`b],
+  Editable->False]], "Output",
+ CellChangeTimes->{3.5822634929339027`*^9},
+ CellLabel->"Out[11]=",
+ CellID->1154875195]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Perturbation", "[", 
+  RowBox[{"metric", "[", 
+   RowBox[{"a", ",", "b"}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.582263494321836*^9, 3.5822635036824827`*^9}},
+ CellLabel->"In[12]:=",
+ CellID->1030200779],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   RowBox[{"\[EmptyUpTriangle]", "[", 
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"g", 
+         StyleBox[GridBox[{
+            {"a", "b"},
+            {" ", " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`metric[$CellContext`a, $CellContext`b],
+     Editable->False], "]"}],
+   ShowAutoStyles->False,
+   AutoSpacing->False],
+  xAct`xPert`Perturbation[
+   $CellContext`metric[$CellContext`a, $CellContext`b]],
+  Editable->False]], "Output",
+ CellChangeTimes->{3.582263504118599*^9},
+ CellLabel->"Out[12]=",
+ CellID->1571330539]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Perturbation", "[", 
+  RowBox[{"RicciScalarCD", "[", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.582263433374761*^9, 3.582263439160623*^9}},
+ CellLabel->"In[10]:=",
+ CellID->1616515084],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   RowBox[{"\[EmptyUpTriangle]", "[", 
+    InterpretationBox[
+     StyleBox[
+      RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`RicciScalarCD[],
+     Editable->False], "]"}],
+   ShowAutoStyles->False,
+   AutoSpacing->False],
+  xAct`xPert`Perturbation[
+   $CellContext`RicciScalarCD[]],
+  Editable->False]], "Output",
+ CellChangeTimes->{3.582263439713423*^9},
+ CellLabel->"Out[10]=",
+ CellID->953398591]
+}, Open  ]]
+}, Open  ]],
+
+Cell[TextData[{
+ "This gives the unexpanded perturbations of the input expressions, unless \
+the input is a tensor for which a perturbation is defined. ",
+ StyleBox["xTras",
+  FontSlant->"Italic"],
+ " automatically defines a metric perturbation (see the tutorial ",
+ ButtonBox["Metric Variations",
+  BaseStyle->"Link",
+  ButtonData->"paclet:xTras/tutorial/MetricVariations"],
+ "), hence the perturbation of the metric returned the perturbation tensor ",
+ Cell[BoxData[
+  InterpretationBox[
+   StyleBox[GridBox[{
+      {"\[EmptyUpTriangle]g", 
+       StyleBox[GridBox[{
+          {"1", " ", " "},
+          {" ", "a", "b"}
+         },
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+              Offset[0.]}}, "RowsIndexed" -> {}}],
+        FontSize->9]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+       "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.034999999999999996`]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   $CellContext`Perturbationmetric[
+    xAct`xTensor`LI[1], -$CellContext`a, -$CellContext`b],
+   Editable->False]],
+  CellChangeTimes->{3.5822634929339027`*^9}],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.582263467244335*^9, 3.5822634756197767`*^9}, {
+  3.582263519859974*^9, 3.582263722185597*^9}, {3.582263831930593*^9, 
+  3.582263842016589*^9}},
+ CellID->1394628670],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "The unexanded perturbations can be expanded with ",
+ Cell[BoxData["ExpandPerturbation"], "InlineFormula",
+  FormatType->"StandardForm"],
+ ":"
+}], "Text",
+ CellID->329330842],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ExpandPerturbation", "@", 
+  RowBox[{"Perturbation", "[", 
+   RowBox[{"metric", "[", 
+    RowBox[{"a", ",", "b"}], "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.582263732195835*^9, 3.5822637425894012`*^9}},
+ CellLabel->"In[13]:=",
+ CellID->1163655290],
+
+Cell[BoxData[
+ RowBox[{"-", 
+  InterpretationBox[
+   StyleBox[GridBox[{
+      {"\[EmptyUpTriangle]g", 
+       StyleBox[GridBox[{
+          {"1", "a", "b"},
+          {" ", " ", " "}
+         },
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+              Offset[0.]}}, "RowsIndexed" -> {}}],
+        FontSize->9]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+       "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.034999999999999996`]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   $CellContext`Perturbationmetric[
+    xAct`xTensor`LI[1], $CellContext`a, $CellContext`b],
+   Editable->False]}]], "Output",
+ CellChangeTimes->{3.582263743092457*^9},
+ CellLabel->"Out[13]=",
+ CellID->420885801]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ExpandPerturbation", "@", 
+  RowBox[{"Perturbation", "[", 
+   RowBox[{"RicciScalarCD", "[", "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.582263747766531*^9, 3.582263756362329*^9}},
+ CellLabel->"In[14]:=",
+ CellID->16524189],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"-", 
+    InterpretationBox[
+     StyleBox[GridBox[{
+        {"\[EmptyUpTriangle]g", 
+         StyleBox[GridBox[{
+            {"1", "a", "b"},
+            {" ", " ", " "}
+           },
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                Offset[0.]}}, "RowsIndexed" -> {}}],
+          FontSize->9]}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
+          "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.034999999999999996`]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      ShowAutoStyles->False,
+      AutoSpacing->False],
+     $CellContext`Perturbationmetric[
+      xAct`xTensor`LI[1], $CellContext`a, $CellContext`b],
+     Editable->False]}], " ", 
+   InterpretationBox[
+    StyleBox[GridBox[{
+       {
+        RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+        StyleBox[GridBox[{
+           {" ", " "},
+           {"a", "b"}
+          },
+          GridBoxSpacings->{"Columns" -> {
+              Offset[0.], {
+               Offset[0.034999999999999996`]}, 
+              Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+               Offset[0.]}}, "RowsIndexed" -> {}}],
+         FontSize->9]}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.034999999999999996`]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`RicciCD[-$CellContext`a, -$CellContext`b],
+    Editable->False]}], "+", 
+  RowBox[{
+   InterpretationBox[
+    StyleBox[GridBox[{
+       {"g", 
+        StyleBox[GridBox[{
+           {"a", "b"},
+           {" ", " "}
+          },
+          GridBoxSpacings->{"Columns" -> {
+              Offset[0.], {
+               Offset[0.034999999999999996`]}, 
+              Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+               Offset[0.]}}, "RowsIndexed" -> {}}],
+         FontSize->9]}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.034999999999999996`]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`metric[$CellContext`a, $CellContext`b],
+    Editable->False], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      FractionBox["1", "2"], " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"-", 
+         RowBox[{"(", 
+          InterpretationBox[
+           StyleBox[
+            RowBox[{
+             SubscriptBox["\[EmptyDownTriangle]", "a"], 
+             SubscriptBox["\[EmptyDownTriangle]", "b"], GridBox[{
+               {"\[EmptyUpTriangle]g", 
+                StyleBox[GridBox[{
+                   {"1", "c", " "},
+                   {" ", " ", "c"}
+                  },
+                  GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                 FontSize->9]}
+              },
+              
+              GridBoxAlignment->{
+               "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+                "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+              GridBoxSpacings->{"Columns" -> {
+                  Offset[0.27999999999999997`], {
+                   Offset[0.034999999999999996`]}, 
+                  Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+                "Rows" -> {
+                  Offset[0.2], {
+                   Offset[0.4]}, 
+                  Offset[0.2]}, "RowsIndexed" -> {}}]}],
+            ShowAutoStyles->False,
+            AutoSpacing->False],
+           $CellContext`CD[-$CellContext`a][
+            $CellContext`CD[-$CellContext`b][
+             $CellContext`Perturbationmetric[
+              xAct`xTensor`LI[1], $CellContext`c, -$CellContext`c]]],
+           Editable->False], ")"}]}], "-", 
+        InterpretationBox[
+         StyleBox[
+          RowBox[{
+           SubscriptBox["\[EmptyDownTriangle]", "a"], 
+           SubscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
+             {"\[EmptyUpTriangle]g", 
+              StyleBox[GridBox[{
+                 {"1", "c", " "},
+                 {" ", " ", "b"}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}]}],
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`CD[-$CellContext`a][
+          $CellContext`CD[-$CellContext`c][
+           $CellContext`Perturbationmetric[
+            xAct`xTensor`LI[1], $CellContext`c, -$CellContext`b]]],
+         Editable->False], "+", 
+        InterpretationBox[
+         StyleBox[
+          RowBox[{
+           SubscriptBox["\[EmptyDownTriangle]", "a"], 
+           SuperscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
+             {"\[EmptyUpTriangle]g", 
+              StyleBox[GridBox[{
+                 {"1", " ", " "},
+                 {" ", "b", "c"}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}]}],
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`CD[-$CellContext`a][
+          $CellContext`CD[$CellContext`c][
+           $CellContext`Perturbationmetric[
+            xAct`xTensor`LI[1], -$CellContext`b, -$CellContext`c]]],
+         Editable->False]}], ")"}]}], "+", 
+     RowBox[{
+      FractionBox["1", "2"], " ", 
+      RowBox[{"(", 
+       RowBox[{
+        InterpretationBox[
+         StyleBox[
+          RowBox[{
+           SubscriptBox["\[EmptyDownTriangle]", "c"], 
+           SubscriptBox["\[EmptyDownTriangle]", "a"], GridBox[{
+             {"\[EmptyUpTriangle]g", 
+              StyleBox[GridBox[{
+                 {"1", "c", " "},
+                 {" ", " ", "b"}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}]}],
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`CD[-$CellContext`c][
+          $CellContext`CD[-$CellContext`a][
+           $CellContext`Perturbationmetric[
+            xAct`xTensor`LI[1], $CellContext`c, -$CellContext`b]]],
+         Editable->False], "+", 
+        InterpretationBox[
+         StyleBox[
+          RowBox[{
+           SubscriptBox["\[EmptyDownTriangle]", "c"], 
+           SubscriptBox["\[EmptyDownTriangle]", "b"], GridBox[{
+             {"\[EmptyUpTriangle]g", 
+              StyleBox[GridBox[{
+                 {"1", "c", " "},
+                 {" ", " ", "a"}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}]}],
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`CD[-$CellContext`c][
+          $CellContext`CD[-$CellContext`b][
+           $CellContext`Perturbationmetric[
+            xAct`xTensor`LI[1], $CellContext`c, -$CellContext`a]]],
+         Editable->False], "-", 
+        InterpretationBox[
+         StyleBox[
+          RowBox[{
+           SubscriptBox["\[EmptyDownTriangle]", "c"], 
+           SuperscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
+             {"\[EmptyUpTriangle]g", 
+              StyleBox[GridBox[{
+                 {"1", " ", " "},
+                 {" ", "b", "a"}
+                },
+                GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+               FontSize->9]}
+            },
+            
+            GridBoxAlignment->{
+             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[0.4]}, 
+                Offset[0.2]}, "RowsIndexed" -> {}}]}],
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`CD[-$CellContext`c][
+          $CellContext`CD[$CellContext`c][
+           $CellContext`Perturbationmetric[
+            xAct`xTensor`LI[1], -$CellContext`b, -$CellContext`a]]],
+         Editable->False]}], ")"}]}]}], ")"}]}]}]], "Output",
+ CellChangeTimes->{3.582263760674622*^9},
+ CellLabel->"Out[14]=",
+ CellID->696654060]
+}, Open  ]]
+}, Open  ]],
+
+Cell[TextData[{
+ "This expanded the expressions in terms of any defined tensor perturbations, \
+in this case ",
+ Cell[BoxData[
+  InterpretationBox[
+   StyleBox[GridBox[{
+      {"\[EmptyUpTriangle]g", 
+       StyleBox[GridBox[{
+          {"1", " ", " "},
+          {" ", "a", "b"}
+         },
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+              Offset[0.]}}, "RowsIndexed" -> {}}],
+        FontSize->9]}
+     },
+     GridBoxAlignment->{
+      "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+       "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.034999999999999996`]}, 
+         Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.4]}, 
+         Offset[0.2]}, "RowsIndexed" -> {}}],
+    ShowAutoStyles->False,
+    AutoSpacing->False],
+   $CellContext`Perturbationmetric[
+    xAct`xTensor`LI[1], -$CellContext`a, -$CellContext`b],
+   Editable->False]],
+  CellChangeTimes->{3.582263760674622*^9}],
+ ". The covariant derivatives and the curvature tensors are now those of the \
+background. They can easily be replaced with particular background values \
+with the help of ",
+ StyleBox["xTras",
+  FontSlant->"Italic"],
+ " functions."
+}], "Text",
+ CellChangeTimes->{{3.582263780021276*^9, 3.582263823432918*^9}, {
+  3.582263860905793*^9, 3.582263898527554*^9}, {3.582263983478879*^9, 
+  3.58226400833877*^9}, {3.5822640396148453`*^9, 3.582264057646576*^9}},
+ CellID->583942976]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["xTras additions", "Section",
+ CellChangeTimes->{{3.582261184560198*^9, 3.582261187245549*^9}},
+ CellID->194211840],
+
+Cell["\<\
+We'll now turn the xTras functions tailor-made for doing perturbations around \
+(A)dS backgrounds.\
+\>", "Text",
+ CellChangeTimes->{{3.582261196135716*^9, 3.582261217797853*^9}},
+ CellID->2090735087],
 
 Cell[BoxData[GridBox[{
    {
@@ -123,9 +832,9 @@ derivative ",
      ButtonBox["ToBackground",
       BaseStyle->"Link",
       ButtonData->"paclet:xTras/ref/ToBackground"], "[", 
-     StyleBox["expr", "TI"], "]"}], Cell["\<\
-sends unperturbed (curvature) tensors to background values\
-\>", "TableText"]},
+     StyleBox["expr", "TI"], "]"}], Cell[
+    "sends unperturbed (curvature) tensors to background values", 
+     "TableText"]},
    {
     RowBox[{
      ButtonBox["ExpandBackground",
@@ -141,9 +850,7 @@ sends unperturbed (curvature) tensors to background values\
   3.580963337275034*^9, 3.58096339513344*^9}},
  CellID->2096742444],
 
-Cell["\<\
-The main functions for doing AdS perturbations.\
-\>", "Caption",
+Cell["The main functions for doing AdS perturbations.", "Caption",
  CellChangeTimes->{{3.580963418020153*^9, 3.580963432841563*^9}},
  CellID->1891092685],
 
@@ -153,19 +860,14 @@ Cell["Setting up", "Subsection",
  CellChangeTimes->{{3.580964995657007*^9, 3.580964996646229*^9}},
  CellID->867376873],
 
-Cell["\<\
-In this section we will set up things to do perturbations around AdS.\
-\>", "Text",
- CellChangeTimes->{{3.580964998032351*^9, 3.5809650358753147`*^9}},
- CellID->884108675],
-
 Cell[CellGroupData[{
 
 Cell["\<\
-First, begin with defining a constant symbol for the cosmological constant.\
-\>", "MathCaption",
- CellChangeTimes->{{3.58096343824916*^9, 3.580963448672325*^9}},
- CellID->836781195],
+In this section we will set up things to do perturbations around AdS. First, \
+begin with defining a constant symbol for the cosmological constant.\
+\>", "Text",
+ CellChangeTimes->{{3.582261224766611*^9, 3.582261225942607*^9}},
+ CellID->1857174995],
 
 Cell[CellGroupData[{
 
@@ -202,10 +904,8 @@ cosmological constant with ",
    BaseStyle->"Link",
    ButtonData->"paclet:xTras/ref/VarL"]], "InlineFormula"],
  "."
-}], "MathCaption",
- CellChangeTimes->{{3.58096352040552*^9, 3.580963542410363*^9}, {
-  3.580964274118348*^9, 3.5809642810170593`*^9}},
- CellID->2008132925],
+}], "Text",
+ CellID->2012815467],
 
 Cell[CellGroupData[{
 
@@ -419,10 +1119,8 @@ with ",
    BaseStyle->"Link",
    ButtonData->"paclet:xTras/ref/SymmetricSpaceRules"]], "InlineFormula"],
  ":"
-}], "MathCaption",
- CellChangeTimes->{{3.580963601808853*^9, 3.580963626935298*^9}, {
-  3.580964261783245*^9, 3.5809642710975647`*^9}},
- CellID->2085361440],
+}], "Text",
+ CellID->79662678],
 
 Cell[CellGroupData[{
 
@@ -1234,9 +1932,8 @@ Cell[CellGroupData[{
 
 Cell["\<\
 Check that the background actually solves the equations of motion:\
-\>", "MathCaption",
- CellChangeTimes->{{3.5809636683244123`*^9, 3.580963686538268*^9}},
- CellID->1211340067],
+\>", "Text",
+ CellID->1008317065],
 
 Cell[CellGroupData[{
 
@@ -1276,9 +1973,8 @@ Cell[TextData[{
    BaseStyle->"Link",
    ButtonData->"paclet:xTras/ref/ExpandBackground"]], "InlineFormula"],
  "."
-}], "MathCaption",
- CellChangeTimes->{{3.5809640947378693`*^9, 3.580964153761737*^9}},
- CellID->582569565],
+}], "Text",
+ CellID->991452978],
 
 Cell[BoxData[
  RowBox[{
@@ -1301,9 +1997,8 @@ with ",
    BaseStyle->"Link",
    ButtonData->"paclet:xTras/ref/ToBackground"]], "InlineFormula"],
  ":"
-}], "MathCaption",
- CellChangeTimes->{{3.5809642092429953`*^9, 3.5809642511995792`*^9}},
- CellID->1600861331],
+}], "Text",
+ CellID->1024584173],
 
 Cell[CellGroupData[{
 
@@ -1324,9 +2019,7 @@ Cell[BoxData["0"], "Output",
 
 Cell[CellGroupData[{
 
-Cell["\<\
-Linearizing the equations of motion\
-\>", "Subsection",
+Cell["Linearizing the equations of motion", "Subsection",
  CellChangeTimes->{{3.580965063732716*^9, 3.580965075745159*^9}},
  CellID->775147132],
 
@@ -1339,10 +2032,8 @@ Cell[TextData[{
    BaseStyle->"Link",
    ButtonData->"paclet:xTras/ref/ExpandBackground"]], "InlineFormula"],
  ", in order to obtain the linearized Einstein equations:"
-}], "MathCaption",
- CellChangeTimes->{{3.5809643806598673`*^9, 3.580964401305359*^9}, {
-  3.580964432692555*^9, 3.580964453056522*^9}},
- CellID->1405095578],
+}], "Text",
+ CellID->1662313965],
 
 Cell[CellGroupData[{
 
@@ -1807,10 +2498,8 @@ Cell[TextData[{
  " has a first index that labels the perturbation order. Often, it is \
 convenient to remove this label. To that end, we define a new tensor that we \
 will use as the metric perturbation."
-}], "MathCaption",
- CellChangeTimes->{{3.580964539213599*^9, 3.580964544434286*^9}, {
-  3.580964583074484*^9, 3.580964649329238*^9}},
- CellID->839913357],
+}], "Text",
+ CellID->1896045932],
 
 Cell[CellGroupData[{
 
@@ -1879,10 +2568,8 @@ Cell[TextData[{
   CellChangeTimes->{{3.580964406992125*^9, 3.58096441401959*^9}, 
     3.5809645333364773`*^9, 3.5809645801569347`*^9}],
  "  with this new tensor:"
-}], "MathCaption",
- CellChangeTimes->{{3.580964691804088*^9, 3.5809647125120277`*^9}, {
-  3.580964760956024*^9, 3.580964798933278*^9}},
- CellID->1877912264],
+}], "Text",
+ CellID->334141291],
 
 Cell[CellGroupData[{
 
@@ -2370,10 +3057,8 @@ Cell[TextData[{
   CellChangeTimes->{3.5809647916415157`*^9}],
  " can be automated by setting another option of ToBackground. The second \
 rule below is for eliminating all higher order perturbations."
-}], "MathCaption",
- CellChangeTimes->{{3.580964807484345*^9, 3.580964843599674*^9}, {
-  3.580964911885709*^9, 3.5809649290343437`*^9}},
- CellID->630768125],
+}], "Text",
+ CellID->242940932],
 
 Cell[BoxData[
  RowBox[{
@@ -2461,9 +3146,8 @@ Cell[TextData[{
    Editable->False]],
   CellChangeTimes->{3.5809647916415157`*^9}],
  ":"
-}], "MathCaption",
- CellChangeTimes->{{3.5809649392762337`*^9, 3.580964973664036*^9}},
- CellID->2133980704],
+}], "Text",
+ CellID->741831177],
 
 Cell[CellGroupData[{
 
@@ -2899,9 +3583,8 @@ Cell["\<\
 Instead of perturbing the equations of motion, we can also perturb the \
 action. Of course, the first non-trivial order here is not the first, but the \
 second.\
-\>", "MathCaption",
- CellChangeTimes->{{3.580965099153976*^9, 3.580965193545759*^9}},
- CellID->491341935],
+\>", "Text",
+ CellID->1814021004],
 
 Cell[CellGroupData[{
 
@@ -3904,9 +4587,8 @@ Cell[TextData[{
        Offset[0.2]}, "RowsIndexed" -> {}}]],
   CellChangeTimes->{{3.580965233757246*^9, 3.580965248152821*^9}}],
  ", we should obtain the linearized equations of motion:"
-}], "MathCaption",
- CellChangeTimes->{{3.580965261263668*^9, 3.580965284043879*^9}},
- CellID->1265527089],
+}], "Text",
+ CellID->425677769],
 
 Cell[CellGroupData[{
 
@@ -4367,7 +5049,16 @@ Cell[BoxData[
  CellChangeTimes->{{3.580965319188869*^9, 3.5809653472117147`*^9}},
  CellLabel->"Out[67]=",
  CellID->1468012901]
+}, Open  ]]
 }, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+The difference between the two equations of motion is zero:\
+\>", "Text",
+ CellChangeTimes->{{3.5822612929776087`*^9, 3.5822613025658693`*^9}},
+ CellID->420858817],
 
 Cell[CellGroupData[{
 
@@ -4478,6 +5169,7 @@ Cell[BoxData[""], "Input",
  CellChangeTimes->{{3.580965142124205*^9, 3.5809651427342653`*^9}},
  CellID->909278830]
 }, Open  ]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -4494,7 +5186,10 @@ Cell[CellGroupData[{
 Cell["Related Tutorials", "RelatedTutorialsSection",
  CellID->415694126],
 
-Cell["XXXX", "RelatedTutorials",
+Cell[TextData[ButtonBox["Metric Variations",
+ BaseStyle->"Link",
+ ButtonData->"paclet:xTras/tutorial/MetricVariations"]], "RelatedTutorials",
+ CellChangeTimes->{{3.5822632409680653`*^9, 3.58226326437521*^9}},
  CellID->806871991]
 }, Open  ]],
 

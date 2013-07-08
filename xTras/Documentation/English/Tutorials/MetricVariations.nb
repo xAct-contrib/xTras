@@ -101,8 +101,7 @@ Cell[TextData[{
   FontSlant->"Italic"],
  " automatically defines 'proper' variations with respect to the metric via \
 ",
- Cell[BoxData["VarD"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["VarD"], "InlineFormula"],
  " and ",
  Cell[BoxData[
   ButtonBox["VarL",
@@ -187,9 +186,7 @@ Cell[BoxData[GridBox[{
   3.580961768351129*^9}, {3.580961885187381*^9, 3.580961897868911*^9}},
  CellID->2096742444],
 
-Cell["\<\
-Computing variations w.r.t. the metric.\
-\>", "Caption",
+Cell["Computing variations w.r.t. the metric.", "Caption",
  CellChangeTimes->{{3.580961910490589*^9, 3.580961917841297*^9}},
  CellID->1891092685],
 
@@ -197,9 +194,8 @@ Cell[CellGroupData[{
 
 Cell["\<\
 Let's begin with defining a manifold.\
-\>", "MathCaption",
- CellChangeTimes->{3.580962072220025*^9},
- CellID->1267801072],
+\>", "Text",
+ CellID->998103175],
 
 Cell[CellGroupData[{
 
@@ -248,17 +244,13 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell[TextData[{
- Cell[BoxData["DefMetric"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["DefMetric"], "InlineFormula"],
  " has a new option, ",
- Cell[BoxData["DefMetricPerturbation"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["DefMetricPerturbation"], "InlineFormula"],
  ". It defaults to True, and so by default a metric perturbation is defined \
 whenever you define a metric."
-}], "MathCaption",
- CellChangeTimes->{{3.5809621810403843`*^9, 3.580962254081134*^9}, {
-  3.580962332138328*^9, 3.58096233929808*^9}},
- CellID->836781195],
+}], "Text",
+ CellID->1125295508],
 
 Cell[CellGroupData[{
 
@@ -283,10 +275,8 @@ Cell["\<\
 In xTras, defining a metric perturbation automatically defines proper metric \
 variations. All in all, defining a metric automatically defines proper metric \
 variations.\
-\>", "MathCaption",
- CellChangeTimes->{{3.5809622662631483`*^9, 3.580962267370851*^9}, {
-  3.580962343862204*^9, 3.58096239742729*^9}},
- CellID->1865205710],
+\>", "Text",
+ CellID->2100607474],
 
 Cell[CellGroupData[{
 
@@ -715,9 +705,8 @@ Cell[CellGroupData[{
 
 Cell["\<\
 We can now perform variations with respect to the metric:\
-\>", "MathCaption",
- CellChangeTimes->{{3.580962458250142*^9, 3.580962475766019*^9}},
- CellID->766863226],
+\>", "Text",
+ CellID->278658838],
 
 Cell[CellGroupData[{
 
@@ -842,9 +831,8 @@ Cell[TextData[{
    SqrtBox[
     RowBox[{"-", "g"}]], TraditionalForm]], "InlineMath"],
  ":"
-}], "MathCaption",
- CellChangeTimes->{{3.580962562483614*^9, 3.580962618277718*^9}},
- CellID->2064274200],
+}], "Text",
+ CellID->1904739806],
 
 Cell[CellGroupData[{
 
@@ -997,9 +985,8 @@ Cell[CellGroupData[{
 
 Cell["\<\
 Varying with respect to the inverse metric gives an overall minus sign:\
-\>", "MathCaption",
- CellChangeTimes->{{3.580962625182832*^9, 3.580962644714981*^9}},
- CellID->335378402],
+\>", "Text",
+ CellID->423193613],
 
 Cell[CellGroupData[{
 
@@ -1140,9 +1127,8 @@ Cell[CellGroupData[{
 
 Cell["\<\
 More complicated expressions can also be varied easily:\
-\>", "MathCaption",
- CellChangeTimes->{{3.5809627219209137`*^9, 3.580962736327486*^9}},
- CellID->1548868132],
+\>", "Text",
+ CellID->149214827],
 
 Cell[CellGroupData[{
 
@@ -2308,9 +2294,8 @@ Cell[TextData[{
    BaseStyle->"Link",
    ButtonData->"paclet:xTras/ref/FullSimplification"]], "InlineFormula"],
  ":"
-}], "MathCaption",
- CellChangeTimes->{{3.5809628167309113`*^9, 3.5809628571143503`*^9}},
- CellID->1958997369],
+}], "Text",
+ CellID->1740181340],
 
 Cell[CellGroupData[{
 
@@ -3111,7 +3096,11 @@ Cell[CellGroupData[{
 Cell["Related Tutorials", "RelatedTutorialsSection",
  CellID->415694126],
 
-Cell["XXXX", "RelatedTutorials",
+Cell[TextData[ButtonBox["AdS Perturbations",
+ BaseStyle->"Link",
+ ButtonData->"paclet:xTras/tutorial/AdSPerturbations"]], "RelatedTutorials",
+ CellChangeTimes->{{3.58226421308638*^9, 3.582264221420945*^9}, {
+  3.5822642784931726`*^9, 3.58226427854838*^9}},
  CellID->806871991]
 }, Open  ]],
 

@@ -290,9 +290,10 @@ Cell["Command for defining manifolds, metrics, and tensors.", "Caption",
 
 Cell[CellGroupData[{
 
-Cell["First, load the xTensor package.", "MathCaption",
- CellChangeTimes->{{3.581850156419126*^9, 3.581850167031723*^9}},
- CellID->836781195],
+Cell["\<\
+First, load the xTensor package.\
+\>", "Text",
+ CellID->647992887],
 
 Cell[CellGroupData[{
 
@@ -406,9 +407,8 @@ Cell["\<\
 This loaded not only the xTensor package, but also the xPerm package which \
 handles the group theoretical computations needed for canonicalizing tensors.\
 \[LineSeparator]Let's define a four-dimensiona manifold:\
-\>", "MathCaption",
- CellChangeTimes->{{3.581850604806498*^9, 3.581850727524542*^9}},
- CellID->179601286],
+\>", "Text",
+ CellID->926877872],
 
 Cell[CellGroupData[{
 
@@ -465,9 +465,8 @@ and has quite some commands to do so. We can get a list of them with the ",
   BaseStyle->"Link",
   ButtonData->"paclet:ref/Information"],
  " command:"
-}], "MathCaption",
- CellChangeTimes->{{3.581850787190901*^9, 3.5818508318763313`*^9}},
- CellID->2100009020],
+}], "Text",
+ CellID->190019366],
 
 Cell[CellGroupData[{
 
@@ -492,6 +491,7 @@ Cell[BoxData[
         {
          ButtonBox["DefAbstractIndex",
           BaseStyle->"InformationLink",
+          
           ButtonData:>{
            "Info3581859042-4208439", {"DefAbstractIndex", "xAct`xTensor`"}},
           ButtonNote->"xAct`xTensor`"], 
@@ -589,10 +589,8 @@ we do need to specify a symbol for the associated covariant derivative. We'll \
 name it CD, and we'll let the metric be Lorentzian (hence the -1). The option \
 CurvatureRelations is to ensure that contractions of Riemann tensors are \
 automatically converted to Ricci's.\
-\>", "MathCaption",
- CellChangeTimes->{{3.581850850170089*^9, 3.5818509130891323`*^9}, {
-  3.581851814647821*^9, 3.581851833006674*^9}},
- CellID->364161636],
+\>", "Text",
+ CellID->347301273],
 
 Cell[CellGroupData[{
 
@@ -948,10 +946,10 @@ tensor, etc).\[LineSeparator]For instance, we now have a Riemann tensor. It \
 has the same structure as every tensor in xAct, namely the name of the tensor \
 followed by its indices. Because we named our covariant derivative CD, this \
 Riemann tensor is called RiemannCD (it's the Riemann tensor of the covariant \
-derivative CD). We can input it as follows:\
-\>", "MathCaption",
- CellChangeTimes->{{3.581851134749281*^9, 3.581851151295076*^9}},
- CellID->379320367],
+derivative CD). We can enter it as follows:\
+\>", "Text",
+ CellChangeTimes->{{3.5822643318858547`*^9, 3.5822643322833652`*^9}},
+ CellID->231942765],
 
 Cell[CellGroupData[{
 
@@ -1008,9 +1006,8 @@ Cell["\<\
 Note that it prints much nicer than how it's put in: xAct formats the indices \
 properly and shortens the name of the tensor to something readable. But \
 underneath it still has the same structure:\
-\>", "MathCaption",
- CellChangeTimes->{3.581851176454452*^9},
- CellID->785552094],
+\>", "Text",
+ CellID->579232050],
 
 Cell[CellGroupData[{
 
@@ -1032,9 +1029,8 @@ Cell["\<\
 The minus signs in front of the indices indicate that they're (covariant) \
 lower indices. If we want to put in (contravariant) upper indices, we just \
 forgo the minus sign:\
-\>", "MathCaption",
- CellChangeTimes->{3.581851190896851*^9},
- CellID->188662941],
+\>", "Text",
+ CellID->609692499],
 
 Cell[CellGroupData[{
 
@@ -1083,10 +1079,10 @@ $CellContext`d],
 
 Cell[CellGroupData[{
 
-Cell["We can define other tensors with the DefTensor command:", "MathCaption",
- 
- CellChangeTimes->{3.5818512148644457`*^9},
- CellID->688413559],
+Cell["\<\
+We can define other tensors with the DefTensor command:\
+\>", "Text",
+ CellID->1457350856],
 
 Cell[CellGroupData[{
 
@@ -1118,9 +1114,8 @@ Cell[CellGroupData[{
 Cell["\<\
 It's very important to not forget the bracket [], even though scalars don't \
 have indices! Thus\
-\>", "MathCaption",
- CellChangeTimes->{3.581851239724818*^9},
- CellID->110862804],
+\>", "Text",
+ CellID->1644842757],
 
 Cell[BoxData[
  RowBox[{"scalar", "[", "]"}]], "Input",
@@ -1133,9 +1128,8 @@ Cell["\<\
 is a valid xAct expression, even though it doesn't print its indices.\
 \[LineSeparator]More complicated tensors can be defined by just specifying \
 their index structure. We can also specify if it's (anti)symmetric as follows:\
-\>", "MathCaption",
- CellChangeTimes->{{3.5818512668681593`*^9, 3.5818512745589*^9}},
- CellID->1580257664],
+\>", "Text",
+ CellID->315229068],
 
 Cell[CellGroupData[{
 
@@ -1178,9 +1172,8 @@ Cell[CellGroupData[{
 Cell["\<\
 xAct does not automatically enforce the symmetries of the tensor. For \
 instance, this should be zero:\
-\>", "MathCaption",
- CellChangeTimes->{3.5818512957201014`*^9},
- CellID->768564125],
+\>", "Text",
+ CellID->212788727],
 
 Cell[CellGroupData[{
 
@@ -1301,9 +1294,8 @@ Cell[CellGroupData[{
 Cell["\<\
 ToCanonical canonicalizes expressions, which roughly means 'sorting the \
 indices and introduce minus signs where necessary':\
-\>", "MathCaption",
- CellChangeTimes->{{3.5818515446009703`*^9, 3.581851549953003*^9}},
- CellID->637474812],
+\>", "Text",
+ CellID->779862434],
 
 Cell[CellGroupData[{
 
@@ -1389,9 +1381,8 @@ Cell[CellGroupData[{
 
 Cell["\<\
 This introduced a minus sign, because the tensor F is antisymmetric.\
-\>", "MathCaption",
- CellChangeTimes->{3.581851570750107*^9},
- CellID->1335039114],
+\>", "Text",
+ CellID->1055230597],
 
 Cell[CellGroupData[{
 
@@ -1478,9 +1469,8 @@ Cell["\<\
 This didn't do anything, because the expression was already canonical (it's \
 indices were already sorted).\[LineSeparator]The symmetrization of F does \
 reduce to zero if we use ToCanonical:\
-\>", "MathCaption",
- CellChangeTimes->{{3.58185160193191*^9, 3.581851607568089*^9}},
- CellID->1630079357],
+\>", "Text",
+ CellID->1340686853],
 
 Cell[CellGroupData[{
 
@@ -1572,9 +1562,8 @@ Cell[CellGroupData[{
 Cell["\<\
 ToCanonical also works on  more general expressions and symmetries. Here is \
 its action on a permutation of the Riemann tensor:\
-\>", "MathCaption",
- CellChangeTimes->{3.581851624136187*^9},
- CellID->287207442],
+\>", "Text",
+ CellID->1525514047],
 
 Cell[CellGroupData[{
 
@@ -1664,9 +1653,10 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["We can contract indices with the metric:", "MathCaption",
- CellChangeTimes->{3.581851643568318*^9},
- CellID->349387879],
+Cell["\<\
+We can contract indices with the metric:\
+\>", "Text",
+ CellID->507326396],
 
 Cell[CellGroupData[{
 
@@ -1754,9 +1744,8 @@ Cell[CellGroupData[{
 Cell["\<\
 This is not automatically contracted. We have to use the function \
 ContractMetric if we want to do so:\
-\>", "MathCaption",
- CellChangeTimes->{3.581851661247045*^9},
- CellID->1895872187],
+\>", "Text",
+ CellID->1124658982],
 
 Cell[CellGroupData[{
 
@@ -1831,8 +1820,8 @@ Cell[BoxData[
          Offset[0.2]}, "RowsIndexed" -> {}}],
     ShowAutoStyles->False,
     AutoSpacing->False],
-   $CellContext`RiemannCD[-$CellContext`a, -$CellContext`b, -$CellContext`c,
-     -$CellContext`d],
+   $CellContext`RiemannCD[-$CellContext`a, -$CellContext`b, -$CellContext`c, \
+-$CellContext`d],
    Editable->False]}]], "Output",
  CellChangeTimes->{3.581851671216851*^9, 3.581851854875708*^9, 
   3.581851898060851*^9},
@@ -1878,9 +1867,10 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["This is automatically converted to the Ricci tensor:", "MathCaption",
- CellChangeTimes->{3.581851685236595*^9},
- CellID->1455023930],
+Cell["\<\
+This is automatically converted to the Ricci tensor:\
+\>", "Text",
+ CellID->2139933227],
 
 Cell[CellGroupData[{
 
@@ -1899,10 +1889,10 @@ Cell["RicciCD[-b, -d]", "Output",
 
 Cell[CellGroupData[{
 
-Cell["Contracting again gives, as expected, the Ricci scalar:", "MathCaption",
- 
- CellChangeTimes->{3.581851881722371*^9},
- CellID->136315597],
+Cell["\<\
+Contracting again gives, as expected, the Ricci scalar:\
+\>", "Text",
+ CellID->1949109880],
 
 Cell[CellGroupData[{
 
@@ -1941,9 +1931,8 @@ Cell[CellGroupData[{
 Cell["\<\
 Contracting a pair of antisymmetric indices results in zero, but only after \
 using ToCanonical:\
-\>", "MathCaption",
- CellChangeTimes->{3.5818519243183823`*^9},
- CellID->348194863],
+\>", "Text",
+ CellID->974201822],
 
 Cell[CellGroupData[{
 
