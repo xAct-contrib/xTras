@@ -131,8 +131,46 @@ or set Mathematica.DocumentationBuild.createHTML.setting to Mathematica.Document
 	
 	<target name="main" depends="clean">
 		<antcall target="docbuild" />
+		<antcall target="replaceNames" />
 	</target>
 
+	<target name="replaceNames">
+		<!-- Guides -->
+		<replace dir="${dist}" value='"XTRAS GUIDE"'>
+		  <include name="**/*.nb"/>
+		  <replacetoken>"X TRAS GUIDE"</replacetoken>
+		</replace>
+		<replace dir="${dist}" value='"xTras Guide"'>
+		  <include name="**/*.nb"/>
+		  <replacetoken>"x Tras Guide"</replacetoken>
+		</replace>
+		<!-- Symbols -->
+		<replace dir="${dist}" value='"XTRAS PACKAGE SYMBOL"'>
+		  <include name="**/*.nb"/>
+		  <replacetoken>"X TRAS PACKAGE SYMBOL"</replacetoken>
+		</replace>
+		<replace dir="${dist}" value='"xTras Package Symbol"'>
+		  <include name="**/*.nb"/>
+		  <replacetoken>"x Tras Package Symbol"</replacetoken>
+		</replace>
+		<replace dir="${dist}" value='"XTRAS SYMBOL"'>
+		  <include name="**/*.nb"/>
+		  <replacetoken>"X TRAS SYMBOL"</replacetoken>
+		</replace>
+		<replace dir="${dist}" value='"xTras Symbol"'>
+		  <include name="**/*.nb"/>
+		  <replacetoken>"x Tras Symbol"</replacetoken>
+			</replace>
+		<!-- Tutorials -->
+		<replace dir="${dist}" value='"XTRAS TUTORIAL"'>
+		  <include name="**/*.nb"/>
+		  <replacetoken>"X TRAS TUTORIAL"</replacetoken>
+		</replace>
+		<replace dir="${dist}" value='"xTras Tutorial"'>
+		  <include name="**/*.nb"/>
+		  <replacetoken>"x Tras Tutorial"</replacetoken>
+		</replace>
+	</target>
 	
 </project>
 
