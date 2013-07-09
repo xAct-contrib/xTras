@@ -74,6 +74,7 @@ or set Mathematica.DocumentationBuild.createHTML.setting to Mathematica.Document
 		<echo message="Output NB: ${outputDirNB}"/>
 		<echo message="Output Web: ${outputDirWeb}"/>
 			
+		<property name="buildIndex" value="False" />
 		<property name="buildNBDocs" value="true" />
 		<property name="buildWebDocs" value="true" />
 		<property name="includeLinkTrails" value="false"/> 

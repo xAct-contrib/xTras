@@ -116,9 +116,27 @@ If[
 ,
 	xActDir = FileNameJoin@Drop[FileNameSplit@FindFile["xAct`xTras`"], -3]
 ];
+
+(* MMA 9 needs a Kernel extension in the PacletInfo.m file, whereas this chokes MMA 6. So remove it for MMA 6. *)
+If[
+	System`$VersionNumber < 7.
+,	
+	pacletFile 	= ToFileName[{xActDir,"xTras"},"PacletInfo.m"];
+	paclet 		= Get[pacletFile];
+	pacletNew 	= paclet /. {"Kernel", ___} -> Sequence[];
+	Put[pacletNew, pacletFile];
+]
+
 PacletManager`PacletDirectoryAdd[xActDir];
 (* Rebuild the PacletData. Necessary on MMA 6. *)
 PacletManager`RebuildPacletData[];
+
+(* Restore the old paclet file. *)
+If[
+	System`$VersionNumber < 7.
+,	
+	Put[paclet, pacletFile];
+]
 
 
 (*

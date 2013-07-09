@@ -9,11 +9,15 @@ Paclet[
     Description -> "Field theory inspired additions to xAct",
     Creator -> "Teake Nutma",
     Extensions -> 
-        { 
-            {"Documentation", Resources -> 
-                {"Guides/xTras"}
-            , Language -> "English", MainPage -> "Guides/xTras"}
+        {
+        	{
+        	 	"Kernel", 
+        	 		Context -> {"xTras`"}
+            },
+            {
+            	"Documentation", 
+            		Resources -> {"Guides/xTras"}, Language -> "English", 
+            		MainPage -> "Guides/xTras", LinkBase -> "xTras"
+            }
         }
 ]
-
-

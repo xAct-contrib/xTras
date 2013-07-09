@@ -156,8 +156,15 @@
 
 	<!-- Task that deploys xTras into the local Mathematica user directory. -->
 	<target name="deploy">
+		<delete includeEmptyDirs="true" quiet="true">
+			<fileset dir="${user.home}/Library/Mathematica/Applications/xAct/xTras" defaultexcludes="no"/>
+		</delete>
 		<copy todir="${user.home}/Library/Mathematica/Applications/xAct">
 			<fileset dir="xAct" />
 		</copy>
+		<copy todir="${user.home}/Library/Mathematica/Applications/xAct/xTras">
+			<fileset dir="build/xTras" />
+		</copy>
 	</target>
+	
 </project>
