@@ -120,16 +120,16 @@ Cell[TextData[{
  Cell[BoxData[
   RowBox[{"TermsOf", "[", 
    StyleBox["expr", "TI"], "]"}]], "InlineFormula"],
- " \[LineSeparator]gives all different tensorial terms in ",
+ "\[LineSeparator]gives all different tensorial terms in ",
  StyleBox["expr", "TI"],
  " in pseudo index-free notation."
 }], "Usage",
- CellChangeTimes->{{3.580479398661068*^9, 3.580479424849287*^9}},
+ CellChangeTimes->{{3.580479398661068*^9, 3.580479424849287*^9}, 
+   3.582465062013646*^9},
  CellID->982511436],
 
 Cell[TextData[{
- Cell[BoxData["TermsOf"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["TermsOf"], "InlineFormula"],
  " always returns a list of depth 1, irrespective of the list structure of \
 the input expression."
 }], "Notes",
@@ -322,8 +322,8 @@ Cell[BoxData[
 WindowSize->{700, 770},
 WindowMargins->{{4, Automatic}, {Automatic, 0}},
 CellContext->"Global`",
-FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
-2011)",
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
+2013)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
   CharacterEncoding -> "UTF-8"]
 ]

@@ -122,10 +122,11 @@ ParseUsageMessage[{symbol_,usage_}] :=
  *  Helper functions below. 
  *)
 
-(* Trims \[LineSeparator] from the beginning of a string an replaces it with a space. *)
-TrimLineSeparator[string_String] /; StringMatchQ[string, "\[LineSeparator]" ~~ ___] := 
+(* Trims \[LineSeparator] from the beginning of a string and replaces it with a space. *)
+TrimLineSeparator[string_String] := TrimLineSeparator1@StringReplace[string, StartOfString ~~ Whitespace :> ""];
+TrimLineSeparator1[string_String] /; StringMatchQ[string, "\[LineSeparator]" ~~ ___] := 
 	" " <> StringDrop[string,1];
-TrimLineSeparator[string_String] := string;
+TrimLineSeparator1[string_String] := string;
 
 (* Replaces all newline characters ("\n") with \[LineSeparator]. Returns a sequence. *)
 NewLineReplace[string_String] /; StringMatchQ[string, ___ ~~ "\n"] := 

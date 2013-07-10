@@ -459,9 +459,9 @@ TensorWrapper::usage = "\!\(\*TagBox[\(TensorWrapper[ \*StyleBox[\"expr\", \
 \"TI\"]] wraps all tensorial terms in  \*StyleBox[\"expr\", \"TI\"]\(\(\\ in \
 the inert head \)\)\*StyleBox[\"TensorWrapper\", \"InlineCode\"] .\), \
 DisplayForm]\)"; 
-TermsOf::usage = "\!\(\*TagBox[\(TermsOf[ \*StyleBox[\"expr\", \"TI\"]] \
-\[LineSeparator]gives all different tensorial terms in  \*StyleBox[\"expr\", \
-\"TI\"]\(\(\\ in pseudo index-free notation.\)\)\), DisplayForm]\)"; 
+TermsOf::usage = "\!\(\*TagBox[\(TermsOf[ \*StyleBox[\"expr\", \"TI\"]] gives \
+all different tensorial terms in  \*StyleBox[\"expr\", \"TI\"]\(\(\\ in \
+pseudo index-free notation.\)\)\), DisplayForm]\)"; 
 TimeString::usage = "\!\(\*TagBox[\(TimeString[ \*StyleBox[\"seconds\", \
 \"TI\"]] formats  \*StyleBox[\"seconds\", \"TI\"]\(\(\\ \*\"as a string of \
 the form \\\"\"\)\)\*StyleBox[\"10 minutes, 5 seconds\", Rule[FontSlant, \
