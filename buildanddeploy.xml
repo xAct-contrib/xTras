@@ -144,7 +144,7 @@
 		<replaceregexp file="xAct/xTras/Kernel/init.m" match="Version = (.*)" replace="Version = ${xact.version};" byline="true" />
 		<!-- Replace the version number in the PacletInfo.m file. -->
 		<replaceregexp file="PacletInfo.m" match=" Version -> (.*)" replace=" Version -> ${quoted.version}," byline="true" />
-		<replaceregexp file="docbuild/xTras/PacletInfo.m" match=" Version -> (.*)" replace=" Version -> ${quoted.version}," byline="true" />
+		<replaceregexp file="build/xTras/PacletInfo.m" match=" Version -> (.*)" replace=" Version -> ${quoted.version}," byline="true" />
 
 		<!-- Lastly, zip everything in a distributable file. -->
 		<zip destfile="dist/xTras.v${git.newversion}.zip" basedir="." includes="INSTALL,xAct/**" update="no">

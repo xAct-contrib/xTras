@@ -131,10 +131,12 @@ or set Mathematica.DocumentationBuild.createHTML.setting to Mathematica.Document
 	
 	<target name="main" depends="clean">
 		<antcall target="docbuild" />
-		<antcall target="replaceNames" />
+		<antcall target="replaceStuff" />
 	</target>
 
-	<target name="replaceNames">
+	<target name="replaceStuff">
+		
+		<!-- x Tras to xTras -->
 		<!-- Guides -->
 		<replace dir="${dist}" value='"XTRAS GUIDE"'>
 		  <include name="**/*.nb"/>
@@ -170,6 +172,30 @@ or set Mathematica.DocumentationBuild.createHTML.setting to Mathematica.Document
 		  <include name="**/*.nb"/>
 		  <replacetoken>"x Tras Tutorial"</replacetoken>
 		</replace>
+		
+		<!-- Remove CacheIDs -->
+		<replace dir="${dist}" value=''>
+		  <include name="**/*.nb"/>
+		  <replacetoken>(*CacheID: 234*)</replacetoken>
+		</replace>
+
+		<!-- Change FrontEndVersion to 6.0 -->
+		<replaceregexp match='FrontEndVersion -> "(.*)"' replace='FrontEndVersion -> "6.0"' byline="true">
+		    <fileset dir="${dist}" includes="**/*.nb"/>
+		</replaceregexp>
+		<replaceregexp match='FrontEndVersion->"(.*)"' replace='FrontEndVersion->"6.0"' byline="true">
+		    <fileset dir="${dist}" includes="**/*.nb"/>
+		</replaceregexp>
+			
+		<!-- Remove box around MORE INFORMATION -->
+		<replace dir="${dist}" value='StyleBox[RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"]'>
+		  <include name="**/*.nb"/>
+		  <replacetoken><![CDATA[FrameBox[
+   StyleBox[
+    RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"],
+   StripOnInput->False]]]></replacetoken>
+		</replace>		
+		
 	</target>
 	
 </project>
