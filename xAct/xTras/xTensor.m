@@ -197,30 +197,27 @@ IndexFree[list_List] := IndexFree /@ list;
 
 (* Formatting. *)
 MakeBoxes[IndexFree[expr_], StandardForm] := 
-	Block[{bla},
-		ToBoxes[
-			expr /. x_?xTensorQ :> PrintAs[x] 
-				//. cd_[x_] /; CovDQ[cd] :> bla[Last@SymbolOfCovD[cd], x] 
-				 /. bla -> StringJoin
-		]
-	]
-
+	ToBoxes[ 
+		expr /. x_?xTensorQ :> PrintAs[x] //. cd_?CovDQ :> Last@SymbolOfCovD[cd], 
+		StandardForm
+	] /. "["|"]" -> Sequence[];
 
 FromIndexFree[expr_] :=
 	expr /. HoldPattern[IndexFree[sub_]] :> FromIndexFree1[sub];
 
-FromIndexFree1[expr_] :=
-	ScreenDollarIndices[
-			expr 
-			//. RuleDelayed[
-				(cd_?CovDQ[x_ /; xTensorQ[x] || CovDQ@Head[x]])^Optional[n_Integer],
-				Product[cd[-DummyIn@First@VBundlesOfCovD@cd][x], {n}]
-			] 
-			/. RuleDelayed[
-				(x_?xTensorQ)^Optional[n_Integer],
-				Product[x @@ DummyIn /@ SlotsOfTensor@x, {n}] 
-			]
-		];
+FromIndexFree1[expr_] := ScreenDollarIndices[ FromIndexFreeTensors@FromIndexFreeCovDs@expr ];
+	
+FromIndexFreeTensors[expr_] := 
+	expr /. RuleDelayed[
+		(x_?xTensorQ)^Optional[n_Integer],
+		Product[x @@ DummyIn /@ SlotsOfTensor@x, {n}] 
+	];
+
+FromIndexFreeCovDs[expr_] :=
+	expr /.RuleDelayed[
+				(cd_?CovDQ[x_])^Optional[n_Integer],
+				Product[cd[-DummyIn@First@VBundlesOfCovD@cd][FromIndexFreeCovDs@x], {n}]
+	]; 
 
 ToIndexFree[expr_] :=
 	IndexFree[expr //. cd_?CovDQ[_][x_] :> cd[x] /. x_?xTensorQ[___] :> x];
