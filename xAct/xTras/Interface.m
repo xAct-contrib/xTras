@@ -68,14 +68,14 @@ False otherwise.\)\)\), DisplayForm]\)";
 ConstantPrefix::usage = "ConstantPrefix is an option for MakeAnsatz that \
 determines the prefix of the constant symbols."; 
 ConstructDDIs::usage = "\!\(\*TagBox[\(ConstructDDIs[ \*StyleBox[\"expr\", \
-\"TI\"]] constructs all Dimensional Dependent Identities that can be build \
-out of  \*StyleBox[\"expr\", \"TI\"] . \[LineSeparator] ConstructDDIs[ \
+\"TI\"]] constructs all scalar dimensional dependent identities that can be \
+build out of  \*StyleBox[\"expr\", \"TI\"] . \[LineSeparator] ConstructDDIs[ \
 \*StyleBox[\"expr\", \"TI\"],  \*StyleBox[\"frees\", \"TI\"]] constructs all \
-Dimensional Dependent Identities that can be build out of  \
+dimensional dependent identities that can be build out of  \
 \*StyleBox[\"expr\", \"TI\"]\(\(\\ and that have free indices \
 \)\)\*StyleBox[\"frees\", \"TI\"] . \[LineSeparator] ConstructDDIs[ \
 \*StyleBox[\"expr\", \"TI\"],  \*StyleBox[\"frees\", \"TI\"],  \
-\*StyleBox[\"sym\", \"TI\"]] constructs all Dimensional Dependent Identities \
+\*StyleBox[\"sym\", \"TI\"]] constructs all dimensional dependent identities \
 that can be build out of  \*StyleBox[\"expr\", \"TI\"]\(\(\\ and that have \
 the symmetry \)\)\*StyleBox[\"sym\", \"TI\"]\(\(\\ imposed on their free \
 indices \)\)\*StyleBox[\"frees.\", \"TI\"]\), DisplayForm]\)"; 
@@ -359,21 +359,15 @@ curvature tensors of the metric  \*StyleBox[\"g\", \"TI\"]\(\(\\ in \
 \"TI\"]\(\(\\ up to the \)\)\*StyleBox[\"l\", \"TI\"] th step in  \
 \*StyleBox[\"expr.\", \"TI\"]\), DisplayForm]\)"; 
 RiemannYoungProject::usage = "\!\(\*TagBox[\(RiemannYoungProject[ \
-\*StyleBox[\"expr\", \"TI\"]] projects all Riemann tensors in  \
-\*StyleBox[\"expr\", \"TI\"]\(\(\\ onto their Young tableaux. \
+\*StyleBox[\"expr\", \"TI\"]] projects all Riemann tensors and their first \
+derivatives in  \*StyleBox[\"expr\", \"TI\"]\(\(\\ onto their Young tableaux. \
 \)\)\[LineSeparator] RiemannYoungProject[ \*StyleBox[\"expr\", \"TI\"],  \
 \*StyleBox[\"cd\", \"TI\"]] only projects Riemann tensors of the covariant \
-derivative  \*StyleBox[\"cd\", \"TI\"] . \[LineSeparator] \
-RiemannYoungProject[ \*StyleBox[\"expr\", \"TI\"],  \*StyleBox[\"cd\", \
-\"TI\"],  \*StyleBox[\"n\", \"TI\"]] projects  \*StyleBox[\"n\", \"TI\"] \
--fold covariant derivatives of the Riemann tensor. \), DisplayForm]\)"; 
+derivative  \*StyleBox[\"cd\", \"TI\"] .\), DisplayForm]\)"; 
 RiemannYoungRule::usage = "\!\(\*TagBox[\(RiemannYoungRule[ \
-\*StyleBox[\"cd\", \"TI\"]] gives the projection rule for the Riemann tensor \
+\*StyleBox[\"cd\", \"TI\"]] gives the projection rules for the Riemann tensor \
 of the covariant derivative  \*StyleBox[\"cd\", \"TI\"]\(\(\\ onto its Young \
-tableau.\)\)\[LineSeparator] RiemannYoungRule[ \*StyleBox[\"cd\", \"TI\"], \
-\*StyleBox[\"n\", \"TI\"]] gives the projection rules for the  \
-\*StyleBox[\"n\", \"TI\"] th covariant derivative of the Riemann tensor onto \
-its Young tableau.\), DisplayForm]\)"; 
+tableau.\)\)\), DisplayForm]\)"; 
 SchoutenCC::usage = "\!\(\*TagBox[\(SchoutenCC is a reserved word in  \
 \*StyleBox[\"xTras\", Rule[FontSlant, \"Italic\"]] . It is used to generate \
 the name of the cosmological Schouten curvature tensor associated to a \
@@ -451,6 +445,10 @@ rules for the curvature tensors of the covariant derivative  \
 \)\)\*StyleBox[\"K\", \"TI\"] .\), DisplayForm]\)"; 
 SymmetrizeMethod::usage = "SymmetrizeMethod is an option for AllContractions \
 that specifies how it should symmetrize the free indices."; 
+TableauDimension::usage = "\!\(\*TagBox[\(TableauDimension[ \
+\*StyleBox[\"tab\", \"TI\"]] gives the dimension of the Young diagram \
+associated to the Young tableau  \*StyleBox[\"tab\", \"TI\"] .\), \
+DisplayForm]\)"; 
 TableauSymmetric::usage = "\!\(\*TagBox[\(TableauSymmetric[ \
 \*StyleBox[\"tab\", \"TI\"]] gives the symmetry of the tableau  \
 \*StyleBox[\"tab\", \"TI\"]\(\(\\ as a Strong Generating Set.\)\)\), \
@@ -513,9 +511,8 @@ YoungSymmetrize::usage = "\!\(\*TagBox[\(YoungSymmetrize[ \
 tensorial expression  \*StyleBox[\"expr\", \"TI\"]\(\(\\ with respect to the \
 Young tableau \)\)\*StyleBox[\"tab\", \"TI\"] . \), DisplayForm]\)"; 
 YoungTableauQ::usage = "\!\(\*TagBox[\(YoungTableauQ[ \*StyleBox[\"tab\", \
-\"TI\"]] returns True if  \*Cell[BoxData[StyleBox[\"tab\", \"TI\"]], \
-\"InlineFormula\", Rule[FormatType, \"StandardForm\"]]\(\(\\ is a proper \
-Young tableau, and False otherwise.\)\)\), DisplayForm]\)"; 
+\"TI\"]] returns True if  \*StyleBox[\"tab\", \"TI\"]\(\(\\ is a proper Young \
+tableau, and False otherwise.\)\)\), DisplayForm]\)"; 
 $TensorWrapperColor::usage = "$TensorWrapperColor is a global variable \
 specifying the color of the parentheses surrounding the formatting of a \
 TensorWrapper expression."; 

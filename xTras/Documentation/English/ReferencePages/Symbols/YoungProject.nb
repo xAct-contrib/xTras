@@ -130,7 +130,9 @@ Cell[TextData[{
  ". "
 }], "Usage",
  CellChangeTimes->{{3.579753741906839*^9, 3.579753742102171*^9}, {
-  3.580893789104405*^9, 3.580893817130918*^9}}],
+  3.580893789104405*^9, 3.580893817130918*^9}, {3.5828580411941547`*^9, 
+  3.582858068575884*^9}, {3.582858178337762*^9, 3.5828581787054167`*^9}, {
+  3.582858382563068*^9, 3.5828583884701242`*^9}}],
 
 Cell[TextData[{
  "The difference between projecting with ",
@@ -174,7 +176,8 @@ Cell[TextData[{
  "."
 }], "Notes",
  CellChangeTimes->{{3.58089332190831*^9, 3.580893435252836*^9}, {
-  3.580897259273785*^9, 3.580897267530698*^9}},
+  3.580897259273785*^9, 3.580897267530698*^9}, {3.582858085016594*^9, 
+  3.582858085807317*^9}, {3.582858183616715*^9, 3.582858184838408*^9}},
  CellID->1691640915],
 
 Cell[TextData[{
@@ -272,13 +275,18 @@ Cell[TextData[{
    ButtonData->"paclet:xTras/ref/TableauSymmetric"]], "InlineFormula"],
  " \[EmptyVerySmallSquare] ",
  Cell[BoxData[
+  ButtonBox["TableauDimension",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/TableauDimension"]], "InlineFormula"],
+ " \[EmptyVerySmallSquare] ",
+ Cell[BoxData[
   ButtonBox["YoungTableauQ",
    BaseStyle->"Link",
    ButtonData->"paclet:xTras/ref/YoungTableauQ"]], "InlineFormula"]
 }], "SeeAlso",
  CellChangeTimes->{{3.580893836388542*^9, 3.58089385604664*^9}, {
-  3.580896759402924*^9, 3.5808967703651667`*^9}, {3.580897237396583*^9, 
-  3.580897257547068*^9}},
+   3.580896759402924*^9, 3.5808967703651667`*^9}, {3.580897237396583*^9, 
+   3.580897257547068*^9}, 3.5828576724210043`*^9},
  CellID->929782353]
 }, Open  ]],
 
@@ -305,6 +313,167 @@ Cell[BoxData[
    }],
   $Line = 0; Null]], "PrimaryExamplesSection",
  CellID->880084151],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"YoungProject", "[", 
+  RowBox[{
+   RowBox[{"T", "[", 
+    RowBox[{"a", ",", "b"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"a", ",", "b"}], "}"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.58285787944985*^9, 3.58285788993655*^9}, 
+   3.582857990987535*^9},
+ CellLabel->"In[15]:=",
+ CellID->1476202835],
+
+Cell[BoxData[
+ RowBox[{
+  FractionBox[
+   InterpretationBox[
+    StyleBox[GridBox[{
+       {"T", 
+        StyleBox[GridBox[{
+           {"a", "b"},
+           {" ", " "}
+          },
+          GridBoxSpacings->{"Columns" -> {
+              Offset[0.], {
+               Offset[0.034999999999999996`]}, 
+              Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+               Offset[0.]}}, "RowsIndexed" -> {}}],
+         FontSize->9]}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.034999999999999996`]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`T[$CellContext`a, $CellContext`b],
+    Editable->False], "2"], "+", 
+  FractionBox[
+   InterpretationBox[
+    StyleBox[GridBox[{
+       {"T", 
+        StyleBox[GridBox[{
+           {"b", "a"},
+           {" ", " "}
+          },
+          GridBoxSpacings->{"Columns" -> {
+              Offset[0.], {
+               Offset[0.034999999999999996`]}, 
+              Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+               Offset[0.]}}, "RowsIndexed" -> {}}],
+         FontSize->9]}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.034999999999999996`]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`T[$CellContext`b, $CellContext`a],
+    Editable->False], "2"]}]], "Output",
+ CellChangeTimes->{3.582857890571795*^9},
+ CellLabel->"Out[15]=",
+ CellID->662474054]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"YoungProject", "[", 
+  RowBox[{
+   RowBox[{"T", "[", 
+    RowBox[{"a", ",", "b"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", "a", "}"}], ",", 
+     RowBox[{"{", "b", "}"}]}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.58285789218793*^9, 3.582857902742285*^9}, 
+   3.5828579922266397`*^9},
+ CellLabel->"In[17]:=",
+ CellID->1646199530],
+
+Cell[BoxData[
+ RowBox[{
+  FractionBox[
+   InterpretationBox[
+    StyleBox[GridBox[{
+       {"T", 
+        StyleBox[GridBox[{
+           {"a", "b"},
+           {" ", " "}
+          },
+          GridBoxSpacings->{"Columns" -> {
+              Offset[0.], {
+               Offset[0.034999999999999996`]}, 
+              Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+               Offset[0.]}}, "RowsIndexed" -> {}}],
+         FontSize->9]}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.034999999999999996`]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`T[$CellContext`a, $CellContext`b],
+    Editable->False], "2"], "-", 
+  FractionBox[
+   InterpretationBox[
+    StyleBox[GridBox[{
+       {"T", 
+        StyleBox[GridBox[{
+           {"b", "a"},
+           {" ", " "}
+          },
+          GridBoxSpacings->{"Columns" -> {
+              Offset[0.], {
+               Offset[0.034999999999999996`]}, 
+              Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+               Offset[0.]}}, "RowsIndexed" -> {}}],
+         FontSize->9]}
+      },
+      GridBoxAlignment->{
+       "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
+        "RowsIndexed" -> {}},
+      GridBoxSpacings->{"Columns" -> {
+          Offset[0.27999999999999997`], {
+           Offset[0.034999999999999996`]}, 
+          Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+          Offset[0.2], {
+           Offset[0.4]}, 
+          Offset[0.2]}, "RowsIndexed" -> {}}],
+     ShowAutoStyles->False,
+     AutoSpacing->False],
+    $CellContext`T[$CellContext`b, $CellContext`a],
+    Editable->False], "2"]}]], "Output",
+ CellChangeTimes->{3.5828579034720907`*^9, 3.582857993096328*^9},
+ CellLabel->"Out[17]=",
+ CellID->39771055]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -449,7 +618,8 @@ Cell[BoxData[
       RowBox[{
        RowBox[{"-", "b"}], ",", 
        RowBox[{"-", "d"}]}], "}"}]}], "}"}]}], "]"}]], "Input",
- CellChangeTimes->{{3.58089387783208*^9, 3.580893891922324*^9}},
+ CellChangeTimes->{{3.58089387783208*^9, 3.580893891922324*^9}, {
+  3.582857996563245*^9, 3.582857997336031*^9}},
  CellLabel->"In[32]:=",
  CellID->1574838720],
 

@@ -1,7 +1,7 @@
 Notebook[{
 Cell[TextData[{
  "New in: ",
- Cell["1.0.0", "HistoryData",
+ Cell["1.2.0", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
  Cell[" ", "HistoryData",
@@ -13,7 +13,7 @@ Cell[TextData[{
  Cell[" ", "HistoryData",
   CellTags->"Excised"]
 }], "History",
- CellChangeTimes->{{3.5808970266595182`*^9, 3.580897028301753*^9}},
+ CellChangeTimes->{{3.582857194628458*^9, 3.582857195847052*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -25,17 +25,16 @@ Cell["Symbol", "Categorization",
  CellLabel->"Entity Type",
  CellID->686433507],
 
-Cell["xTras Package", "Categorization",
+Cell["xTras", "Categorization",
  CellLabel->"Paclet Name",
- CellID->161412437],
+ CellID->605800465],
 
 Cell["xTras`", "Categorization",
  CellLabel->"Context",
- CellID->586982498],
+ CellID->468444828],
 
-Cell["xTras/ref/YoungTableauQ", "Categorization",
- CellLabel->"URI",
- CellID->2022453215]
+Cell["xTras/ref/TableauDimension", "Categorization",
+ CellLabel->"URI"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -113,30 +112,48 @@ Cell["XXXX", "Details",
 
 Cell[CellGroupData[{
 
-Cell["YoungTableauQ", "ObjectName",
+Cell["TableauDimension", "ObjectName",
  CellID->1224892054],
 
 Cell[TextData[{
  Cell["   ", "ModInfo"],
  Cell[BoxData[
-  RowBox[{"YoungTableauQ", "[", 
+  RowBox[{"TableauDimension", "[", 
    StyleBox["tab", "TI"], "]"}]], "InlineFormula"],
- "\[LineSeparator]returns True if ",
- Cell[BoxData[
-  StyleBox["tab", "TI"]], "InlineFormula"],
- " is a proper Young tableau, and False otherwise."
+ " \[LineSeparator]gives the dimension of the Young diagram associated to the \
+Young tableau ",
+ StyleBox["tab", "TI"],
+ "."
 }], "Usage",
- CellChangeTimes->{
-  3.579753733793077*^9, {3.580897032450961*^9, 3.580897063519799*^9}}],
+ CellChangeTimes->{{3.582857223184902*^9, 3.582857264041093*^9}, {
+  3.5828584356022787`*^9, 3.5828584425217543`*^9}},
+ CellID->982511436],
 
-Cell["\<\
-A proper Young tableau is a list of lists of either integers or of symbols, \
-whose entries only occur once. Furthermore the length of the lists has to \
-decrease monotonically.\
-\>", "Notes",
- CellChangeTimes->{{3.580897066551341*^9, 3.580897069853866*^9}, {
-  3.5808973247349253`*^9, 3.580897330074623*^9}, {3.582858355212799*^9, 
-  3.582858360856303*^9}},
+Cell[TextData[{
+ "The Young tableau has to be given as an array. For example, the array ",
+ Cell[BoxData[
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"a", ",", "b"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"c", ",", "d"}], "}"}]}], "}"}]], "InlineFormula"],
+ " represents the tableau  ",
+ Cell[BoxData[GridBox[{
+    {"a", "b"},
+    {"c", "d"}
+   },
+   GridBoxDividers->{
+    "Columns" -> {{True}}, "ColumnsIndexed" -> {}, "Rows" -> {{True}}, 
+     "RowsIndexed" -> {}}]]],
+ ". See also ",
+ Cell[BoxData[
+  ButtonBox["YoungTableauQ",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/YoungTableauQ"]], "InlineFormula"],
+ "."
+}], "Notes",
+ CellChangeTimes->{3.5828575442289753`*^9},
  CellID->1067943069]
 }, Open  ]],
 
@@ -174,16 +191,22 @@ Cell["See Also", "SeeAlsoSection",
 
 Cell[TextData[{
  Cell[BoxData[
+  ButtonBox["TableauSymmetric",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/TableauSymmetric"]], "InlineFormula"],
+ " \[EmptyVerySmallSquare] ",
+ Cell[BoxData[
   ButtonBox["YoungProject",
    BaseStyle->"Link",
    ButtonData->"paclet:xTras/ref/YoungProject"]], "InlineFormula"],
  " \[EmptyVerySmallSquare] ",
  Cell[BoxData[
-  ButtonBox["TableauSymmetric",
+  ButtonBox["YoungTableauQ",
    BaseStyle->"Link",
-   ButtonData->"paclet:xTras/ref/TableauSymmetric"]], "InlineFormula"]
+   ButtonData->"paclet:xTras/ref/YoungTableauQ"]], "InlineFormula"]
 }], "SeeAlso",
- CellChangeTimes->{{3.5808971660852833`*^9, 3.580897200423431*^9}},
+ CellChangeTimes->{{3.582857470489047*^9, 3.582857523241831*^9}, {
+  3.582857574609364*^9, 3.582857613650756*^9}},
  CellID->929782353]
 }, Open  ]],
 
@@ -214,75 +237,77 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"YoungTableauQ", "[", 
+ RowBox[{"TableauDimension", "[", 
   RowBox[{"{", 
    RowBox[{"{", 
-    RowBox[{"a", ",", "b", ",", "c"}], "}"}], "}"}], "]"}]], "Input",
- CellChangeTimes->{{3.580897076690631*^9, 3.580897084955062*^9}},
- CellLabel->"In[56]:=",
- CellID->1435177368],
+    RowBox[{"a", ",", "b", ",", "c", ",", "d"}], "}"}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{{3.5828573600892982`*^9, 3.582857385058255*^9}},
+ CellLabel->"In[8]:=",
+ CellID->1995365490],
 
-Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.580897085514909*^9},
- CellLabel->"Out[56]=",
- CellID->489700872]
+Cell[BoxData["1"], "Output",
+ CellChangeTimes->{3.582857386098302*^9},
+ CellLabel->"Out[8]=",
+ CellID->1003158878]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"YoungTableauQ", "[", 
-  RowBox[{"{", 
-   RowBox[{
-    RowBox[{"{", 
-     RowBox[{"a", ",", "b"}], "}"}], ",", 
-    RowBox[{"{", "c", "}"}]}], "}"}], "]"}]], "Input",
- CellChangeTimes->{{3.580897086632661*^9, 3.580897095515634*^9}},
- CellLabel->"In[57]:=",
- CellID->1245220400],
-
-Cell[BoxData["True"], "Output",
- CellChangeTimes->{3.5808970959971323`*^9},
- CellLabel->"Out[57]=",
- CellID->1191122785]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"YoungTableauQ", "[", 
-  RowBox[{"{", 
-   RowBox[{
-    RowBox[{"{", 
-     RowBox[{"a", ",", "b"}], "}"}], ",", 
-    RowBox[{"{", "a", "}"}]}], "}"}], "]"}]], "Input",
- CellChangeTimes->{{3.580897096981988*^9, 3.580897129866124*^9}},
- CellLabel->"In[59]:=",
- CellID->358090161],
-
-Cell[BoxData["False"], "Output",
- CellChangeTimes->{{3.580897108767647*^9, 3.5808971305841417`*^9}},
- CellLabel->"Out[59]=",
- CellID->1575759700]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"YoungTableauQ", "[", 
+ RowBox[{"TableauDimension", "[", 
   RowBox[{"{", 
    RowBox[{
     RowBox[{"{", "a", "}"}], ",", 
-    RowBox[{"{", 
-     RowBox[{"b", ",", "c"}], "}"}]}], "}"}], "]"}]], "Input",
- CellChangeTimes->{{3.580897138664909*^9, 3.580897159735702*^9}},
- CellLabel->"In[60]:=",
- CellID->1024943096],
+    RowBox[{"{", "b", "}"}], ",", 
+    RowBox[{"{", "c", "}"}], ",", 
+    RowBox[{"{", "d", "}"}]}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{{3.58285740268871*^9, 3.582857415535125*^9}},
+ CellLabel->"In[9]:=",
+ CellID->197149949],
 
-Cell[BoxData["False"], "Output",
- CellChangeTimes->{3.580897160414875*^9},
- CellLabel->"Out[60]=",
- CellID->1252281885]
+Cell[BoxData["1"], "Output",
+ CellChangeTimes->{3.582857416093727*^9},
+ CellLabel->"Out[9]=",
+ CellID->2079409169]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TableauDimension", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"a", ",", "b", ",", "c"}], "}"}], ",", 
+    RowBox[{"{", "d", "}"}]}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{{3.58285741676099*^9, 3.582857433083785*^9}},
+ CellLabel->"In[10]:=",
+ CellID->481032105],
+
+Cell[BoxData["3"], "Output",
+ CellChangeTimes->{3.5828574335215473`*^9},
+ CellLabel->"Out[10]=",
+ CellID->1578141427]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"TableauDimension", "[", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"a", ",", "b"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"c", ",", "d"}], "}"}]}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{{3.5828574347888603`*^9, 3.582857442966556*^9}},
+ CellLabel->"In[11]:=",
+ CellID->252439492],
+
+Cell[BoxData["2"], "Output",
+ CellChangeTimes->{3.582857443538019*^9},
+ CellLabel->"Out[11]=",
+ CellID->1470339219]
 }, Open  ]]
 }, Open  ]],
 
@@ -346,7 +371,7 @@ Cell[BoxData[
  CellID->589267740]
 }, Open  ]]
 },
-WindowSize->{836, 768},
+WindowSize->{700, 770},
 WindowMargins->{{4, Automatic}, {Automatic, 0}},
 CellContext->"Global`",
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
