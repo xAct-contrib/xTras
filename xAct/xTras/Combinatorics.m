@@ -106,6 +106,8 @@ TableauSymmetric::usage =
 	"TableauSymmetric[tableau] gives the Strong Generating Set in Cycles notation of the \
 mono-term symmetry of the given tableau. It takes the option ManifestSymmetry.";
 
+TableauDimension::usage =
+	"TableauDimension[tableau] gives the dimensions of the given tableau.";
 
 BasicDDI::usage = 
 	"BasicDDI is a reserved word in xTras`Combinatorics`. It is used to label the various \
@@ -553,6 +555,17 @@ IndexConfigurations[expr_] := Module[
 (* Young projectors et al. *)
 (***************************)
 
+TableauTranspose[tab_] := 
+	Flatten[tab, {2}];
+
+TableauDimension[tab_?YoungTableauQ] := 
+	With[
+	{
+		f = Reverse@Range@Length[#] &
+	}, 
+		(Length@Flatten@tab)! / Times @@ Flatten[TableauTranspose[f /@ TableauTranspose@tab] + (f /@ tab) - 1]
+	];
+
 (* 
 	I got the idea of using Young projectors from Guillaume Faye and Kaspar Peeters.
  	See http://groups.google.com/group/xact/browse_thread/thread/d19247526163ed62/986a5b04d4fa19f4 .
@@ -581,14 +594,14 @@ Options[YoungSymmetrize] ^= {
 };
 
 YoungSymmetrize[expr_, tableau_, options___?OptionQ] := Module[{transpose, sym, manifest},
-	manifest = ManifestSymmetry	/. CheckOptions[options] /. Options[YoungSymmetrize];
-	transpose 	= Transpose@PadRight@tableau /. 0 -> Sequence[];
+	manifest 	= ManifestSymmetry	/. CheckOptions[options] /. Options[YoungSymmetrize];
+	transpose 	= TableauTranspose[tableau];
 	If[manifest === Antisymmetric,
-		sym = Fold[ToCanonical[Symmetrize[#1, #2]] &, expr, tableau];
-		sym	= Fold[ToCanonical[Antisymmetrize[#1, #2]] &, sym, transpose];
+		sym = ToCanonical@Fold[Symmetrize[#1, #2] &, expr, tableau];
+		sym	= ToCanonical@Fold[Antisymmetrize[#1, #2] &, sym, transpose];
 	,
-		sym	= Fold[ToCanonical[Antisymmetrize[#1, #2]] &, expr, transpose];
-		sym = Fold[ToCanonical[Symmetrize[#1, #2]] &, sym, tableau];
+		sym	= ToCanonical@Fold[Antisymmetrize[#1, #2] &, expr, transpose];
+		sym = ToCanonical@Fold[Symmetrize[#1, #2] &, sym, tableau];
 	];
 	sym	
 ] /; ExprYoungQ[expr,tableau];
@@ -600,17 +613,14 @@ YoungSymmetrize[tensor_?xTensorQ, tableau : {{___Integer} ...}, options___?Optio
 
 YoungSymmetrize[tensor_?xTensorQ, options___?OptionQ] := Total[YoungSymmetrize[tensor, #] & /@ SymmetryTableauxOfTensor[tensor], options];
 
-YoungProject[expr_, tableau_, options___?OptionQ] := Module[{sym1, sym2, n, result},
-	sym1 = YoungSymmetrize[expr, tableau, options];
-	sym2 = YoungSymmetrize[sym1, tableau, options];
-	Block[{$DefInfoQ = False, $UndefInfoQ = False},
-		(* TODO: compute the overall factor n from group-theoretical arguments
-		   instead of symmetrizing twice *)
-		DefConstantSymbol[n];
-		result = n sym1 /. First@SolveConstants[sym1 == n sym2, n] // ToCanonical;
-		UndefConstantSymbol[n];
-	];
-	result
+YoungProject[expr_, tableau_, options___?OptionQ] := Module[
+	{
+		dim	= TableauDimension[tableau],
+		n	= Length@Flatten@tableau,
+		n1	= Times @@ ( Factorial@Length[#]& /@ tableau ),
+		n2  = Times @@ ( Factorial@Length[#]& /@ TableauTranspose@tableau )
+	},	
+	MapIfPlus[(# dim n1 n2 / n!)&, YoungSymmetrize[expr, tableau, options] ]
 ] /; ExprYoungQ[expr,tableau];
 
 YoungProject[tensor_?xTensorQ, tableau : {{___Integer} ...}, options___?OptionQ] := Module[{indices},
@@ -619,34 +629,25 @@ YoungProject[tensor_?xTensorQ, tableau : {{___Integer} ...}, options___?OptionQ]
 ] /; TnsrYoungQ[tensor,tableau];
 
 
-RiemannYoungRule[cd_?CovDQ, options___?OptionQ] := RiemannYoungRule[cd,{0},options];
-
-RiemannYoungRule[cd_?CovDQ, numcds_Integer,options___?OptionQ] /; numcds >= 0 :=
-	RiemannYoungRule[cd,{0,numcds}, options];
-
-RiemannYoungRule[cd_?CovDQ, {min_Integer,max_Integer}, options___?OptionQ] /; max >= min && min >=0 :=
-	Flatten[RiemannYoungRule[cd,{#}, options]&/@Range[min,max]];
-
-RiemannYoungRule[cd_?CovDQ, {numcds_Integer}, options___?OptionQ] /; numcds >= 0 := Module[
+RiemannYoungRule[cd_?CovDQ, options___?OptionQ] := Module[
 	{
-		riemann, indrie, indcds, tableau, expr
+		riemann, expr1, expr2, a, b, c, d, e
 	},
-	riemann	= GiveSymbol[Riemann, cd];
-	indrie	= DummyIn /@ SlotsOfTensor@riemann;
-	indcds 	= -GetIndicesOfVBundle[First@VBundlesOfCovD[cd], numcds];
-	tableau = {Join[indrie[[{1, 3}]], indcds], indrie[[{2, 4}]]};
-	expr 	= Fold[cd[#2][#1] &, riemann @@ indrie, indcds];
-	If[expr === 0,
-		{},
-		MakeRule[Evaluate[{expr, YoungProject[expr, tableau, options]}]]
-	]
+	riemann		= GiveSymbol[Riemann, cd];
+	{a,b,c,d,e}	= -GetIndicesOfVBundle[First@VBundlesOfCovD[cd], 5];
+	expr1 		= riemann[a,b,c,d];
+	expr2		= cd[e]@expr1;
+	Join[
+		If[expr1===0,{},MakeRule@Evaluate@{expr1, YoungProject[expr1, {{a,c},  {b,d}}, options]}],
+		If[expr2===0,{},MakeRule@Evaluate@{expr2, YoungProject[expr2, {{a,c,e},{b,d}}, options]}]
+	]	
 ];
 
-RiemannYoungProject[expr_, cd_?CovDQ, level_:{0}, options___?OptionQ] /; LevelSpecQ[level] :=
-	expr /. RiemannYoungRule[cd, level, options];
+RiemannYoungProject[expr_, cd_?CovDQ, options___?OptionQ] :=
+	expr /. RiemannYoungRule[cd, options];
 
-RiemannYoungProject[expr_, level_:{0}, options___?OptionQ] /; LevelSpecQ[level] := 
-	Fold[RiemannYoungProject[#1, #2, level, options]&, expr, DeleteCases[$CovDs, PD]];
+RiemannYoungProject[expr_, options___?OptionQ] := 
+	Fold[RiemannYoungProject[#1, #2, options]&, expr, DeleteCases[$CovDs, PD]];
 
 
 Options[YoungSymmetric] ^= {
@@ -658,7 +659,7 @@ TableauSymmetric[tableau_?YoungTableauQ, options___?OptionQ] := Module[
 		manifestsym, transpose, sgs, cycles, samelengths, pairs, extracycles, sign
 	},
 	manifestsym = ManifestSymmetry	/. CheckOptions[options] /. Options[YoungSymmetric];
-	transpose 	= Transpose@PadRight@tableau /. 0 -> Sequence[];
+	transpose 	= TableauTranspose[tableau];
 	
 	(* The first set of cycles is simply the (anti)symmetrization of the tableau. *)
 	sgs = If[manifestsym === Antisymmetric,

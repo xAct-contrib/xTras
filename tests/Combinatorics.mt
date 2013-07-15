@@ -30,7 +30,7 @@ Test[
 	Antisymmetrize[
 		CD[-a]@RiemannCD[-b,-c,-d,-e],
 		{-a,-b,-c}
-	] //ToCanonical // RiemannYoungProject[#,1]& // ToCanonical
+	] //ToCanonical // RiemannYoungProject // ToCanonical
 	,
 	0
 	,
