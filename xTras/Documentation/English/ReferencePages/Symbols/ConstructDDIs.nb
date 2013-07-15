@@ -121,8 +121,8 @@ Cell[TextData[{
  Cell[BoxData[
   RowBox[{"ConstructDDIs", "[", 
    StyleBox["expr", "TI"], "]"}]], "InlineFormula"],
- "\[LineSeparator]constructs all Dimensional Dependent Identities that can be \
-build out of ",
+ "\[LineSeparator]constructs all scalar dimensional dependent identities that \
+can be build out of ",
  StyleBox["expr", "TI"],
  ".\n",
  Cell["      ", "ModInfo"],
@@ -131,7 +131,7 @@ build out of ",
    RowBox[{
     StyleBox["expr", "TI"], ",", " ", 
     StyleBox["frees", "TI"]}], "]"}]], "InlineFormula"],
- "\[LineSeparator]constructs all Dimensional Dependent Identities that can be \
+ "\[LineSeparator]constructs all dimensional dependent identities that can be \
 build out of ",
  StyleBox["expr", "TI"],
  " and that have free indices ",
@@ -144,7 +144,7 @@ build out of ",
     StyleBox["expr", "TI"], ",", " ", 
     StyleBox["frees", "TI"], ",", " ", 
     StyleBox["sym", "TI"]}], "]"}]], "InlineFormula"],
- "\[LineSeparator]constructs all Dimensional Dependent Identities that can be \
+ "\[LineSeparator]constructs all dimensional dependent identities that can be \
 build out of ",
  StyleBox["expr", "TI"],
  " and that have the symmetry ",
@@ -155,7 +155,7 @@ build out of ",
  CellChangeTimes->{
   3.579753739335066*^9, {3.580876833749489*^9, 3.580876874183772*^9}, {
    3.580877152805331*^9, 3.5808771557480392`*^9}, {3.580877214219078*^9, 
-   3.580877332145784*^9}}],
+   3.580877332145784*^9}, {3.582723746504466*^9, 3.582723778618997*^9}}],
 
 Cell["\<\
 ConstructDDIs returns a list of tensorial expressions that are zero due to \
@@ -312,9 +312,7 @@ Cell[BoxData[
   $Line = 0; Null]], "PrimaryExamplesSection",
  CellID->880084151],
 
-Cell["\<\
-Vanishing of the Einstein tensor in 2 dimensions:\
-\>", "ExampleText",
+Cell["Vanishing of the Einstein tensor in 2 dimensions:", "ExampleText",
  CellChangeTimes->{{3.580877492209342*^9, 3.580877508711882*^9}},
  CellID->2078409738],
 
@@ -458,9 +456,7 @@ Cell[BoxData[
   $Line = 0; Null]], "ExampleDelimiter",
  CellID->697525082],
 
-Cell["\<\
-Vanishing of the Weyl tensor in 3 dimensions:\
-\>", "ExampleText",
+Cell["Vanishing of the Weyl tensor in 3 dimensions:", "ExampleText",
  CellChangeTimes->{{3.5808775396056757`*^9, 3.5808775464606533`*^9}},
  CellID->190824201],
 
@@ -2335,9 +2331,8 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"GetIndicesOfVBundle", "::", "invalid"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\(2\\\\ \\(\\((1 + \
+   RowBox[{"GetIndicesOfVBundle", "::", "invalid"}], "MessageName"], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(2\\\\ \\(\\((1 + \
 \\*InterpretationBox[StyleBox[\\(d\\), Rule[AutoSpacing, False], \
 Rule[ShowAutoStyles, False]], dim, Rule[Editable, False]])\\)\\)\\)\[NoBreak] \
 is not a valid \[NoBreak]\\!\\(\\\"nonnegative \
@@ -2349,10 +2344,9 @@ integer\\\"\\)\[NoBreak].\"\>"}]], "Message", "MSG",
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"Throw", "::", "nocatch"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Uncaught \[NoBreak]\\!\\(Throw[Null]\\)\[NoBreak] returned \
-to top level. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+   RowBox[{"Throw", "::", "nocatch"}], "MessageName"], ":", 
+  " ", "\<\"Uncaught \[NoBreak]\\!\\(Throw[Null]\\)\[NoBreak] returned to top \
+level. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
 ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
 ButtonData:>\\\"paclet:ref/message/Throw/nocatch\\\", ButtonNote -> \
 \\\"Throw::nocatch\\\"]\\)\"\>"}]], "Message", "MSG",
@@ -2555,10 +2549,9 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"ChangeFreeIndices", "::", "error"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\(\\\"Inconsistent number of free indices.\\\
-\"\\)\[NoBreak]\"\>"}]], "Message", "MSG",
+   RowBox[{"ChangeFreeIndices", "::", "error"}], "MessageName"], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\\"Inconsistent number of free indices.\\\"\\)\
+\[NoBreak]\"\>"}]], "Message", "MSG",
  CellChangeTimes->{3.580878181734831*^9},
  CellLabel->"During evaluation of In[10]:=",
  CellID->1697921278],
@@ -2566,10 +2559,9 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"Throw", "::", "nocatch"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Uncaught \[NoBreak]\\!\\(Throw[Null]\\)\[NoBreak] returned \
-to top level. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+   RowBox[{"Throw", "::", "nocatch"}], "MessageName"], ":", 
+  " ", "\<\"Uncaught \[NoBreak]\\!\\(Throw[Null]\\)\[NoBreak] returned to top \
+level. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
 ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
 ButtonData:>\\\"paclet:ref/message/Throw/nocatch\\\", ButtonNote -> \
 \\\"Throw::nocatch\\\"]\\)\"\>"}]], "Message", "MSG",
@@ -2636,11 +2628,10 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"AllContractions", "::", "error"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\(\\\"Number of contractions out of range.\\\
-\"\\)\[NoBreak] \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
-ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+   RowBox[{"AllContractions", "::", "error"}], "MessageName"], ":", 
+  " ", "\<\"\[NoBreak]\\!\\(\\\"Number of contractions out of range.\\\"\\)\
+\[NoBreak] \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
+\\\", ButtonFrame->None, \
 ButtonData:>\\\"paclet:xTras/ref/AllContractions\\\", ButtonNote -> \
 \\\"xTras`AllContractions::error\\\"]\\)\"\>"}]], "Message", "MSG",
  CellChangeTimes->{3.580878470290244*^9},
@@ -2650,10 +2641,9 @@ ButtonData:>\\\"paclet:xTras/ref/AllContractions\\\", ButtonNote -> \
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"Throw", "::", "nocatch"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Uncaught \[NoBreak]\\!\\(Throw[Null]\\)\[NoBreak] returned \
-to top level. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+   RowBox[{"Throw", "::", "nocatch"}], "MessageName"], ":", 
+  " ", "\<\"Uncaught \[NoBreak]\\!\\(Throw[Null]\\)\[NoBreak] returned to top \
+level. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
 ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
 ButtonData:>\\\"paclet:ref/message/Throw/nocatch\\\", ButtonNote -> \
 \\\"Throw::nocatch\\\"]\\)\"\>"}]], "Message", "MSG",

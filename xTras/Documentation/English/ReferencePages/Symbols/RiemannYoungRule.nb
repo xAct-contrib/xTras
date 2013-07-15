@@ -121,39 +121,15 @@ Cell[TextData[{
  Cell[BoxData[
   RowBox[{"RiemannYoungRule", "[", 
    StyleBox["cd", "TI"], "]"}]], "InlineFormula"],
- "\[LineSeparator]gives the projection rule for the Riemann tensor of the \
+ "\[LineSeparator]gives the projection rules for the Riemann tensor of the \
 covariant derivative ",
  StyleBox["cd", "TI"],
- " onto its Young tableau.\n",
- Cell["      ", "ModInfo"],
- Cell[BoxData[
-  RowBox[{"RiemannYoungRule", "[", 
-   RowBox[{
-    StyleBox["cd", "TI"], ",", 
-    StyleBox["n", "TI"]}], "]"}]], "InlineFormula"],
- "\[LineSeparator]gives the projection rules for the ",
- StyleBox["n", "TI"],
- "th covariant derivative of the Riemann tensor onto its Young tableau."
+ " onto its Young tableau."
 }], "Usage",
  CellChangeTimes->{
   3.57975370906946*^9, {3.580895380721931*^9, 3.5808953880036373`*^9}, {
-   3.580895418488817*^9, 3.580895490370446*^9}}],
-
-Cell[TextData[{
- "The last argument, ",
- StyleBox["n", "TI"],
- ", takes the standard level specificiation."
-}], "Notes",
- CellChangeTimes->{{3.580894093326337*^9, 3.580894124849793*^9}, {
-  3.5808950540954943`*^9, 3.5808950665071*^9}},
- CellID->1067943069],
-
-Cell["\<\
-Derivatives of the Riemann tensor only have a symmetric contribution to the \
-Young tableau.\
-\>", "Notes",
- CellChangeTimes->{{3.580895091183804*^9, 3.580895154854003*^9}},
- CellID->2068949360],
+   3.580895418488817*^9, 3.580895490370446*^9}, {3.5828587921292067`*^9, 
+   3.582858822475296*^9}}],
 
 Cell["The following options can be given: ", "Notes",
  CellID->660794134],
@@ -267,178 +243,8 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"RiemannYoungRule", "[", "CD", "]"}]], "Input",
  CellChangeTimes->{{3.5808955392917137`*^9, 3.580895542998362*^9}},
- CellLabel->"In[11]:=",
+ CellLabel->"In[32]:=",
  CellID->1051606019],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{
-   RowBox[{"HoldPattern", "[", 
-    InterpretationBox[
-     StyleBox[GridBox[{
-        {
-         RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-         StyleBox[GridBox[{
-            {
-             UnderscriptBox[
-              UnderscriptBox["a", "_"], "_"], 
-             UnderscriptBox[
-              UnderscriptBox["b", "_"], "_"], 
-             UnderscriptBox[
-              UnderscriptBox["c", "_"], "_"], 
-             UnderscriptBox[
-              UnderscriptBox["d", "_"], "_"]},
-            {" ", " ", " ", " "}
-           },
-           GridBoxSpacings->{"Columns" -> {
-               Offset[0.], {
-                Offset[0.034999999999999996`]}, 
-               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                Offset[0.]}}, "RowsIndexed" -> {}}],
-          FontSize->9]}
-       },
-       GridBoxAlignment->{
-        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
-          "RowsIndexed" -> {}},
-       GridBoxSpacings->{"Columns" -> {
-           Offset[0.27999999999999997`], {
-            Offset[0.034999999999999996`]}, 
-           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-           Offset[0.2], {
-            Offset[0.4]}, 
-           Offset[0.2]}, "RowsIndexed" -> {}}],
-      ShowAutoStyles->False,
-      AutoSpacing->False],
-     $CellContext`RiemannCD[
-      PatternTest[
-       Pattern[$CellContext`a, 
-        Blank[]], TangentM`pmQ], 
-      PatternTest[
-       Pattern[$CellContext`b, 
-        Blank[]], TangentM`pmQ], 
-      PatternTest[
-       Pattern[$CellContext`c, 
-        Blank[]], TangentM`pmQ], 
-      PatternTest[
-       Pattern[$CellContext`d, 
-        Blank[]], TangentM`pmQ]],
-     Editable->False], "]"}], "\[RuleDelayed]", 
-   RowBox[{"Module", "[", 
-    RowBox[{
-     RowBox[{"{", "}"}], ",", 
-     RowBox[{
-      RowBox[{
-       FractionBox["2", "3"], " ", 
-       InterpretationBox[
-        StyleBox[GridBox[{
-           {
-            RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-            StyleBox[GridBox[{
-               {"a", "b", "c", "d"},
-               {" ", " ", " ", " "}
-              },
-              GridBoxSpacings->{"Columns" -> {
-                  Offset[0.], {
-                   Offset[0.034999999999999996`]}, 
-                  Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                   Offset[0.]}}, "RowsIndexed" -> {}}],
-             FontSize->9]}
-          },
-          
-          GridBoxAlignment->{
-           "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-            "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-          GridBoxSpacings->{"Columns" -> {
-              Offset[0.27999999999999997`], {
-               Offset[0.034999999999999996`]}, 
-              Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-              Offset[0.2], {
-               Offset[0.4]}, 
-              Offset[0.2]}, "RowsIndexed" -> {}}],
-         ShowAutoStyles->False,
-         AutoSpacing->False],
-        $CellContext`RiemannCD[$CellContext`a, $CellContext`b, \
-$CellContext`c, $CellContext`d],
-        Editable->False]}], "+", 
-      RowBox[{
-       FractionBox["1", "3"], " ", 
-       InterpretationBox[
-        StyleBox[GridBox[{
-           {
-            RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-            StyleBox[GridBox[{
-               {"a", "c", "b", "d"},
-               {" ", " ", " ", " "}
-              },
-              GridBoxSpacings->{"Columns" -> {
-                  Offset[0.], {
-                   Offset[0.034999999999999996`]}, 
-                  Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                   Offset[0.]}}, "RowsIndexed" -> {}}],
-             FontSize->9]}
-          },
-          
-          GridBoxAlignment->{
-           "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-            "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-          GridBoxSpacings->{"Columns" -> {
-              Offset[0.27999999999999997`], {
-               Offset[0.034999999999999996`]}, 
-              Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-              Offset[0.2], {
-               Offset[0.4]}, 
-              Offset[0.2]}, "RowsIndexed" -> {}}],
-         ShowAutoStyles->False,
-         AutoSpacing->False],
-        $CellContext`RiemannCD[$CellContext`a, $CellContext`c, \
-$CellContext`b, $CellContext`d],
-        Editable->False]}], "-", 
-      RowBox[{
-       FractionBox["1", "3"], " ", 
-       InterpretationBox[
-        StyleBox[GridBox[{
-           {
-            RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-            StyleBox[GridBox[{
-               {"a", "d", "b", "c"},
-               {" ", " ", " ", " "}
-              },
-              GridBoxSpacings->{"Columns" -> {
-                  Offset[0.], {
-                   Offset[0.034999999999999996`]}, 
-                  Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                   Offset[0.]}}, "RowsIndexed" -> {}}],
-             FontSize->9]}
-          },
-          
-          GridBoxAlignment->{
-           "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-            "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-          GridBoxSpacings->{"Columns" -> {
-              Offset[0.27999999999999997`], {
-               Offset[0.034999999999999996`]}, 
-              Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-              Offset[0.2], {
-               Offset[0.4]}, 
-              Offset[0.2]}, "RowsIndexed" -> {}}],
-         ShowAutoStyles->False,
-         AutoSpacing->False],
-        $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
-$CellContext`b, $CellContext`c],
-        Editable->False]}]}]}], "]"}]}], "}"}]], "Output",
- CellChangeTimes->{3.580895543722076*^9},
- CellLabel->"Out[11]=",
- CellID->551946523]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"RiemannYoungRule", "[", 
-  RowBox[{"CD", ",", "1"}], "]"}]], "Input",
- CellChangeTimes->{{3.58089554544971*^9, 3.580895550926325*^9}},
- CellLabel->"In[12]:=",
- CellID->1583340668],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -605,19 +411,19 @@ $CellContext`b, $CellContext`c],
        RowBox[{
         SuperscriptBox["\[EmptyDownTriangle]", 
          UnderscriptBox[
-          UnderscriptBox["a", "_"], "_"]], GridBox[{
+          UnderscriptBox["e", "_"], "_"]], GridBox[{
           {
            RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
            StyleBox[GridBox[{
               {
                UnderscriptBox[
+                UnderscriptBox["a", "_"], "_"], 
+               UnderscriptBox[
                 UnderscriptBox["b", "_"], "_"], 
                UnderscriptBox[
                 UnderscriptBox["c", "_"], "_"], 
                UnderscriptBox[
-                UnderscriptBox["d", "_"], "_"], 
-               UnderscriptBox[
-                UnderscriptBox["e", "_"], "_"]},
+                UnderscriptBox["d", "_"], "_"]},
               {" ", " ", " ", " "}
              },
              GridBoxSpacings->{"Columns" -> {
@@ -641,9 +447,12 @@ $CellContext`b, $CellContext`c],
        AutoSpacing->False],
       $CellContext`CD[
        PatternTest[
-        Pattern[$CellContext`a, 
+        Pattern[$CellContext`e, 
          Blank[]], TangentM`pmQ]][
        $CellContext`RiemannCD[
+        PatternTest[
+         Pattern[$CellContext`a, 
+          Blank[]], TangentM`pmQ], 
         PatternTest[
          Pattern[$CellContext`b, 
           Blank[]], TangentM`pmQ], 
@@ -652,9 +461,6 @@ $CellContext`b, $CellContext`c],
           Blank[]], TangentM`pmQ], 
         PatternTest[
          Pattern[$CellContext`d, 
-          Blank[]], TangentM`pmQ], 
-        PatternTest[
-         Pattern[$CellContext`e, 
           Blank[]], TangentM`pmQ]]],
       Editable->False], "]"}], "\[RuleDelayed]", 
     RowBox[{"Module", "[", 
@@ -662,7 +468,7 @@ $CellContext`b, $CellContext`c],
       RowBox[{"{", "}"}], ",", 
       RowBox[{
        RowBox[{
-        FractionBox["1", "3"], " ", 
+        FractionBox["1", "12"], " ", 
         RowBox[{"(", 
          InterpretationBox[
           StyleBox[
@@ -698,9 +504,9 @@ $CellContext`b, $CellContext`c],
           $CellContext`CD[$CellContext`a][
            $CellContext`RiemannCD[$CellContext`b, $CellContext`c, \
 $CellContext`d, $CellContext`e]],
-          Editable->False], ")"}]}], "+", 
+          Editable->False], ")"}]}], "-", 
        RowBox[{
-        FractionBox["1", "6"], " ", 
+        FractionBox["1", "12"], " ", 
         RowBox[{"(", 
          InterpretationBox[
           StyleBox[
@@ -774,9 +580,9 @@ $CellContext`c, $CellContext`e]],
           $CellContext`CD[$CellContext`a][
            $CellContext`RiemannCD[$CellContext`b, $CellContext`e, \
 $CellContext`c, $CellContext`d]],
-          Editable->False], ")"}]}], "+", 
+          Editable->False], ")"}]}], "-", 
        RowBox[{
-        FractionBox["1", "6"], " ", 
+        FractionBox["1", "12"], " ", 
         RowBox[{"(", 
          InterpretationBox[
           StyleBox[
@@ -850,9 +656,9 @@ $CellContext`d, $CellContext`e]],
           $CellContext`CD[$CellContext`b][
            $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
 $CellContext`c, $CellContext`e]],
-          Editable->False], ")"}]}], "-", 
+          Editable->False], ")"}]}], "+", 
        RowBox[{
-        FractionBox["1", "12"], " ", 
+        FractionBox["1", "6"], " ", 
         RowBox[{"(", 
          InterpretationBox[
           StyleBox[
@@ -1002,9 +808,9 @@ $CellContext`b, $CellContext`e]],
           $CellContext`CD[$CellContext`c][
            $CellContext`RiemannCD[$CellContext`a, $CellContext`e, \
 $CellContext`b, $CellContext`d]],
-          Editable->False], ")"}]}], "-", 
+          Editable->False], ")"}]}], "+", 
        RowBox[{
-        FractionBox["1", "12"], " ", 
+        FractionBox["1", "6"], " ", 
         RowBox[{"(", 
          InterpretationBox[
           StyleBox[
@@ -1078,9 +884,9 @@ $CellContext`c, $CellContext`e]],
           $CellContext`CD[$CellContext`d][
            $CellContext`RiemannCD[$CellContext`a, $CellContext`c, \
 $CellContext`b, $CellContext`e]],
-          Editable->False], ")"}]}], "+", 
+          Editable->False], ")"}]}], "-", 
        RowBox[{
-        FractionBox["1", "6"], " ", 
+        FractionBox["1", "12"], " ", 
         RowBox[{"(", 
          InterpretationBox[
           StyleBox[
@@ -1118,7 +924,7 @@ $CellContext`b, $CellContext`e]],
 $CellContext`b, $CellContext`c]],
           Editable->False], ")"}]}], "+", 
        RowBox[{
-        FractionBox["1", "12"], " ", 
+        FractionBox["1", "3"], " ", 
         RowBox[{"(", 
          InterpretationBox[
           StyleBox[
@@ -1154,9 +960,9 @@ $CellContext`b, $CellContext`c]],
           $CellContext`CD[$CellContext`e][
            $CellContext`RiemannCD[$CellContext`a, $CellContext`b, \
 $CellContext`c, $CellContext`d]],
-          Editable->False], ")"}]}], "-", 
+          Editable->False], ")"}]}], "+", 
        RowBox[{
-        FractionBox["1", "12"], " ", 
+        FractionBox["1", "6"], " ", 
         RowBox[{"(", 
          InterpretationBox[
           StyleBox[
@@ -1231,645 +1037,9 @@ $CellContext`b, $CellContext`d]],
            $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
 $CellContext`b, $CellContext`c]],
           Editable->False], ")"}]}]}]}], "]"}]}]}], "}"}]], "Output",
- CellChangeTimes->{3.580895552698111*^9},
- CellLabel->"Out[12]=",
- CellID->1736737099]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"RiemannYoungRule", "[", 
-  RowBox[{"CD", ",", 
-   RowBox[{"{", "1", "}"}]}], "]"}]], "Input",
- CellChangeTimes->{{3.580895554480908*^9, 3.5808955608775473`*^9}},
- CellLabel->"In[13]:=",
- CellID->742692869],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{
-   RowBox[{"HoldPattern", "[", 
-    InterpretationBox[
-     StyleBox[
-      RowBox[{
-       SuperscriptBox["\[EmptyDownTriangle]", 
-        UnderscriptBox[
-         UnderscriptBox["a", "_"], "_"]], GridBox[{
-         {
-          RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-          StyleBox[GridBox[{
-             {
-              UnderscriptBox[
-               UnderscriptBox["b", "_"], "_"], 
-              UnderscriptBox[
-               UnderscriptBox["c", "_"], "_"], 
-              UnderscriptBox[
-               UnderscriptBox["d", "_"], "_"], 
-              UnderscriptBox[
-               UnderscriptBox["e", "_"], "_"]},
-             {" ", " ", " ", " "}
-            },
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                 Offset[0.]}}, "RowsIndexed" -> {}}],
-           FontSize->9]}
-        },
-        GridBoxAlignment->{
-         "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-          "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-        GridBoxSpacings->{"Columns" -> {
-            Offset[0.27999999999999997`], {
-             Offset[0.034999999999999996`]}, 
-            Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
-          "Rows" -> {
-            Offset[0.2], {
-             Offset[0.4]}, 
-            Offset[0.2]}, "RowsIndexed" -> {}}]}],
-      ShowAutoStyles->False,
-      AutoSpacing->False],
-     $CellContext`CD[
-      PatternTest[
-       Pattern[$CellContext`a, 
-        Blank[]], TangentM`pmQ]][
-      $CellContext`RiemannCD[
-       PatternTest[
-        Pattern[$CellContext`b, 
-         Blank[]], TangentM`pmQ], 
-       PatternTest[
-        Pattern[$CellContext`c, 
-         Blank[]], TangentM`pmQ], 
-       PatternTest[
-        Pattern[$CellContext`d, 
-         Blank[]], TangentM`pmQ], 
-       PatternTest[
-        Pattern[$CellContext`e, 
-         Blank[]], TangentM`pmQ]]],
-     Editable->False], "]"}], "\[RuleDelayed]", 
-   RowBox[{"Module", "[", 
-    RowBox[{
-     RowBox[{"{", "}"}], ",", 
-     RowBox[{
-      RowBox[{
-       FractionBox["1", "3"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "a"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"b", "c", "d", "e"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`a][
-          $CellContext`RiemannCD[$CellContext`b, $CellContext`c, \
-$CellContext`d, $CellContext`e]],
-         Editable->False], ")"}]}], "+", 
-      RowBox[{
-       FractionBox["1", "6"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "a"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"b", "d", "c", "e"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`a][
-          $CellContext`RiemannCD[$CellContext`b, $CellContext`d, \
-$CellContext`c, $CellContext`e]],
-         Editable->False], ")"}]}], "-", 
-      RowBox[{
-       FractionBox["1", "6"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "a"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"b", "e", "c", "d"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`a][
-          $CellContext`RiemannCD[$CellContext`b, $CellContext`e, \
-$CellContext`c, $CellContext`d]],
-         Editable->False], ")"}]}], "+", 
-      RowBox[{
-       FractionBox["1", "6"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "b"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"a", "c", "d", "e"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`b][
-          $CellContext`RiemannCD[$CellContext`a, $CellContext`c, \
-$CellContext`d, $CellContext`e]],
-         Editable->False], ")"}]}], "+", 
-      RowBox[{
-       FractionBox["1", "12"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "b"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"a", "d", "c", "e"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`b][
-          $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
-$CellContext`c, $CellContext`e]],
-         Editable->False], ")"}]}], "-", 
-      RowBox[{
-       FractionBox["1", "12"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "b"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"a", "e", "c", "d"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`b][
-          $CellContext`RiemannCD[$CellContext`a, $CellContext`e, \
-$CellContext`c, $CellContext`d]],
-         Editable->False], ")"}]}], "-", 
-      RowBox[{
-       FractionBox["1", "6"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"a", "b", "d", "e"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`c][
-          $CellContext`RiemannCD[$CellContext`a, $CellContext`b, \
-$CellContext`d, $CellContext`e]],
-         Editable->False], ")"}]}], "-", 
-      RowBox[{
-       FractionBox["1", "12"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"a", "d", "b", "e"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`c][
-          $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
-$CellContext`b, $CellContext`e]],
-         Editable->False], ")"}]}], "+", 
-      RowBox[{
-       FractionBox["1", "12"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"a", "e", "b", "d"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`c][
-          $CellContext`RiemannCD[$CellContext`a, $CellContext`e, \
-$CellContext`b, $CellContext`d]],
-         Editable->False], ")"}]}], "-", 
-      RowBox[{
-       FractionBox["1", "12"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "d"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"a", "b", "c", "e"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`d][
-          $CellContext`RiemannCD[$CellContext`a, $CellContext`b, \
-$CellContext`c, $CellContext`e]],
-         Editable->False], ")"}]}], "+", 
-      RowBox[{
-       FractionBox["1", "12"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "d"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"a", "c", "b", "e"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`d][
-          $CellContext`RiemannCD[$CellContext`a, $CellContext`c, \
-$CellContext`b, $CellContext`e]],
-         Editable->False], ")"}]}], "+", 
-      RowBox[{
-       FractionBox["1", "6"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "d"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"a", "e", "b", "c"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`d][
-          $CellContext`RiemannCD[$CellContext`a, $CellContext`e, \
-$CellContext`b, $CellContext`c]],
-         Editable->False], ")"}]}], "+", 
-      RowBox[{
-       FractionBox["1", "12"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "e"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"a", "b", "c", "d"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`e][
-          $CellContext`RiemannCD[$CellContext`a, $CellContext`b, \
-$CellContext`c, $CellContext`d]],
-         Editable->False], ")"}]}], "-", 
-      RowBox[{
-       FractionBox["1", "12"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "e"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"a", "c", "b", "d"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`e][
-          $CellContext`RiemannCD[$CellContext`a, $CellContext`c, \
-$CellContext`b, $CellContext`d]],
-         Editable->False], ")"}]}], "-", 
-      RowBox[{
-       FractionBox["1", "6"], " ", 
-       RowBox[{"(", 
-        InterpretationBox[
-         StyleBox[
-          RowBox[{
-           SuperscriptBox["\[EmptyDownTriangle]", "e"], GridBox[{
-             {
-              RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-              StyleBox[GridBox[{
-                 {"a", "d", "b", "c"},
-                 {" ", " ", " ", " "}
-                },
-                GridBoxSpacings->{"Columns" -> {
-                    Offset[0.], {
-                    Offset[0.034999999999999996`]}, 
-                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                    Offset[0.]}}, "RowsIndexed" -> {}}],
-               FontSize->9]}
-            },
-            
-            GridBoxAlignment->{
-             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-            GridBoxSpacings->{"Columns" -> {
-                Offset[0.27999999999999997`], {
-                 Offset[0.034999999999999996`]}, 
-                Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-                Offset[0.2], {
-                 Offset[0.4]}, 
-                Offset[0.2]}, "RowsIndexed" -> {}}]}],
-          ShowAutoStyles->False,
-          AutoSpacing->False],
-         $CellContext`CD[$CellContext`e][
-          $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
-$CellContext`b, $CellContext`c]],
-         Editable->False], ")"}]}]}]}], "]"}]}], "}"}]], "Output",
- CellChangeTimes->{3.5808955631794233`*^9},
- CellLabel->"Out[13]=",
- CellID->1264092919]
+ CellChangeTimes->{3.580895543722076*^9, 3.582858833239753*^9},
+ CellLabel->"Out[32]=",
+ CellID->1348073710]
 }, Open  ]]
 }, Open  ]],
 
@@ -1912,136 +1082,429 @@ Cell[BoxData[
  CellChangeTimes->{{3.580893660730549*^9, 3.580893666192103*^9}, {
   3.580893941128079*^9, 3.580893942646324*^9}, {3.580895215462615*^9, 
   3.580895226227717*^9}, {3.580895590439743*^9, 3.5808955976993513`*^9}},
- CellLabel->"In[14]:=",
+ CellLabel->"In[34]:=",
  CellID->1786393854],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{
-   RowBox[{"HoldPattern", "[", 
-    InterpretationBox[
-     StyleBox[GridBox[{
-        {
-         RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+   RowBox[{
+    RowBox[{"HoldPattern", "[", 
+     InterpretationBox[
+      StyleBox[GridBox[{
+         {
+          RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+          StyleBox[GridBox[{
+             {
+              UnderscriptBox[
+               UnderscriptBox["a", "_"], "_"], 
+              UnderscriptBox[
+               UnderscriptBox["b", "_"], "_"], 
+              UnderscriptBox[
+               UnderscriptBox["c", "_"], "_"], 
+              UnderscriptBox[
+               UnderscriptBox["d", "_"], "_"]},
+             {" ", " ", " ", " "}
+            },
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                 Offset[0.]}}, "RowsIndexed" -> {}}],
+           FontSize->9]}
+        },
+        GridBoxAlignment->{
+         "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.034999999999999996`]}, 
+            Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}, "RowsIndexed" -> {}}],
+       ShowAutoStyles->False,
+       AutoSpacing->False],
+      $CellContext`RiemannCD[
+       PatternTest[
+        Pattern[$CellContext`a, 
+         Blank[]], TangentM`pmQ], 
+       PatternTest[
+        Pattern[$CellContext`b, 
+         Blank[]], TangentM`pmQ], 
+       PatternTest[
+        Pattern[$CellContext`c, 
+         Blank[]], TangentM`pmQ], 
+       PatternTest[
+        Pattern[$CellContext`d, 
+         Blank[]], TangentM`pmQ]],
+      Editable->False], "]"}], "\[RuleDelayed]", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "}"}], ",", 
+      RowBox[{
+       RowBox[{
+        FractionBox["2", "3"], " ", 
+        InterpretationBox[
          StyleBox[GridBox[{
             {
-             UnderscriptBox[
-              UnderscriptBox["a", "_"], "_"], 
-             UnderscriptBox[
-              UnderscriptBox["b", "_"], "_"], 
-             UnderscriptBox[
-              UnderscriptBox["c", "_"], "_"], 
-             UnderscriptBox[
-              UnderscriptBox["d", "_"], "_"]},
-            {" ", " ", " ", " "}
+             RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+             StyleBox[GridBox[{
+                {"a", "b", "c", "d"},
+                {" ", " ", " ", " "}
+               },
+               GridBoxSpacings->{"Columns" -> {
+                   Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                   Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+              FontSize->9]}
            },
+           
+           GridBoxAlignment->{
+            "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+             "Rows" -> {{Center}}, "RowsIndexed" -> {}},
            GridBoxSpacings->{"Columns" -> {
-               Offset[0.], {
+               Offset[0.27999999999999997`], {
                 Offset[0.034999999999999996`]}, 
-               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                Offset[0.]}}, "RowsIndexed" -> {}}],
-          FontSize->9]}
-       },
-       GridBoxAlignment->{
-        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
-          "RowsIndexed" -> {}},
-       GridBoxSpacings->{"Columns" -> {
-           Offset[0.27999999999999997`], {
-            Offset[0.034999999999999996`]}, 
-           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-           Offset[0.2], {
-            Offset[0.4]}, 
-           Offset[0.2]}, "RowsIndexed" -> {}}],
-      ShowAutoStyles->False,
-      AutoSpacing->False],
-     $CellContext`RiemannCD[
-      PatternTest[
-       Pattern[$CellContext`a, 
-        Blank[]], TangentM`pmQ], 
-      PatternTest[
-       Pattern[$CellContext`b, 
-        Blank[]], TangentM`pmQ], 
-      PatternTest[
-       Pattern[$CellContext`c, 
-        Blank[]], TangentM`pmQ], 
-      PatternTest[
-       Pattern[$CellContext`d, 
-        Blank[]], TangentM`pmQ]],
-     Editable->False], "]"}], "\[RuleDelayed]", 
-   RowBox[{"Module", "[", 
-    RowBox[{
-     RowBox[{"{", "}"}], ",", 
-     RowBox[{
-      RowBox[{
-       FractionBox["2", "3"], " ", 
-       InterpretationBox[
-        StyleBox[GridBox[{
-           {
-            RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-            StyleBox[GridBox[{
-               {"a", "b", "c", "d"},
-               {" ", " ", " ", " "}
-              },
-              GridBoxSpacings->{"Columns" -> {
-                  Offset[0.], {
-                   Offset[0.034999999999999996`]}, 
-                  Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                   Offset[0.]}}, "RowsIndexed" -> {}}],
-             FontSize->9]}
-          },
-          
-          GridBoxAlignment->{
-           "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-            "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-          GridBoxSpacings->{"Columns" -> {
-              Offset[0.27999999999999997`], {
-               Offset[0.034999999999999996`]}, 
-              Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-              Offset[0.2], {
-               Offset[0.4]}, 
-              Offset[0.2]}, "RowsIndexed" -> {}}],
-         ShowAutoStyles->False,
-         AutoSpacing->False],
-        $CellContext`RiemannCD[$CellContext`a, $CellContext`b, \
+               Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+               Offset[0.2], {
+                Offset[0.4]}, 
+               Offset[0.2]}, "RowsIndexed" -> {}}],
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`RiemannCD[$CellContext`a, $CellContext`b, \
 $CellContext`c, $CellContext`d],
-        Editable->False]}], "-", 
-      RowBox[{
-       FractionBox["2", "3"], " ", 
-       InterpretationBox[
-        StyleBox[GridBox[{
-           {
-            RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-            StyleBox[GridBox[{
-               {"a", "d", "b", "c"},
-               {" ", " ", " ", " "}
-              },
-              GridBoxSpacings->{"Columns" -> {
-                  Offset[0.], {
-                   Offset[0.034999999999999996`]}, 
-                  Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                   Offset[0.]}}, "RowsIndexed" -> {}}],
-             FontSize->9]}
-          },
-          
-          GridBoxAlignment->{
-           "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-            "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-          GridBoxSpacings->{"Columns" -> {
-              Offset[0.27999999999999997`], {
-               Offset[0.034999999999999996`]}, 
-              Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-              Offset[0.2], {
-               Offset[0.4]}, 
-              Offset[0.2]}, "RowsIndexed" -> {}}],
-         ShowAutoStyles->False,
-         AutoSpacing->False],
-        $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
+         Editable->False]}], "-", 
+       RowBox[{
+        FractionBox["2", "3"], " ", 
+        InterpretationBox[
+         StyleBox[GridBox[{
+            {
+             RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+             StyleBox[GridBox[{
+                {"a", "d", "b", "c"},
+                {" ", " ", " ", " "}
+               },
+               GridBoxSpacings->{"Columns" -> {
+                   Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                   Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+              FontSize->9]}
+           },
+           
+           GridBoxAlignment->{
+            "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+             "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.27999999999999997`], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+               Offset[0.2], {
+                Offset[0.4]}, 
+               Offset[0.2]}, "RowsIndexed" -> {}}],
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
 $CellContext`b, $CellContext`c],
-        Editable->False]}]}]}], "]"}]}], "}"}]], "Output",
+         Editable->False]}]}]}], "]"}]}], ",", 
+   RowBox[{
+    RowBox[{"HoldPattern", "[", 
+     InterpretationBox[
+      StyleBox[
+       RowBox[{
+        SuperscriptBox["\[EmptyDownTriangle]", 
+         UnderscriptBox[
+          UnderscriptBox["e", "_"], "_"]], GridBox[{
+          {
+           RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+           StyleBox[GridBox[{
+              {
+               UnderscriptBox[
+                UnderscriptBox["a", "_"], "_"], 
+               UnderscriptBox[
+                UnderscriptBox["b", "_"], "_"], 
+               UnderscriptBox[
+                UnderscriptBox["c", "_"], "_"], 
+               UnderscriptBox[
+                UnderscriptBox["d", "_"], "_"]},
+              {" ", " ", " ", " "}
+             },
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                  Offset[0.]}}, "RowsIndexed" -> {}}],
+            FontSize->9]}
+         },
+         GridBoxAlignment->{
+          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}, "RowsIndexed" -> {}}]}],
+       ShowAutoStyles->False,
+       AutoSpacing->False],
+      $CellContext`CD[
+       PatternTest[
+        Pattern[$CellContext`e, 
+         Blank[]], TangentM`pmQ]][
+       $CellContext`RiemannCD[
+        PatternTest[
+         Pattern[$CellContext`a, 
+          Blank[]], TangentM`pmQ], 
+        PatternTest[
+         Pattern[$CellContext`b, 
+          Blank[]], TangentM`pmQ], 
+        PatternTest[
+         Pattern[$CellContext`c, 
+          Blank[]], TangentM`pmQ], 
+        PatternTest[
+         Pattern[$CellContext`d, 
+          Blank[]], TangentM`pmQ]]],
+      Editable->False], "]"}], "\[RuleDelayed]", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "}"}], ",", 
+      RowBox[{
+       RowBox[{
+        FractionBox["1", "3"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "a"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"b", "c", "d", "e"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`a][
+           $CellContext`RiemannCD[$CellContext`b, $CellContext`c, \
+$CellContext`d, $CellContext`e]],
+          Editable->False], ")"}]}], "-", 
+       RowBox[{
+        FractionBox["1", "3"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "a"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"b", "e", "c", "d"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`a][
+           $CellContext`RiemannCD[$CellContext`b, $CellContext`e, \
+$CellContext`c, $CellContext`d]],
+          Editable->False], ")"}]}], "-", 
+       RowBox[{
+        FractionBox["1", "3"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "b", "d", "e"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`c][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`b, \
+$CellContext`d, $CellContext`e]],
+          Editable->False], ")"}]}], "-", 
+       RowBox[{
+        FractionBox["1", "3"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "d", "b", "e"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`c][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
+$CellContext`b, $CellContext`e]],
+          Editable->False], ")"}]}], "+", 
+       RowBox[{
+        FractionBox["1", "3"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "e"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "b", "c", "d"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`e][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`b, \
+$CellContext`c, $CellContext`d]],
+          Editable->False], ")"}]}], "-", 
+       RowBox[{
+        FractionBox["1", "3"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "e"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "d", "b", "c"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`e][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
+$CellContext`b, $CellContext`c]],
+          Editable->False], ")"}]}]}]}], "]"}]}]}], "}"}]], "Output",
  CellChangeTimes->{3.5808936668131037`*^9, 3.580893943229763*^9, 
-  3.5808952269990664`*^9, 3.580895598270378*^9},
- CellLabel->"Out[14]=",
- CellID->553969862]
+  3.5808952269990664`*^9, 3.580895598270378*^9, 3.5828588544504232`*^9},
+ CellLabel->"Out[34]=",
+ CellID->144637592]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2051,168 +1514,803 @@ Cell[BoxData[
   RowBox[{"CD", ",", 
    RowBox[{"ManifestSymmetry", "\[Rule]", "Antisymmetric"}]}], "]"}]], "Input",
  CellChangeTimes->{{3.5808956067950087`*^9, 3.580895608362916*^9}},
- CellLabel->"In[15]:=",
+ CellLabel->"In[35]:=",
  CellID->1229860889],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{
-   RowBox[{"HoldPattern", "[", 
-    InterpretationBox[
-     StyleBox[GridBox[{
-        {
-         RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+   RowBox[{
+    RowBox[{"HoldPattern", "[", 
+     InterpretationBox[
+      StyleBox[GridBox[{
+         {
+          RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+          StyleBox[GridBox[{
+             {
+              UnderscriptBox[
+               UnderscriptBox["a", "_"], "_"], 
+              UnderscriptBox[
+               UnderscriptBox["b", "_"], "_"], 
+              UnderscriptBox[
+               UnderscriptBox["c", "_"], "_"], 
+              UnderscriptBox[
+               UnderscriptBox["d", "_"], "_"]},
+             {" ", " ", " ", " "}
+            },
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.], {
+                 Offset[0.034999999999999996`]}, 
+                Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                 Offset[0.]}}, "RowsIndexed" -> {}}],
+           FontSize->9]}
+        },
+        GridBoxAlignment->{
+         "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+        GridBoxSpacings->{"Columns" -> {
+            Offset[0.27999999999999997`], {
+             Offset[0.034999999999999996`]}, 
+            Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+          "Rows" -> {
+            Offset[0.2], {
+             Offset[0.4]}, 
+            Offset[0.2]}, "RowsIndexed" -> {}}],
+       ShowAutoStyles->False,
+       AutoSpacing->False],
+      $CellContext`RiemannCD[
+       PatternTest[
+        Pattern[$CellContext`a, 
+         Blank[]], TangentM`pmQ], 
+       PatternTest[
+        Pattern[$CellContext`b, 
+         Blank[]], TangentM`pmQ], 
+       PatternTest[
+        Pattern[$CellContext`c, 
+         Blank[]], TangentM`pmQ], 
+       PatternTest[
+        Pattern[$CellContext`d, 
+         Blank[]], TangentM`pmQ]],
+      Editable->False], "]"}], "\[RuleDelayed]", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "}"}], ",", 
+      RowBox[{
+       RowBox[{
+        FractionBox["2", "3"], " ", 
+        InterpretationBox[
          StyleBox[GridBox[{
             {
-             UnderscriptBox[
-              UnderscriptBox["a", "_"], "_"], 
-             UnderscriptBox[
-              UnderscriptBox["b", "_"], "_"], 
-             UnderscriptBox[
-              UnderscriptBox["c", "_"], "_"], 
-             UnderscriptBox[
-              UnderscriptBox["d", "_"], "_"]},
-            {" ", " ", " ", " "}
+             RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+             StyleBox[GridBox[{
+                {"a", "b", "c", "d"},
+                {" ", " ", " ", " "}
+               },
+               GridBoxSpacings->{"Columns" -> {
+                   Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                   Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+              FontSize->9]}
            },
+           
+           GridBoxAlignment->{
+            "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+             "Rows" -> {{Center}}, "RowsIndexed" -> {}},
            GridBoxSpacings->{"Columns" -> {
-               Offset[0.], {
+               Offset[0.27999999999999997`], {
                 Offset[0.034999999999999996`]}, 
-               Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                Offset[0.]}}, "RowsIndexed" -> {}}],
-          FontSize->9]}
-       },
-       GridBoxAlignment->{
-        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}},
-          "RowsIndexed" -> {}},
-       GridBoxSpacings->{"Columns" -> {
-           Offset[0.27999999999999997`], {
-            Offset[0.034999999999999996`]}, 
-           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-           Offset[0.2], {
-            Offset[0.4]}, 
-           Offset[0.2]}, "RowsIndexed" -> {}}],
-      ShowAutoStyles->False,
-      AutoSpacing->False],
-     $CellContext`RiemannCD[
-      PatternTest[
-       Pattern[$CellContext`a, 
-        Blank[]], TangentM`pmQ], 
-      PatternTest[
-       Pattern[$CellContext`b, 
-        Blank[]], TangentM`pmQ], 
-      PatternTest[
-       Pattern[$CellContext`c, 
-        Blank[]], TangentM`pmQ], 
-      PatternTest[
-       Pattern[$CellContext`d, 
-        Blank[]], TangentM`pmQ]],
-     Editable->False], "]"}], "\[RuleDelayed]", 
-   RowBox[{"Module", "[", 
-    RowBox[{
-     RowBox[{"{", "}"}], ",", 
-     RowBox[{
-      RowBox[{
-       FractionBox["2", "3"], " ", 
-       InterpretationBox[
-        StyleBox[GridBox[{
-           {
-            RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-            StyleBox[GridBox[{
-               {"a", "b", "c", "d"},
-               {" ", " ", " ", " "}
-              },
-              GridBoxSpacings->{"Columns" -> {
-                  Offset[0.], {
-                   Offset[0.034999999999999996`]}, 
-                  Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                   Offset[0.]}}, "RowsIndexed" -> {}}],
-             FontSize->9]}
-          },
-          
-          GridBoxAlignment->{
-           "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-            "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-          GridBoxSpacings->{"Columns" -> {
-              Offset[0.27999999999999997`], {
-               Offset[0.034999999999999996`]}, 
-              Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-              Offset[0.2], {
-               Offset[0.4]}, 
-              Offset[0.2]}, "RowsIndexed" -> {}}],
-         ShowAutoStyles->False,
-         AutoSpacing->False],
-        $CellContext`RiemannCD[$CellContext`a, $CellContext`b, \
+               Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+               Offset[0.2], {
+                Offset[0.4]}, 
+               Offset[0.2]}, "RowsIndexed" -> {}}],
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`RiemannCD[$CellContext`a, $CellContext`b, \
 $CellContext`c, $CellContext`d],
-        Editable->False]}], "+", 
-      RowBox[{
-       FractionBox["1", "3"], " ", 
-       InterpretationBox[
-        StyleBox[GridBox[{
-           {
-            RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-            StyleBox[GridBox[{
-               {"a", "c", "b", "d"},
-               {" ", " ", " ", " "}
-              },
-              GridBoxSpacings->{"Columns" -> {
-                  Offset[0.], {
-                   Offset[0.034999999999999996`]}, 
-                  Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                   Offset[0.]}}, "RowsIndexed" -> {}}],
-             FontSize->9]}
-          },
-          
-          GridBoxAlignment->{
-           "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-            "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-          GridBoxSpacings->{"Columns" -> {
-              Offset[0.27999999999999997`], {
-               Offset[0.034999999999999996`]}, 
-              Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-              Offset[0.2], {
-               Offset[0.4]}, 
-              Offset[0.2]}, "RowsIndexed" -> {}}],
-         ShowAutoStyles->False,
-         AutoSpacing->False],
-        $CellContext`RiemannCD[$CellContext`a, $CellContext`c, \
+         Editable->False]}], "+", 
+       RowBox[{
+        FractionBox["1", "3"], " ", 
+        InterpretationBox[
+         StyleBox[GridBox[{
+            {
+             RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+             StyleBox[GridBox[{
+                {"a", "c", "b", "d"},
+                {" ", " ", " ", " "}
+               },
+               GridBoxSpacings->{"Columns" -> {
+                   Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                   Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+              FontSize->9]}
+           },
+           
+           GridBoxAlignment->{
+            "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+             "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.27999999999999997`], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+               Offset[0.2], {
+                Offset[0.4]}, 
+               Offset[0.2]}, "RowsIndexed" -> {}}],
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`RiemannCD[$CellContext`a, $CellContext`c, \
 $CellContext`b, $CellContext`d],
-        Editable->False]}], "-", 
-      RowBox[{
-       FractionBox["1", "3"], " ", 
-       InterpretationBox[
-        StyleBox[GridBox[{
-           {
-            RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-            StyleBox[GridBox[{
-               {"a", "d", "b", "c"},
-               {" ", " ", " ", " "}
-              },
-              GridBoxSpacings->{"Columns" -> {
-                  Offset[0.], {
-                   Offset[0.034999999999999996`]}, 
-                  Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-                   Offset[0.]}}, "RowsIndexed" -> {}}],
-             FontSize->9]}
-          },
-          
-          GridBoxAlignment->{
-           "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
-            "Rows" -> {{Center}}, "RowsIndexed" -> {}},
-          GridBoxSpacings->{"Columns" -> {
-              Offset[0.27999999999999997`], {
-               Offset[0.034999999999999996`]}, 
-              Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-              Offset[0.2], {
-               Offset[0.4]}, 
-              Offset[0.2]}, "RowsIndexed" -> {}}],
-         ShowAutoStyles->False,
-         AutoSpacing->False],
-        $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
+         Editable->False]}], "-", 
+       RowBox[{
+        FractionBox["1", "3"], " ", 
+        InterpretationBox[
+         StyleBox[GridBox[{
+            {
+             RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+             StyleBox[GridBox[{
+                {"a", "d", "b", "c"},
+                {" ", " ", " ", " "}
+               },
+               GridBoxSpacings->{"Columns" -> {
+                   Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                   Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+              FontSize->9]}
+           },
+           
+           GridBoxAlignment->{
+            "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+             "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+           GridBoxSpacings->{"Columns" -> {
+               Offset[0.27999999999999997`], {
+                Offset[0.034999999999999996`]}, 
+               Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+               Offset[0.2], {
+                Offset[0.4]}, 
+               Offset[0.2]}, "RowsIndexed" -> {}}],
+          ShowAutoStyles->False,
+          AutoSpacing->False],
+         $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
 $CellContext`b, $CellContext`c],
-        Editable->False]}]}]}], "]"}]}], "}"}]], "Output",
- CellChangeTimes->{3.580895608923135*^9},
- CellLabel->"Out[15]=",
- CellID->741859048]
+         Editable->False]}]}]}], "]"}]}], ",", 
+   RowBox[{
+    RowBox[{"HoldPattern", "[", 
+     InterpretationBox[
+      StyleBox[
+       RowBox[{
+        SuperscriptBox["\[EmptyDownTriangle]", 
+         UnderscriptBox[
+          UnderscriptBox["e", "_"], "_"]], GridBox[{
+          {
+           RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+           StyleBox[GridBox[{
+              {
+               UnderscriptBox[
+                UnderscriptBox["a", "_"], "_"], 
+               UnderscriptBox[
+                UnderscriptBox["b", "_"], "_"], 
+               UnderscriptBox[
+                UnderscriptBox["c", "_"], "_"], 
+               UnderscriptBox[
+                UnderscriptBox["d", "_"], "_"]},
+              {" ", " ", " ", " "}
+             },
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                  Offset[0.]}}, "RowsIndexed" -> {}}],
+            FontSize->9]}
+         },
+         GridBoxAlignment->{
+          "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+           "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+         GridBoxSpacings->{"Columns" -> {
+             Offset[0.27999999999999997`], {
+              Offset[0.034999999999999996`]}, 
+             Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+             Offset[0.2], {
+              Offset[0.4]}, 
+             Offset[0.2]}, "RowsIndexed" -> {}}]}],
+       ShowAutoStyles->False,
+       AutoSpacing->False],
+      $CellContext`CD[
+       PatternTest[
+        Pattern[$CellContext`e, 
+         Blank[]], TangentM`pmQ]][
+       $CellContext`RiemannCD[
+        PatternTest[
+         Pattern[$CellContext`a, 
+          Blank[]], TangentM`pmQ], 
+        PatternTest[
+         Pattern[$CellContext`b, 
+          Blank[]], TangentM`pmQ], 
+        PatternTest[
+         Pattern[$CellContext`c, 
+          Blank[]], TangentM`pmQ], 
+        PatternTest[
+         Pattern[$CellContext`d, 
+          Blank[]], TangentM`pmQ]]],
+      Editable->False], "]"}], "\[RuleDelayed]", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", "}"}], ",", 
+      RowBox[{
+       RowBox[{
+        FractionBox["1", "12"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "a"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"b", "c", "d", "e"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`a][
+           $CellContext`RiemannCD[$CellContext`b, $CellContext`c, \
+$CellContext`d, $CellContext`e]],
+          Editable->False], ")"}]}], "-", 
+       RowBox[{
+        FractionBox["1", "12"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "a"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"b", "d", "c", "e"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`a][
+           $CellContext`RiemannCD[$CellContext`b, $CellContext`d, \
+$CellContext`c, $CellContext`e]],
+          Editable->False], ")"}]}], "-", 
+       RowBox[{
+        FractionBox["1", "6"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "a"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"b", "e", "c", "d"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`a][
+           $CellContext`RiemannCD[$CellContext`b, $CellContext`e, \
+$CellContext`c, $CellContext`d]],
+          Editable->False], ")"}]}], "-", 
+       RowBox[{
+        FractionBox["1", "12"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "b"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "c", "d", "e"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`b][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`c, \
+$CellContext`d, $CellContext`e]],
+          Editable->False], ")"}]}], "+", 
+       RowBox[{
+        FractionBox["1", "12"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "b"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "d", "c", "e"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`b][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
+$CellContext`c, $CellContext`e]],
+          Editable->False], ")"}]}], "+", 
+       RowBox[{
+        FractionBox["1", "6"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "b"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "e", "c", "d"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`b][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`e, \
+$CellContext`c, $CellContext`d]],
+          Editable->False], ")"}]}], "-", 
+       RowBox[{
+        FractionBox["1", "6"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "b", "d", "e"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`c][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`b, \
+$CellContext`d, $CellContext`e]],
+          Editable->False], ")"}]}], "-", 
+       RowBox[{
+        FractionBox["1", "12"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "d", "b", "e"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`c][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
+$CellContext`b, $CellContext`e]],
+          Editable->False], ")"}]}], "+", 
+       RowBox[{
+        FractionBox["1", "12"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "c"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "e", "b", "d"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`c][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`e, \
+$CellContext`b, $CellContext`d]],
+          Editable->False], ")"}]}], "+", 
+       RowBox[{
+        FractionBox["1", "6"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "d"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "b", "c", "e"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`d][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`b, \
+$CellContext`c, $CellContext`e]],
+          Editable->False], ")"}]}], "+", 
+       RowBox[{
+        FractionBox["1", "12"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "d"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "c", "b", "e"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`d][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`c, \
+$CellContext`b, $CellContext`e]],
+          Editable->False], ")"}]}], "-", 
+       RowBox[{
+        FractionBox["1", "12"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "d"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "e", "b", "c"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`d][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`e, \
+$CellContext`b, $CellContext`c]],
+          Editable->False], ")"}]}], "+", 
+       RowBox[{
+        FractionBox["1", "3"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "e"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "b", "c", "d"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`e][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`b, \
+$CellContext`c, $CellContext`d]],
+          Editable->False], ")"}]}], "+", 
+       RowBox[{
+        FractionBox["1", "6"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "e"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "c", "b", "d"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`e][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`c, \
+$CellContext`b, $CellContext`d]],
+          Editable->False], ")"}]}], "-", 
+       RowBox[{
+        FractionBox["1", "6"], " ", 
+        RowBox[{"(", 
+         InterpretationBox[
+          StyleBox[
+           RowBox[{
+            SuperscriptBox["\[EmptyDownTriangle]", "e"], GridBox[{
+              {
+               RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
+               StyleBox[GridBox[{
+                  {"a", "d", "b", "c"},
+                  {" ", " ", " ", " "}
+                 },
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.], {
+                    Offset[0.034999999999999996`]}, 
+                    Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
+                    Offset[0.]}}, "RowsIndexed" -> {}}],
+                FontSize->9]}
+             },
+             
+             GridBoxAlignment->{
+              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
+             GridBoxSpacings->{"Columns" -> {
+                 Offset[0.27999999999999997`], {
+                  Offset[0.034999999999999996`]}, 
+                 Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, 
+               "Rows" -> {
+                 Offset[0.2], {
+                  Offset[0.4]}, 
+                 Offset[0.2]}, "RowsIndexed" -> {}}]}],
+           ShowAutoStyles->False,
+           AutoSpacing->False],
+          $CellContext`CD[$CellContext`e][
+           $CellContext`RiemannCD[$CellContext`a, $CellContext`d, \
+$CellContext`b, $CellContext`c]],
+          Editable->False], ")"}]}]}]}], "]"}]}]}], "}"}]], "Output",
+ CellChangeTimes->{3.580895608923135*^9, 3.582858859131502*^9},
+ CellLabel->"Out[35]=",
+ CellID->2120003987]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
