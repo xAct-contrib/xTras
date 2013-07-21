@@ -148,9 +148,12 @@
 		<replaceregexp file="${basedir}/build/xTras/PacletInfo.m" match=" Version -> (.*)" replace=" Version -> ${quoted.version}," byline="true" />
 
 		<!-- Lastly, zip everything in a distributable file. -->
-		<zip destfile="${basedir}/dist/xTras.v${git.newversion}.zip" basedir="${basedir}" includes="INSTALL,xAct/**" update="no">
+		<zip destfile="${basedir}/dist/xTras.v${git.newversion}.zip" basedir="${basedir}" includes="xAct/**" update="no">
 			<!-- Move the pre-build documentation to the xTras documentation directory. -->
 			<zipfileset dir="${basedir}/build/xTras" prefix="xAct/xTras" />
+			<!-- Also include thie INSTALL and LICENSE files -->
+			<zipfileset dir="${basedir}/buildfiles" includes="INSTALL" fullpath="INSTALL"/>
+			<zipfileset dir="${basedir}" includes="LICENSE" fullpath="LICENSE"/>
 		</zip>
 
 	</target>
