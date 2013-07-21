@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="BuildUsageMessages" default="main" basedir=".">
+<project name="BuildUsageMessages" default="main" basedir="..">
 
 	<!-- Change these two parameters as needed.	-->
 	<property name="docInputDir" value="xTras/Documentation"/>
@@ -34,16 +34,11 @@
 			(* full messages *)
 			$MessagePrePrint = .
 			
-			(* Configure Front End *)
-			If[AntProperty["frontEndLaunchFlags"] =!= Null,
-				SetOptions[ Developer`InstallFrontEnd, Developer`LaunchFlags -> AntProperty["frontEndLaunchFlags"]]
-			];
-			
 			$outputFile	= AntProperty["output"];
 			$inputDir 	= AntProperty["inputDir"];
 			baseDir		= AntProperty["basedir"];
 			
-			Get[FileNameJoin[{baseDir,"interfacebuild.m"}]];
+			Get[FileNameJoin[{baseDir,"buildfiles","interfacebuild.m"}]];
 			
 			InterfaceBuild`ProcessDirectory[$inputDir, $outputFile, AntLog];
 			

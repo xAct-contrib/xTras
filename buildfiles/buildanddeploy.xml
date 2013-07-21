@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="xTras" default="zip" basedir=".">
+<project name="xTras" default="zip" basedir="..">
 
 	<property name="gitexec" value="/usr/local/git/bin/git"/>
 	<property name="egrepexec" value="/usr/bin/egrep"/>
@@ -21,7 +21,7 @@
 		<attribute name="numlog" />
 		<sequential>
 			<exec dir="." executable="${gitexec}" failonerror="true" outputproperty="git.fulllog.@{numlog}">
-				<arg line="log --pretty=format:%s @{range} xAct" />
+				<arg line="log --pretty=format:%s @{range} ${basedir}/xAct" />
 			</exec>
 			<echo file="log.temp">${git.fulllog.@{numlog}}</echo>
 			<exec dir="." executable="${egrepexec}" outputproperty="git.log.@{numlog}">
@@ -95,7 +95,6 @@
 				"{\"" + newversion + "\", {" + newdate + "}}"
 			);			
 
-			
 			/* Create the formatted log by looping over the tags. */
 			var output = '';
 			for (var i = tags.length - 1; i > -1; i--) {
@@ -111,6 +110,7 @@
 			
 				/* Get the log of this particular tag. */
 			    var getgitlog  = project.createTask("get-git-log");
+			
 			    var range = '';
 			    if(i > 0)
 			    {
@@ -120,6 +120,7 @@
 			    getgitlog.setDynamicAttribute("range", range);
 				getgitlog.setDynamicAttribute("numlog",i);
 			    getgitlog.execute();
+			
 			    output += project.getProperty("git.log." + i).replace("\r", "").replace(" *","\n*") + "\n\n";
 			
 				echo.setMessage("Formatted changelog for " + tags[i]);
@@ -135,21 +136,21 @@
 		<delete file="log.temp" />
 		
 		<!-- Write the changelog to a file. -->
-		<echo file="xAct/xTras/xTras.History">${git.log}</echo>
+		<echo file="${basedir}/xAct/xTras/xTras.History">${git.log}</echo>
 		
 		<!-- Echo the version number. -->
 		<echo>Version number: ${xact.version}</echo>
 
 		<!-- Replace the version number and date in the init.m file. -->
-		<replaceregexp file="xAct/xTras/Kernel/init.m" match="Version = (.*)" replace="Version = ${xact.version};" byline="true" />
+		<replaceregexp file="${basedir}/xAct/xTras/Kernel/init.m" match="Version = (.*)" replace="Version = ${xact.version};" byline="true" />
 		<!-- Replace the version number in the PacletInfo.m file. -->
-		<replaceregexp file="PacletInfo.m" match=" Version -> (.*)" replace=" Version -> ${quoted.version}," byline="true" />
-		<replaceregexp file="build/xTras/PacletInfo.m" match=" Version -> (.*)" replace=" Version -> ${quoted.version}," byline="true" />
+		<replaceregexp file="${basedir}/PacletInfo.m" match=" Version -> (.*)" replace=" Version -> ${quoted.version}," byline="true" />
+		<replaceregexp file="${basedir}/build/xTras/PacletInfo.m" match=" Version -> (.*)" replace=" Version -> ${quoted.version}," byline="true" />
 
 		<!-- Lastly, zip everything in a distributable file. -->
-		<zip destfile="dist/xTras.v${git.newversion}.zip" basedir="." includes="INSTALL,xAct/**" update="no">
+		<zip destfile="${basedir}/dist/xTras.v${git.newversion}.zip" basedir="${basedir}" includes="INSTALL,xAct/**" update="no">
 			<!-- Move the pre-build documentation to the xTras documentation directory. -->
-			<zipfileset dir="build/xTras" prefix="xAct/xTras" />
+			<zipfileset dir="${basedir}/build/xTras" prefix="xAct/xTras" />
 		</zip>
 
 	</target>

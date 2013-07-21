@@ -1,32 +1,6 @@
 <?xml version="1.0"?>
-<project name="BuildDocumentation" default="main" basedir=".">
+<project name="BuildDocumentation" default="main" basedir="..">
 
-<!--
- This build file has been created by the Wolfram Workbench.
- If you run it inside the Workbench it should not need any 
- modifications to create documentation.
-
-
- If you run the build outside of the Workbench you may need to 
- modify appPath, mathematicaInstallDir and mathExe.
- 
- If you move the buildfile inside the project, you will 
- need to make appropriate changes to inputDir, outputDirNB,
- outputDirWeb, and logDir.
- 
- Properties:
-   appPath    the path that contains the location of the DocumentationBuild app
-   mathematicaInstallDir   
-              the installation directory of Mathematica
-   mathExe    the command to use for invoking the Mathematica Kernel
-   inputDir   the directory in which to search for notebooks to convert
-   outputDirNB  the directory into which notebook output will be written
-   outputDirWeb  the directory into which web output will be written
-   logDir     the directory into which log information will be written
-   buildNBDocs set this if you want to build NB documentation
-   buildWebDocs set this if you want to build Web documentation
--->
-	
 <!--
 	app.name is the name of the application.
 -->
@@ -188,13 +162,15 @@ or set Mathematica.DocumentationBuild.createHTML.setting to Mathematica.Document
 		</replaceregexp>
 			
 		<!-- Remove box around MORE INFORMATION -->
+		<!--
 		<replace dir="${dist}" value='StyleBox[RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"]'>
 		  <include name="**/*.nb"/>
 		  <replacetoken><![CDATA[FrameBox[
    StyleBox[
     RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"],
    StripOnInput->False]]]></replacetoken>
-		</replace>		
+		</replace>
+		-->
 		
 	</target>
 	
