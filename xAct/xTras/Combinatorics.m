@@ -436,7 +436,7 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 	indexlist	= IndexSort@Join[indexlist[[1;;numIndices-2numContractions]],dummies];
 	
 	(* Reconstruct tensorial expressions from the permutations. *)
-	contractions = xAct`xTensor`Private`Reconstruct[
+	contractions = UxSort@xAct`xTensor`Private`Reconstruct[
 		sym,
 		{1,PermuteList[indexlist,InversePerm@Images[#]]}
 	]& /@ contractions;
