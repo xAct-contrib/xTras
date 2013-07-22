@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="xTras" default="zip" basedir="..">
-
-	<property name="gitexec" value="/usr/local/git/bin/git"/>
-	<property name="egrepexec" value="/usr/bin/egrep"/>
-	
 	<!-- Macro for getting the date of a Git tag. -->
 	<macrodef name="get-git-date">
 		<attribute name="tag" />
@@ -30,8 +24,9 @@
 		</sequential>
 	</macrodef>
 	
-	<!-- The main zip task that creates the distributable file. -->
-	<target name="zip">
+	<target name="changelog">
+		
+		<echo>## UPDATING CHANGELOG ##</echo>
 
 		<!-- Get the date. -->
 		<tstamp>
@@ -137,38 +132,5 @@
 		
 		<!-- Write the changelog to a file. -->
 		<echo file="${basedir}/xAct/xTras/xTras.History">${git.log}</echo>
-		
-		<!-- Echo the version number. -->
-		<echo>Version number: ${xact.version}</echo>
-
-		<!-- Replace the version number and date in the init.m file. -->
-		<replaceregexp file="${basedir}/xAct/xTras/Kernel/init.m" match="Version = (.*)" replace="Version = ${xact.version};" byline="true" />
-		<!-- Replace the version number in the PacletInfo.m file. -->
-		<replaceregexp file="${basedir}/PacletInfo.m" match=" Version -> (.*)" replace=" Version -> ${quoted.version}," byline="true" />
-		<replaceregexp file="${basedir}/build/xTras/PacletInfo.m" match=" Version -> (.*)" replace=" Version -> ${quoted.version}," byline="true" />
-
-		<!-- Lastly, zip everything in a distributable file. -->
-		<zip destfile="${basedir}/dist/xTras.v${git.newversion}.zip" basedir="${basedir}" includes="xAct/**" update="no">
-			<!-- Move the pre-build documentation to the xTras documentation directory. -->
-			<zipfileset dir="${basedir}/build/xTras" prefix="xAct/xTras" />
-			<!-- Also include thie INSTALL and LICENSE files -->
-			<zipfileset dir="${basedir}/buildfiles" includes="INSTALL" fullpath="INSTALL"/>
-			<zipfileset dir="${basedir}" includes="LICENSE" fullpath="LICENSE"/>
-		</zip>
 
 	</target>
-
-	<!-- Task that deploys xTras into the local Mathematica user directory. -->
-	<target name="deploy">
-		<delete includeEmptyDirs="true" quiet="true">
-			<fileset dir="${user.home}/Library/Mathematica/Applications/xAct/xTras" defaultexcludes="no"/>
-		</delete>
-		<copy todir="${user.home}/Library/Mathematica/Applications/xAct">
-			<fileset dir="xAct" />
-		</copy>
-		<copy todir="${user.home}/Library/Mathematica/Applications/xAct/xTras">
-			<fileset dir="build/xTras" />
-		</copy>
-	</target>
-	
-</project>

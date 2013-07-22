@@ -21,6 +21,7 @@ ProcessDirectory[directory_String, outputFile_String, log_:Print] :=
 		{
 			files = FileNames["*.nb", directory]
 		},
+		log["Processing directory " <> directory];
 		log["Found " <> ToString@Length@files <> " source notebooks."];
 		Put[outputFile];
 		log["Cleared output file " <> outputFile];

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE project [
+	<!ENTITY documentation SYSTEM "documentation.xml">
+	<!ENTITY changelog SYSTEM "changelog.xml">
+	<!ENTITY misc SYSTEM "misc.xml">
+	<!ENTITY defmma SYSTEM "defmma.xml">
+]>
+
+
+<project name="xTras" default="all" basedir="..">
+	
+	
+	<!-- Machine-specific config variables -->
+	<property name="xactdir" value="${user.home}/Library/Mathematica/Applications/xAct/"/>
+	<property name="gitexec" value="/usr/local/git/bin/git"/>
+	<property name="egrepexec" value="/usr/bin/egrep"/>
+	<property name="indexBuildMathExe" value="/Applications/Mathematica 9.app/Contents/MacOS/MathKernel"/>
+	<property name="indexBuildMathematicaInstallDir" value="/Applications/Mathematica 9.app"/>
+
+	
+	<!-- Project-specific config variables -->
+	<property name="pacletName" value="xTras"/>
+	<property name="app.name" value="xTras"/>
+	<property name="pacletContainer" value="xTras"/>
+	<property name="docInputDir" value="xTras/Documentation"/>
+	<property name="docOutputDir" value="Documentation"/>
+	<property name="dist" value="${basedir}/build" />
+	<property name="appPath" value="${appPath.default}"/>
+	<property name="interfaceOutputFile"  value="xAct/xTras/Interface.m"/>
+	<property name="language" value="English" />
+
+	<property name="${Mathematica.DocumentationBuild.createHTML.setting}" value="true" />	
+
+	<property name="interfaceInputDir" value="${basedir}/${docInputDir}/English/ReferencePages/Symbols" />
+	<property name="interfaceOutput" 	value="${basedir}/${interfaceOutputFile}" />
+	<property name="inputDir" value="${basedir}/${docInputDir}" />
+	<property name="outputDirNB" value="${dist}/${pacletContainer}/${docOutputDir}" />
+	<property name="outputDirWeb" value="${dist}/${pacletContainer}-HTML" />
+	<property name="logDir" value="${dist}/log" />
+	<property name="jlinkpath" value="${mathematicaInstallDir}/SystemFiles/Links/JLink"/>
+	<property name="indexjlinkpath" value="${indexBuildMathematicaInstallDir}/SystemFiles/Links/JLink"/>
+	
+	<property name="buildIndex" value="False" />
+	<property name="buildNBDocs" value="true" />
+	<property name="buildWebDocs" value="true" />
+	<property name="includeLinkTrails" value="false"/> 
+	
+	
+	<!-- Include files -->
+	&misc;
+	&documentation;
+	&changelog;
+	
+	
+	<!-- Targets -->
+	<target name="all">
+		&defmma;
+		<antcall target="docbuild" />
+		<antcall target="replaceStuff" />
+		<antcall target="indexbuild" />
+		<antcall target="interfacebuildnomma"/>
+		<antcall target="zip"/>
+	</target>
+	
+		
+</project>

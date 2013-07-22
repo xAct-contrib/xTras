@@ -1,0 +1,59 @@
+	<target name="updateversionnumber" depends="changelog">
+		<echo>## UPDATING VERSION NUMBER ##</echo>
+		<!-- Echo the version number. -->
+		<echo>Version number: ${xact.version}</echo>
+		<!-- Replace the version number and date in the init.m file. -->
+		<replaceregexp file="${basedir}/xAct/xTras/Kernel/init.m" match="Version = (.*)" replace="Version = ${xact.version};" byline="true" />
+		<!-- Replace the version number in the PacletInfo.m files. -->
+		<replaceregexp file="${basedir}/PacletInfo.m" match=" Version -> (.*)" replace=" Version -> ${quoted.version}," byline="true" />
+		<replaceregexp file="${basedir}/build/xTras/PacletInfo.m" match=" Version -> (.*)" replace=" Version -> ${quoted.version}," byline="true" />
+	</target>
+	
+	<target name="zip" depends="updateversionnumber">
+		<echo>## CREATING ZIP FILE ##</echo>
+		<!-- Lastly, zip everything in a distributable file. -->
+		<zip destfile="${basedir}/dist/xTras.v${git.newversion}.zip" basedir="${basedir}" includes="xAct/**" update="no">
+			<!-- Move the pre-build documentation to the xTras documentation directory. -->
+			<zipfileset dir="${basedir}/build/xTras" prefix="xAct/xTras" />
+			<!-- Also include thie INSTALL and LICENSE files -->
+			<zipfileset dir="${basedir}/buildfiles" includes="INSTALL" fullpath="INSTALL"/>
+			<zipfileset dir="${basedir}" includes="LICENSE" fullpath="LICENSE"/>
+		</zip>
+	</target>
+	
+	<target name="interfacebuild">	
+		&defmma;
+		<antcall target="interfacebuildnomma"/>  	
+	</target>
+	
+	<target name="interfacebuildnomma">
+		<echo>## BUILDING INTERFACE ##</echo>
+		<mathematica exe="${mathExe}" fresh="true">
+			<![CDATA[
+			
+			AntLog[$Version];
+				
+			$outputFile	= AntProperty["interfaceOutput"];
+			$inputDir 	= AntProperty["interfaceInputDir"];
+			baseDir		= AntProperty["basedir"];
+			
+			Get[FileNameJoin[{baseDir,"buildfiles","interfacebuild.m"}]];
+			
+			InterfaceBuild`ProcessDirectory[$inputDir, $outputFile, AntLog];
+			
+			]]>
+		</mathematica>	      	
+	</target>
+	
+	<!-- Task that deploys xTras into the local Mathematica user directory. -->
+	<target name="deploy">
+		<delete includeEmptyDirs="true" quiet="true">
+			<fileset dir="${xactdir}/xTras" defaultexcludes="no"/>
+		</delete>
+		<copy todir="${xactdir}">
+			<fileset dir="xAct" />
+		</copy>
+		<copy todir="${xactdir}/xTras">
+			<fileset dir="build/xTras" />
+		</copy>
+	</target>

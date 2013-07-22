@@ -1,83 +1,32 @@
-<?xml version="1.0"?>
-<project name="BuildDocumentation" default="main" basedir="..">
+	<target name="documentation">
+		&defmma;
+		<antcall target="docbuild" />
+		<antcall target="replaceStuff" />
+		<antcall target="indexbuild" />
+	</target>
 
-<!--
-	app.name is the name of the application.
--->
-	<property name="pacletName" value="xTras"/>
-	<property name="app.name" value="xTras"/>
-	<property name="pacletContainer" value="xTras"/>
-	<property name="docInputDir" value="xTras/Documentation"/>
-	<property name="docOutputDir" value="Documentation"/>
-	<property name="dist" value="${basedir}/build" />
-	
+
 	<target name="clean">
 		<delete  dir="${dist}" />
 	</target>
 	
-	<target name="docbuild">
+	<target name="docbuild" depends="clean">
 
-<!--
-If you want to create HTML you should always set Mathematica.DocumentationBuild.createHTML
-or set Mathematica.DocumentationBuild.createHTML.setting to Mathematica.DocumentationBuild.createHTML.
--->
-		<property name="${Mathematica.DocumentationBuild.createHTML.setting}" value="true" />	
+		<property name="mathematicaInstallDir" value="${docMathematicaInstallDir}"/>
+		<property name="mathExe" value="${docMathExe}"/>
 
-<!--
- appPath, mathematicaInstallDir and mathExe. 
- These need to be set appropriately for your build.
--->		
-		<property name="appPath" value="${appPath.default}"/>
-		<property name="mathematicaInstallDir" value="/Applications/Mathematica 9.app"/>
-		<property name="mathExe" value="/Applications/Mathematica 9.app/Contents/MacOS/MathKernel"/>
-
-<!--
- If you move the build file, you need to change inputDir, outputDir, and logDir.
--->
-
-		<property name="inputDir" value="${basedir}/${docInputDir}" />
-		<property name="outputDirNB" value="${dist}/${pacletContainer}/${docOutputDir}" />
-		<property name="outputDirWeb" value="${dist}/${pacletContainer}-HTML" />
-		<property name="logDir" value="${dist}/log" />
-		<property name="jlinkpath" value="${mathematicaInstallDir}/SystemFiles/Links/JLink"/>
-
-		<echo message="DocumentationBuild: ${appPath}"/>
-		<echo message="Mathematica Install Dir: ${mathematicaInstallDir}"/>
+		<echo>## BUILDING DOCUMENTATION ##</echo>
 		<echo message="MathKernel: ${mathExe}"/>
-		<echo message="Input: ${inputDir}"/>
-		<echo message="Output NB: ${outputDirNB}"/>
-		<echo message="Output Web: ${outputDirWeb}"/>
-			
-		<property name="buildIndex" value="False" />
-		<property name="buildNBDocs" value="true" />
-		<property name="buildWebDocs" value="true" />
-		<property name="includeLinkTrails" value="false"/> 
-
-	  	<path id="jlink.lib">
-	    	<fileset dir="${jlinkpath}">
-	      		<include name="**/JLink.jar"/>
-	      		<include name="**/SystemFiles/*"/>
-	    		</fileset>
-	  	</path>
-
-	  	<!-- Load JLink -->
-	  	<taskdef name="mathematica"
-	      	classname="com.wolfram.jlink.util.MathematicaTask" >
-	    	<classpath refid="jlink.lib" />
-	  	</taskdef>
-
-		<property name="JLinkLoaded" value="true"/>
-		
+		<echo message="Mathematica Install Dir: ${mathematicaInstallDir}"/>
+	  	
 		<ant antfile="${appPath}/DocumentationBuild/SystemFiles/ant/Build/notebook.xml"
 	           target="main">
 	    	<property name="outputDir" value="${outputDirNB}" />
 	        <property name="language" value="English" />
 	    </ant>
 
-		<antcall target="createHTML" />
-		
+		<antcall target="createHTML" />	
 		<antcall target="setupPaclet" />
-		
 
 	</target>
 
@@ -103,12 +52,21 @@ or set Mathematica.DocumentationBuild.createHTML.setting to Mathematica.Document
 		</copy>
 	</target>
 	
-	<target name="main" depends="clean">
-		<antcall target="docbuild" />
-		<antcall target="replaceStuff" />
+	<target name="indexbuild">
+		<mathematica exe="${indexBuildMathExe}" fresh="true" failonerror="false">
+			<![CDATA[
+			
+			AntLog[$Version];
+			
+			Get[FileNameJoin[{AntProperty["basedir"],"buildfiles","indexbuild.m"}]];
+	
+			]]>
+		</mathematica>
 	</target>
 
 	<target name="replaceStuff">
+	
+		<echo>## REPLACING STRINGS IN DOCS ##</echo>
 		
 		<!-- x Tras to xTras -->
 		<!-- Guides -->
@@ -173,6 +131,4 @@ or set Mathematica.DocumentationBuild.createHTML.setting to Mathematica.Document
 		-->
 		
 	</target>
-	
-</project>
 

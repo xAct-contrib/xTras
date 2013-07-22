@@ -1,0 +1,13 @@
+<path id="jlink.lib">
+	<fileset dir="${jlinkpath}">
+  		<include name="**/JLink.jar"/>
+  		<include name="**/SystemFiles/*"/>
+		</fileset>
+</path>
+
+<taskdef name="mathematica"
+  	classname="com.wolfram.jlink.util.MathematicaTask" >
+	<classpath refid="jlink.lib" />
+</taskdef>
+
+<property name="JLinkLoaded" value="true"/>
