@@ -656,7 +656,7 @@ Options[YoungSymmetric] ^= {
 
 TableauSymmetric[tableau_?YoungTableauQ, options___?OptionQ] := Module[
 	{
-		manifestsym, transpose, sgs, cycles, samelengths, pairs, extracycles, sign
+		tab, manifestsym, transpose, sgs, cycles, samelengths, pairs, extracycles, sign
 	},
 	manifestsym = ManifestSymmetry	/. CheckOptions[options] /. Options[YoungSymmetric];
 	transpose 	= TableauTranspose[tableau];
@@ -670,16 +670,16 @@ TableauSymmetric[tableau_?YoungTableauQ, options___?OptionQ] := Module[
 	
 	(* The second set of cycles comes from the additional symmetry present when two or more
 	   rows or columns have the same length and can be interchanged. *)
+	tab = If[manifestsym === Antisymmetric,
+		transpose,
+		tableau
+	];
 	samelengths = Select[
-		GatherBy[
-			If[manifestsym === Antisymmetric,
-				transpose,
-				tableau
-			],
-			Length
-		],
+		(* Can't use GatherBy here, because that's MMA 7 and newer. *)
+		Function[x, Select[tab, Length[#] === x &]] /@  DeleteDuplicates[Length /@ tab], 
 		Length[#] > 1 &
 	];
+
 	If[manifestsym === Antisymmetric,
 		sign = 1,
 		sign = -1
