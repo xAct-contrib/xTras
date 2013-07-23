@@ -8,19 +8,34 @@ $CommuteCovDsOnScalars = True;
 SetOptions[ToCanonical, UseMetricOnVBundle -> All];
 SetOptions[ContractMetric, AllowUpperDerivatives -> True];
 
-DefManifold[
-	M,
-	dim,
-	IndexRange[a,l]
-];
 
-DefMetric[
-	-1,
-	metric[-a,-b],
-	CD,
-	PrintAs -> "g",
-	CurvatureRelations -> True
-];
+Test[
+	DefManifold[
+		M,
+		dim,
+		IndexRange[a,l]
+	]
+	,
+	Null
+	,
+	TestID->"xTensor-20130102-C1X1X5"
+]
+
+Test[
+	DefMetric[
+		-1,
+		metric[-a,-b],
+		CD,
+		PrintAs -> "g",
+		CurvatureRelations -> True
+	]
+	,
+	Null
+	,
+	TestID->"xTensor-20130723-N4O7F9"
+]
+
+
 
 DefConstantSymbol[K];
 
@@ -36,7 +51,7 @@ Test[
 	,
 	True
 	,
-	TestID->"xTensor-20130102-C1X1X5"
+	TestID->"xTensor-20130723-T9C9W5"
 ]
 
 Test[

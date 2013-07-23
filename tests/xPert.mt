@@ -26,15 +26,15 @@ Test[
 ]
 
 Test[
-	PerturbationOfMetric[metric]
+	Perturbation[ metric[-a,-b] ]
 	,
-	Perturbationmetric
+	Perturbationmetric[LI[1],-a,-b]
 	,
 	TestID->"xPert-20130102-L4S5X5"
 ]
 
 Test[
-	PerturbationParameterOfMetric[metric]
+	PerturbationParameter[metric]
 	,
 	PerturbationParametermetric
 	,

@@ -1,15 +1,3 @@
-PerturbationParameter::usage = 
-	"PerturbationParameter is a reserved word in xTras`xPert.";
-
-(* Variational calculus *)
-
-PerturbationParameterOfMetric::usage =
-	"PerturbationParameterOfMetric[metric] gives the perturbation expansion \
-parametric of the metric.";
-
-PerturbationOfMetric::usage =
-	"PerturbationOfMetric[metric] gives the perturbation tensor of the metric.";
-
 VarL::usage = 
 	"VarL[ g[a,b] ][ L ] performs a variation of \!\(TraditionalForm\`\*SqrtBox[\(-g\)]L\) \
 with respect to the metric g, and divides with \!\(TraditionalForm\`\*SqrtBox[\(-g\)]\) afterwards.";
@@ -162,41 +150,25 @@ xTrasxPertDefMetric[signdet_, metric_[-a_, -b_], cd_, options___] := (
 		TrueQ[DefMetricPerturbation /. CheckOptions[options] /. Options[DefMetric]],	
 		DefMetricPerturbation[
 			metric,
-			GiveSymbol[Perturbation,metric],
-			GiveSymbol[PerturbationParameter,metric]
+			GiveSymbol[Perturbation,metric]
 		];
 		PrintAs[GiveSymbol[Perturbation,metric]] ^= StringJoin[
 			PrintAs[Perturbation],
 			PrintAs[metric]
 		];
-		PrintAs[GiveSymbol[PerturbationParameter,metric]] ^= StringJoin[
-			"\[CurlyEpsilon]",
-			PrintAs[metric]
-		];
 	];
 );
-
-PerturbationOfMetric[metric_] := Throw@Message[
-	PerturbationOfMetric::unknown, 
-	"metric perturbation of metric", 
-	metric
-];
-PerturbationParameterOfMetric[metric_] := Throw@Message[
-	PerturbationParameterOfMetric::unknown, 
-	"metric perturbation parameter of metric", 
-	metric
-];
 
 
 xTension["xTras`xPert`", DefMetricPerturbation, "End"] := xTrasDefMetricPerturbation;
 
-xTrasDefMetricPerturbation[metric_,pert_,param_] := (		
-	PerturbationOfMetric[metric] ^= pert;
-	PerturbationParameterOfMetric[metric] ^= param;
+xTrasDefMetricPerturbation[metric_,pert_,param_] :=		
 	DefMetricVariation[metric, pert, param];
-);
 
 
+DefMetricVariation[metric_?MetricQ, per_, Automatic] := 
+	DefMetricVariation[metric, per, PerturbationParameter[metric]];
+	
 DefMetricVariation[metric_?MetricQ, per_, param_] := Module[
 	{var, M, vb, a, b},
 
@@ -205,7 +177,7 @@ DefMetricVariation[metric_?MetricQ, per_, param_] := Module[
 	{a,b}	= GetIndicesOfVBundle[vb,2];
 
 	If[
-		PerturbationOfMetric[metric] =!= per || PerturbationParameterOfMetric[metric] =!= param,
+		Perturbation[ metric[-a,-b] ] =!= per[LI[1],-a,-b] || PerturbationParameter[metric] =!= param,
 		Throw@Message[
 			DefMetricVariation::error, 
 			"Metric perturbation does not match or is not defined."

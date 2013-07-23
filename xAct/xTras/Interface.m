@@ -285,16 +285,6 @@ MetricOfKillingVector::usage = "\!\(\*TagBox[\(MetricOfKillingVector[ \
 DisplayForm]\)"; 
 OrderParameter::usage = "OrderParameter is an option for InvarLagrangian that \
 specifies the parameter that labels the order of derivatives."; 
-PerturbationOfMetric::usage = "\!\(\*TagBox[\(PerturbationOfMetric[ \
-\*StyleBox[\"g\", \"TI\"]] gives the perturbation tensor of the metric  \
-\*StyleBox[\"g\", \"TI\"] .\), DisplayForm]\)"; 
-PerturbationParameter::usage = "\!\(\*TagBox[\(PerturbationParameter is a \
-reserved word in  \*StyleBox[\"xTras\", Rule[FontSlant, \"Italic\"]], used to \
-generate the name of the perturbation parameter of metric perturbations.\), \
-DisplayForm]\)"; 
-PerturbationParameterOfMetric::usage = "\!\(\*TagBox[\(PerturbationParameterO\
-fMetric[ \*StyleBox[\"g\", \"TI\"]] gives the perturbation expansion \
-parametric of the metric  \*StyleBox[\"g\", \"TI\"] .\), DisplayForm]\)"; 
 PerturbBackground::usage = "\!\(\*TagBox[\(PerturbBackground[ \
 \*StyleBox[\"expr\", \"TI\"]] returns an (unexpanded) first order \
 perturbation of  \*StyleBox[\"expr\", \"TI\"]\(\(\\ on an arbitrary \
