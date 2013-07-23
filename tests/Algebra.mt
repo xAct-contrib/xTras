@@ -4,7 +4,7 @@
 (*              *)
 (****************)
 
-DefConstantSymbol@GiveSymbol["c", #] & /@ Range[5];
+DefConstantSymbol@SymbolJoin["c", #] & /@ Range[5];
 
 (***************************)
 (*                         *)

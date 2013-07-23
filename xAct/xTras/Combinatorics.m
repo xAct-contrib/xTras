@@ -542,7 +542,7 @@ IndexConfigurations[expr_] := Module[
   		Symmetric[Range@len] 
   	];
   	Union@Map[
-  		xAct`xTensor`Private`Reconstruct[
+  		UxSort@xAct`xTensor`Private`Reconstruct[
    			sym, 
    			{1, PermuteList[indices, InversePerm@#]}
 		]&, 
