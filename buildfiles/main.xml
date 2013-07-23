@@ -29,9 +29,7 @@
 	<property name="appPath" value="${appPath.default}"/>
 	<property name="interfaceOutputFile"  value="xAct/xTras/Interface.m"/>
 	<property name="language" value="English" />
-
-	<property name="${Mathematica.DocumentationBuild.createHTML.setting}" value="true" />	
-
+	<!-- Derived variables -->
 	<property name="interfaceInputDir" value="${basedir}/${docInputDir}/English/ReferencePages/Symbols" />
 	<property name="interfaceOutput" 	value="${basedir}/${interfaceOutputFile}" />
 	<property name="inputDir" value="${basedir}/${docInputDir}" />
@@ -40,7 +38,8 @@
 	<property name="logDir" value="${dist}/log" />
 	<property name="jlinkpath" value="${mathematicaInstallDir}/SystemFiles/Links/JLink"/>
 	<property name="indexjlinkpath" value="${indexBuildMathematicaInstallDir}/SystemFiles/Links/JLink"/>
-	
+	<!-- Build options -->
+	<property name="Mathematica.DocumentationBuild.createHTML" value="true" />
 	<property name="buildIndex" value="False" />
 	<property name="buildNBDocs" value="true" />
 	<property name="buildWebDocs" value="true" />

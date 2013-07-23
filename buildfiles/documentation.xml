@@ -104,6 +104,11 @@
 		  <include name="**/*.nb"/>
 		  <replacetoken>"x Tras Tutorial"</replacetoken>
 		</replace>
+		<!-- HTML -->
+		<replace dir="${dist}" value='xTras'>
+		  <include name="**/*.html"/>
+		  <replacetoken>x Tras</replacetoken>
+		</replace>
 		
 		<!-- Remove CacheIDs -->
 		<replace dir="${dist}" value=''>
@@ -118,6 +123,16 @@
 		<replaceregexp match='FrontEndVersion->"(.*)"' replace='FrontEndVersion->"6.0"' byline="true">
 		    <fileset dir="${dist}" includes="**/*.nb"/>
 		</replaceregexp>
+		
+		<!-- Replace absolute URLs in HTML files -->
+		<replace dir="${dist}" value='a href="../'>
+		  <include name="**/*.html"/>
+		  <replacetoken>a href="http://reference.wolfram.com/mathematica/xTras/</replacetoken>
+		</replace>
+		<replace dir="${dist}" value='a href="../'>
+		  <include name="**/*.html"/>
+		  <replacetoken>a href="/mathematica/xTras/</replacetoken>
+		</replace>
 			
 		<!-- Remove box around MORE INFORMATION -->
 		<!--
