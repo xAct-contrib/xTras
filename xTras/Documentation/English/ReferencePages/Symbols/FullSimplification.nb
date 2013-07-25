@@ -138,7 +138,21 @@ covariant derivatives.\n",
 }], "Usage",
  CellChangeTimes->{
   3.5797536948064947`*^9, {3.58046040889672*^9, 3.580460419087105*^9}, {
-   3.580460449173658*^9, 3.580460516506019*^9}}],
+   3.580460449173658*^9, 3.580460516506019*^9}, {3.583730714286652*^9, 
+   3.5837307174327707`*^9}, 3.583730804773757*^9}],
+
+Cell[TextData[{
+ Cell[BoxData["FullSimplification"], "InlineFormula"],
+ " only takes the contracted Bianchi identities given by ",
+ Cell[BoxData[
+  ButtonBox["CurvatureRelationsBianchi",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/CurvatureRelationsBianchi"]], 
+  "InlineFormula"],
+ " into account, not all Bianchi identities."
+}], "Notes",
+ CellChangeTimes->{{3.58373074167409*^9, 3.583730768565346*^9}},
+ CellID->1017288502],
 
 Cell[TextData[{
  Cell[BoxData["FullSimplification"], "InlineFormula"],
@@ -194,10 +208,18 @@ Cell[CellGroupData[{
 Cell["Tutorials", "TutorialsSection",
  CellID->250839057],
 
-Cell[TextData[ButtonBox["Metric Variations",
- BaseStyle->"Link",
- ButtonData->"paclet:xTras/tutorial/MetricVariations"]], "Tutorials",
- CellChangeTimes->{{3.58096304004589*^9, 3.580963070670217*^9}},
+Cell[TextData[{
+ ButtonBox["Metric Variations ",
+  BaseStyle->"Link",
+  ButtonData->"paclet:xTras/tutorial/MetricVariations"],
+ "\[EmptyVerySmallSquare] ",
+ ButtonBox["The Gauss-Bonnet term",
+  BaseStyle->"Link",
+  ButtonData->"paclet:xTras/tutorial/GaussBonnet"]
+}], "Tutorials",
+ CellChangeTimes->{{3.58096304004589*^9, 3.580963070670217*^9}, {
+  3.5837312070367823`*^9, 3.5837312100904837`*^9}, {3.583731265087393*^9, 
+  3.583731330738331*^9}},
  CellID->341631938]
 }, Open  ]],
 

@@ -169,10 +169,20 @@ Cell[CellGroupData[{
 Cell["Tutorials", "TutorialsSection",
  CellID->250839057],
 
-Cell[TextData[ButtonBox["Spin 2 on a flat background",
- BaseStyle->"Link",
- ButtonData->"paclet:xTras/tutorial/SpinTwo"]], "Tutorials",
- CellChangeTimes->{3.581924872233673*^9},
+Cell[TextData[{
+ ButtonBox["Spin 2 on a flat background",
+  BaseStyle->"Link",
+  ButtonData->"paclet:xTras/tutorial/SpinTwo"],
+ ButtonBox[" ",
+  BaseStyle->"Link",
+  ButtonData->"paclet:xTras/tutorial/MetricVariations"],
+ "\[EmptyVerySmallSquare] ",
+ ButtonBox["The Gauss-Bonnet term",
+  BaseStyle->"Link",
+  ButtonData->"paclet:xTras/tutorial/GaussBonnet"]
+}], "Tutorials",
+ CellChangeTimes->{
+  3.581924872233673*^9, {3.583731365458989*^9, 3.583731366953978*^9}},
  CellID->341631938]
 }, Open  ]],
 

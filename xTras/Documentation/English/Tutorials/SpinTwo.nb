@@ -155,9 +155,7 @@ Cell[BoxData[GridBox[{
   3.581924761698186*^9, 3.581924771610671*^9}},
  CellID->503181429],
 
-Cell["\<\
-Often used functions for doing field theory.\
-\>", "Caption",
+Cell["Often used functions for doing field theory.", "Caption",
  CellChangeTimes->{{3.5819247277497673`*^9, 3.581924745895295*^9}},
  CellID->179675317],
 
@@ -170,28 +168,24 @@ Cell["Setup", "Section",
 Cell[CellGroupData[{
 
 Cell[TextData[{
- "First, load the ",
+ "First of all, load the ",
  StyleBox["xTras",
   FontSlant->"Italic"],
- " package and set global variables."
+ " package."
 }], "Text",
+ CellChangeTimes->{{3.58366986325616*^9, 3.583669867590652*^9}},
  CellID->667023463],
 
-Cell[BoxData[{
+Cell[BoxData[
  RowBox[{
-  RowBox[{
-   RowBox[{"Block", "[", 
-    RowBox[{
-     RowBox[{"{", "Print", "}"}], ",", "\[IndentingNewLine]", 
-     RowBox[{"<<", "xAct`xTras`"}]}], "\[IndentingNewLine]", "]"}], ";"}], 
-  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"$PrePrint", " ", "=", " ", "ScreenDollarIndices"}], 
-  ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"$CovDFormat", " ", "=", " ", "\"\<Prefix\>\""}], ";"}]}], "Input",
+  RowBox[{"Block", "[", 
+   RowBox[{
+    RowBox[{"{", "Print", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"<<", "xAct`xTras`"}]}], "\[IndentingNewLine]", "]"}], 
+  ";"}]], "Input",
  CellChangeTimes->{{3.581920711227227*^9, 3.5819207246495733`*^9}, {
-  3.581920866819942*^9, 3.5819208671536617`*^9}},
+  3.581920866819942*^9, 3.5819208671536617`*^9}, {3.583669870662422*^9, 
+  3.5836698712564907`*^9}},
  CellLabel->"In[7]:=",
  CellID->2058623809]
 }, Open  ]],

@@ -192,9 +192,7 @@ Cell["Computing variations w.r.t. the metric.", "Caption",
 
 Cell[CellGroupData[{
 
-Cell["\<\
-Let's begin with defining a manifold.\
-\>", "Text",
+Cell["Let's begin with defining a manifold.", "Text",
  CellID->998103175],
 
 Cell[CellGroupData[{
@@ -703,9 +701,7 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["\<\
-We can now perform variations with respect to the metric:\
-\>", "Text",
+Cell["We can now perform variations with respect to the metric:", "Text",
  CellID->278658838],
 
 Cell[CellGroupData[{
@@ -1125,9 +1121,7 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["\<\
-More complicated expressions can also be varied easily:\
-\>", "Text",
+Cell["More complicated expressions can also be varied easily:", "Text",
  CellID->149214827],
 
 Cell[CellGroupData[{
@@ -3096,11 +3090,18 @@ Cell[CellGroupData[{
 Cell["Related Tutorials", "RelatedTutorialsSection",
  CellID->415694126],
 
-Cell[TextData[ButtonBox["AdS Perturbations",
- BaseStyle->"Link",
- ButtonData->"paclet:xTras/tutorial/AdSPerturbations"]], "RelatedTutorials",
+Cell[TextData[{
+ ButtonBox["AdS Perturbations",
+  BaseStyle->"Link",
+  ButtonData->"paclet:xTras/tutorial/AdSPerturbations"],
+ " \[EmptyVerySmallSquare] ",
+ ButtonBox["The Gauss-Bonnet term",
+  BaseStyle->"Link",
+  ButtonData->"paclet:xTras/tutorial/GaussBonnet"]
+}], "RelatedTutorials",
  CellChangeTimes->{{3.58226421308638*^9, 3.582264221420945*^9}, {
-  3.5822642784931726`*^9, 3.58226427854838*^9}},
+  3.5822642784931726`*^9, 3.58226427854838*^9}, {3.583731493546864*^9, 
+  3.58373155858797*^9}},
  CellID->806871991]
 }, Open  ]],
 

@@ -201,15 +201,12 @@ Cell[TextData[{
   3.580544987820202*^9}, {3.58054502451276*^9, 3.5805450718495293`*^9}},
  CellID->1067943069],
 
-Cell["\<\
-Euler densities are only defined for even dimensions.\
-\>", "Notes",
+Cell["Euler densities are only defined for even dimensions.", "Notes",
  CellChangeTimes->{{3.580545091079965*^9, 3.5805450987604713`*^9}},
  CellID->1701690987],
 
 Cell[TextData[{
- Cell[BoxData["EulerDensity"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["EulerDensity"], "InlineFormula"],
  " omits the square root of the metric determinant (so technically the \
 returned result is not a density)."
 }], "Notes",
@@ -217,11 +214,9 @@ returned result is not a density)."
  CellID->1503044898],
 
 Cell[TextData[{
- Cell[BoxData["EulerDensity"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["EulerDensity"], "InlineFormula"],
  " returns an expression with ",
- Cell[BoxData["Scalar"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["Scalar"], "InlineFormula"],
  " heads."
 }], "Notes",
  CellChangeTimes->{{3.580544263920459*^9, 3.580544308843383*^9}, {
@@ -234,7 +229,10 @@ Cell[CellGroupData[{
 Cell["Tutorials", "TutorialsSection",
  CellID->250839057],
 
-Cell["XXXX", "Tutorials",
+Cell[TextData[ButtonBox["The Gauss-Bonnet term",
+ BaseStyle->"Link",
+ ButtonData->"paclet:xTras/tutorial/GaussBonnet"]], "Tutorials",
+ CellChangeTimes->{{3.583731149506591*^9, 3.58373117762498*^9}},
  CellID->341631938]
 }, Open  ]],
 
@@ -692,8 +690,8 @@ Cell[BoxData[
        FontColor->RGBColor[1, 0, 0]]}],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    xAct`xTensor`Scalar[$CellContext`RicciCD[-$CellContext`a, $CellContext`c] \
-$CellContext`RicciCD[$CellContext`a, $CellContext`b] \
+    xAct`xTensor`Scalar[($CellContext`RicciCD[-$CellContext`a, \
+$CellContext`c] $CellContext`RicciCD[$CellContext`a, $CellContext`b]) \
 $CellContext`RicciCD[-$CellContext`b, -$CellContext`c]],
     Editable->False]}], "-", 
   RowBox[{"24", " ", 
@@ -798,8 +796,8 @@ $CellContext`RicciCD[-$CellContext`b, -$CellContext`c]],
        FontColor->RGBColor[1, 0, 0]]}],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    xAct`xTensor`Scalar[$CellContext`RicciCD[$CellContext`a, $CellContext`b] \
-$CellContext`RicciCD[$CellContext`c, $CellContext`d] \
+    xAct`xTensor`Scalar[($CellContext`RicciCD[$CellContext`a, $CellContext`b] \
+$CellContext`RicciCD[$CellContext`c, $CellContext`d]) \
 $CellContext`RiemannCD[-$CellContext`a, -$CellContext`c, -$CellContext`b, \
 -$CellContext`d]],
     Editable->False]}], "-", 
@@ -991,9 +989,9 @@ $CellContext`d, $CellContext`e],
        FontColor->RGBColor[1, 0, 0]]}],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    xAct`xTensor`Scalar[$CellContext`RicciCD[$CellContext`a, $CellContext`b] \
+    xAct`xTensor`Scalar[($CellContext`RicciCD[$CellContext`a, $CellContext`b] \
 $CellContext`RiemannCD[-$CellContext`a, $CellContext`c, $CellContext`d, \
-$CellContext`e] $CellContext`RiemannCD[-$CellContext`b, -$CellContext`c, \
+$CellContext`e]) $CellContext`RiemannCD[-$CellContext`b, -$CellContext`c, \
 -$CellContext`d, -$CellContext`e]],
     Editable->False]}], "+", 
   RowBox[{"8", " ", 
@@ -1100,10 +1098,10 @@ $CellContext`c, $CellContext`d],
        FontColor->RGBColor[1, 0, 0]]}],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    xAct`xTensor`Scalar[$CellContext`RiemannCD[-$CellContext`a, \
+    xAct`xTensor`Scalar[($CellContext`RiemannCD[-$CellContext`a, \
 $CellContext`e, -$CellContext`c, $CellContext`f] \
 $CellContext`RiemannCD[$CellContext`a, $CellContext`b, $CellContext`c, \
-$CellContext`d] $CellContext`RiemannCD[-$CellContext`b, -$CellContext`f, \
+$CellContext`d]) $CellContext`RiemannCD[-$CellContext`b, -$CellContext`f, \
 -$CellContext`d, -$CellContext`e]],
     Editable->False]}], "-", 
   RowBox[{"2", " ", 
@@ -1210,10 +1208,10 @@ $CellContext`c, $CellContext`d],
        FontColor->RGBColor[1, 0, 0]]}],
      ShowAutoStyles->False,
      AutoSpacing->False],
-    xAct`xTensor`Scalar[$CellContext`RiemannCD[-$CellContext`a, \
+    xAct`xTensor`Scalar[($CellContext`RiemannCD[-$CellContext`a, \
 -$CellContext`b, $CellContext`e, $CellContext`f] \
 $CellContext`RiemannCD[$CellContext`a, $CellContext`b, $CellContext`c, \
-$CellContext`d] $CellContext`RiemannCD[-$CellContext`c, -$CellContext`d, \
+$CellContext`d]) $CellContext`RiemannCD[-$CellContext`c, -$CellContext`d, \
 -$CellContext`e, -$CellContext`f]],
     Editable->False]}]}]], "Output",
  CellChangeTimes->{3.580545127588881*^9},

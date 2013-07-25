@@ -137,7 +137,7 @@ Cell[TextData[{
    RowBox[{
     FractionBox["1", 
      SqrtBox[
-      RowBox[{"-", "g"}]]], 
+      RowBox[{"\[VerticalSeparator]", "g", "\[VerticalSeparator]"}]]], 
     FractionBox[
      RowBox[{"\[Delta]", " ", 
       RowBox[{"(", 
@@ -176,7 +176,7 @@ metric ",
    RowBox[{
     FractionBox["1", 
      SqrtBox[
-      RowBox[{"-", "g"}]]], 
+      RowBox[{"\[VerticalSeparator]", "g", "\[VerticalSeparator]"}]]], 
     FractionBox[
      RowBox[{"\[Delta]", " ", 
       RowBox[{"(", 
@@ -192,7 +192,9 @@ metric ",
  "."
 }], "Usage",
  CellChangeTimes->{{3.580536028271658*^9, 3.58053640464437*^9}, {
-  3.580536447892912*^9, 3.580536503779571*^9}}],
+  3.580536447892912*^9, 3.580536503779571*^9}, {3.583668866174759*^9, 
+  3.5836688690555696`*^9}, {3.583669095243272*^9, 3.583669149679462*^9}, {
+  3.58366918609077*^9, 3.5836692391327467`*^9}}],
 
 Cell[TextData[{
  Cell[BoxData["VarL"], "InlineFormula"],
@@ -214,10 +216,18 @@ Cell[CellGroupData[{
 Cell["Tutorials", "TutorialsSection",
  CellID->250839057],
 
-Cell[TextData[ButtonBox["Metric Variations",
- BaseStyle->"Link",
- ButtonData->"paclet:xTras/tutorial/MetricVariations"]], "Tutorials",
- CellChangeTimes->{{3.580962954498611*^9, 3.58096296583704*^9}},
+Cell[TextData[{
+ ButtonBox["Metric Variations ",
+  BaseStyle->"Link",
+  ButtonData->"paclet:xTras/tutorial/MetricVariations"],
+ "\[EmptyVerySmallSquare] ",
+ ButtonBox["The Gauss-Bonnet term",
+  BaseStyle->"Link",
+  ButtonData->"paclet:xTras/tutorial/GaussBonnet"]
+}], "Tutorials",
+ CellChangeTimes->{{3.580962954498611*^9, 3.58096296583704*^9}, {
+  3.583731187613957*^9, 3.583731190255801*^9}, {3.5837313478996687`*^9, 
+  3.583731348650812*^9}},
  CellID->341631938]
 }, Open  ]],
 
