@@ -697,18 +697,27 @@ TableauSymmetric[tableau_?YoungTableauQ, options___?OptionQ] := Module[
 (* Dimensional Depedendent Identities *)
 (**************************************)
 
-BasicDDIDefQ[_] = False;
+BasicDDIDefQ[cd_?CovDQ] = 
+	BasicDDIDefQ[cd, DimOfManifold@ManifoldOfCovD@cd];
+BasicDDIDefQ[__] = 
+	False;
 
-BasicDDIRelations[] := Apply[Join, Map[BasicDDIRelations, $CovDs]];
-BasicDDIRelations[_] = {};
+BasicDDIRelations[] := 
+	Apply[Join, Map[BasicDDIRelations, $CovDs]];
+BasicDDIRelations[cd_?CovDQ] := 
+	BasicDDIRelations[cd, DimOfManifold@ManifoldOfCovD@cd];
+BasicDDIRelations[__] = 
+	{};
+	
+BasicDDITableaux[cd_?CovDQ] :=
+	BasicDDITableaux[cd, DimOfManifold@ManifoldOfCovD@cd];
 
 DefBasicDDI[cd_?CovDQ] := Module[
 	{
 		M 		= ManifoldOfCovD[cd],
 		D 		= DimOfManifold@ManifoldOfCovD[cd],
 		metric 	= MetricOfCovD[cd],
-		basic	= GiveSymbol[BasicDDI,cd],
-		indices, tableau, asymmetrics, contractions, set, subsets, standard
+		basic, indices, tableau, asymmetrics, contractions, set, subsets, standard
 	},
 	
 	(* Some preliminary tests. *)
@@ -718,7 +727,7 @@ DefBasicDDI[cd_?CovDQ] := Module[
 			"Cannot define the basic DDI if the dimension of the manifold is not a positive integer."
 		]
 	];
-	If[BasicDDIDefQ[cd],
+	If[BasicDDIDefQ[cd, D],
 		Return[]
 	];
 	
@@ -728,15 +737,16 @@ DefBasicDDI[cd_?CovDQ] := Module[
 	   the basic DDI will be antisymmetric in its first and last half set of indices. *)
 	tableau = Transpose@Partition[indices, D+1];
 	
+	basic = GiveSymbol[BasicDDI, cd, D];
+	
 	(* Define the basic DDI. *)
 	DefTensor[
 		basic@@indices, 
 		M, 
 		TableauSymmetric[tableau, ManifestSymmetry -> Antisymmetric],
-		PrintAs -> GiveOutputString[BasicDDI,cd],
+		PrintAs -> GiveOutputString[BasicDDI, cd, D],
 		DefInfo -> {"basic dimensional dependent identity",""}
 	];
-	BasicDDIDefQ[cd] ^= True;
 	
 	(* Rules for sending the basic DDIs to antisymmetrized metrics. *)
 	asymmetrics = ToCanonical[
@@ -748,7 +758,7 @@ DefBasicDDI[cd_?CovDQ] := Module[
 			indices[[1;;D+1]]
 		]
 	];
-	BasicDDIRelations[cd] ^= MakeRule[
+	cd /: BasicDDIRelations[cd,D] = MakeRule[
 		Evaluate@{basic@@indices, asymmetrics},
 		PatternIndices -> All, TestIndices -> True, MetricOn -> All, UseSymmetries -> False
 	];
@@ -786,11 +796,13 @@ DefBasicDDI[cd_?CovDQ] := Module[
 	}& /@ subsets;
 	(* Select only the standard Young tableaux. *)
 	standard = Select[subsets, And @@ OrderedQ /@ Transpose@# &];
-	(* Stored the standard tableaux. *)
-	BasicDDITableaux[cd] ^= basic @@ Join @@ # & /@ standard;
+	(* Store the standard tableaux. *)
+	cd /: BasicDDITableaux[cd, D] = basic @@ Join @@ # & /@ standard;
+	
+	cd /: BasicDDIDefQ[cd, D] = True;
 ];
 
-GiveOutputString[BasicDDI, covd_] := StringJoin["B", "[", SymbolOfCovD[covd][[2]], "]"];
+GiveOutputString[BasicDDI, covd_, dim_] := StringJoin["B", "[", SymbolOfCovD[covd][[2]], ",", ToString@dim, "]"];
 
 
 ConstructDDIs[expr_,options___?OptionQ] := 
@@ -823,7 +835,7 @@ ConstructDDIs[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, option
 	tensors = Union@Cases[expr, _?xTensorQ, {0, Infinity}, Heads -> True];
 	cd 		= CovDOfMetric@First@MetricsOfVBundle@First@Cases[SlotsOfTensor /@ tensors, _?VBundleQ, {0, Infinity}, Heads -> True];
 	D 		= DimOfManifold@ManifoldOfCovD@cd;
-	basic 	= GiveSymbol[BasicDDI, cd];
+	basic 	= GiveSymbol[BasicDDI, cd, D];
 	
 	(* Define the basic DDI. *)
 	DefBasicDDI[cd];
@@ -842,7 +854,7 @@ ConstructDDIs[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, option
 	
 	frees 		= List@@IndicesOf[Free][First@contractions];
 	dummies		= Union[UpIndex /@ IndicesOf[][contractions]];
-	tableaux 	= ChangeFreeIndices[#, ChangeIndex /@ frees]& /@ BasicDDITableaux[cd];
+	tableaux 	= ChangeFreeIndices[#, ChangeIndex /@ frees]& /@ BasicDDITableaux[cd,D];
 	
 	(* Take all possible combinations with the basic DDI.*)
 	ddis = DeleteDuplicateFactors@map[
@@ -857,7 +869,7 @@ ConstructDDIs[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, option
 	
 	(* Expand the basic DDI. *)
 	ddis = DeleteDuplicateFactors@map[
-		ToCanonical@ContractMetric[# /. BasicDDIRelations[cd]]&,
+		ToCanonical@ContractMetric[# /. BasicDDIRelations[cd,D]]&,
 		ddis,
 		Description->"Expanding DDIs."
 	];

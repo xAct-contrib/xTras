@@ -4,7 +4,7 @@ Cell[TextData[{
  Cell["1.1.3", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
- Cell[" ", "HistoryData",
+ Cell["1.2.0 ", "HistoryData",
   CellTags->"Modified"],
  " | Obsolete in: ",
  Cell[" ", "HistoryData",
@@ -13,7 +13,8 @@ Cell[TextData[{
  Cell[" ", "HistoryData",
   CellTags->"Excised"]
 }], "History",
- CellChangeTimes->{{3.580878727120027*^9, 3.580878728081373*^9}},
+ CellChangeTimes->{{3.580878727120027*^9, 3.580878728081373*^9}, {
+  3.5837710478526707`*^9, 3.583771049700485*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -119,17 +120,35 @@ Cell["BasicDDIRelations", "ObjectName",
 Cell[TextData[{
  Cell["   ", "ModInfo"],
  Cell[BoxData[
+  RowBox[{"BasicDDIRelations", "[", "]"}]], "InlineFormula"],
+ "\[LineSeparator]gives replacement rules for all defined basic DDIs \
+expressed in metrics.\n",
+ Cell["      ", "ModInfo"],
+ Cell[BoxData[
   RowBox[{"BasicDDIRelations", "[", 
-   StyleBox["covd", "TI"], "]"}]], "InlineFormula"],
+   StyleBox["cd", "TI"], "]"}]], "InlineFormula"],
  "\[LineSeparator]gives replacement rules for the basic DDI of the covariant \
 derivative ",
- StyleBox["covd", "TI"],
- " expressed in metrics."
+ StyleBox["cd", "TI"],
+ " expressed in metrics.\n",
+ Cell["      ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{"BasicDDIRelations", "[", 
+   RowBox[{
+    StyleBox["cd", "TI"], ",", 
+    StyleBox["d", "TI"]}], "]"}]], "InlineFormula"],
+ "\[LineSeparator]gives replacement rules for the basic DDI of the covariant \
+derivative ",
+ StyleBox["cd", "TI"],
+ " expressed in metrics in ",
+ StyleBox["d", "TI"],
+ " dimensions."
 }], "Usage",
  CellChangeTimes->{
   3.579753705450747*^9, {3.579931098325695*^9, 3.579931098880702*^9}, {
    3.5808787427054358`*^9, 3.580878786110319*^9}, {3.580878965006036*^9, 
-   3.580878969626596*^9}}],
+   3.580878969626596*^9}, {3.583770984787363*^9, 3.583771021329678*^9}, {
+   3.583771075813425*^9, 3.583771153053681*^9}}],
 
 Cell[TextData[{
  "BasicDDIRelations",
@@ -176,11 +195,25 @@ Cell[CellGroupData[{
 Cell["See Also", "SeeAlsoSection",
  CellID->1255426704],
 
-Cell[TextData[Cell[BoxData[
- ButtonBox["BasicDDI",
-  BaseStyle->"Link",
-  ButtonData->"paclet:xTras/ref/BasicDDI"]], "InlineFormula"]], "SeeAlso",
- CellChangeTimes->{{3.580878792702075*^9, 3.58087879818854*^9}},
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ConstructDDIs",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ConstructDDIs"]], "InlineFormula"],
+ " \[EmptyVerySmallSquare] ",
+ Cell[BoxData[
+  ButtonBox["BasicDDI",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/BasicDDI"]], "InlineFormula"],
+ " \[EmptyVerySmallSquare] ",
+ Cell[BoxData[
+  ButtonBox["BasicDDITableaux",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/BasicDDITableaux"]], "InlineFormula"]
+}], "SeeAlso",
+ CellChangeTimes->{{3.580878792702075*^9, 3.58087879818854*^9}, {
+  3.583771191502818*^9, 3.583771208250091*^9}, {3.5837716672879887`*^9, 
+  3.583771680432268*^9}},
  CellID->929782353]
 }, Open  ]],
 
@@ -266,7 +299,7 @@ Cell[BoxData[
  CellID->589267740]
 }, Open  ]]
 },
-WindowSize->{700, 770},
+WindowSize->{956, 746},
 WindowMargins->{{4, Automatic}, {Automatic, 0}},
 CellContext->"Global`",
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \

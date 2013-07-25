@@ -4,7 +4,7 @@ Cell[TextData[{
  Cell["1.1.3", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
- Cell[" ", "HistoryData",
+ Cell["1.2.0 ", "HistoryData",
   CellTags->"Modified"],
  " | Obsolete in: ",
  Cell[" ", "HistoryData",
@@ -13,7 +13,8 @@ Cell[TextData[{
  Cell[" ", "HistoryData",
   CellTags->"Excised"]
 }], "History",
- CellChangeTimes->{{3.5808770260670967`*^9, 3.580877026619667*^9}},
+ CellChangeTimes->{{3.5808770260670967`*^9, 3.580877026619667*^9}, {
+  3.583771869754005*^9, 3.583771871216277*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -127,10 +128,12 @@ derivatives."
 
 Cell["\<\
 Like curvature tensors, the name of the basic DDI associated to a covariant \
-derivative CD is BasicDDICD.\
+derivative CD is BasicDDICDdim, where dim is the dimension of the manifold of \
+CD.\
 \>", "Notes",
  CellChangeTimes->{{3.5799250041231956`*^9, 3.5799250480959263`*^9}, 
-   3.579925959692938*^9, 3.579930539484071*^9},
+   3.579925959692938*^9, 3.579930539484071*^9, {3.583770640635193*^9, 
+   3.583770653085299*^9}},
  CellID->1067943069],
 
 Cell[TextData[{
@@ -146,18 +149,18 @@ Cell[TextData[{
  CellID->498395535],
 
 Cell[TextData[{
- "The basic DDI is a rank-",
+ "The basic DDI is the generalized Kronecker delta with ",
  Cell[BoxData[
   FormBox[
    RowBox[{"2", " ", 
     RowBox[{"(", 
      RowBox[{"d", "+", "1"}], ")"}]}], TraditionalForm]], "InlineMath"],
- StyleBox[" tensor, where ",
+ StyleBox[" indices, where ",
   Deletable->True],
  Cell[BoxData[
   FormBox["d", TraditionalForm]], "InlineMath"],
- StyleBox[" is the dimension of the tangent bundle of the associated \
-covariant derivative. It is antisymmetric in its first ",
+ StyleBox[" is the dimension of the manifold of the associated covariant \
+derivative. It is antisymmetric in its first ",
   Deletable->True],
  Cell[BoxData[
   FormBox[
@@ -168,7 +171,8 @@ symmetry upon the interchange of these two sets of indices.",
 }], "Notes",
  CellChangeTimes->{{3.579930577144425*^9, 3.579930594805373*^9}, {
   3.579930634333054*^9, 3.5799306803290443`*^9}, {3.57993072602387*^9, 
-  3.5799308323958807`*^9}, {3.5799309363312407`*^9, 3.57993094093988*^9}},
+  3.5799308323958807`*^9}, {3.5799309363312407`*^9, 3.57993094093988*^9}, {
+  3.583770697827125*^9, 3.583770734872463*^9}},
  CellID->459629742],
 
 Cell[TextData[{
@@ -179,7 +183,7 @@ Cell[TextData[{
  " delta functions, which is identically zero in ",
  Cell[BoxData[
   FormBox["d", TraditionalForm]], "InlineMath"],
- " dimension. This relation is stored in  ",
+ " dimensions. This relation is stored in  ",
  Cell[BoxData[
   ButtonBox["BasicDDIRelations",
    BaseStyle->"Link",
@@ -187,7 +191,7 @@ Cell[TextData[{
  "."
 }], "Notes",
  CellChangeTimes->{{3.579930988823592*^9, 3.579931076224421*^9}, {
-  3.579931318914874*^9, 3.579931366155178*^9}},
+   3.579931318914874*^9, 3.579931366155178*^9}, 3.583770758478908*^9},
  CellID->1347533445],
 
 Cell["The basic DDI is completely traceless.", "Notes",
@@ -256,11 +260,17 @@ Cell[TextData[{
  Cell[BoxData[
   ButtonBox["BasicDDITableaux",
    BaseStyle->"Link",
-   ButtonData->"paclet:xTras/ref/BasicDDITableaux"]], "InlineFormula"]
+   ButtonData->"paclet:xTras/ref/BasicDDITableaux"]], "InlineFormula"],
+ " \[EmptyVerySmallSquare] ",
+ Cell[BoxData[
+  ButtonBox["BasicDDIDefQ",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/BasicDDIDefQ"]], "InlineFormula"]
 }], "SeeAlso",
  CellChangeTimes->{{3.579930687849237*^9, 3.57993070992629*^9}, {
   3.5799308823199263`*^9, 3.5799309143307457`*^9}, {3.579930952271489*^9, 
-  3.579930974016686*^9}},
+  3.579930974016686*^9}, {3.583772137435165*^9, 3.5837721451912727`*^9}, {
+  3.583772184199342*^9, 3.583772184427745*^9}},
  CellID->929782353]
 }, Open  ]],
 
@@ -298,7 +308,7 @@ CD, the basic DDI is given by\
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"BasicDDICD", "[", 
+ RowBox[{"BasicDDICD3", "[", 
   RowBox[{
    RowBox[{"-", "a"}], ",", 
    RowBox[{"-", "b"}], ",", 
@@ -308,15 +318,17 @@ Cell[BoxData[
    RowBox[{"-", "f"}], ",", 
    RowBox[{"-", "g"}], ",", 
    RowBox[{"-", "h"}]}], "]"}]], "Input",
- CellChangeTimes->{{3.579931255900173*^9, 3.5799312820215693`*^9}},
- CellLabel->"In[6]:=",
+ CellChangeTimes->{{3.579931255900173*^9, 3.5799312820215693`*^9}, 
+   3.5837708014335117`*^9},
+ CellLabel->"In[16]:=",
  CellID->1727094309],
 
 Cell[BoxData[
  InterpretationBox[
   StyleBox[GridBox[{
      {
-      RowBox[{"B", "[", "\[EmptyDownTriangle]", "]"}], 
+      RowBox[{"B", "[", 
+       RowBox[{"\[EmptyDownTriangle]", ",", "3"}], "]"}], 
       StyleBox[GridBox[{
          {" ", " ", " ", " ", " ", " ", " ", " "},
          {"a", "b", "c", "d", "e", "f", "g", "h"}
@@ -340,13 +352,13 @@ Cell[BoxData[
         Offset[0.2]}, "RowsIndexed" -> {}}],
    ShowAutoStyles->False,
    AutoSpacing->False],
-  $CellContext`BasicDDICD[-$CellContext`a, -$CellContext`b, -$CellContext`c, \
+  $CellContext`BasicDDICD3[-$CellContext`a, -$CellContext`b, -$CellContext`c, \
 -$CellContext`d, -$CellContext`e, -$CellContext`f, -$CellContext`g, \
 -$CellContext`h],
   Editable->False]], "Output",
- CellChangeTimes->{{3.579931263989959*^9, 3.57993128278708*^9}},
- CellLabel->"Out[6]=",
- CellID->1746233360]
+ CellChangeTimes->{{3.583770904170979*^9, 3.5837709057909203`*^9}},
+ CellLabel->"Out[16]=",
+ CellID->661907323]
 }, Open  ]],
 
 Cell["\<\
@@ -361,7 +373,7 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"BasicDDICD", "[", 
+  RowBox[{"BasicDDICD3", "[", 
    RowBox[{
     RowBox[{"-", "a"}], ",", 
     RowBox[{"-", "b"}], ",", 
@@ -371,9 +383,11 @@ Cell[BoxData[
     RowBox[{"-", "f"}], ",", 
     RowBox[{"-", "g"}], ",", 
     RowBox[{"-", "h"}]}], "]"}], "/.", 
-  RowBox[{"BasicDDIRelations", "[", "CD", "]"}]}]], "Input",
- CellChangeTimes->{{3.579931388304028*^9, 3.579931396574092*^9}},
- CellLabel->"In[7]:=",
+  RowBox[{"BasicDDIRelations", "[", 
+   RowBox[{"CD", ",", "3"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.579931388304028*^9, 3.579931396574092*^9}, {
+  3.5837709102472687`*^9, 3.583770917134906*^9}},
+ CellLabel->"In[18]:=",
  CellID->1623947209],
 
 Cell[BoxData[
@@ -3090,9 +3104,10 @@ Cell[BoxData[
      AutoSpacing->False],
     $CellContext`metric[-$CellContext`h, -$CellContext`d],
     Editable->False]}]}]], "Output",
- CellChangeTimes->{3.5799313972163877`*^9},
- CellLabel->"Out[7]=",
- CellID->1311071940]
+ CellChangeTimes->{
+  3.5799313972163877`*^9, {3.583770911294476*^9, 3.583770918685399*^9}},
+ CellLabel->"Out[18]=",
+ CellID->479284652]
 }, Open  ]],
 
 Cell["\<\
@@ -3107,7 +3122,7 @@ Cell[BoxData[
  RowBox[{"ToCanonical", "@", 
   RowBox[{"Antisymmetrize", "[", 
    RowBox[{
-    RowBox[{"BasicDDICD", "[", 
+    RowBox[{"BasicDDICD3", "[", 
      RowBox[{
       RowBox[{"-", "a"}], ",", 
       RowBox[{"-", "b"}], ",", 
@@ -3124,15 +3139,16 @@ Cell[BoxData[
       RowBox[{"-", "c"}], ",", 
       RowBox[{"-", "d"}]}], "}"}]}], "]"}]}]], "Input",
  CellChangeTimes->{{3.579931942509708*^9, 3.579931973705885*^9}, {
-  3.579932005415958*^9, 3.579932024615128*^9}},
- CellLabel->"In[13]:=",
+   3.579932005415958*^9, 3.579932024615128*^9}, 3.583770923639151*^9},
+ CellLabel->"In[19]:=",
  CellID->1384197675],
 
 Cell[BoxData[
  InterpretationBox[
   StyleBox[GridBox[{
      {
-      RowBox[{"B", "[", "\[EmptyDownTriangle]", "]"}], 
+      RowBox[{"B", "[", 
+       RowBox[{"\[EmptyDownTriangle]", ",", "3"}], "]"}], 
       StyleBox[GridBox[{
          {" ", " ", " ", " ", " ", " ", " ", " "},
          {"a", "b", "c", "d", "e", "f", "g", "h"}
@@ -3156,14 +3172,14 @@ Cell[BoxData[
         Offset[0.2]}, "RowsIndexed" -> {}}],
    ShowAutoStyles->False,
    AutoSpacing->False],
-  $CellContext`BasicDDICD[-$CellContext`a, -$CellContext`b, -$CellContext`c, \
+  $CellContext`BasicDDICD3[-$CellContext`a, -$CellContext`b, -$CellContext`c, \
 -$CellContext`d, -$CellContext`e, -$CellContext`f, -$CellContext`g, \
 -$CellContext`h],
   Editable->False]], "Output",
  CellChangeTimes->{{3.579931969251007*^9, 3.579931974150771*^9}, {
-  3.5799320167097197`*^9, 3.5799320252270393`*^9}},
- CellLabel->"Out[13]=",
- CellID->827552144]
+   3.5799320167097197`*^9, 3.5799320252270393`*^9}, 3.583770924740747*^9},
+ CellLabel->"Out[19]=",
+ CellID->125986267]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3172,7 +3188,7 @@ Cell[BoxData[
  RowBox[{"ToCanonical", "@", 
   RowBox[{"Antisymmetrize", "[", 
    RowBox[{
-    RowBox[{"BasicDDICD", "[", 
+    RowBox[{"BasicDDICD3", "[", 
      RowBox[{
       RowBox[{"-", "a"}], ",", 
       RowBox[{"-", "b"}], ",", 
@@ -3189,15 +3205,16 @@ Cell[BoxData[
       RowBox[{"-", "g"}], ",", 
       RowBox[{"-", "h"}]}], "}"}]}], "]"}]}]], "Input",
  CellChangeTimes->{{3.579931983595008*^9, 3.579931990744753*^9}, {
-  3.5799320341365213`*^9, 3.579932040982465*^9}},
- CellLabel->"In[14]:=",
+   3.5799320341365213`*^9, 3.579932040982465*^9}, 3.583770930358674*^9},
+ CellLabel->"In[20]:=",
  CellID->429477165],
 
 Cell[BoxData[
  InterpretationBox[
   StyleBox[GridBox[{
      {
-      RowBox[{"B", "[", "\[EmptyDownTriangle]", "]"}], 
+      RowBox[{"B", "[", 
+       RowBox[{"\[EmptyDownTriangle]", ",", "3"}], "]"}], 
       StyleBox[GridBox[{
          {" ", " ", " ", " ", " ", " ", " ", " "},
          {"a", "b", "c", "d", "e", "f", "g", "h"}
@@ -3221,13 +3238,14 @@ Cell[BoxData[
         Offset[0.2]}, "RowsIndexed" -> {}}],
    ShowAutoStyles->False,
    AutoSpacing->False],
-  $CellContext`BasicDDICD[-$CellContext`a, -$CellContext`b, -$CellContext`c, \
+  $CellContext`BasicDDICD3[-$CellContext`a, -$CellContext`b, -$CellContext`c, \
 -$CellContext`d, -$CellContext`e, -$CellContext`f, -$CellContext`g, \
 -$CellContext`h],
   Editable->False]], "Output",
- CellChangeTimes->{3.579931991164057*^9, 3.579932041803092*^9},
- CellLabel->"Out[14]=",
- CellID->1564786236]
+ CellChangeTimes->{3.579931991164057*^9, 3.579932041803092*^9, 
+  3.5837709314232264`*^9},
+ CellLabel->"Out[20]=",
+ CellID->32313527]
 }, Open  ]],
 
 Cell["\<\
@@ -3242,7 +3260,7 @@ Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"ToCanonical", "@", 
-  RowBox[{"BasicDDICD", "[", 
+  RowBox[{"BasicDDICD3", "[", 
    RowBox[{
     RowBox[{"-", "e"}], ",", 
     RowBox[{"-", "f"}], ",", 
@@ -3252,15 +3270,17 @@ Cell[BoxData[
     RowBox[{"-", "b"}], ",", 
     RowBox[{"-", "c"}], ",", 
     RowBox[{"-", "d"}]}], "]"}]}]], "Input",
- CellChangeTimes->{{3.579932260554008*^9, 3.579932274790515*^9}},
- CellLabel->"In[15]:=",
+ CellChangeTimes->{{3.579932260554008*^9, 3.579932274790515*^9}, 
+   3.5837709517325277`*^9},
+ CellLabel->"In[21]:=",
  CellID->202522000],
 
 Cell[BoxData[
  InterpretationBox[
   StyleBox[GridBox[{
      {
-      RowBox[{"B", "[", "\[EmptyDownTriangle]", "]"}], 
+      RowBox[{"B", "[", 
+       RowBox[{"\[EmptyDownTriangle]", ",", "3"}], "]"}], 
       StyleBox[GridBox[{
          {" ", " ", " ", " ", " ", " ", " ", " "},
          {"a", "b", "c", "d", "e", "f", "g", "h"}
@@ -3284,13 +3304,13 @@ Cell[BoxData[
         Offset[0.2]}, "RowsIndexed" -> {}}],
    ShowAutoStyles->False,
    AutoSpacing->False],
-  $CellContext`BasicDDICD[-$CellContext`a, -$CellContext`b, -$CellContext`c, \
+  $CellContext`BasicDDICD3[-$CellContext`a, -$CellContext`b, -$CellContext`c, \
 -$CellContext`d, -$CellContext`e, -$CellContext`f, -$CellContext`g, \
 -$CellContext`h],
   Editable->False]], "Output",
- CellChangeTimes->{3.579932275732753*^9},
- CellLabel->"Out[15]=",
- CellID->25673505]
+ CellChangeTimes->{3.579932275732753*^9, 3.58377095246453*^9},
+ CellLabel->"Out[21]=",
+ CellID->1927569245]
 }, Open  ]],
 
 Cell["It is completely traceless:", "ExampleText",
@@ -3300,7 +3320,7 @@ Cell["It is completely traceless:", "ExampleText",
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"BasicDDICD", "[", 
+ RowBox[{"BasicDDICD3", "[", 
   RowBox[{"a", ",", 
    RowBox[{"-", "a"}], ",", 
    RowBox[{"-", "c"}], ",", 
@@ -3309,14 +3329,15 @@ Cell[BoxData[
    RowBox[{"-", "f"}], ",", 
    RowBox[{"-", "g"}], ",", 
    RowBox[{"-", "h"}]}], "]"}]], "Input",
- CellChangeTimes->{{3.579932313861848*^9, 3.579932325987403*^9}},
- CellLabel->"In[16]:=",
+ CellChangeTimes->{{3.579932313861848*^9, 3.579932325987403*^9}, 
+   3.5837709563560038`*^9},
+ CellLabel->"In[22]:=",
  CellID->132247453],
 
 Cell[BoxData["0"], "Output",
- CellChangeTimes->{3.579932326420175*^9},
- CellLabel->"Out[16]=",
- CellID->37367926]
+ CellChangeTimes->{3.579932326420175*^9, 3.583770957321206*^9},
+ CellLabel->"Out[22]=",
+ CellID->1865485720]
 }, Open  ]]
 }, Open  ]],
 
