@@ -434,7 +434,7 @@ SolveTensors1[expr_, patterns_List, options___?OptionQ] := Module[
 					/. Monomial[mono_,inds_] :> TensorWrapper[
 						xAct`xTensor`Private`ReplaceDummies2[mono,dummies]
 					]
-					/. xAct`xTensor`Private`ScalarMonomial -> TensorWrapper
+					/. xAct`xTensor`Private`ScalarMonomial[args__] :> Times@@(TensorWrapper /@ List[args])
 			]
 		] /. HoldPattern[TensorWrapper[x_^y_]]:>TensorWrapper[x]^y;
 		breakinrule = RuleDelayed[

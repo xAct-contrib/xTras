@@ -196,6 +196,22 @@ Test[
 (*                          *)
 (****************************)
 
+DefTensor[T1[], M];
+DefTensor[T2[], M];
+
+
+Test[
+	SolveTensors[
+		MakeAnsatz[{T1[], T2[], T1[], T2[], T1[] T2[]}] == 0, 
+		T2[], 
+		MakeRule -> False, BreakInMonomials -> True
+	]
+	,
+	{{T2[] -> -(((C1 + C3)*T1[])/(C2 + C4 + C5*T1[]))}}
+	,
+	TestID->"Algebra-20130103-A4V4F8"
+]
+
 Test[
 	SolveConstants[
 		0 == {c1 RicciCD[-a, -b] + c2 RicciCD[-a, -b] , c3 RicciCD[-a, -b], c4 RicciCD[-a, -b]},
@@ -204,7 +220,7 @@ Test[
 	,
 	{{c1->-c2,c3->0,c4->0}}
 	,
-	TestID->"Algebra-20130103-A4V4F8"
+	TestID->"Algebra-20130726-W8G3O3"
 ]
 
 Test[
