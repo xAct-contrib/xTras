@@ -697,7 +697,7 @@ TableauSymmetric[tableau_?YoungTableauQ, options___?OptionQ] := Module[
 (* Dimensional Depedendent Identities *)
 (**************************************)
 
-BasicDDIDefQ[cd_?CovDQ] = 
+BasicDDIDefQ[cd_?CovDQ] := 
 	BasicDDIDefQ[cd, DimOfManifold@ManifoldOfCovD@cd];
 BasicDDIDefQ[__] = 
 	False;
