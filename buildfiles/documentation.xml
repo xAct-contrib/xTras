@@ -53,6 +53,7 @@
 	</target>
 	
 	<target name="indexbuild">
+		<echo>## BUILDING DOCUMENTATION INDEX ##</echo>
 		<mathematica exe="${indexBuildMathExe}" fresh="true" failonerror="false">
 			<![CDATA[
 			
@@ -70,80 +71,72 @@
 		
 		<!-- x Tras to xTras -->
 		<!-- Guides -->
-		<replace dir="${dist}" value='"XTRAS GUIDE"'>
+		<replace dir="${dist}" value='"XTRAS GUIDE"' summary="true">
 		  <include name="**/*.nb"/>
 		  <replacetoken>"X TRAS GUIDE"</replacetoken>
 		</replace>
-		<replace dir="${dist}" value='"xTras Guide"'>
+		<replace dir="${dist}" value='"xTras Guide"' summary="true">
 		  <include name="**/*.nb"/>
 		  <replacetoken>"x Tras Guide"</replacetoken>
 		</replace>
 		<!-- Symbols -->
-		<replace dir="${dist}" value='"XTRAS PACKAGE SYMBOL"'>
+		<replace dir="${dist}" value='"XTRAS PACKAGE SYMBOL"' summary="true">
 		  <include name="**/*.nb"/>
 		  <replacetoken>"X TRAS PACKAGE SYMBOL"</replacetoken>
 		</replace>
-		<replace dir="${dist}" value='"xTras Package Symbol"'>
+		<replace dir="${dist}" value='"xTras Package Symbol"' summary="true">
 		  <include name="**/*.nb"/>
 		  <replacetoken>"x Tras Package Symbol"</replacetoken>
 		</replace>
-		<replace dir="${dist}" value='"XTRAS SYMBOL"'>
+		<replace dir="${dist}" value='"XTRAS SYMBOL"' summary="true">
 		  <include name="**/*.nb"/>
 		  <replacetoken>"X TRAS SYMBOL"</replacetoken>
 		</replace>
-		<replace dir="${dist}" value='"xTras Symbol"'>
+		<replace dir="${dist}" value='"xTras Symbol"' summary="true">
 		  <include name="**/*.nb"/>
 		  <replacetoken>"x Tras Symbol"</replacetoken>
 			</replace>
 		<!-- Tutorials -->
-		<replace dir="${dist}" value='"XTRAS TUTORIAL"'>
+		<replace dir="${dist}" value='"XTRAS TUTORIAL"' summary="true">
 		  <include name="**/*.nb"/>
 		  <replacetoken>"X TRAS TUTORIAL"</replacetoken>
 		</replace>
-		<replace dir="${dist}" value='"xTras Tutorial"'>
+		<replace dir="${dist}" value='"xTras Tutorial"' summary="true">
 		  <include name="**/*.nb"/>
 		  <replacetoken>"x Tras Tutorial"</replacetoken>
 		</replace>
 		<!-- HTML -->
-		<replace dir="${dist}" value='xTras'>
+		<replace dir="${dist}" value='xTras' summary="true">
 		  <include name="**/*.html"/>
 		  <replacetoken>x Tras</replacetoken>
 		</replace>
 		
-		<!-- Remove CacheIDs -->
-		<replace dir="${dist}" value=''>
-		  <include name="**/*.nb"/>
-		  <replacetoken>(*CacheID: 234*)</replacetoken>
-		</replace>
-
-		<!-- Change FrontEndVersion to 6.0 -->
-		<replaceregexp match='FrontEndVersion -> "(.*)"' replace='FrontEndVersion -> "6.0"' byline="true">
-		    <fileset dir="${dist}" includes="**/*.nb"/>
-		</replaceregexp>
-		<replaceregexp match='FrontEndVersion->"(.*)"' replace='FrontEndVersion->"6.0"' byline="true">
-		    <fileset dir="${dist}" includes="**/*.nb"/>
-		</replaceregexp>
-		
 		<!-- Replace absolute URLs in HTML files -->
-		<replace dir="${dist}" value='a href="../'>
+		<replace dir="${dist}" value='a href="../' summary="true">
 		  <include name="**/*.html"/>
 		  <replacetoken>a href="http://reference.wolfram.com/mathematica/xTras/</replacetoken>
 		</replace>
-		<replace dir="${dist}" value='a href="../'>
+		<replace dir="${dist}" value='a href="../' summary="true">
 		  <include name="**/*.html"/>
 		  <replacetoken>a href="/mathematica/xTras/</replacetoken>
 		</replace>
-			
-		<!-- Remove box around MORE INFORMATION -->
-		<!--
-		<replace dir="${dist}" value='StyleBox[RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"]'>
-		  <include name="**/*.nb"/>
-		  <replacetoken><![CDATA[FrameBox[
-   StyleBox[
-    RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"],
-   StripOnInput->False]]]></replacetoken>
+		
+		<!-- Insert Google Analytics tracker -->
+		<replace file="${dist}/xTras-HTML/html/javascript/common.js" summary="true">
+		  <replacetoken><![CDATA[function cons_input (i) {]]></replacetoken>
+		  <replacevalue><![CDATA[
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-8561541-5', 'xact.es');
+  ga('send', 'pageview');
+		  
+		  
+function cons_input (i) {]]></replacevalue>
 		</replace>
-		-->
 		
 	</target>
 

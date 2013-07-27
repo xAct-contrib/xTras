@@ -45,6 +45,17 @@
 		</mathematica>	      	
 	</target>
 	
+	<!-- Task that make doc notebooks cross-version compatible. See
+	     http://mathematica.stackexchange.com/a/28592/5485 -->
+	<target name="crossversion">
+		<echo>## DOING CROSS-VERSION REPLACEMENTS ##</echo>
+		<mathematica exe="${mathExe}" fresh="true">
+	        <![CDATA[
+			Get[FileNameJoin[{AntProperty["basedir"],"buildfiles","crossversion.m"}]];
+	        ]]>
+	    </mathematica>
+	</target>
+	
 	<!-- Task that deploys xTras into the local Mathematica user directory. -->
 	<target name="deploy">
 		<delete includeEmptyDirs="true" quiet="true">
@@ -56,4 +67,22 @@
 		<copy todir="${xactdir}/xTras">
 			<fileset dir="build/xTras" />
 		</copy>
+	</target>
+	
+	<!-- Task that replaces the FrontEndVersion strings in the notebooks to MMA 6 -->
+	<target name="feversionreplace">
+	
+		<echo>## REPLACING VERSION STRINGS IN DOCS ##</echo>
+		
+		<!-- Remove CacheIDs -->
+		<replace dir="${dist}" value='' summary="true">
+		  <include name="**/*.nb"/>
+		  <replacetoken>(*CacheID: 234*)</replacetoken>
+		</replace>
+
+		<!-- Change FrontEndVersion to 6.0 -->
+		<replaceregexp match='FrontEndVersion(\s*)->(\s*)"([^"]*)"' replace='FrontEndVersion -> "6.0"' flags="gs">
+		    <fileset dir="${dist}" includes="**/*.nb"/>
+		</replaceregexp>
+		
 	</target>

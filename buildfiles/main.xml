@@ -43,14 +43,14 @@
 	<property name="buildIndex" value="False" />
 	<property name="buildNBDocs" value="true" />
 	<property name="buildWebDocs" value="true" />
-	<property name="includeLinkTrails" value="false"/> 
+	<property name="includeLinkTrails" value="true"/> 
 	
 	
 	<!-- Include files -->
 	&misc;
 	&documentation;
 	&changelog;
-	
+
 	
 	<!-- Targets -->
 	<target name="all">
@@ -58,6 +58,8 @@
 		<antcall target="docbuild" />
 		<antcall target="replaceStuff" />
 		<antcall target="indexbuild" />
+		<antcall target="crossversion" />
+		<antcall target="feversionreplace"/>
 		<antcall target="interfacebuildnomma"/>
 		<antcall target="zip"/>
 	</target>
