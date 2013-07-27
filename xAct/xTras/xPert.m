@@ -150,7 +150,8 @@ xTrasxPertDefMetric[signdet_, metric_[-a_, -b_], cd_, options___] := (
 		TrueQ[DefMetricPerturbation /. CheckOptions[options] /. Options[DefMetric]],	
 		DefMetricPerturbation[
 			metric,
-			GiveSymbol[Perturbation,metric]
+			GiveSymbol[Perturbation,metric],
+			GiveSymbol[PerturbationParameter,metric]
 		];
 		PrintAs[GiveSymbol[Perturbation,metric]] ^= StringJoin[
 			PrintAs[Perturbation],
@@ -177,7 +178,7 @@ DefMetricVariation[metric_?MetricQ, per_, param_] := Module[
 	{a,b}	= GetIndicesOfVBundle[vb,2];
 
 	If[
-		Perturbation[ metric[-a,-b] ] =!= per[LI[1],-a,-b] || PerturbationParameter[metric] =!= param,
+		Perturbation[ metric[-a,-b] ] =!= per[LI[1],-a,-b],
 		Throw@Message[
 			DefMetricVariation::error, 
 			"Metric perturbation does not match or is not defined."

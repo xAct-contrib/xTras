@@ -20,7 +20,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = {"1.1.3.35", {2013, 7, 22}};
+xAct`xTras`$Version = {"1.1.3.45", {2013, 7, 27}};
 xAct`xTras`$xTensorVersionExpected = {"1.0.5", {2013, 1, 27}};
 xAct`xTras`$SymManipulatorVersionExpected = {"0.8.5", {2013, 4, 13}};
 xAct`xTras`$MathematicaVersionNeeded = 6.;
@@ -75,6 +75,17 @@ If[System`$VersionNumber < xAct`xTras`$MathematicaVersionNeeded,
 (* Reset some options. *)
 ReportSet[$CovDFormat, "Prefix"];
 ReportSetOption[DefCovD, CurvatureRelations -> True];
+
+(* xAct 1.0.5 compatibility changes *)
+If[First@xAct`xTensor`$Version === "1.0.5", 
+	xAct`xTensor`UxSort = 
+		Identity;
+	xAct`xTensor`Private`ScalarMonomial = 
+		xAct`xTensor`Private`Scalar1;
+	xAct`xPert`PerturbationParameter::usage = 
+		"PerturbationParameter is a reserved symbol.";
+];
+
 
 (* Load the code. *)
 Get["xAct`xTras`xCore`"];

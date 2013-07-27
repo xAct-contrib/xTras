@@ -15,21 +15,32 @@ that specifies the name of the auxiliary tensor used for the free indices.";
 BackgroundSolution::usage = "BackgroundSolution is an option for \
 ToBackground, PerturbBackground, and ExpandBackground that can be used to \
 specify backgrounds values of curvature tensors."; 
-BasicDDIDefQ::usage = "\!\(\*TagBox[\(BasicDDIDefQ[ \*StyleBox[\"covd\", \
+BasicDDIDefQ::usage = "\!\(\*TagBox[\(BasicDDIDefQ[ \*StyleBox[\"cd\", \
 \"TI\"]] returns True if the basic DDI has been defined for the covariant \
-derivative  \*StyleBox[\"covd\", \"TI\"], and False otherwise.\), \
-DisplayForm]\)"; 
+derivative  \*StyleBox[\"cd\", \"TI\"], and False otherwise. \[LineSeparator] \
+BasicDDIDefQ[ \*StyleBox[\"cd\", \"TI\"], \*StyleBox[\"d\", \"TI\"]] returns \
+True if the basic DDI has been defined for the covariant derivative  \
+\*StyleBox[\"cd \", \"TI\"] in  \*StyleBox[\"d\", \"TI\"]\(\(\\ dimensions, \
+and False otherwise.\)\)\), DisplayForm]\)"; 
 BasicDDI::usage = "BasicDDI is a reserved word in xTras. It is used to label \
 the basic dimensional dependent identities associated to different covariant \
 derivatives."; 
-BasicDDIRelations::usage = "\!\(\*TagBox[\(BasicDDIRelations[ \
-\*StyleBox[\"covd\", \"TI\"]] gives replacement rules for the basic DDI of \
-the covariant derivative  \*StyleBox[\"covd\", \"TI\"]\(\(\\ expressed in \
-metrics.\)\)\), DisplayForm]\)"; 
+BasicDDIRelations::usage = "\!\(\*TagBox[\(BasicDDIRelations[] gives \
+replacement rules for all defined basic DDIs expressed in metrics. \
+\[LineSeparator] BasicDDIRelations[ \*StyleBox[\"cd\", \"TI\"]] gives \
+replacement rules for the basic DDI of the covariant derivative  \
+\*StyleBox[\"cd\", \"TI\"]\(\(\\ expressed in metrics.\)\)\[LineSeparator] \
+BasicDDIRelations[ \*StyleBox[\"cd\", \"TI\"], \*StyleBox[\"d\", \"TI\"]] \
+gives replacement rules for the basic DDI of the covariant derivative  \
+\*StyleBox[\"cd\", \"TI\"]\(\(\\ expressed in metrics in \
+\)\)\*StyleBox[\"d\", \"TI\"]\(\(\\ dimensions.\)\)\), DisplayForm]\)"; 
 BasicDDITableaux::usage = "\!\(\*TagBox[\(BasicDDITableaux[ \
-\*StyleBox[\"covd\", \"TI\"]] gives the standard Young tableaux of the basic \
-DDI of the covariant derivative  \*StyleBox[\"covd\", \"TI\"] .\), \
-DisplayForm]\)"; 
+\*StyleBox[\"cd\", \"TI\"]] gives the standard Young tableaux of the basic \
+DDI of the covariant derivative  \*StyleBox[\"cd\", \"TI\"] . \
+\[LineSeparator] BasicDDITableaux[ \*StyleBox[\"cd\", \"TI\"], \
+\*StyleBox[\"d\", \"TI\"]] gives the standard Young tableaux of the basic DDI \
+of the covariant derivative  \*StyleBox[\"cd\", \"TI\"]\(\(\\ in \
+\)\)\*StyleBox[\"d\", \"TI\"]\(\(\\ dimensions.\)\)\), DisplayForm]\)"; 
 ClearAutomaticRules::usage = "\!\(\*TagBox[\(ClearAutomaticRules[ \
 \*StyleBox[\"symbol\", \"TI\"], \*StyleBox[\"rules\", \"TI\"]] tries to \
 remove  \*StyleBox[\"rules\", \"TI\"]\(\(\\ from the upvalues and downvalues \
@@ -483,15 +494,17 @@ UnitConstant::usage =
   "UnitConstant is a constant symbol whose value is one."; 
 VarL::usage = "\!\(\*TagBox[\(VarL[ \*StyleBox[\"g\", \
 \"TI\"][-\*StyleBox[\"a\", \"TI\"],- \*StyleBox[\"b\", \"TI\"]]][ \
-\*StyleBox[\"L\", \"TI\"]] returns  1\/\@\(-g\) \(\[Delta] ( \@\(-g\)\(\(\\ \
-L) \)\)\)\/\(\[Delta]  g\_ab\)\(\(\\ \\ while integrating by parts with \
-respect to the covariant derivative of the metric \)\)\*StyleBox[\(g\_ab\), \
-\"TI\"] . \[LineSeparator] VarL[ \*StyleBox[\"g\", \"TI\"][-\*StyleBox[\"a\", \
-\"TI\"],- \*StyleBox[\"b\", \"TI\"]], \*StyleBox[\"cd\", \"TI\"]][ \
-\*StyleBox[\"L\", \"TI\"]] returns  1\/\@\(-g\) \(\[Delta] ( \@\(-g\)\(\(\\ \
-L) \)\)\)\/\(\[Delta]  g\_ab\)\(\(\\ while integrating by parts with respect \
-to the covariant derivative \)\)\*StyleBox[\"cd\", \"TI\"] .\), \
-DisplayForm]\)"; 
+\*StyleBox[\"L\", \"TI\"]] returns  \
+1\/\@\(\[VerticalSeparator]g\[VerticalSeparator]\) \(\[Delta] ( \
+\@\(-g\)\(\(\\ L) \)\)\)\/\(\[Delta]  g\_ab\)\(\(\\ \\ while integrating by \
+parts with respect to the covariant derivative of the metric \
+\)\)\*StyleBox[\(g\_ab\), \"TI\"] . \[LineSeparator] VarL[ \*StyleBox[\"g\", \
+\"TI\"][-\*StyleBox[\"a\", \"TI\"],- \*StyleBox[\"b\", \"TI\"]], \
+\*StyleBox[\"cd\", \"TI\"]][ \*StyleBox[\"L\", \"TI\"]] returns  \
+1\/\@\(\[VerticalSeparator]g\[VerticalSeparator]\) \(\[Delta] ( \
+\@\(-g\)\(\(\\ L) \)\)\)\/\(\[Delta]  g\_ab\)\(\(\\ while integrating by \
+parts with respect to the covariant derivative \)\)\*StyleBox[\"cd\", \"TI\"] \
+.\), DisplayForm]\)"; 
 YoungProject::usage = "\!\(\*TagBox[\(YoungProject[ \*StyleBox[\"expr\", \
 \"TI\"], \*StyleBox[\"tab\", \"TI\"]] projects the tensorial expression  \
 \*StyleBox[\"expr\", \"TI\"]\(\(\\ onto the Young tableau \
