@@ -169,30 +169,24 @@ Cell[TextData[{
 
 Cell[TextData[{
  "The identities returned by ",
- Cell[BoxData["CurvatureRelationsBianchi"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["CurvatureRelationsBianchi"], "InlineFormula"],
  " are the first contraction  ",
  Cell[BoxData[
   FormBox[
    RowBox[{
     RowBox[{
-     SubscriptBox["\[Del]", 
-      RowBox[{"[", "a"}]], 
+     SubscriptBox["\[Del]", "a"], 
      SuperscriptBox[
       SubscriptBox["R", 
-       RowBox[{
-        RowBox[{
-         StyleBox["bc",
-          FontSlant->"Italic"], "]"}], 
-        StyleBox["d",
-         FontSlant->"Italic"]}]], "a"]}], "=", " ", 
+       StyleBox["bcd",
+        FontSlant->"Italic"]], "a"]}], "=", " ", 
     FormBox[
      RowBox[{
       RowBox[{
        SubscriptBox["\[Del]", "c"], 
        SubscriptBox["R", 
         StyleBox["bd",
-         FontSlant->"Italic"]]}], "+", 
+         FontSlant->"Italic"]]}], "-", 
       RowBox[{
        SubscriptBox["\[Del]", "b"], 
        SubscriptBox["R", 
@@ -218,12 +212,13 @@ Cell[TextData[{
 }], "Notes",
  CellChangeTimes->{{3.580459737830357*^9, 3.5804597664080067`*^9}, {
   3.580459836275628*^9, 3.580459926013565*^9}, {3.580459966725613*^9, 
-  3.580460074581131*^9}, {3.580460302232382*^9, 3.580460321812676*^9}},
+  3.580460074581131*^9}, {3.580460302232382*^9, 3.580460321812676*^9}, {
+  3.584251998168055*^9, 3.5842520002852287`*^9}, {3.584252160359371*^9, 
+  3.584252160421267*^9}},
  CellID->294499222],
 
 Cell[TextData[{
- Cell[BoxData["CurvatureRelationsBianchi"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["CurvatureRelationsBianchi"], "InlineFormula"],
  " returns replacement rules."
 }], "Notes",
  CellChangeTimes->{{3.580460091033021*^9, 3.580460102222378*^9}},

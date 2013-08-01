@@ -149,6 +149,32 @@ Cell[TextData[{
  CellChangeTimes->{{3.580809494638191*^9, 3.580809512562415*^9}},
  CellID->187242942],
 
+Cell[TextData[{
+ Cell[BoxData["SolveTensors"], "InlineFormula"],
+ " s",
+ "olves tensorial equations for any (product of) tensor(s) that is\nnot \
+contracted with another tensor."
+}], "Notes",
+ CellChangeTimes->{{3.5841804034882317`*^9, 3.5841804386868467`*^9}},
+ CellID->345846922],
+
+Cell[TextData[{
+ Cell[BoxData["SolveTensors"], "InlineFormula"],
+ " does not take contractions of the equations into account."
+}], "Notes",
+ CellChangeTimes->{{3.584180496881887*^9, 3.5841805067037487`*^9}},
+ CellID->335012045],
+
+Cell[TextData[{
+ Cell[BoxData["SolveTensors"], "InlineFormula"],
+ " usually does not return the most general solution of the system of \
+tensorial equations. It should more be seen as an easy way to generate proper \
+tensor replacement rules."
+}], "Notes",
+ CellChangeTimes->{{3.584180451806007*^9, 3.584180487456972*^9}, {
+  3.584180529806636*^9, 3.584180552653163*^9}},
+ CellID->1558469272],
+
 Cell["The following options can be given: ", "Notes"],
 
 Cell[BoxData[GridBox[{
@@ -1967,6 +1993,7 @@ Cell[BoxData[
                    Offset[0.]}}, "RowsIndexed" -> {}}],
              FontSize->9]}
           },
+          
           GridBoxAlignment->{
            "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
             "Rows" -> {{Center}}, "RowsIndexed" -> {}},
