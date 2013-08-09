@@ -242,7 +242,7 @@ Cell[BoxData[GridBox[{
      ". "
     }], "TableText"]},
    {
-    RowBox[{"DefTensor", "[", 
+    RowBox[{"DefMetric", "[", 
      RowBox[{
       StyleBox["sign", "TI"], ",", 
       RowBox[{
@@ -255,12 +255,16 @@ Cell[BoxData[GridBox[{
       StyleBox["cd", "TI"]}], "]"}], Cell[TextData[{
      "defines a metric ",
      StyleBox["g", "TI"],
+     " of signature ",
+     StyleBox["sign", "TI"],
      " on the manifold of which ",
      StyleBox["a", "TI"],
      " and ",
      StyleBox["b", "TI"],
-     " are indices, with covariant derivative ",
+     " are indices, a covariant derivative ",
      StyleBox["cd", "TI"],
+     ", and all curvature tensors of ",
+     StyleBox["g", "TI"],
      "."
     }], "TableText"]},
    {
@@ -272,27 +276,30 @@ Cell[BoxData[GridBox[{
      StyleBox["T", "TI"],
      " with indices ",
      StyleBox["inds", "TI"],
-     " on the manifold ",
+     " and symmetry ",
+     StyleBox["sym ", "TI"],
+     "on the manifold ",
      StyleBox["M", "TI"],
-     " which has symmetry ",
-     StyleBox["sym", "TI"],
      "."
     }], "TableText"]}
   }]], "DefinitionBox",
  CellChangeTimes->{{3.58185024851206*^9, 3.58185031367336*^9}, {
   3.581850351338324*^9, 3.581850460805461*^9}, {3.581850491063401*^9, 
-  3.581850547575849*^9}},
+  3.581850547575849*^9}, {3.585027173550564*^9, 3.585027178362953*^9}, {
+  3.585027865172936*^9, 3.5850278927044497`*^9}, {3.58502799798382*^9, 
+  3.585028006137236*^9}, {3.585028291223393*^9, 3.585028345438787*^9}},
  CellID->1578102565],
 
-Cell["Command for defining manifolds, metrics, and tensors.", "Caption",
- CellChangeTimes->{{3.581850567168826*^9, 3.581850582198028*^9}},
+Cell["\<\
+Commands for defining manifolds, metrics, and tensors.\
+\>", "Caption",
+ CellChangeTimes->{{3.581850567168826*^9, 3.581850582198028*^9}, 
+   3.5850292252738037`*^9},
  CellID->1746769505],
 
 Cell[CellGroupData[{
 
-Cell["\<\
-First, load the xTensor package.\
-\>", "Text",
+Cell["First, load the xTensor package.", "Text",
  CellID->647992887],
 
 Cell[CellGroupData[{
@@ -1079,9 +1086,7 @@ $CellContext`d],
 
 Cell[CellGroupData[{
 
-Cell["\<\
-We can define other tensors with the DefTensor command:\
-\>", "Text",
+Cell["We can define other tensors with the DefTensor command:", "Text",
  CellID->1457350856],
 
 Cell[CellGroupData[{
@@ -1653,9 +1658,7 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["\<\
-We can contract indices with the metric:\
-\>", "Text",
+Cell["We can contract indices with the metric:", "Text",
  CellID->507326396],
 
 Cell[CellGroupData[{
@@ -1867,9 +1870,7 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell["\<\
-This is automatically converted to the Ricci tensor:\
-\>", "Text",
+Cell["This is automatically converted to the Ricci tensor:", "Text",
  CellID->2139933227],
 
 Cell[CellGroupData[{
@@ -1889,9 +1890,7 @@ Cell["RicciCD[-b, -d]", "Output",
 
 Cell[CellGroupData[{
 
-Cell["\<\
-Contracting again gives, as expected, the Ricci scalar:\
-\>", "Text",
+Cell["Contracting again gives, as expected, the Ricci scalar:", "Text",
  CellID->1949109880],
 
 Cell[CellGroupData[{
