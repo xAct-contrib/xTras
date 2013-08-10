@@ -4,6 +4,8 @@
 (*                   *)
 (*********************)
 
+xTrasHelp::usage = "xTrasHelp[] opens the \!\(\*StyleBox[\"xTras\",\"IT\"]\) documentation.";
+
 LevelSpecQ::usage = 
 	"LevelSpecQ[levelspec] yields True if levelspec is a standard levelspec, and False otherwise.";
 
@@ -31,6 +33,13 @@ If[System`$VersionNumber < 8.,
 
 
 Begin["`Private`"]
+
+xTrasHelp[] := 
+	(* SystemOpen is MMA 7 and newer, but somehow it doesn't work in MMA 7. *)
+	If[ System`$VersionNumber < 8.,
+		Documentation`HelpLookupPacletURI["paclet:xTras/guide/xTras"],
+		SystemOpen["paclet:xTras/guide/xTras"]
+	];
 
 
 TimeString[seconds_Integer]/;seconds >= 31536000:=TimeString1[seconds,31536000,2628000," year"," month"];

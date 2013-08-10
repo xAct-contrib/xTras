@@ -20,7 +20,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = {"1.1.3.45", {2013, 7, 27}};
+xAct`xTras`$Version = {"1.1.3.50", {2013, 8, 9}};
 xAct`xTras`$xTensorVersionExpected = {"1.0.5", {2013, 1, 27}};
 xAct`xTras`$SymManipulatorVersionExpected = {"0.8.5", {2013, 4, 13}};
 xAct`xTras`$MathematicaVersionNeeded = 6.;
@@ -152,7 +152,7 @@ If[
  * like "myPackage`") this isn't necessary, as then everythings works out of the box
  * But because we had to hack our way around the documentation tools because xTras lives 
  * in "xAct`xTras`", the links do not work by themselves.
- * Therefor, we set for each public symbol the paclet link manually.
+ * Therefore, we set for each public symbol the paclet link manually.
  *) 
 
 (* Only do this when MMA can find the documentation. (Otherwise it's pointless). *)
@@ -176,6 +176,14 @@ If[
 		],
 		Names[xAct`xTras`Private`$xTrasContext <> "*"]
 	];
+	
+	(* For xTrasHelp, set the link to the xTras guide. *)
+	Documentation`CreateMessageLink[
+		xAct`xTras`Private`$xTrasContext,
+		"xTrasHelp",
+		"usage",
+		"English"
+	] = "paclet:xTras/guide/xTras";
 	
 	(* Finally, protect Documentation`CreateMessageLink again. *)
 	Protect[Documentation`CreateMessageLink];
