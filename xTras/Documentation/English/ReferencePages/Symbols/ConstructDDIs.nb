@@ -2388,13 +2388,13 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"dim", "=", "2"}]], "Input",
  CellChangeTimes->{{3.580878457085535*^9, 3.5808784575242653`*^9}},
- CellLabel->"In[11]:=",
+ CellLabel->"In[3]:=",
  CellID->1902498294],
 
 Cell[BoxData["2"], "Output",
- CellChangeTimes->{3.5808784587369747`*^9},
- CellLabel->"Out[11]=",
- CellID->1404807075]
+ CellChangeTimes->{3.5808784587369747`*^9, 3.585232402467836*^9},
+ CellLabel->"Out[3]=",
+ CellID->723013012]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2406,41 +2406,50 @@ Cell[BoxData[
     RowBox[{"-", "a"}], ",", 
     RowBox[{"-", "b"}]}], "]"}], "]"}]], "Input",
  CellChangeTimes->{{3.580878460041037*^9, 3.580878469132022*^9}},
- CellLabel->"In[12]:=",
+ CellLabel->"In[4]:=",
  CellID->1157294407],
 
 Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"AllContractions", "::", "error"}], "MessageName"], ":", 
-  " ", "\<\"\[NoBreak]\\!\\(\\\"Number of contractions out of range.\\\"\\)\
-\[NoBreak] \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:xTras/ref/AllContractions\\\", ButtonNote -> \
-\\\"xTras`AllContractions::error\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.580878470290244*^9},
- CellLabel->"During evaluation of In[12]:=",
- CellID->887707570],
+ InterpretationBox[
+  RowBox[{"\<\"** \"\>", "\[InvisibleSpace]", "DefTensor", 
+   "\[InvisibleSpace]", "\<\": Defining \"\>", 
+   "\[InvisibleSpace]", "\<\"basic dimensional dependent identity \"\>", 
+   "\[InvisibleSpace]", 
+   RowBox[{"BasicDDICD2", "[", 
+    RowBox[{
+     RowBox[{"-", "a"}], ",", 
+     RowBox[{"-", "b"}], ",", 
+     RowBox[{"-", "c"}], ",", 
+     RowBox[{"-", "d"}], ",", 
+     RowBox[{"-", "e"}], ",", 
+     RowBox[{"-", "f"}]}], "]"}], "\[InvisibleSpace]", "\<\". \"\>", 
+   "\[InvisibleSpace]", "\<\"\"\>"}],
+  SequenceForm[
+  "** ", xAct`xTensor`DefTensor, ": Defining ", 
+   "basic dimensional dependent identity ", 
+   $CellContext`BasicDDICD2[-$CellContext`a, -$CellContext`b, \
+-$CellContext`c, -$CellContext`d, -$CellContext`e, -$CellContext`f], ". ", ""],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.5852324034500093`*^9},
+ CellLabel->"During evaluation of In[4]:=",
+ CellID->1217217958],
 
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"Throw", "::", "nocatch"}], "MessageName"], ":", 
-  " ", "\<\"Uncaught \[NoBreak]\\!\\(Throw[Null]\\)\[NoBreak] returned to top \
-level. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
-ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/Throw/nocatch\\\", ButtonNote -> \
-\\\"Throw::nocatch\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.58087847029248*^9},
- CellLabel->"During evaluation of In[12]:=",
- CellID->1132233281],
+   RowBox[{"AllContractions", "::", "error"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\[NoBreak]\\!\\(\\\"Number of contractions out of range.\\\
+\"\\)\[NoBreak]\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.580878470290244*^9, 3.585232403955325*^9},
+ CellLabel->"During evaluation of In[4]:=",
+ CellID->852998784],
 
 Cell[BoxData[
- RowBox[{"Hold", "[", 
-  RowBox[{"Throw", "[", "Null", "]"}], "]"}]], "Output",
- CellChangeTimes->{3.580878470294361*^9},
- CellLabel->"Out[12]=",
- CellID->592157700]
+ RowBox[{"{", "}"}]], "Output",
+ CellChangeTimes->{3.580878470294361*^9, 3.58523240395723*^9},
+ CellLabel->"Out[4]=",
+ CellID->1897218963]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],

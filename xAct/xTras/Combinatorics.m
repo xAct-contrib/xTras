@@ -338,14 +338,19 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 	];
 		
 	(* Do some checks *)
+	(* Throw exceptions for when there are errors that shouldn't happen,
+	   and return an empty list for cases where there are no contractions. *)
+	
 	If[IndicesOf[Dummy][expl] =!= IndexList[],
 		Throw@Message[AllContractions::error, "Input expression cannot have dummy indices."];
 	];
 	If[!IntegerQ@numContractions,
-		Throw@Message[AllContractions::error, "Can only contract an even number of indices."];
+		Message[AllContractions::error, "Can only contract an even number of indices."];
+		Return @ {};
 	];
 	If[numContractions > numIndices / 2 || numContractions < 0,
-		Throw@Message[AllContractions::error, "Number of contractions out of range."];
+		Message[AllContractions::error, "Number of contractions out of range."];
+		Return @ {};
 	];
 	If[Length@Union[VBundleOfIndex/@exprIndices] =!= 1,
 		Throw@Message[AllContractions::error, "More than one tangent bundle detected."];
