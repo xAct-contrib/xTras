@@ -1,9 +1,15 @@
 Notebook[{
 
 Cell[CellGroupData[{
-Cell["xTras documentation", "Title"],
+Cell["xTras", "Title"],
 
-Cell["Some extra functionality for xAct", "Subsubtitle"],
+Cell[TextData[{
+ "a field theory inspired xAct package for ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"]
+}], "Subsubtitle"],
+
+Cell["www.xact.es/xtras", "Text"],
 
 Cell["Teake Nutma", "Text"],
 
@@ -21,65 +27,9 @@ Cell[CellGroupData[{
 Cell["Introduction", "Section"],
 
 Cell["\<\
-xTras consists of several packages that either extend existing xAct packages, \
-or bring new 
-functionality altogether. They are:\
+xTras extends existing xAct packages, or brings new functionality altogether.\
+\
 \>", "Text"],
-
-Cell[CellGroupData[{
-
-Cell[TextData[StyleBox["xAct`xTras`xCore`",
- FontSlant->"Italic"]], "Item"],
-
-Cell["New core functionality, e.g. a timed Map.", "ItemParagraph"],
-
-Cell["xAct`xTras`xTensor`", "Item",
- FontSlant->"Italic"],
-
-Cell["Additional curvature tensors, Killing vectors, etc.", "ItemParagraph"],
-
-Cell["xAct`xTras`xPert`", "Item",
- FontSlant->"Italic"],
-
-Cell["\<\
-Variations w.r.t. the metric, perturbations around AdS and flat space.\
-\>", "ItemParagraph"],
-
-Cell["xAct`xTras`Invar`", "Item",
- FontSlant->"Italic"],
-
-Cell["\<\
-Euler densities, easy simplicifaction of monomials of Riemann tensors.\
-\>", "ItemParagraph"],
-
-Cell["xAct`xTras`xCoba`", "Item",
- FontSlant->"Italic"],
-
-Cell["Imploded tensor values, basis transformation matrices.", \
-"ItemParagraph"],
-
-Cell["xAct`xTras`Algebra`", "Item",
- FontSlant->"Italic"],
-
-Cell["\<\
-Rewriting of tensorial expressions, solving systems of linear tensorial \
-equations.\
-\>", "ItemParagraph"],
-
-Cell["xAct`xTras`Combinatorics`", "Item",
- FontSlant->"Italic"],
-
-Cell["Young tableaux, all contractions, all index configurations.", \
-"ItemParagraph"]
-}, Open  ]],
-
-Cell[TextData[{
- "In addition, there is the main ",
- StyleBox["xAct`xTras`",
-  FontSlant->"Italic"],
- " package that has no new functions but loads all of the above packages in \
-one go."
-}], "Text"],
 
 Cell[TextData[{
  "Please note that this file doesn\[CloseCurlyQuote]t describe all new \
@@ -87,7 +37,7 @@ functions in ",
  StyleBox["xTras",
   FontSlant->"Italic"],
  ", but only the most important ones. For a complete list of new functions, \
-see the very last section."
+see the very last section or the built-in documentation."
 }], "Text"],
 
 Cell["\<\
@@ -100,7 +50,7 @@ Cell[TextData[{
  "We\[CloseCurlyQuote]ll first load ",
  StyleBox["xTras",
   FontSlant->"Italic"],
- " and discuss the new functionality in the sub-packages one by one."
+ " and discuss the new functionality step by step."
 }], "Text"]
 }, Open  ]],
 
@@ -109,13 +59,10 @@ Cell[CellGroupData[{
 Cell["Package loading", "Section"],
 
 Cell[TextData[{
- "We load all the ",
+ "Load ",
  StyleBox["xTras",
   FontSlant->"Italic"],
- " subpackages at once by loading the ",
- StyleBox["xAct`xTras`",
-  FontSlant->"Italic"],
- " \[OpenCurlyDoubleQuote]main\[CloseCurlyDoubleQuote] package."
+ ":"
 }], "Text"],
 
 Cell[CellGroupData[{
@@ -374,65 +321,11 @@ Cell[BoxData["\<\"------------------------------------------------------------\
 }, Open  ]],
 
 Cell[TextData[{
- "Note that the subpackages did not print any messages; only the main ",
- StyleBox["xTras",
-  FontSlant->"Italic"],
- " package does. Just to make sure they are all loaded, we can inspect the \
-$ContextPath variable:"
-}], "Text"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"$ContextPath", "//", "Sort"}], "//", "TableForm"}]], "Input"],
-
-Cell[BoxData[
- TagBox[
-  TagBox[GridBox[{
-     {"\<\"Global`\"\>"},
-     {"\<\"PacletManager`\"\>"},
-     {"\<\"QuantityUnits`\"\>"},
-     {"\<\"System`\"\>"},
-     {"\<\"WebServices`\"\>"},
-     {"\<\"xAct`ExpressionManipulation`\"\>"},
-     {"\<\"xAct`Invar`\"\>"},
-     {"\<\"xAct`SymManipulator`\"\>"},
-     {"\<\"xAct`xCoba`\"\>"},
-     {"\<\"xAct`xCore`\"\>"},
-     {"\<\"xAct`xPerm`\"\>"},
-     {"\<\"xAct`xPert`\"\>"},
-     {"\<\"xAct`xTensor`\"\>"},
-     {"\<\"xAct`xTras`\"\>"},
-     {"\<\"xAct`xTras`Algebra`\"\>"},
-     {"\<\"xAct`xTras`Combinatorics`\"\>"},
-     {"\<\"xAct`xTras`Invar`\"\>"},
-     {"\<\"xAct`xTras`xCoba`\"\>"},
-     {"\<\"xAct`xTras`xCore`\"\>"},
-     {"\<\"xAct`xTras`xPert`\"\>"},
-     {"\<\"xAct`xTras`xTensor`\"\>"}
-    },
-    GridBoxAlignment->{
-     "Columns" -> {{Left}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
-      "RowsIndexed" -> {}},
-    GridBoxSpacings->{"Columns" -> {
-        Offset[0.27999999999999997`], {
-         Offset[0.5599999999999999]}, 
-        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-        Offset[0.2], {
-         Offset[0.4]}, 
-        Offset[0.2]}, "RowsIndexed" -> {}}],
-   Column],
-  Function[BoxForm`e$, 
-   TableForm[BoxForm`e$]]]], "Output"]
-}, Open  ]],
-
-Cell[TextData[{
  "Also note that ",
  StyleBox["xTras",
   FontSlant->"Italic"],
  " depends on and loads the packages it extends, that is it loads xCore, \
-xPerm, xTensor, xPert, Invar, and SymManipulator."
+xPerm, xTensor, xPert, Invar, xCoba, and SymManipulator."
 }], "Text"]
 }, Open  ]],
 
@@ -7682,6 +7575,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
                     FontSize->9]}
                   },
+                  
                   GridBoxAlignment->{
                    "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
                     "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -9714,6 +9608,7 @@ Cell[BoxData[
                    Offset[0.]}}, "RowsIndexed" -> {}}],
              FontSize->9]}
           },
+          
           GridBoxAlignment->{
            "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
             "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -10582,7 +10477,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
                FontSize->9]}
             },
-            
             GridBoxAlignment->{
              "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
               "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -12615,6 +12509,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -13840,6 +13735,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -14561,7 +14457,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
-           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -16229,7 +16124,6 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
-           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -16731,6 +16625,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -42156,7 +42051,6 @@ Cell[BoxData[
           ButtonNote->"xAct`xTras`Algebra`"], 
          ButtonBox["$TensorWrapperColor",
           BaseStyle->"InformationLink",
-          
           ButtonData:>{
            "Info3577769257-3630280", {
             "$TensorWrapperColor", "xAct`xTras`Algebra`"}},
@@ -42362,7 +42256,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 WindowSize->{902, 884},
-WindowMargins->{{Automatic, -2}, {Automatic, 99}},
+WindowMargins->{{Automatic, 92}, {Automatic, 0}},
 ShowSelection->True,
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
 2011)",
