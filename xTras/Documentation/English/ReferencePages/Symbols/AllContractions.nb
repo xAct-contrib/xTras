@@ -4,7 +4,7 @@ Cell[TextData[{
  Cell["1.0.3", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
- Cell[" 1.0.6", "HistoryData",
+ Cell[" 1.2.0", "HistoryData",
   CellTags->"Modified"],
  " | Obsolete in: ",
  Cell[" ", "HistoryData",
@@ -13,7 +13,8 @@ Cell[TextData[{
  Cell[" ", "HistoryData",
   CellTags->"Excised"]
 }], "History",
- CellChangeTimes->{{3.579754037930477*^9, 3.579754062123941*^9}},
+ CellChangeTimes->{{3.579754037930477*^9, 3.579754062123941*^9}, {
+  3.5852829118768787`*^9, 3.585282913183873*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -156,6 +157,17 @@ Cell[TextData[{
   3.579766963255599*^9}, {3.5797671360727043`*^9, 3.579767138391906*^9}, {
   3.579767356934888*^9, 3.579767380186286*^9}, {3.5797674107777348`*^9, 
   3.579767429332328*^9}, {3.579778768713862*^9, 3.579778769139179*^9}}],
+
+Cell[TextData[{
+ Cell[BoxData["AllContractions"], "InlineFormula"],
+ " returns ",
+ StyleBox["{}", "InlineCode"],
+ " if it is not possible to take contractions, or throws an exception if it \
+encounters an error."
+}], "Notes",
+ CellChangeTimes->{{3.585282786665802*^9, 3.5852828425239677`*^9}, {
+  3.585282885043537*^9, 3.585282891937437*^9}},
+ CellID->1941700588],
 
 Cell["\<\
 The indices in the second argument have to be given as an IndexList or as a \
