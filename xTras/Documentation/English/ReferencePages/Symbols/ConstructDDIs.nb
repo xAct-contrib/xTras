@@ -2283,10 +2283,11 @@ Cell[BoxData[
  CellID->1305812373],
 
 Cell["\<\
-When the dimension of the manifold is an integer, ConstructDDIs doesn't work:\
-\
+When the dimension of the manifold is not an integer, ConstructDDIs doesn't \
+work:\
 \>", "ExampleText",
- CellChangeTimes->{{3.580878038967986*^9, 3.580878066020937*^9}},
+ CellChangeTimes->{{3.580878038967986*^9, 3.580878066020937*^9}, {
+  3.585284948263836*^9, 3.585284948639619*^9}},
  CellID->1990171369],
 
 Cell[CellGroupData[{
@@ -2388,13 +2389,14 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"dim", "=", "2"}]], "Input",
  CellChangeTimes->{{3.580878457085535*^9, 3.5808784575242653`*^9}},
- CellLabel->"In[3]:=",
+ CellLabel->"In[4]:=",
  CellID->1902498294],
 
 Cell[BoxData["2"], "Output",
- CellChangeTimes->{3.5808784587369747`*^9, 3.585232402467836*^9},
- CellLabel->"Out[3]=",
- CellID->723013012]
+ CellChangeTimes->{3.5808784587369747`*^9, 3.585232402467836*^9, 
+  3.585284852915259*^9, 3.585284915295393*^9},
+ CellLabel->"Out[4]=",
+ CellID->1007164107]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2406,7 +2408,7 @@ Cell[BoxData[
     RowBox[{"-", "a"}], ",", 
     RowBox[{"-", "b"}]}], "]"}], "]"}]], "Input",
  CellChangeTimes->{{3.580878460041037*^9, 3.580878469132022*^9}},
- CellLabel->"In[4]:=",
+ CellLabel->"In[5]:=",
  CellID->1157294407],
 
 Cell[BoxData[
@@ -2430,26 +2432,27 @@ Cell[BoxData[
    $CellContext`BasicDDICD2[-$CellContext`a, -$CellContext`b, \
 -$CellContext`c, -$CellContext`d, -$CellContext`e, -$CellContext`f], ". ", ""],
   Editable->False]], "Print",
- CellChangeTimes->{3.5852324034500093`*^9},
- CellLabel->"During evaluation of In[4]:=",
- CellID->1217217958],
+ CellChangeTimes->{3.5852849161294117`*^9},
+ CellLabel->"During evaluation of In[5]:=",
+ CellID->941040695],
 
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"AllContractions", "::", "error"}], "MessageName"], 
+   RowBox[{"AllContractions", "::", "nocontr"}], "MessageName"], 
   RowBox[{
-  ":", " "}], "\<\"\[NoBreak]\\!\\(\\\"Number of contractions out of range.\\\
-\"\\)\[NoBreak]\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.580878470290244*^9, 3.585232403955325*^9},
- CellLabel->"During evaluation of In[4]:=",
- CellID->852998784],
+  ":", " "}], "\<\"No contractions to return\[NoBreak]\\!\\(\\\" because \
+there are not enough indices to contract\\\"\\)\[NoBreak].\"\>"}]], \
+"Message", "MSG",
+ CellChangeTimes->{3.585284916327525*^9},
+ CellLabel->"During evaluation of In[5]:=",
+ CellID->2001384357],
 
 Cell[BoxData[
  RowBox[{"{", "}"}]], "Output",
- CellChangeTimes->{3.580878470294361*^9, 3.58523240395723*^9},
- CellLabel->"Out[4]=",
- CellID->1897218963]
+ CellChangeTimes->{3.585284916329467*^9},
+ CellLabel->"Out[5]=",
+ CellID->1230525138]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],

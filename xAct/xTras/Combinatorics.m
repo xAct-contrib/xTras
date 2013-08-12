@@ -32,15 +32,15 @@ of the auxiliary tensor used for the free indices.";
 FreeMetrics::usage =
 	"FreeMetrics is an option for AllContractions.";
 
-AllContractions::usage =
-	"AllContractions[\!\(\*\nStyleBox[\"expr\", \"TI\"]\)] returns a sorted list of all possible \
-full contractions of \!\(\*\nStyleBox[\"expr\", \"TI\"]\) over its free indices.\n\
-AllContractions[\!\(\*\nStyleBox[\"expr\", \"TI\"]\), \!\(\*\nStyleBox[\"frees\", \"TI\"]\)] \
-returns all possible contractions of \!\(\*\nStyleBox[\"expr\", \"TI\"]\) that have \
-\!\(\*\nStyleBox[\"frees\", \"TI\"]\) as free indices.\n\
-AllContractions[\!\(\*\nStyleBox[\"expr\", \"TI\"]\), \!\(\*\nStyleBox[\"frees\", \"TI\"]\), \!\(\*\nStyleBox[\"sym\", \"TI\"]\)] \
-returns all possible contractions of \!\(\*\nStyleBox[\"expr\", \"TI\"]\) with the symmetry \
-\!\(\*\nStyleBox[\"sym\", \"TI\"]\) imposed on the free indices \!\(\*\nStyleBox[\"frees\", \"TI\"]\)."
+AllContractions::usage = 
+	"AllContractions[expr] returns a sorted list of all possible full \
+contractions of expr over its free indices. \n\
+AllContractions[expr,frees] returns all possible contractions of expr \
+that havefrees as free indices. \n\
+AllContractions[expr,frees,sym]returns all possible contractions of \
+expr with the symmetrysym imposed on the free indicesfrees."
+
+AllContractions::nocontr = "No contractions to return`1`.";
 
 MakeTraceless::usage =
 	"MakeTraceless[expr] returns the traceless version of expr, if any.";
@@ -345,11 +345,15 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 		Throw@Message[AllContractions::error, "Input expression cannot have dummy indices."];
 	];
 	If[!IntegerQ@numContractions,
-		Message[AllContractions::error, "Can only contract an even number of indices."];
+		Message[AllContractions::nocontr, " because the number of indices to contract is not even"];
 		Return @ {};
 	];
-	If[numContractions > numIndices / 2 || numContractions < 0,
-		Message[AllContractions::error, "Number of contractions out of range."];
+	If[numContractions < 0,
+		Message[AllContractions::nocontr, " because there are not enough indices to contract"];
+		Return @ {};
+	];
+	If[numContractions > numIndices / 2,
+		Message[AllContractions::nocontr, " because there are too many indices to contract"];
 		Return @ {};
 	];
 	If[Length@Union[VBundleOfIndex/@exprIndices] =!= 1,
