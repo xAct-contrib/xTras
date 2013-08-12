@@ -37,6 +37,8 @@
 		<exec dir="." executable="${gitexec}" failonerror="true" outputproperty="git.tags">
 			<arg line="for-each-ref --sort='*authordate' --format='%(refname:short)' refs/tags" />
 		</exec>
+		<echo>Git tags:</echo>
+		<echo>${git.tags}</echo>
 		
 		<!-- Get the current tag from Git. If the current commit doesn't have a tag, it fails. -->
 		<exec dir="." executable="${gitexec}" failonerror="false" outputproperty="git.currenttag">
@@ -60,8 +62,10 @@
 		<script language="javascript">
 			<![CDATA[
 			
-			/* Creat the echo task. */
-			var echo = project.createTask("echo");
+			/* Create tasks. */
+			var echo 		= project.createTask("echo");
+			var getgitdate 	= project.createTask("get-git-date");
+			var getgitlog  	= project.createTask("get-git-log");
 			
 			/* Get the list of tags, and split them into an array. */ 
 			tags = project.getProperty("git.tags").replace("\r", "").split("\n");
@@ -72,8 +76,11 @@
 			var lastversion = tags[tags.length-1].replace("v","");
 			if(tags[tags.length-1] == String(project.getProperty("git.currenttag")))
 			{
+				getgitdate.setDynamicAttribute("tag",tags[tags.length - 1]);
+			    getgitdate.setDynamicAttribute("num",tags.length - 1);
+				getgitdate.execute();
+				var newdate 	= (project.getProperty("git.date." + (tags.length - 1))).replace("-0","-").split("-").join(", ");
 				var newversion 	= lastversion;
-			    var newdate 	= (project.getProperty("git.date." + (tags.length - 1))).replace("-0","-").split("-").join(", ");
 			}
 			else
 			{
@@ -97,15 +104,12 @@
 			    output += tags[i].replace("HEAD", "v" + newversion) + ", ";
 			    
 				/* Get the date of the tag. */
-			    var getgitdate = project.createTask("get-git-date");
 				getgitdate.setDynamicAttribute("tag",tags[i]);
 			    getgitdate.setDynamicAttribute("num",i);
 				getgitdate.execute();
 				output += project.getProperty("git.date." + i) + "\n\n";
 			
-				/* Get the log of this particular tag. */
-			    var getgitlog  = project.createTask("get-git-log");
-			
+				/* Get the log of this particular tag. */		
 			    var range = '';
 			    if(i > 0)
 			    {
