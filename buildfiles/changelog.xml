@@ -135,6 +135,6 @@
 		<delete file="log.temp" />
 		
 		<!-- Write the changelog to a file. -->
-		<echo file="${basedir}/xAct/xTras/xTras.History">${git.log}</echo>
+		<echo file="${basedir}/CHANGELOG">${git.log}</echo>
 
 	</target>

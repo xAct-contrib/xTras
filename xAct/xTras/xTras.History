@@ -1,0 +1,218 @@
+xTras changelog
+===============
+
+v1.2.0, 2013-08-12
+------------------
+
+Big changes:
+
+* Added built-in documentation.
+* Added the xTrasHelp command, which opens the xTras documentation.
+* Added fancy usage messages.
+* All public symbols are back in the same context ("xAct\`xTras\`").
+
+Other changes:
+
+* Added DefNiceConstantSymbol.
+* Added TableauDimension.
+* Added the AllContractions:nocontr message, which is generated when AllContractions returns nothing (for various reasons).
+* AllContractions also takes Lists as second arguments.
+* AllContractions can also handle expression with odd number of indices.
+* AllContractions gives less duplicate results.
+* AllContractions returns an empty list instead of throwing an exception for cases where there are no contractions.
+* Changed Implode/ExplodeIndices to To/FromIndexFree.
+* Changed UncontractedPairs to UncontracedIndices.
+* Fixed bug in SolveTensors.
+* It is now possible to change dimensions between ConstructDDIs calls.
+* Removed DoTensorCollect.
+* Removed ExpandPerturbationDer.
+* Removed FS.
+* Removed MakeEquationRule.
+* Removed MetricPermutations.
+* Removed OrderCoefficient.
+* Removed PerturbationOfMetric.
+* Removed PerturbationParameter.
+* Removed PerturbationParameterOfMetric.
+* Removed TensorCollect.
+* Removed TensorCollector.
+* Removed UnorderedPairsPermutations.
+* Reset $CovDFormat and CurvatureRelations at load time.
+* RiemannYoungProject and RiemannYoungRule take the option ManifestSymmetry.
+* RiemannYoungRule and RiemannYoungProject no longer take a levelspec argument, but always project the Riemann and its first derivative onto their Young tableaux.
+* TableauSymmetric is MMA 6 compatible.
+* TermsOf now removes constants.
+* The default value of Description is None.
+* TimeString[60] returns "1 minute" instead of "60 seconds".
+* YoungProject is faster.
+* YoungTableauQ is a bit more precise.
+
+v1.1.3, 2013-05-29
+------------------
+
+Changes:
+
+* Added MakeTraceless.
+* Added ConstructDDIs.
+* Added YoungSymmetric.
+* Added ToLevelSpec.
+* Added ExplodeIndices and ImplodeIndices.
+* Added MakeContractionAnsatz.
+* Removed ContractedPairs.
+* Don't define the auxiliary tensor in AllContractions if it already exists.
+* AllContractions returns fewer duplicate contractions.
+* SolveTensors solves by default for monomials.
+* CollectTensors works better with Scalar objects.
+* Made CollectTensors a bit more verbose.
+* Fixed a bug in CollectTensors (where canonicalization of tensors would prevent collecting).
+* The default perturbation parameter of the metric is no longer called "\[Epsilon]metric", but "PerturbationParametermetric".
+
+v1.1.2, 2013-03-06
+------------------
+
+What's new:
+
+* Added option ManifestSymmetry to YoungSymmetrize that controls the convention of symmetrizing (i.e. first symmetric, then antisymmetric, or the other way around).
+* Fixed a small bug in CollectTensors.
+* Allow Young tableaux to be subsets of free indicesof expressions / tensors.
+* Changed SolveTensors to allow for patterns in list of tensors to solve for.
+* Fixed trying to set Bianchi identities for flat metrics.
+* Fixed build file.
+* Fixed: SolveConstants doesn't try to solve for numeric symbols (such as Pi).
+* Replaced some Modules with Withs.
+* InvarWrapper nicely aborts if the Invar database is not found.
+
+v1.1.1, 2013-01-26
+------------------
+
+What's new:
+
+* xTras now requires MMA 6.
+* Broken xTras into multiple packages.
+* Added Kretschmann scalar to SymmetricSpaceRules.
+* Added ToRicci.
+* Added RiemannYoungProject.
+* Added option Parallelization to MapTimed. If True, MapTimed uses ParallelMap.
+* Added MapTensors / MapTimedTensors.
+* Added CollectConstants.
+* Renamed TensorCollector to TensorWrapper.
+* Renamed TensorCollect to CollectTensors.
+* Renamed PreferBox/DivOf to SortCovDsToBox/Div.
+* Renamed RiemannDivRule / RicciDivRule to CurvatureRelationsBianchi.
+* Renamed the function KillingVectorOf to MetricOfKillingVector; the option KillingVectorOf is still named the same.
+* Removed PreferBox/DivOfRule.
+* Removed option MonitorSteps from MapTimed.
+* Changed DerivativeOrder slightly (added thread over Plus and support for Kretschmann scalar).
+* Changed IndexConfigurations to return a sorted list.
+* Changed EulerDensity to return object with Scalar heads.
+* Changed Invar functions to block printing of reading of Invar database.
+* Changed default printing of metric perturbations to PrintAs[Perturbation] <> PrintAs[metric].
+* Fixed a bug in MapTensors. It now passes options to its internal function.
+* Fixed a bug in SolveTensors. (Forgot to add a levelspec to Position. Don't know why it previously worked on MMA < 9.)
+* SolveTensors only sorts the tensors it solves for when the user doesn't specify them (with SolveTensors[expr==0] ).
+* SolveTensors sorts the tensors to solve for by first removing TensorWrappers.
+* RemoveConstants now also removes constants from expressions without tensors (resulting in 1).
+* CollectTensors no longer threads over lists (as it is no longer necessary).
+* AllContractions sorts answer and deletes duplicates and zero.
+* Introduced UnitConstant to TensorWrapper.
+* VarL performs variations w.r.t. metric determinant separately.
+* MapTimed no longer has the DoTensorCollect option.
+* FullSimplification doesn't call TensorCollect in the end, but ToCanonical.
+* DefMetric no longer has the DefVariation option, but instead a DefMetricPerturbation option.
+* DefMetricPerturbation automatically defines a metric variation (DefMetricVariation is now private).
+
+v1.0.6, 2012-12-23
+------------------
+
+What's new:
+
+* Added SolveTensors, which can solve (a system of) linear tensor equations, and deprecates MakeEquationRule.
+* Added IndexConfigurations.
+* Added PreferDifOf and PreferBoxOf functions.
+* Added MapTimedIfPlus.
+* Added options (Un)contractedPairs to AllContractions.
+* Added options RemoveTensorCollector and Verbose to TensorCollect.
+* TensorCollect prints a message if things might not have been fully collected.
+* TensorCollector threads over Equal.
+* TensorCollector prints like Scalar: with colored parentheses around the wrapped expression.
+* New and faster algorithm for AllContractions, that contracts indices stepwise.
+* Delete duplicate equations from ToConstantSymbolEquations.
+* Another (sigh) and faster rewrite of TensorCollect.
+* Speed improvements in SolveConstants.
+* MapTimed prints info a bit nicer.
+* Don't restrict ToConstantSymbolEquations to work only on things that don't contain lists (this prevented it to work on basis expressions).
+
+v1.0.5, 2012-11-09
+------------------
+
+What's new:
+
+* Made TensorCollect listable.
+* ToConstantSymbolEquations handles more cases (lists, a==b==c). 
+* SolveConstants now takes a ! argument, which specify which variables we shouldn't solve for.
+* Changed AllContractions, both the algorithm and the interface.
+
+
+v1.0.4, 2012-10-25
+------------------
+
+What's new:
+
+* Added two xCoba extensions, ComputeBasisValues and ImplodedTensorValues.
+* Added Perturbation(Parameter)OfMetric. 
+* Added SolveConstants, which is much more similar to Solve than TensorCollectSolve was.
+* Removed TensorCollectSolve.
+* Renamed MyRiemannSimplify to RiemannSimplification.
+* Changed MakeEquationRule such that it only works for equations (LHS == RHS).
+* $RicciSign is now taken into account in various functions.
+* Fixed a minor bug ( #&/ instead of #&/@ ) in PreferDivOfRule.
+* Remove zeros from AllContractions.
+* Don't show Def messages for temporary constants.
+* Updated some usage messages.
+
+v1.0.3, 2012-10-10
+------------------
+
+What's new:
+
+* Added SortedCovDsQ
+* Added AllContractions.
+* Added MetricPermutations.
+* MapTimed now works for generic levelspecs.
+* Gave RiemannYoungRule a levelspec.
+* Different implementation of Killing vectors. No longer need to issue the 'Killing' command.
+* Killing vector are now defined w.r.t. to metrics, not CovDs.
+* Allow for label indices in Killing vectors. 
+* Added version check for xTensor.
+* xTras initialization messages are more like xAct.
+* Automatically define metric variations by default when defining a metric.
+* Removed the FD symbols and functionality.
+* Renamed FS to FullSimplification. 
+* MyRiemannSimplify now only acts on Riccis and Riemanns, fixing a bug that appeared when it acted on other curvature tensors. 
+* MyRiemannSimplify checks more carefully for wrong values of $InvSimplifyLevel
+* Fixed bug in MakeEquationRule that caused the LHS to still be partly present in the RHS.
+* ExpandPerturbation now knows how to deal with extra curvature tensors.
+* Removed ExpandPerturbationDer from VarDt function, hopefully fixing a bug that was probably caused by using SeparateMetric[] twice.
+* Fixed a bug in YoungTableauQ that prevented symmetric Young tableaux from evaluating to True. 
+
+v1.0.2, 2012-08-19
+------------------
+
+What's new:
+
+* Implemented Killing vectors. Killing vectors can be define w.r.t. a covariant derivative while define the vector itself, e.g. DefTensor[V[-a],M,KillingVectorOf->CD].
+* Fixed a bug in ConstantExprQ.
+
+v1.0.1, 2012-05-06
+------------------
+
+What's new:
+
+* Added xTension hook. The package automatically defines Schouten tensors etc. when calling DefMetric.
+* Fixed a bug in InvarWrapper (so MyRiemannSimplify should work in more cases).
+* Renamed TimedMap to MapTimed.
+
+v1.0.0, 2012-03-25
+------------------
+
+First version.
+
