@@ -137,8 +137,9 @@ If[
 Protect[xAct`xTensor`DefMetric];
 
 xTension["xTras`xPert`", DefMetric, "End"] := xTrasxPertDefMetric;
+xTension["xTras`xPert`", DefCovD, "End"] := xTrasxPertDefCovD;
 
-xTrasxPertDefMetric[signdet_, metric_[-a_, -b_], cd_, options___] := (
+xTrasxPertDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := (
 	(* Teach xPert how to expand the new curvature tensors. *)
 	xAct`xPert`Private`ExpandPerturbation1[Perturbation[s:GiveSymbol[Schouten,cd][__],n_.],opts___] := 
 		ExpandPerturbation[Perturbation[SchoutenToRicci@s, n], opts];
@@ -146,8 +147,14 @@ xTrasxPertDefMetric[signdet_, metric_[-a_, -b_], cd_, options___] := (
 		ExpandPerturbation[Perturbation[SchoutenCCToRicci@s, n], opts];
 	xAct`xPert`Private`ExpandPerturbation1[Perturbation[s:GiveSymbol[EinsteinCC,cd][__],n_.],opts___] := 
 		ExpandPerturbation[Perturbation[EinsteinCCToRicci@s, n], opts];
+);
+
+xTrasxPertDefMetric[signdet_, metric_[-a_, -b_], cd_, options___] :=
 	If[
-		TrueQ[DefMetricPerturbation /. CheckOptions[options] /. Options[DefMetric]],	
+		TrueQ @ And [
+			DefMetricPerturbation /. CheckOptions[options] /. Options[DefMetric],
+			! ( FlatMetric /. CheckOptions[options] /. Options[DefMetric] ) 
+		],	
 		DefMetricPerturbation[
 			metric,
 			GiveSymbol[Perturbation,metric],
@@ -158,7 +165,6 @@ xTrasxPertDefMetric[signdet_, metric_[-a_, -b_], cd_, options___] := (
 			PrintAs[metric]
 		];
 	];
-);
 
 
 xTension["xTras`xPert`", DefMetricPerturbation, "End"] := xTrasDefMetricPerturbation;
@@ -173,8 +179,8 @@ DefMetricVariation[metric_?MetricQ, per_, Automatic] :=
 DefMetricVariation[metric_?MetricQ, per_, param_] := Module[
 	{var, M, vb, a, b},
 
-	M 		= ManifoldOfCovD@CovDOfMetric@metric;
-	vb 		= VBundleOfMetric[metric];
+	vb 		= VBundleOfMetric @ metric;
+	M 		= BaseOfVBundle @ vb;
 	{a,b}	= GetIndicesOfVBundle[vb,2];
 
 	If[

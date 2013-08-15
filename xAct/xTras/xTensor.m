@@ -342,57 +342,82 @@ CurvatureRelationsBianchi[covd_Symbol?CovDQ] :=
   Join[CurvatureRelationsBianchi[covd, Riemann], CurvatureRelationsBianchi[covd, Ricci]];
 CurvatureRelationsBianchi[__] = {};
 
-xTension["xTras`xTensor`", DefMetric, "End"] := xTrasxTensorDefMetric;
+xTension["xTras`xTensor`", DefCovD, "End"] := xTrasxTensorDefCovD;
 
-xTrasxTensorDefMetric[signdet_, metric_[-a_, -b_], cd_, options___]:= With[
+(* TODO: set OrthogonalTo and ProjectedWith for curvature tensors, and make an ExtendedFrom swithc. *)
+xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 	{
-		indices = GetIndicesOfVBundle[First@VBundlesOfCovD@cd, 2, {a,b}]
+		tbundle 	= VBundleOfIndex[ind], 
+		M 			= BaseOfVBundle@VBundleOfIndex[ind],
+		indices 	= GetIndicesOfVBundle[VBundleOfIndex[ind], 5],
+		metricQ		= (FromMetric /. CheckOptions[options] /. Options[DefCovD]) =!= Null,
+		torsionQ	= Torsion    /. CheckOptions[options] /. Options[DefCovD]
 	},
 	With[
 		{
-			M 			= ManifoldOfCovD[cd],
-			D 			= DimOfManifold@ManifoldOfCovD[cd],
+			symQ		= metricQ && !torsionQ,
+			curvQ		= CurvatureQ[cd, tbundle],
+			D 			= DimOfManifold@M,
 			einsteincc 	= GiveSymbol[EinsteinCC,cd],
 			rs 			= GiveSymbol[RicciScalar,cd],
 			riemann		= GiveSymbol[Riemann,cd],
 			ricci		= GiveSymbol[Ricci,cd],
-			c			= First@indices,
-			d			= Last@indices
+			torsion		= GiveSymbol[Torsion,cd],
+			a			= indices[[1]],
+			b			= indices[[2]],
+			c			= indices[[3]],
+			d			= indices[[4]],
+			e			= indices[[5]]
 		},
 		With[
 			{
-				cpat = PatternIndex[c, AIndex, Null, First@VBundlesOfCovD@cd],
-				dpat = PatternIndex[d, AIndex, Null, First@VBundlesOfCovD@cd]
+				vanishQ = ! curvQ || If[IntegerQ[D], D < 2, False],
+				sym		= If[symQ, Symmetric[{-a, -b}], StrongGenSet[{}, GenSet[]]],
+				symstr	= If[symQ, "symmetric ", "non-symmetric "],
+				cpat 	= PatternIndex[c, AIndex, Null, tbundle],
+				dpat 	= PatternIndex[d, AIndex, Null, tbundle]
 			},
 			(* Define the new curvature tensors. *)
-			DefTensor[GiveSymbol[Schouten,cd][-a, -b], 
-				M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd, DefInfo->{"Schouten tensor",""}];
-			DefTensor[GiveSymbol[SchoutenCC,cd][LI[_],-a, -b], 
-				M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Schouten,cd], Master->cd, DefInfo->{"cosmological Schouten tensor",""}];	
-			DefTensor[einsteincc[LI[_],-a, -b], 
-				M, Symmetric[{-a, -b}], PrintAs -> GiveOutputString[Einstein,cd], Master->cd, DefInfo->{"cosmological Einstein tensor",""}];
-			
-			(* Some identities for the cosmological Einstein tensor. *)
-			cd[cpat]@einsteincc[LI[_],___,dpat,___] /; c === ChangeIndex[d] ^= 0;
-			einsteincc[LI[K_], cpat, dpat] /; c === ChangeIndex[d] := (1/ 2 (D-2)(D-1) D K + (1-D/2) rs[]);
+			DefTensor[
+				GiveSymbol[Schouten,cd][-a, -b], M, sym, 
+				PrintAs -> GiveOutputString[Schouten,cd], VanishingQ -> vanishQ, 
+				Master  -> cd, DefInfo -> {symstr <> "Schouten tensor",""}
+			];
+			(* cosmological tensors are only defined if there is a metric. *)
+			If[metricQ,
+				DefTensor[
+					GiveSymbol[SchoutenCC,cd][LI[_],-a, -b], M, sym, 
+					PrintAs -> GiveOutputString[Schouten,cd], VanishingQ -> False,
+					Master  -> cd, DefInfo -> {symstr <> "cosmological Schouten tensor",""}
+				];	
+				DefTensor[
+					einsteincc[LI[_],-a, -b], M, sym, 
+					PrintAs -> GiveOutputString[Einstein,cd], VanishingQ -> False,
+					Master  -> cd, DefInfo -> {symstr <> "cosmological Einstein tensor",""}
+				];
+				
+				(* Some identities for the cosmological Einstein tensor. *)
+				cd[cpat]@einsteincc[LI[_],___,dpat,___] /; c === ChangeIndex[d] ^= 0;
+				einsteincc[LI[K_], cpat, dpat] /; c === ChangeIndex[d] := (1/ 2 (D-2)(D-1) D K + (1-D/2) rs[]);
+			];		
 			
 			(* Contracted Bianchi identities. *)
-			(* Only set them when the LHS is not zero (which is the case for flat metrics etc). *)
-			If[cd[-d]@riemann[d,a,b,c] =!= 0,
+			If[curvQ && metricQ,
 				cd /: CurvatureRelationsBianchi[cd, Riemann] = MakeRule[
 					{
-						cd[-d]@riemann[d,a,b,c],
-						$RicciSign*(cd[b]@ricci[a,c] - cd[c]@ricci[a,b])
+						cd[-d]@riemann[a,b,c,d],
+						$RicciSign   * ( cd[b]@ricci[a,c] - cd[a]@ricci[b,c] ) + 
+						$TorsionSign * ( riemann[a,d,c,e] torsion[-d,b,-e] - riemann[b,d,c,e] torsion[-d,a,-e] - ricci[-d,c] torsion[d,a,b] )
 					},
 					MetricOn -> All,
 					UseSymmetries -> True 
 				]
 			];
-			If[cd[-a]@ricci[a,b] =!= 0,
+			If[!vanishQ && metricQ,
 				cd /: CurvatureRelationsBianchi[cd, Ricci] = MakeRule[
 					{
-						cd[-a]@ricci[a,b], 
-						1/2 cd[b]@rs[]
+						cd[-b]@ricci[a,b], 
+						1/2 cd[a]@rs[] + $TorsionSign * ( ricci[b,c] torsion[-b,a,-c] - 1/2 riemann[a,b,c,d] torsion[-b,-c,-d] )
 					},
 					MetricOn -> All,
 					UseSymmetries -> True

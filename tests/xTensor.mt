@@ -237,7 +237,7 @@ Test[
 ]
 
 Test[
-	CD[a]@RiemannCD[-a, -b, -c, -d] /. CurvatureRelationsBianchi[CD]
+	CD[a]@RiemannCD[-a, -b, -c, -d] /. CurvatureRelationsBianchi[CD] // ToCanonical
 	,
 	CD[-c][RicciCD[-b, -d]] - CD[-d][RicciCD[-b, -c]]
 	,
@@ -245,7 +245,7 @@ Test[
 ]
 
 Test[
-	CD[b]@RiemannCD[-a, -b, -c, -d] /. CurvatureRelationsBianchi[CD]
+	CD[b]@RiemannCD[-a, -b, -c, -d] /. CurvatureRelationsBianchi[CD] // ToCanonical
 	,
 	-CD[-c][RicciCD[-a, -d]] + CD[-d][RicciCD[-a, -c]]
 	,
@@ -253,17 +253,17 @@ Test[
 ]
 
 Test[
-	CD[c]@RiemannCD[-a, -b, -c, -d] /. CurvatureRelationsBianchi[CD]
+	CD[c]@RiemannCD[-a, -b, -c, -d] /. CurvatureRelationsBianchi[CD] // ToCanonical
 	,
-	CD[-a][RicciCD[-d, -b]] - CD[-b][RicciCD[-d, -a]]
+	CD[-a][RicciCD[-b, -d]] - CD[-b][RicciCD[-a, -d]]
 	,
 	TestID->"Invar-20130102-Z7Y9G1"
 ]
 
 Test[
-	CD[d]@RiemannCD[-a, -b, -c, -d] /. CurvatureRelationsBianchi[CD]
+	CD[d]@RiemannCD[-a, -b, -c, -d] /. CurvatureRelationsBianchi[CD] // ToCanonical
 	,
-	-CD[-a][RicciCD[-c, -b]] + CD[-b][RicciCD[-c, -a]]
+	-CD[-a][RicciCD[-b, -c]] + CD[-b][RicciCD[-a, -c]]
 	,
 	TestID->"Invar-20130102-N2G6L7"
 ]
