@@ -98,16 +98,20 @@
 			);			
 
 			/* Create the formatted log by looping over the tags. */
-			var output = '';
+			var output = 'xTras full changelog\n====================\n\n';
+			var versionheader = '';
 			for (var i = tags.length - 1; i > -1; i--) {
 			    	
-			    output += tags[i].replace("HEAD", "v" + newversion) + ", ";
+			    versionheader = tags[i].replace("HEAD", "v" + newversion) + ", ";
 			    
 				/* Get the date of the tag. */
 				getgitdate.setDynamicAttribute("tag",tags[i]);
 			    getgitdate.setDynamicAttribute("num",i);
 				getgitdate.execute();
-				output += project.getProperty("git.date." + i) + "\n\n";
+				versionheader += project.getProperty("git.date." + i);
+				
+				output += versionheader + "\n";
+				output += new Array(versionheader.length + 1).join( "-" ) + "\n\n";
 			
 				/* Get the log of this particular tag. */		
 			    var range = '';
@@ -120,7 +124,7 @@
 				getgitlog.setDynamicAttribute("numlog",i);
 			    getgitlog.execute();
 			
-			    output += project.getProperty("git.log." + i).replace("\r", "").replace(" *","\n*") + "\n\n";
+			    output += "  " + project.getProperty("git.log." + i).replace("\r", "  ").replace("\n", "  ").replace(" *","\n  *") + "\n\n";
 			
 				echo.setMessage("Formatted changelog for " + tags[i]);
 				echo.perform();
