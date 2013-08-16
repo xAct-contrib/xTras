@@ -344,30 +344,39 @@ CurvatureRelationsBianchi[__] = {};
 
 xTension["xTras`xTensor`", DefCovD, "End"] := xTrasxTensorDefCovD;
 
-(* TODO: set OrthogonalTo and ProjectedWith for curvature tensors, and make an ExtendedFrom swithc. *)
 xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 	{
 		tbundle 	= VBundleOfIndex[ind], 
 		M 			= BaseOfVBundle@VBundleOfIndex[ind],
-		indices 	= GetIndicesOfVBundle[VBundleOfIndex[ind], 5],
-		metricQ		= (FromMetric /. CheckOptions[options] /. Options[DefCovD]) =!= Null,
-		torsionQ	= Torsion    /. CheckOptions[options] /. Options[DefCovD]
+		indices 	= GetIndicesOfVBundle[VBundleOfIndex[ind], 7],
+		metricQ		= (FromMetric	/. CheckOptions[options] /. Options[DefCovD]) =!= Null,
+		torsionQ	= Torsion		/. CheckOptions[options] /. Options[DefCovD],
+		cd2			= ExtendedFrom	/. CheckOptions[options] /. Options[DefCovD],
+		definfo		= DefInfo 		/. CheckOptions[options] /. Options[DefCovD],
+		ot			= OrthogonalTo 	/. CheckOptions[options] /. Options[DefCovD],
+		pw			= ProjectedWith	/. CheckOptions[options] /. Options[DefCovD]
 	},
 	With[
 		{
+			info		= If[definfo =!= False, $DefInfoQ, False],
 			symQ		= metricQ && !torsionQ,
 			curvQ		= CurvatureQ[cd, tbundle],
+			extQ		= cd2 =!= Null && MetricOfCovD[cd2] =!= Null,
 			D 			= DimOfManifold@M,
 			einsteincc 	= GiveSymbol[EinsteinCC,cd],
 			rs 			= GiveSymbol[RicciScalar,cd],
 			riemann		= GiveSymbol[Riemann,cd],
 			ricci		= GiveSymbol[Ricci,cd],
 			torsion		= GiveSymbol[Torsion,cd],
+			orthogonalQ = (ot =!= {}),
+			projectedQ	= (pw =!= {}),
 			a			= indices[[1]],
 			b			= indices[[2]],
 			c			= indices[[3]],
 			d			= indices[[4]],
-			e			= indices[[5]]
+			e			= indices[[5]],
+			i1d 		= indices[[6]],
+			i2d 		= indices[[7]]
 		},
 		With[
 			{
@@ -375,30 +384,43 @@ xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 				sym		= If[symQ, Symmetric[{-a, -b}], StrongGenSet[{}, GenSet[]]],
 				symstr	= If[symQ, "symmetric ", "non-symmetric "],
 				cpat 	= PatternIndex[c, AIndex, Null, tbundle],
-				dpat 	= PatternIndex[d, AIndex, Null, tbundle]
+				dpat 	= PatternIndex[d, AIndex, Null, tbundle],
+				vector 	= If[orthogonalQ, ot[[1, 0]]],
+				projector = If[projectedQ, pw[[1, 0]]]
 			},
-			(* Define the new curvature tensors. *)
-			DefTensor[
-				GiveSymbol[Schouten,cd][-a, -b], M, sym, 
-				PrintAs -> GiveOutputString[Schouten,cd], VanishingQ -> vanishQ, 
-				Master  -> cd, DefInfo -> {symstr <> "Schouten tensor",""}
-			];
-			(* cosmological tensors are only defined if there is a metric. *)
-			If[metricQ,
-				DefTensor[
-					GiveSymbol[SchoutenCC,cd][LI[_],-a, -b], M, sym, 
-					PrintAs -> GiveOutputString[Schouten,cd], VanishingQ -> False,
-					Master  -> cd, DefInfo -> {symstr <> "cosmological Schouten tensor",""}
-				];	
-				DefTensor[
-					einsteincc[LI[_],-a, -b], M, sym, 
-					PrintAs -> GiveOutputString[Einstein,cd], VanishingQ -> False,
-					Master  -> cd, DefInfo -> {symstr <> "cosmological Einstein tensor",""}
-				];
-				
-				(* Some identities for the cosmological Einstein tensor. *)
-				cd[cpat]@einsteincc[LI[_],___,dpat,___] /; c === ChangeIndex[d] ^= 0;
-				einsteincc[LI[K_], cpat, dpat] /; c === ChangeIndex[d] := (1/ 2 (D-2)(D-1) D K + (1-D/2) rs[]);
+			(* The 3 new curvature tensors can only be defined when there is a metric. *)
+			If[extQ,
+				(* Extend them from another covd. *)
+				( Evaluate @ GiveSymbol[#,cd] = GiveSymbol[#,cd2] )& /@ {Schouten, SchoutenCC, EinsteinCC};
+				,
+				If[metricQ,
+					(* Define the new curvature tensors. *)
+					DefTensor[
+						GiveSymbol[Schouten,cd][-a, -b], M, sym, 
+						PrintAs -> GiveOutputString[Schouten,cd], VanishingQ -> vanishQ, 
+						Master  -> cd, DefInfo -> If[info, {symstr <> "Schouten tensor",""}, False],
+						OrthogonalTo 	:> If[orthogonalQ, {vector[a], vector[b]}, {}],
+						ProjectedWith 	:> If[projectedQ, {projector[a, -i1d], projector[b, -i2d]}, {}]
+					];
+					DefTensor[
+						GiveSymbol[SchoutenCC,cd][LI[_],-a, -b], M, sym, 
+						PrintAs -> GiveOutputString[Schouten,cd], VanishingQ -> False,
+						Master  -> cd, DefInfo -> If[info, {symstr <> "cosmological Schouten tensor",""}, False],
+						OrthogonalTo 	:> If[orthogonalQ, {vector[a], vector[b]}, {}],
+						ProjectedWith 	:> If[projectedQ, {projector[a, -i1d], projector[b, -i2d]}, {}]
+					];	
+					DefTensor[
+						einsteincc[LI[_],-a, -b], M, sym, 
+						PrintAs -> GiveOutputString[Einstein,cd], VanishingQ -> False,
+						Master  -> cd, DefInfo -> If[info, {symstr <> "cosmological Einstein tensor",""}, False],
+						OrthogonalTo 	:> If[orthogonalQ, {vector[a], vector[b]}, {}],
+						ProjectedWith 	:> If[projectedQ, {projector[a, -i1d], projector[b, -i2d]}, {}]
+					];
+					
+					(* Some identities for the cosmological Einstein tensor. *)
+					cd[cpat]@einsteincc[LI[_],___,dpat,___] /; c === ChangeIndex[d] ^= 0;
+					einsteincc[LI[K_], cpat, dpat] /; c === ChangeIndex[d] := (1/ 2 (D-2)(D-1) D K + (1-D/2) rs[]);
+				]
 			];		
 			
 			(* Contracted Bianchi identities. *)
