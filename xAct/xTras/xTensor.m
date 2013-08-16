@@ -424,14 +424,14 @@ xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 			];		
 			
 			(* Contracted Bianchi identities. *)
-			If[curvQ && metricQ,
+			If[curvQ,
 				cd /: CurvatureRelationsBianchi[cd, Riemann] = MakeRule[
 					{
-						cd[-d]@riemann[a,b,c,d],
-						$RicciSign   * ( cd[b]@ricci[a,c] - cd[a]@ricci[b,c] ) + 
-						$TorsionSign * ( riemann[a,d,c,e] torsion[-d,b,-e] - riemann[b,d,c,e] torsion[-d,a,-e] - ricci[-d,c] torsion[d,a,b] )
+						cd[-d]@riemann[-a,-b,-c,d],
+						$RicciSign   * ( cd[-b]@ricci[-a,-c] - cd[-a]@ricci[-b,-c] ) + 
+						$TorsionSign * ( riemann[-a,-d,-c,e] torsion[d,-b,-e] - riemann[-b,-d,-c,e] torsion[d,-a,-e] - ricci[-d,-c] torsion[d,-a,-b] )
 					},
-					MetricOn -> All,
+					MetricOn -> If[metricQ, All, None],
 					UseSymmetries -> True 
 				]
 			];
