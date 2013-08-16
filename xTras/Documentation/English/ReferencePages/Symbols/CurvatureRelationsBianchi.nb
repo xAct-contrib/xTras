@@ -4,7 +4,7 @@ Cell[TextData[{
  Cell["1.1.1", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
- Cell[" ", "HistoryData",
+ Cell["1.2.1 ", "HistoryData",
   CellTags->"Modified"],
  " | Obsolete in: ",
  Cell[" ", "HistoryData",
@@ -13,7 +13,8 @@ Cell[TextData[{
  Cell[" ", "HistoryData",
   CellTags->"Excised"]
 }], "History",
- CellChangeTimes->{{3.580458666058795*^9, 3.580458667197822*^9}},
+ CellChangeTimes->{{3.580458666058795*^9, 3.580458667197822*^9}, {
+  3.5856350153509293`*^9, 3.585635015897702*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -151,20 +152,39 @@ Cell[TextData[{
   FormBox[
    RowBox[{
     RowBox[{
-     SubscriptBox["\[Del]", 
-      RowBox[{"[", "a"}]], 
-     SubscriptBox["R", 
-      RowBox[{
-       RowBox[{
-        StyleBox["bc",
-         FontSlant->"Italic"], "]"}], 
-       StyleBox["de",
-        FontSlant->"Italic"]}]]}], "=", "0"}], TraditionalForm]], 
+     RowBox[{
+      SubscriptBox["\[Del]", 
+       RowBox[{"[", "a"}]], 
+      SuperscriptBox[
+       SubscriptBox["R", 
+        RowBox[{
+         RowBox[{
+          StyleBox["bc",
+           FontSlant->"Italic"], "]"}], 
+         StyleBox["d",
+          FontSlant->"Italic"]}]], "e"]}], "-", 
+     RowBox[{
+      SubscriptBox[
+       SuperscriptBox["T", "f"], 
+       RowBox[{"[", 
+        StyleBox["ab",
+         FontSlant->"Italic"]}]], 
+      SuperscriptBox[
+       SubscriptBox["R", 
+        RowBox[{
+         RowBox[{"c", "]"}], 
+         StyleBox["fd",
+          FontSlant->"Italic"]}]], "e"]}]}], "=", "0"}], TraditionalForm]], 
   "InlineMath"],
- "."
+ ", where ",
+ Cell[BoxData[
+  FormBox["T", TraditionalForm]], "InlineMath"],
+ " is the torsion."
 }], "Notes",
  CellChangeTimes->{{3.580459516889176*^9, 3.580459659253481*^9}, {
-  3.580460283689967*^9, 3.5804602842314463`*^9}},
+  3.580460283689967*^9, 3.5804602842314463`*^9}, {3.585635095220582*^9, 
+  3.5856351145094233`*^9}, {3.585635150358397*^9, 3.585635247346324*^9}, {
+  3.5856354633122*^9, 3.585635468085204*^9}},
  CellID->1067943069],
 
 Cell[TextData[{
@@ -175,24 +195,53 @@ Cell[TextData[{
   FormBox[
    RowBox[{
     RowBox[{
-     SubscriptBox["\[Del]", "a"], 
+     SubscriptBox["\[Del]", "d"], 
      SuperscriptBox[
       SubscriptBox["R", 
-       StyleBox["bcd",
-        FontSlant->"Italic"]], "a"]}], "=", " ", 
-    FormBox[
+       StyleBox["abc",
+        FontSlant->"Italic"]], "d"]}], "=", " ", 
+    RowBox[{
+     FormBox[
+      RowBox[{
+       RowBox[{
+        SubscriptBox["\[Del]", "b"], 
+        SubscriptBox["R", 
+         StyleBox["ac",
+          FontSlant->"Italic"]]}], "-", 
+       RowBox[{
+        SubscriptBox["\[Del]", "a"], 
+        SubscriptBox["R", 
+         StyleBox["bc",
+          FontSlant->"Italic"]]}], "+", " ", 
+       RowBox[{
+        SuperscriptBox[
+         SubscriptBox["R", 
+          StyleBox["adc",
+           FontSlant->"Italic"]], "e"], 
+        SubscriptBox[
+         SuperscriptBox["T", "d"], 
+         StyleBox["be",
+          FontSlant->"Italic"]]}], "-", " ", 
+       RowBox[{
+        SuperscriptBox[
+         SubscriptBox["R", 
+          StyleBox["bdc",
+           FontSlant->"Italic"]], "e"], 
+        SubscriptBox[
+         SuperscriptBox["T", "d"], 
+         StyleBox[
+          StyleBox[
+           RowBox[{"a", "e"}]],
+          FontSlant->"Italic"]]}]}],
+      TraditionalForm], "-", " ", 
      RowBox[{
-      RowBox[{
-       SubscriptBox["\[Del]", "c"], 
-       SubscriptBox["R", 
-        StyleBox["bd",
-         FontSlant->"Italic"]]}], "-", 
-      RowBox[{
-       SubscriptBox["\[Del]", "b"], 
-       SubscriptBox["R", 
-        StyleBox["cd",
-         FontSlant->"Italic"]]}]}],
-     TraditionalForm]}], TraditionalForm]], "InlineMath"],
+      SubscriptBox["R", 
+       StyleBox["dc",
+        FontSlant->"Italic"]], 
+      SubscriptBox[
+       SuperscriptBox["T", "d"], 
+       StyleBox["ab",
+        FontSlant->"Italic"]]}]}]}], TraditionalForm]], "InlineMath"],
  " and the second contraction ",
  Cell[BoxData[
   FormBox[
@@ -200,13 +249,35 @@ Cell[TextData[{
     FormBox[
      RowBox[{
       RowBox[{
-       SubscriptBox["\[Del]", "a"], 
+       SubscriptBox["\[Del]", "b"], 
        SuperscriptBox[
-        SubscriptBox["R", "b"], "a"]}], "=", " ", 
+        SubscriptBox["R", "a"], "b"]}], "=", " ", 
       RowBox[{
-       FractionBox["1", "2"], 
        RowBox[{
-        SubscriptBox["\[Del]", "b"], "R"}]}]}],
+        FractionBox["1", "2"], 
+        RowBox[{
+         SubscriptBox["\[Del]", "a"], "R"}]}], "+", " ", 
+       RowBox[{
+        SuperscriptBox[
+         SubscriptBox["R", 
+          StyleBox["b",
+           FontSlant->"Italic"]], "c"], 
+        SubscriptBox[
+         SuperscriptBox["T", "b"], 
+         StyleBox["ac",
+          FontSlant->"Italic"]]}], "-", 
+       RowBox[{
+        FractionBox["1", "2"], " ", 
+        SuperscriptBox[
+         SubscriptBox["R", 
+          StyleBox["ab",
+           FontSlant->"Italic"]], 
+         StyleBox["cd",
+          FontSlant->"Italic"]], 
+        SubscriptBox[
+         SuperscriptBox["T", "b"], 
+         StyleBox["cd",
+          FontSlant->"Italic"]]}]}]}],
      TraditionalForm]}], TraditionalForm]], "InlineMath"],
  " of the second Bianchi identity."
 }], "Notes",
@@ -214,8 +285,27 @@ Cell[TextData[{
   3.580459836275628*^9, 3.580459926013565*^9}, {3.580459966725613*^9, 
   3.580460074581131*^9}, {3.580460302232382*^9, 3.580460321812676*^9}, {
   3.584251998168055*^9, 3.5842520002852287`*^9}, {3.584252160359371*^9, 
-  3.584252160421267*^9}},
+  3.584252160421267*^9}, {3.585635288692128*^9, 3.585635534040688*^9}, {
+  3.5856355855828047`*^9, 3.585635738524445*^9}},
  CellID->294499222],
+
+Cell["\<\
+The second contraction is only defined when there is a metric.\
+\>", "Notes",
+ CellChangeTimes->{{3.585635799778236*^9, 3.5856358088505573`*^9}},
+ CellID->540616557],
+
+Cell[TextData[{
+ "Torsion is by default zero, but can be turned on with the option ",
+ StyleBox["Torsion -> True ", "InlineCode"],
+ "of ",
+ Cell[BoxData["DefCovD"], "InlineFormula",
+  FormatType->"StandardForm"],
+ "."
+}], "Notes",
+ CellChangeTimes->{{3.585636339160367*^9, 3.585636369550544*^9}, {
+  3.585636403430646*^9, 3.585636415632058*^9}},
+ CellID->139163042],
 
 Cell[TextData[{
  Cell[BoxData["CurvatureRelationsBianchi"], "InlineFormula"],
@@ -593,6 +683,7 @@ Cell[BoxData[
                     Offset[0.]}}, "RowsIndexed" -> {}}],
               FontSize->9]}
            },
+           
            GridBoxAlignment->{
             "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
              "Rows" -> {{Center}}, "RowsIndexed" -> {}},
@@ -2637,8 +2728,8 @@ Cell[BoxData[
  CellID->589267740]
 }, Open  ]]
 },
-WindowSize->{1096, 1009},
-WindowMargins->{{Automatic, 230}, {48, Automatic}},
+WindowSize->{1142, 399},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 CellContext->"Global`",
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
 2011)",
