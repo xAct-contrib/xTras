@@ -141,9 +141,21 @@ RemoveTensorWrapper[expr_] := expr /. FoldedRule[
 (* RemoveConstants / RemoveTensors *)
 (***********************************)
 
-RemoveConstants[expr_] := TensorWrapper[expr] /. _ * y_TensorWrapper :> y // RemoveTensorWrapper
+RemoveConstants[expr_] := 
+	CollectTensors[
+		expr, 
+		CollectMethod -> Identity,
+		SimplifyMethod -> Identity, 
+		RemoveTensorWrapper -> False
+	] /. _ * y_TensorWrapper :> y // RemoveTensorWrapper
 
-RemoveTensors[expr_] := TensorWrapper[expr] /. HoldPattern[TensorWrapper[___]] -> 1
+RemoveTensors[expr_] :=  
+	CollectTensors[
+		expr, 
+		CollectMethod -> Identity,
+		SimplifyMethod -> Identity, 
+		RemoveTensorWrapper -> False
+	] /. HoldPattern[TensorWrapper[___]] -> 1
 
 
 (********************************)

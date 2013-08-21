@@ -76,6 +76,23 @@ Test[
 	TestID->"Algebra-20130103-B0W9N8"
 ]
 
+Test[
+	RemoveConstants[ K + RicciScalarCD[] + (K + 2) ( RicciCD[a,b]RicciCD[-a,-b] + RicciScalarCD[] ) ]
+	,
+	1 + RicciScalarCD[] + RicciCD[a,b]RicciCD[-a,-b]
+	,
+	TestID->"Algebra-20130821-E4Q2V2"
+]
+
+Test[
+	RemoveTensors[ K + RicciScalarCD[] + (K + 2) ( RicciCD[a,b]RicciCD[-a,-b] + RicciScalarCD[] ) ]
+	,
+	K + 1 + 2 K + 4
+	,
+	TestID->"Algebra-20130821-W6J9D3"
+]
+
+
 
 (***************************)
 (*                         *)

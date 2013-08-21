@@ -120,6 +120,15 @@ Test[
 	TestID->"xTensor-20130608-I5K8V6"
 ]
 
+Test[
+	TermsOf[ K + RicciScalarCD[] + (K + 2) ( RicciCD[a,b]RicciCD[-a,-b] + RicciScalarCD[] ) ]
+	,
+	{ IndexFree @ 1, IndexFree[ RicciCD^2 ], IndexFree @ RicciScalarCD }
+	,
+	TestID->"Algebra-20130821-W6J9D3"
+]
+
+
 (*************************)
 (*                       *)
 (*  Curvature relations  *)

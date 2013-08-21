@@ -140,6 +140,11 @@ TermsOf::usage =
 
 (* Create RemoveConstants in the non-private context, because we need it here. *)
 RemoveConstants::usage = "bla";
+CollectTensors::usage = "bla";
+CollectMethod::usage = "bla";
+SimplifyMethod::usage = "bla"; 
+RemoveTensorWrapper::usage = "bla"; 
+TensorWrapper::usage = "bla";
 
 
 
@@ -226,7 +231,18 @@ ToIndexFree[expr_] :=
 ClearAll[TermsOf]
 TermsOf[expr_List] 	:= Union@Flatten[TermsOf /@ expr];
 TermsOf[expr_Plus] 	:= Union@TermsOf[List @@ expr];
-TermsOf[expr_] 		:= Union@Cases[ToIndexFree@RemoveConstants@expr, IndexFree[_],{0,Infinity},Heads->True];
+TermsOf[expr_]		:=
+	Union @ Cases[
+		CollectTensors[
+			expr, 
+			CollectMethod -> Identity,
+			SimplifyMethod -> Identity, 
+			RemoveTensorWrapper -> False
+		],
+		tw:HoldPattern[TensorWrapper[_]] :> ToIndexFree @ RemoveTensorWrapper @ tw,
+		{0, Infinity},
+		Heads -> True
+	];
 
 
 

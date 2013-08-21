@@ -34,14 +34,6 @@ Test[
 ]
 
 Test[
-	PerturbationParameter[metric]
-	,
-	PerturbationParametermetric
-	,
-	TestID->"xPert-20130102-N7F0U0"
-]
-
-Test[
 	ToCanonical@VarL[metric[a, b], CD][RicciScalarCD[]]
 	,
 	RicciCD[-a, -b] - metric[-a, -b]/2 RicciScalarCD[]
