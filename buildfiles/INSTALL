@@ -4,11 +4,11 @@
 *                                            *
 **********************************************
 
-xTras consists of multiple packages that either extend existing xAct packages, or bring new 
-functionality altogether. The directory structure of xTras is
+The directory structure of xTras is
 
 /
   INSTALL				(this file)
+  LICENSE
   xAct/
     xTras/				(copy this subdirectory into your xAct directory)
       Kernel/
@@ -27,8 +27,9 @@ functionality altogether. The directory structure of xTras is
       Combinatorics.m
       xTras.history
 
-The xTras subdirectory must be copied in its entirety into the directory where you've installed xAct.
-The xAct folder is most likely the following on the respective operating systems:
+The xTras subdirectory must be copied in its entirety into the directory where you've installed 
+the main xAct bundle (which can be downloaded from www.xact.es).
+The xAct directory is most likely the following on the respective operating systems:
 
 Linux:
   - system-wide installation (requires root privileges):
