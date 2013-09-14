@@ -3,7 +3,7 @@
 		<attribute name="tag" />
 		<attribute name="num" />
 		<sequential>
-			<exec dir="." executable="${gitexec}" failonerror="true" outputproperty="git.date.@{num}">
+			<exec dir="." executable="git" failonerror="true" outputproperty="git.date.@{num}">
 				<arg line="log @{tag} --simplify-by-decoration --pretty=format:%ad --date=short --reverse -1" />
 			</exec>
 		</sequential>
@@ -14,12 +14,12 @@
 		<attribute name="range" />
 		<attribute name="numlog" />
 		<sequential>
-			<exec dir="." executable="${gitexec}" failonerror="true" outputproperty="git.fulllog.@{numlog}">
+			<exec dir="." executable="git" failonerror="true" outputproperty="git.fulllog.@{numlog}">
 				<arg line="log --pretty=format:%s @{range} ${basedir}/xAct" />
 			</exec>
 			<echo file="log.temp">${git.fulllog.@{numlog}}</echo>
 			<exec dir="." executable="${egrepexec}" outputproperty="git.log.@{numlog}">
-				<arg line="-v -i 'version number|merge|merging' log.temp" />
+				<arg line="-v -i 'version number|merge|merging|CHANGELOG|revert' log.temp" />
 			</exec>
 		</sequential>
 	</macrodef>
@@ -34,26 +34,26 @@
 		</tstamp>
 		
 		<!-- Get a list of tags from Git. -->
-		<exec dir="." executable="${gitexec}" failonerror="true" outputproperty="git.tags">
+		<exec dir="." executable="git" failonerror="true" outputproperty="git.tags">
 			<arg line="for-each-ref --sort='*authordate' --format='%(refname:short)' refs/tags" />
 		</exec>
 		<echo>Git tags:</echo>
 		<echo>${git.tags}</echo>
 		
 		<!-- Get the current tag from Git. If the current commit doesn't have a tag, it fails. -->
-		<exec dir="." executable="${gitexec}" failonerror="false" outputproperty="git.currenttag">
+		<exec dir="." executable="git" failonerror="false" outputproperty="git.currenttag">
 			<arg line="describe --exact-match HEAD" />
 		</exec>
 		<echo>Current tag: ${git.currenttag}</echo>
 		
 		<!-- Get the last tag. -->
-		<exec dir="." executable="${gitexec}" failonerror="false" outputproperty="git.lasttag">
+		<exec dir="." executable="git" failonerror="false" outputproperty="git.lasttag">
 			<arg line="describe --abbrev=0" />
 		</exec>
 		<echo>Last tag: ${git.lasttag}</echo>
 		
 		<!-- Get the number of commits since the last tag. -->
-		<exec dir="." executable="${gitexec}" failonerror="false" outputproperty="git.commitssincetag">
+		<exec dir="." executable="git" failonerror="false" outputproperty="git.commitssincetag">
 			<arg line="rev-list ${git.lasttag}..HEAD --count" />
 		</exec>
 		<echo>Commits since last tag: ${git.commitssincetag}</echo>

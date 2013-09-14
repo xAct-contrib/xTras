@@ -41,7 +41,8 @@ Running notebooks for testing code is the same as usual, but deploying and build
 due to *xTras*' unusual structure (it's a sub-package for *xAct*, which isn't supported out-of-the-box in Workbench).
 Deploying can be done by running the `deploy` target in the `buildfiles/main.xml` file, and building the 
 documentation by running the `documentation` target. The complete project can by build by running the 
-`all` target.
+`all` target. Be sure to set the `Runtime JRE` to `Separate JRE` in the `JRE` tab of the Eclipse external
+tools configuration of the Ant targets.
 
 The unit tests can be run by running the `tests/TestSuite.mt` as a Mathematica Test.
 
