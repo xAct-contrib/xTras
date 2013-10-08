@@ -13,10 +13,10 @@ The directory structure of xTras is
     xTras/				(copy this subdirectory into your xAct directory)
       Kernel/
         init.m
-      Documentation/
+      Documentation/	(built-in documentation that integrates with Mathematica's Documentation Center)
         English/
           ...
-      Interface.m
+      Interface.m		(package files)
       PacletInfo.m
       xCore.m
       xTensor.m
@@ -25,9 +25,9 @@ The directory structure of xTras is
       xCoba.m
       Algebra.m
       Combinatorics.m
-      xTras.history
+      xTras.history		(changelog)
 
-The xTras subdirectory must be copied in its entirety into the directory where you've installed 
+The "xTras" subdirectory must be copied in its entirety into the directory where you've installed 
 the main xAct bundle (which can be downloaded from www.xact.es).
 The xAct directory is most likely the following on the respective operating systems:
 
