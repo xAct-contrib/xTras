@@ -138,6 +138,10 @@ ToIndexFree::usage =
 TermsOf::usage = 
 	"TermsOf[expr] gives all the different tensorial terms of expr in index-free notation.";
 
+GradChristoffelToRiemann::usage =
+	"GradChristoffelToRiemann[expr] rewrites partial derivatives of Christoffel symbols \
+to Riemann tensors.";
+
 (* Create RemoveConstants in the non-private context, because we need it here. *)
 RemoveConstants::usage = "bla";
 CollectTensors::usage = "bla";
@@ -655,6 +659,51 @@ DefKillingVector[xi_[L1:(-LI[___]|LI[___])...,ind_,L2:(-LI[___]|LI[___])...], me
 	MetricOfKillingVector[xi] ^= metric;
 	KillingVectorQ[xi,metric] ^= True;
 ] /; AIndexQ[ind, VBundleOfMetric@metric];
+
+
+
+GradChristoffelToRiemann[expr_] :=
+	Fold[GradChristoffelToRiemann[#1, #2] &, expr, $CovDs];
+
+GradChristoffelToRiemann[expr_, cd_?CovDQ] :=
+	expr /. GradChristoffelToRiemannRules[cd];
+
+GradChristoffelToRiemannRules[_] =
+  {};
+
+GradChristoffelToRiemannRules[cd_?CurvatureQ] :=
+	With[{
+		riemann 	= GiveSymbol[Riemann, cd],
+		christoffel = GiveSymbol[Christoffel, cd],
+		vb 			= TangentBundleOfManifold@ManifoldOfCovD@cd,
+		indices 	= GetIndicesOfVBundle[
+			TangentBundleOfManifold@ManifoldOfCovD@cd, 
+			5
+		]
+    },
+		With[{
+			a = indices[[1]],
+			b = indices[[2]],
+			c = indices[[3]],
+			d = indices[[4]],
+			e = indices[[5]],
+			apat = PatternIndex[indices[[1]], AIndex, Up, vb],
+			bpat = PatternIndex[indices[[2]], AIndex, Up, vb],
+			cpat = PatternIndex[indices[[3]], AIndex, Up, vb],
+			dpat = PatternIndex[indices[[4]], AIndex, Up, vb],
+			module = Module
+		},
+			RuleDelayed[
+				HoldPattern[PD[-bpat]@christoffel[dpat, -apat, -cpat]] /; OrderedQ[{a, b}],
+				module[{e}, 
+					+ (1 / $RiemannSign) * riemann[-a, -b, -c, d] 
+					+ PD[-a]@christoffel[d, -b, -c] 
+					- christoffel[d, -b, -e] christoffel[e, -a, -c] 
+					+ christoffel[d, -a, -e] christoffel[e, -b, -c]
+				]
+			]
+		]
+	];
 
 
 End[]

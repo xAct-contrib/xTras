@@ -552,3 +552,27 @@ Test[
 	,
 	TestID->"xTensor-20130102-O0O5N1"
 ]
+
+Test[
+	ChangeCurvature[RiemannCD[-a,-b,-c,d], CD, PD] // GradChristoffelToRiemann // ToCanonical
+	,
+	RiemannCD[-a,-b,-c,d]
+	,
+	TestID->"xTensor-20131121-Q5H0O6"
+]
+
+Test[
+	ChangeCurvature[RiemannCD[-b,a,-c,-d], CD, PD] // GradChristoffelToRiemann // ContractMetric // ToCanonical
+	,
+	-RiemannCD[a,-b,-c,-d]
+	,
+	TestID->"xTensor-20131121-L3S5O2"
+]
+
+Test[
+	ChangeCurvature[RiemannCD[-b,a,-c,-d] RiemannCD[c,d,-e,-f], CD, PD] // GradChristoffelToRiemann // ContractMetric // ToCanonical // ScreenDollarIndices
+	,
+	-RiemannCD[a,-b,c,d] RiemannCD[-e,-f,-c,-d]
+	,
+	TestID->"xTensor-20131121-O8R5S1"
+]
