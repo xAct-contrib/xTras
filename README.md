@@ -17,6 +17,9 @@ Some of the extra functionality it brings is:
 * Solving linear systems of tensorial equations, both for constant variables (SolveConstants) 
   and for tensors (SolveTensors).
 
+For more information, have a look at the [associated publication](http://arxiv.org/abs/1308.3493) 
+or at the [online documentation](http://www.xact.es/xtras/documentation).
+
 
 Installation
 ------------
