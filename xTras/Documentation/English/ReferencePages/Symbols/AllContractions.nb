@@ -159,6 +159,16 @@ Cell[TextData[{
   3.579767429332328*^9}, {3.579778768713862*^9, 3.579778769139179*^9}}],
 
 Cell[TextData[{
+ "The first argument can also be a list, in which case ",
+ Cell[BoxData["AllContractions"], "InlineFormula"],
+ " returns the union of all contractions for each of the members of the \
+list."
+}], "Notes",
+ CellChangeTimes->{{3.5797672480604467`*^9, 3.579767271199193*^9}, {
+  3.5797673082095337`*^9, 3.5797673346794367`*^9}},
+ CellID->913824970],
+
+Cell[TextData[{
  Cell[BoxData["AllContractions"], "InlineFormula"],
  " returns ",
  StyleBox["{}", "InlineCode"],
@@ -207,16 +217,6 @@ The free indices of the input have to belong to the same tangent bundle.\
 Cell["The metric of that tangent bundle has to be symmetric.", "Notes",
  CellChangeTimes->{{3.579754195757156*^9, 3.579754210344883*^9}},
  CellID->874917267],
-
-Cell[TextData[{
- "The first argument can also be a list, in which case ",
- Cell[BoxData["AllContractions"], "InlineFormula"],
- " returns the union of all contractions for each of the members of the \
-list."
-}], "Notes",
- CellChangeTimes->{{3.5797672480604467`*^9, 3.579767271199193*^9}, {
-  3.5797673082095337`*^9, 3.5797673346794367`*^9}},
- CellID->913824970],
 
 Cell[TextData[{
  "The first argument can also be given in ",
