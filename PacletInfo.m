@@ -4,7 +4,7 @@
 
 Paclet[
     Name -> "xTras",
-    Version -> "1.2.2",
+    Version -> "1.2.3",
     MathematicaVersion -> "6+",
     Description -> "Field theory inspired additions to xAct",
     Creator -> "Teake Nutma",

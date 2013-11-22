@@ -190,6 +190,13 @@ sorting covariant derivatives.\)\)\[LineSeparator] FullSimplification[ \
 \*StyleBox[\"g\", \"TI\"]][ \*StyleBox[\"expr\", \"TI\"]] only simplifies \
 curvature tensors of the metric  \*StyleBox[\"g\", \"TI\"] .\), \
 DisplayForm]\)"; 
+GradChristoffelToRiemann::usage = "\!\(\*TagBox[\(GradChristoffelToRiemann[ \
+\*StyleBox[\"expr\", \"TI\"]] converts partial derivatives of Christoffel \
+symbols to Riemann curvatures. \[LineSeparator] GradChristoffelToRiemann[ \
+\*StyleBox[\"expr\", \"TI\"], \*StyleBox[\"cd\", \"TI\"]] converts partial \
+derivatives of Christoffel symbols of only the covariant derivative  \
+\*StyleBox[\"cd\", \"TI\"]\(\(\\ to Riemann curvatures.\)\)\), \
+DisplayForm]\)"; 
 ImplodedTensorValues::usage = "\!\(\*TagBox[\(ImplodedTensorValues[ \
 \*StyleBox[\"cd\", \"TI\"],  \*StyleBox[\"T\", \"TI\"],  \*StyleBox[\"B\", \
 \"TI\"]] computes the values of the covariant derivative  \*StyleBox[\"cd\", \
