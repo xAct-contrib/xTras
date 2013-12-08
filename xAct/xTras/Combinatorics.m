@@ -658,16 +658,11 @@ RiemannYoungProject[expr_, cd_?CovDQ, options___?OptionQ] :=
 RiemannYoungProject[expr_, options___?OptionQ] := 
 	Fold[RiemannYoungProject[#1, #2, options]&, expr, DeleteCases[$CovDs, PD]];
 
-
-Options[YoungSymmetric] ^= {
-	ManifestSymmetry -> Antisymmetric
-}
-
 TableauSymmetric[tableau_?YoungTableauQ, options___?OptionQ] := Module[
 	{
 		tab, manifestsym, transpose, sgs, cycles, samelengths, pairs, extracycles, sign
 	},
-	manifestsym = ManifestSymmetry	/. CheckOptions[options] /. Options[YoungSymmetric];
+	manifestsym = ManifestSymmetry	/. CheckOptions[options] /. Options[YoungSymmetrize];
 	transpose 	= TableauTranspose[tableau];
 	
 	(* The first set of cycles is simply the (anti)symmetrization of the tableau. *)
