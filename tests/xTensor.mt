@@ -81,7 +81,7 @@ Test[
 Test[
 	FromIndexFree[ IndexFree@CD@CD@RicciCD ]
 	,
-	CD[-a]@CD[-b]@RicciCD[-c,-d]
+	CD[-a,-b]@RicciCD[-c,-d]
 	,
 	TestID->"xTensor-20130402-H4V1O5"
 ]
@@ -621,4 +621,323 @@ Test[
 	0
 	,
 	TestID->"xTensor-20140127-X0K7V9"
+]
+
+
+
+
+(*************************************)
+(*                                   *)
+(* Symmetrized covariant derivatives *)
+(*                                   *)
+(*************************************)
+
+
+Test[
+	Last@SymmetryOf[CD[a,b]@RicciScalarCD[]]
+	,
+	Symmetric[{1, 2}, Cycles]
+	,
+	TestID->"xTensor-20140206-G5W8M3"
+]
+
+Test[
+	Last@SymmetryOf[CD[a,b,c,d,e]@RicciScalarCD[]]
+	,
+	Symmetric[{1, 2, 3, 4, 5}, Cycles]
+	,
+	TestID->"xTensor-20140206-P1X2R3"
+]
+
+Test[
+	CD[b, a]@RicciCD[d, e] - CD[a, b]@RicciCD[d, e] // ToCanonical
+	,
+	0
+	,
+	TestID->"xTensor-20140206-I2V7M4"
+]
+
+Test[
+	CD[a, b, c, d]@RicciScalarCD[] // ExpandSymCovDs
+	,
+	CD[a]@CD[b]@CD[c]@CD[d]@RicciScalarCD[] // Symmetrize
+	,
+	TestID->"xTensor-20140206-B1B6D2"
+]
+
+DefTensor[T1[a],M];
+DefTensor[S2[a,b],M,Symmetric[{a,b}]];
+DefTensor[S3[a,b,c],M,Symmetric[{a,b,c}]];
+DefTensor[S4[a,b,c,d],M,Symmetric[{a,b,c,d}]];
+
+Test[
+	xAct`xTras`Private`PartitionedSymmetrize[S2[#1] S3[#2] &, {a, b, c, d, e}, {2, 3}] // Expand
+	,
+	S2[a, b] S3[c, d, e] // Symmetrize // ToCanonical
+	,
+	TestID->"xTensor-20140206-U7X6W0"
+]
+
+Test[
+	xAct`xTras`Private`PartitionedSymmetrize[T1[#1]S4[#2]&,{a,b,c,d,e},{1,4}] // Expand
+	,
+	T1[a]S4[b,c,d,e]//Symmetrize//ToCanonical
+	,
+	TestID->"xTensor-20140206-P9K7L2"
+]
+
+Test[
+	xAct`xTras`Private`PartitionedSymmetrize[S4[#1] &, {a, b, c, d}, {4}]
+	,
+	S4[a,b,c,d]
+	,
+	TestID->"xTensor-20140206-I4P1F5"
+]
+
+Test[
+	xAct`xTras`Private`PartitionedSymmetrize[S2[#1]T1[#2]S3[#3]&,{a,b,c,d,e,f},{2,1,3}]//Expand
+	,
+	S2[a,b]T1[c]S3[d,e,f]//Symmetrize//ToCanonical
+	,
+	TestID->"xTensor-20140206-T8Q5S1"
+]
+
+Test[
+	CD[a,b]@metric[-d,-e]
+	,
+	0
+	,
+	TestID->"xTensor-20140206-D5P2I7"
+]
+
+Test[
+	CD[a,b,c]@metric[d,e]
+	,
+	0
+	,
+	TestID->"xTensor-20140206-H5G1R7"
+]
+
+Test[
+	CD[a,b,c]@metric[-d,e]
+	,
+	0
+	,
+	TestID->"xTensor-20140206-S7F5X4"
+]
+
+Test[
+	CD[a,b,c,d]@metric[f,-e]
+	,
+	0
+	,
+	TestID->"xTensor-20140206-I3A3P0"
+]
+
+Test[
+	CD[a,b,c]@{metric[d,e],RicciCD[d,e]}
+	,
+	{0, CD[a, b, c][RicciCD[d, e]]}
+	,
+	TestID->"xTensor-20140206-H2Z3M3"
+]
+
+Test[
+	CD[a][Scalar[RicciCD[a,b]RicciCD[-a,-b]]^2]//ScreenDollarIndices
+	,
+	2*Scalar[RicciCD[-a, -b]*RicciCD[a, b]]*(RicciCD[b, c]*CD[a][RicciCD[-b, -c]] + RicciCD[-b, -c]*CD[a][RicciCD[b, c]])
+	,
+	TestID->"xTensor-20140206-B6O1I2"
+]
+
+Test[
+	(CD[a, b][Scalar[RicciCD[a, b] RicciCD[-a, -b]]^2] - (CD[a]@CD[b][Scalar[RicciCD[a, b] RicciCD[-a, -b]]^2] // Symmetrize[#, {a, b}] &)) // ExpandSymCovDs // ToCanonical
+	,
+	0
+	,
+	TestID->"xTensor-20140206-G4Y7H4"
+]
+
+Test[
+	CD[a,b][-45 RicciScalarCD[]]
+	,
+	-45*CD[a, b][RicciScalarCD[]]
+	,
+	TestID->"xTensor-20140206-P8N8L4"
+]
+
+Test[
+	CD[a,b][  RicciScalarCD[] +RicciScalarCD[]^2]-Symmetrize@CD[a]@CD[b][RicciScalarCD[]+RicciScalarCD[]^2]//ExpandSymCovDs//ToCanonical
+	,
+	0
+	,
+	TestID->"xTensor-20140206-Y7Q9E2"
+]
+
+Test[
+	CD[a,b][RicciScalarCD[]RicciCD[c,d]]-Symmetrize[CD[a]@CD[b][RicciScalarCD[]RicciCD[c,d]],{a,b}]//ExpandSymCovDs//ToCanonical
+	,
+	0
+	,
+	TestID->"xTensor-20140206-C8T8P4"
+]
+
+Test[
+	CD[a,b,e][  RicciScalarCD[]RicciCD[c,d]]-Symmetrize[CD[a]@CD[b]@CD[e][RicciScalarCD[]RicciCD[c,d]],{a,b,e}]//ExpandSymCovDs//ToCanonical
+	,
+	0
+	,
+	TestID->"xTensor-20140206-N0T9L4"
+]
+
+Test[
+	CD[a]@T1[b]//SymmetrizeCovDs
+	,
+	CD[a]@T1[b]
+	,
+	TestID->"xTensor-20140206-F1D6R5"
+]
+
+Test[
+	CD[b]@CD[a]@T1[c]//SymmetrizeCovDs//ExpandSymCovDs//SortCovDs//ToCanonical
+	,
+	CD[b]@CD[a]@T1[c]
+	,
+	TestID->"xTensor-20140206-X8M9G3"
+]
+
+Test[
+	CD[a,b]@T1[c]//ExpandSymCovDs//SortCovDs//ToCanonical//SymmetrizeCovDs//ToCanonical
+	,
+	CD[a,b]@T1[c]
+	,
+	TestID->"xTensor-20140206-L6M0H2"
+]
+
+Test[
+	CD[c]@CD[b]@CD[a]@T1[d]//SymmetrizeCovDs//ToCanonical//ExpandSymCovDs//SortCovDs//ToCanonical
+	,
+	CD[c]@CD[b]@CD[a]@T1[d]
+	,
+	TestID->"xTensor-20140206-C2M1E6"
+]
+
+Test[
+	CD[d]@CD[c]@CD[b]@CD[a]@T1[e]//SymmetrizeCovDs//ToCanonical//ExpandSymCovDs//SortCovDs//ToCanonical
+	,
+	CD[d]@CD[c]@CD[b]@CD[a]@T1[e]
+	,
+	TestID->"xTensor-20140206-J2F2G6"
+]
+
+Test[
+	CD[a,b,c]@RicciCD[f,g]//ExpandSymCovDs//Expand//SymmetrizeCovDs//ToCanonical
+	,
+	CD[a,b,c]@RicciCD[f,g]
+	,
+	TestID->"xTensor-20140206-P7E5Q2"
+]
+
+Test[
+	CD[a,b,c,d]@RicciCD[f,g]//ExpandSymCovDs//Expand//SymmetrizeCovDs//ToCanonical
+	,
+	CD[a,b,c,d]@RicciCD[f,g]
+	,
+	TestID->"xTensor-20140206-K4J4X0"
+]
+
+Test[
+	VarD[T1[a],CD][T1[a]CD[-a,c]@T1[-c]]//CollectTensors//ScreenDollarIndices
+	,
+	2*CD[-a, -b][T1[b]]
+	,
+	TestID->"xTensor-20140206-H8D9B5"
+]
+
+Test[
+	VarD[T1[a],CD][T1[a]CD[-a,c,d]@S2[-c,-d]]//CollectTensors//ScreenDollarIndices
+	,
+	CD[-a, -b, -c][S2[b, c]]
+	,
+	TestID->"xTensor-20140206-X1N3R8"
+]
+
+Test[
+	VarD[S2[a,b],CD][T1[a]CD[-a,c,d]@S2[-c,-d]]//CollectTensors//ScreenDollarIndices
+	,
+	-CD[-a, -b, -c][T1[c]]
+	,
+	TestID->"xTensor-20140206-M0D7Z6"
+]
+
+Test[
+	ChangeCovD[CD[a]@T1[b]]//ScreenDollarIndices
+	,
+	ChristoffelCD[b, a, -c]*T1[c] + PD[a][T1[b]]
+	,
+	TestID->"xTensor-20140206-P1I2L4"
+]
+
+Test[
+	ChangeCovD[CD[a,c]@T1[b]]-ChangeCovD[1/2(CD[a]@CD[c]@T1[b] + CD[c]@CD[a]@T1[b])]//ToCanonical
+	,
+	0
+	,
+	TestID->"xTensor-20140206-T8W3T8"
+]
+
+Test[
+	metric[-b,-c]CD[a,b]@RiemannCD[c,d,e,f]//ContractMetric//ToCanonical
+	,
+	-CD[a, -c][RiemannCD[d, c, e, f]]
+	,
+	TestID->"xTensor-20140206-U0W8U3"
+]
+
+Test[
+	metric[-a,-c]CD[a,b]@RiemannCD[c,d,e,f]//ContractMetric//ToCanonical
+	,
+	-CD[b, -c][RiemannCD[d, c, e, f]]
+	,
+	TestID->"xTensor-20140206-Z3O1M9"
+]
+
+Test[
+	metric[-a,-b]CD[a,b]@RiemannCD[c,d,e,f]//ContractMetric//ToCanonical
+	,
+	CD[a, -a][RiemannCD[c, d, e, f]]
+	,
+	TestID->"xTensor-20140206-S8O8Q6"
+]
+
+Test[
+	metric[-d,-f]CD[a,b]@RiemannCD[c,d,e,f]//ContractMetric//ToCanonical
+	,
+	CD[a, b][RicciCD[c, e]]
+	,
+	TestID->"xTensor-20140206-Q5Y2Q2"
+]
+
+Test[
+	Perturbation[CD[d]@CD[a,b]@T1[c]]
+	,
+	(Perturbation[CD[d][CD[a][CD[b][T1[c]]]]] + Perturbation[CD[d][CD[b][CD[a][T1[c]]]]])/2
+	,
+	TestID->"xTensor-20140206-J5E7S1"
+]
+
+Test[
+	Perturbation[CD[a,b]@RicciScalarCD[]]
+	,
+	(Perturbation[CD[a][CD[b][RicciScalarCD[]]]] + Perturbation[CD[b][CD[a][RicciScalarCD[]]]])/2
+	,
+	TestID->"xTensor-20140206-M2P0X3"
+]
+
+Test[
+	CD[-a,-b]@T4[c,d,e,f]//ToIndexFree//FromIndexFree
+	,
+	CD[-a,-b]@T4[c,d,e,f]
+	,
+	TestID->"xTensor-20140206-Z0V8Y4"
 ]
