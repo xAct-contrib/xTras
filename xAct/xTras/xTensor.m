@@ -40,6 +40,16 @@ derivatives sorted, and False otherwise. \
 
 (* Extra curvature tensors *)
 
+SymRiemann::usage =
+	"SymRiemann is a reserved word in xTras. It is used to generated the name \
+of the symmetrized Riemann tensor.";
+
+RiemannToSymRiemann::usage =
+	"RiemannToSymRiemann[expr,cd] converts Riemann tensors of cd to symmetrized Riemann tensors.";
+
+SymRiemannToRiemann::usage =
+	"SymRiemannToRiemann[expr,cd] converts symmetrized Riemann tensors of cd to Riemann tensors.";
+
 ToRicci::usage = "\
 ToRicci[expr] converts all curvature tensors of rank two in expr to Ricci tensors and scalars. \n\
 ToRicci[expr, cd] converts only for curvature tensors of the covariant derivative cd."; 
@@ -193,6 +203,8 @@ CollectMethod::usage = "bla";
 SimplifyMethod::usage = "bla"; 
 RemoveTensorWrapper::usage = "bla"; 
 TensorWrapper::usage = "bla";
+TableauSymmetric::usage = "bla";
+ManifestSymmetry::usage = "bla";
 
 
 
@@ -415,7 +427,7 @@ xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 	{
 		tbundle 	= VBundleOfIndex[ind], 
 		M 			= BaseOfVBundle@VBundleOfIndex[ind],
-		indices 	= GetIndicesOfVBundle[VBundleOfIndex[ind], 7],
+		indices 	= GetIndicesOfVBundle[VBundleOfIndex[ind], 9],
 		metricQ		= (FromMetric	/. CheckOptions[options] /. Options[DefCovD]) =!= Null,
 		torsionQ	= Torsion		/. CheckOptions[options] /. Options[DefCovD],
 		cd2			= ExtendedFrom	/. CheckOptions[options] /. Options[DefCovD],
@@ -433,6 +445,7 @@ xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 			einsteincc 	= GiveSymbol[EinsteinCC,cd],
 			rs 			= GiveSymbol[RicciScalar,cd],
 			riemann		= GiveSymbol[Riemann,cd],
+			sriemann	= GiveSymbol[SymRiemann,cd],
 			ricci		= GiveSymbol[Ricci,cd],
 			torsion		= GiveSymbol[Torsion,cd],
 			orthogonalQ = (ot =!= {}),
@@ -443,7 +456,9 @@ xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 			d			= indices[[4]],
 			e			= indices[[5]],
 			i1d 		= indices[[6]],
-			i2d 		= indices[[7]]
+			i2d 		= indices[[7]],
+			i3d 		= indices[[8]],
+			i4d 		= indices[[9]]
 		},
 		With[
 			{
@@ -455,6 +470,27 @@ xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 				vector 	= If[orthogonalQ, ot[[1, 0]]],
 				projector = If[projectedQ, pw[[1, 0]]]
 			},
+			
+			(* Define the symmetrized Riemann tensor only if it has full symmetries,
+			   i.e. if there's a metric and no torsion. 
+			   Although it is still possible to define it without full symmetries,
+			   it doesn't make much sense to do so because the symmetrized Riemann
+			   tensor is most commonly used when it has full symmetries. *)
+			If[metricQ && !torsionQ,
+				If[extQ,
+					Evaluate @ GiveSymbol[SymRiemann,cd] = GiveSymbol[SymRiemann,cd2];
+					,
+					DefTensor[
+						sriemann[-a,-b,-c,-d],M,
+						TableauSymmetric[{{-a,-b},{-c,-d}}, ManifestSymmetry -> Symmetric],
+						PrintAs -> GiveOutputString[SymRiemann,cd], VanishingQ -> vanishQ,
+						Master  -> cd, DefInfo -> If[info, {"symmetrized Riemann tensor",""}, False],
+						OrthogonalTo 	:> If[orthogonalQ, {vector[a], vector[b], vector[c], vector[d]}, {}],
+						ProjectedWith 	:> If[projectedQ, {projector[a, -i1d], projector[b, -i2d], projector[c, -i3d], projector[d, -i4d]}, {}]
+					];
+				]
+			];			
+			
 			(* The 3 new curvature tensors can only be defined when there is a metric. *)
 			If[extQ,
 				(* Extend them from another covd. *)
@@ -518,20 +554,21 @@ xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 
 (* TODO: undefmetric hook *)
 
-GiveOutputString[Schouten, covd_] := StringJoin["S", "[", SymbolOfCovD[covd][[2]], "]"];
+GiveOutputString[Schouten, covd_]   := StringJoin["S", "[", SymbolOfCovD[covd][[2]], "]"];
+GiveOutputString[SymRiemann, covd_] := StringJoin["P", "[", SymbolOfCovD[covd][[2]], "]"];
 
 
-ToRicci[expr_, cd_?CovDQ] := Composition[
-	TFRicciToRicci[#, cd]&,
-	EinsteinToRicci[#, cd]&,
-	EinsteinCCToRicci[#, cd]&,
-	SchoutenToRicci[#, cd]&,
-	SchoutenCCToRicci[#, cd]&
-][expr];
- 
-ToRicci[expr_] := Fold[ToRicci, expr, DeleteCases[$CovDs, PD]];
+ToRicci[expr_, cd_?CovDQ] := 
+	Composition[
+		TFRicciToRicci[#, cd]&,
+		EinsteinToRicci[#, cd]&,
+		EinsteinCCToRicci[#, cd]&,
+		SchoutenToRicci[#, cd]&,
+		SchoutenCCToRicci[#, cd]&
+	][expr];
+ToRicci[expr_] := Fold[ToRicci, expr, $CovDs];
 
-SchoutenToRicci[expr_, cd_?CovDQ] := With[
+SchoutenToRicci[expr_, cd_?CovDQ]  /; MetricOfCovD[cd] =!= Null := With[
 	{
 		ricci 		= GiveSymbol[Ricci, cd],
 		rs 			= GiveSymbol[RicciScalar, cd],
@@ -541,10 +578,10 @@ SchoutenToRicci[expr_, cd_?CovDQ] := With[
 	},
 	expr /. schouten[inds__] :> ricci[inds]/(d - 2) - metric[inds] rs[] / (2 (d - 1) (d - 2))
 ];
+SchoutenToRicci[expr_,_] := expr;
+SchoutenToRicci[expr_] := Fold[SchoutenToRicci, expr, $CovDs];
 
-SchoutenToRicci[expr_] := Fold[SchoutenToRicci, expr, DeleteCases[$CovDs, PD]];
-
-RicciToSchouten[expr_, cd_?CovDQ] := With[
+RicciToSchouten[expr_, cd_?CovDQ] /; MetricOfCovD[cd] =!= Null := With[
 	{
 		ricci 		= GiveSymbol[Ricci, cd],
 		rs 			= GiveSymbol[RicciScalar, cd],
@@ -554,10 +591,10 @@ RicciToSchouten[expr_, cd_?CovDQ] := With[
 	},
 	expr /. ricci[inds__] :> schouten[inds] (d - 2) + metric[inds] rs[] /(2 (d - 1))
 ];
+RicciToSchouten[expr_,_] := expr;
+RicciToSchouten[expr_] := Fold[RicciToSchouten, expr, $CovDs];
 
-RicciToSchouten[expr_] := Fold[RicciToSchouten, expr, DeleteCases[$CovDs, PD]];
-
-SchoutenCCToRicci[expr_, cd_?CovDQ] := With[
+SchoutenCCToRicci[expr_, cd_?CovDQ] /; MetricOfCovD[cd] =!= Null := With[
 	{
 		ricci 		= GiveSymbol[Ricci, cd],
 		rs 			= GiveSymbol[RicciScalar, cd],
@@ -567,10 +604,10 @@ SchoutenCCToRicci[expr_, cd_?CovDQ] := With[
 	},
 	expr /. schouten[LI[K_],inds__] :> ricci[inds]/(d - 2) - metric[inds] rs[] / (2 (d - 1) (d - 2)) - 1/2 K  metric[inds]
 ];
+SchoutenCCToRicci[expr_,_] := expr;
+SchoutenCCToRicci[expr_] := Fold[SchoutenCCToRicci, expr, $CovDs];
 
-SchoutenCCToRicci[expr_] := Fold[SchoutenCCToRicci, expr, DeleteCases[$CovDs, PD]];
-
-RicciToSchoutenCC[K_][expr_, cd_?CovDQ] := With[
+RicciToSchoutenCC[K_][expr_, cd_?CovDQ] /; MetricOfCovD[cd] =!= Null := With[
 	{
 		ricci 		= GiveSymbol[Ricci, cd],
 		rs 			= GiveSymbol[RicciScalar, cd],
@@ -580,10 +617,11 @@ RicciToSchoutenCC[K_][expr_, cd_?CovDQ] := With[
 	},
 	expr /. ricci[inds__] :> schouten[LI[K],inds] (d - 2) + metric[inds] rs[] /(2 (d - 1)) + 1/2 (d-2) K metric[inds]
 ];
+RicciToSchoutenCC[K_][expr_,_] := expr;
+RicciToSchoutenCC[K_][expr_] := Fold[RicciToSchoutenCC[K], expr, $CovDs];
 
-RicciToSchoutenCC[K_][expr_] := Fold[RicciToSchoutenCC[K], expr, DeleteCases[$CovDs, PD]];
 
-EinsteinCCToRicci[expr_, cd_?CovDQ] := With[
+EinsteinCCToRicci[expr_, cd_?CovDQ] /; MetricOfCovD[cd] =!= Null := With[
 	{
 		ricci 		= GiveSymbol[Ricci, cd],
 		rs 			= GiveSymbol[RicciScalar, cd],
@@ -593,10 +631,11 @@ EinsteinCCToRicci[expr_, cd_?CovDQ] := With[
 	},
 	expr /. einsteincc[LI[K_], inds__] :> (ricci[inds] + 1/2 metric[inds] (-rs[] + (d - 2) (d - 1) K))
 ];
+EinsteinCCToRicci[expr_,_] := expr;
+EinsteinCCToRicci[expr_] := Fold[EinsteinCCToRicci, expr, $CovDs];
 
-EinsteinCCToRicci[expr_] := Fold[EinsteinCCToRicci, expr, DeleteCases[$CovDs, PD]];
 
-RicciToEinsteinCC[K_][expr_, cd_?CovDQ] := With[
+RicciToEinsteinCC[K_][expr_, cd_?CovDQ] /; MetricOfCovD[cd] =!= Null := With[
 	{
 		ricci 		= GiveSymbol[Ricci, cd],
 		rs 			= GiveSymbol[RicciScalar, cd],
@@ -606,9 +645,30 @@ RicciToEinsteinCC[K_][expr_, cd_?CovDQ] := With[
 	},
 	expr /. ricci[inds__] :> (einsteincc[LI[K], inds] - 1/2 metric[inds] (-rs[] + (d - 2) (d - 1) K))
 ];
+RicciToEinsteinCC[K_][expr_,_] := expr;
+RicciToEinsteinCC[K_][expr_] := Fold[RicciToEinsteinCC[K], expr, $CovDs];
 
-RicciToEinsteinCC[K_][expr_] := Fold[RicciToEinsteinCC[K], expr, DeleteCases[$CovDs, PD]];
 
+RiemannToSymRiemann[expr_, cd_?CovDQ] /; MetricOfCovD[cd] =!= Null && !TorsionQ[cd] := With[
+	{
+		riemann		= GiveSymbol[Riemann, cd],
+		symriemann	= GiveSymbol[SymRiemann, cd]
+	},
+	expr /. riemann[a_,c_,b_,d_] :> 2/3 symriemann[a,b,c,d] - 2/3 symriemann[a,d,b,c]
+];
+RiemannToSymRiemann[expr_, _] := expr;
+RiemannToSymRiemann[expr_] := Fold[RiemannToSymRiemann, expr, $CovDs];
+
+
+SymRiemannToRiemann[expr_, cd_?CovDQ] /; MetricOfCovD[cd] =!= Null && !TorsionQ[cd] := With[
+	{
+		riemann		= GiveSymbol[Riemann, cd],
+		symriemann	= GiveSymbol[SymRiemann, cd]
+	},
+	expr /. symriemann[a_,b_,c_,d_] :> 1/2 riemann[a,c,b,d] + 1/2 riemann[a,d,b,c]
+];
+SymRiemannToRiemann[expr_, _] := expr;
+SymRiemannToRiemann[expr_] := Fold[SymRiemannToRiemann, expr, $CovDs];
 
 (*************************)
 (* Commuting derivatives *)
