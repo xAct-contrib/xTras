@@ -162,6 +162,30 @@ SymImplodedQ::usage =
 and False otherwise."
 
 
+(* Symmetrized covariant derivatives *)
+
+SymCovD::usage =
+	"SymCovD is a boolean option for DefCovD specifying whether the derivative \
+can be symmetrized or not. The default is True.";
+
+SymCovDQ::usage =
+	"SymCovD[cd] gives True is cd is a covariant derivative that can be symetrized, \
+and False otherwise.";
+
+ExpandSymCovDs::usage =
+	"ExpandSymCovDs[expr] expands all symmetric covariant derivatives in terms of ordinary ones.\
+ExpandSymCovDs[expr,cd] expands only symmetric covariant derivatives associated \
+to the covariant derivative cd.";
+
+CovDCommutator::usage =
+	"CovDCommutator[x,{a,b},cd] gives the commutator [cd_a, cd_b] x.";
+
+SymmetrizeCovDs::usage =
+	"SymmetrizeCovDs[expr] converts all covariant derivatives in expr into  \
+symmetrized covariant derivatives by commuting them. \
+SymmetrizeCovDs[expr, cd] only convert the covariant derivative cd.";
+
+
 (* Create RemoveConstants in the non-private context, because we need it here. *)
 RemoveConstants::usage = "bla";
 CollectTensors::usage = "bla";
@@ -234,13 +258,16 @@ MakeBoxes[IndexFree[expr_], StandardForm] :=
 FromIndexFree[expr_] :=
 	expr /. HoldPattern[IndexFree[sub_]] :> FromIndexFree1[sub];
 
-FromIndexFree1[expr_] := ScreenDollarIndices[ FromIndexFreeTensors@FromIndexFreeCovDs@expr ];
+FromIndexFree1[expr_] := ScreenDollarIndices[ FromIndexFreeTensors@FromIndexFreeSymCovDs@FromIndexFreeCovDs@expr ];
 	
 FromIndexFreeTensors[expr_] := 
 	expr /. RuleDelayed[
 		(x_?xTensorQ)^Optional[n_Integer],
 		Product[x @@ DummyIn /@ SlotsOfTensor@x, {n}] 
 	];
+
+FromIndexFreeSymCovDs[expr_]:=
+	expr //. cd_?SymCovDQ[a__][cd_[b__][x_]] :> cd[a,b][x];
 
 FromIndexFreeCovDs[expr_] :=
 	expr /.RuleDelayed[
@@ -249,7 +276,7 @@ FromIndexFreeCovDs[expr_] :=
 	]; 
 
 ToIndexFree[expr_] :=
-	IndexFree[expr //. cd_?CovDQ[_][x_] :> cd[x] /. x_?xTensorQ[___] :> x];
+	IndexFree[expr //.cd_?SymCovDQ[_,rest__][x_]:>cd@cd[rest][x] //. cd_?CovDQ[_][x_] :> cd[x] /. x_?xTensorQ[___] :> x];
 
 
 ClearAll[TermsOf]
@@ -921,6 +948,396 @@ SymmetricImplodedToCovD[tensor_?SymImplodedQ[inds___]] :=
 			syminds
 		]
 	];
+
+(*****************************************)
+(*                                       *)
+(*   Symmetrized covariant derivatives   *)
+(*                                       *)
+(*****************************************)
+
+
+(********************)
+(* Helper functions *)
+(********************)
+
+
+(* 
+ *  UnorderedPartitionedPermutations.
+ *  I'm keeping this private for the moment as I don't see any obvious 
+ *  additional applications.
+ *)
+
+ClearAll[UnorderedPartitionedPermutations];
+
+UnorderedPartitionedPermutations::usage =
+	"UnorderedPartitionedPermutations[list, partition] gives all permutations of \
+list whose sub-parts according the partition are unordered. For example, \
+UnorderedPartitionedPermutations[list,Table[1,{Length@list}]] gives all ordinary \
+permutations of list, and UnorderedPartitionedPermutations[list,{Length@list}] \
+returns the list itself.";
+
+(* The general case: do a recursion into the partition. The workhorse is Subsets. *)
+UnorderedPartitionedPermutations[set_List,partition:{i1_Integer,rest__Integer}] /; Total@partition === Length@set :=
+	Flatten[
+		Function[
+			subset,
+			Map[
+				Join[{subset}, #]&,
+				UnorderedPartitionedPermutations[
+					Complement[set,subset],
+					{rest}
+				]
+			]
+		] /@ Subsets[set,{i1}]
+		,
+		1
+	];
+
+(* The limiting case where the partition is just one number. *)
+UnorderedPartitionedPermutations[set_List,partition:{i1_Integer}] /; Total@partition === Length@set :=
+	{{set}};
+
+(* The limiting case where both the partition and the set are empty. *)
+UnorderedPartitionedPermutations[{},{}]:=
+	{};
+
+Protect[UnorderedPartitionedPermutations];
+
+
+PartitionedSymmetrize[f_Function,indices:(List|IndexList)[___],partition:{___Integer}] /; Total@partition === Length@indices :=
+	With[
+		{
+			fseq = f /. s_Slot :> Sequence@@s
+		}
+		,
+		Times@@(partition!)/Total[partition]!  Total[
+			fseq@@#& /@ UnorderedPartitionedPermutations[indices, partition]
+		]
+	];
+	
+
+(* 
+ *  CovDCommutator is a helper function that defines the commutator. 
+ *  The code is copy-pasted from a private function in xTensor that commutes covds 
+ *  (xAct`xTensor`Private`makeCommuteCovDs).
+ *) 
+
+CovDCommutator[expr_,{a_,b_},covd_?CovDQ] :=
+	Plus[
+		xAct`xTensor`Private`addCurvature[expr,covd,{b,a},Select[FindFreeIndices[expr],AIndexQ],VBundlesOfCovD[covd]],
+		xAct`xTensor`Private`addTorsion[expr,covd,{b,a}],
+		xAct`xTensor`Private`addOther[expr,covd,{b,a}]
+	];
+
+
+(***********************)
+(* Generic definitions *)
+(***********************)
+
+SymCovDQ[_] := False;
+
+Unprotect[delta];
+delta /: HoldPattern[(_?SymCovDQ)[__][delta[-_Symbol, _Symbol]]] := 0;
+delta /: HoldPattern[(_?SymCovDQ)[__][delta[_Symbol, -_Symbol]]] := 0;
+Protect[delta];
+
+
+(***************)
+(* Formatting. *)
+(***************)
+
+(* Helper function. *)
+AddSymBraces[{"",""}] :=
+	{"",""};
+AddSymBraces[{downstring_, upstring_}] :=
+	With[
+		{
+			openbraceupQ 	= StringTake[downstring,1]	===" ",
+			closebraceupQ 	= StringTake[downstring,-1]	===" "
+		},
+		{
+			If[openbraceupQ, " ", "("] <> downstring <> If[closebraceupQ, " ", ")"],
+			If[openbraceupQ, "(", " "] <> upstring   <> If[closebraceupQ, ")", " "]
+		}
+	];
+
+(* 
+ *  Prefix notation.
+ *  This is differs from the xTensor code by just one insertion of AddSymBraces. 
+ *)
+xAct`xTensor`Private`MakeBoxesCovD[der_?SymCovDQ[inds__][MBexpr_], "Prefix"] /; Length@{inds} > 1 := 
+	Block[
+		{$WarningFrom="CovD Formatting"}
+	,
+		xAct`xTensor`Private`FlattenRowBox@RowBox[
+			{
+				Apply[
+					SubsuperscriptBox[Last@SymbolOfCovD@der, #1, #2]&,
+					AddSymBraces@xAct`xTensor`Private`SSSBinds@{inds}
+				],
+				MBexpr
+			}
+		]
+	];
+
+(* TODO: postfix notation. *)
+
+
+(**************)
+(* Expanding. *)
+(**************)
+
+(* No second argument: fold over $CovDs. *)
+ExpandSymCovDs[expr_] :=
+	Fold[ExpandSymCovDs[#1,#2]&, expr, $CovDs];
+
+(* Second argument is a symcovd: do the expansion. *) 
+ExpandSymCovDs[expr_, cd_?SymCovDQ] :=
+	expr //. HoldPattern[cd[inds__][x_]] /; Length@{inds} > 1 :> Symmetrize[
+		Fold[cd[#2][#1]&, x, {inds}],
+		{inds}
+	];
+
+(* Second argument is generic: return the same expression. *)
+ExpandSymCovDs[expr_, _] :=
+	expr;
+
+
+(****************)
+(* Symmetrizing *)
+(****************)
+
+(* No second argument: fold over $CovDs. *)
+SymmetrizeCovDs[expr_] :=
+	Fold[SymmetrizeCovDs[#1,#2]&, expr, $CovDs];
+
+(* Second argument is a symcovd: symmetrize. *) 
+SymmetrizeCovDs[expr_, cd_?SymCovDQ] :=
+	expr //. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDs1[p];
+
+(* Second argument is generic: return the same expression. *)
+SymmetrizeCovDs[expr_, _] :=
+	expr;
+
+(* Helper function *)
+CommutatorOperator[cd_, sign:(1|-1)][inds___, b_][expr_] :=
+	Module[
+		{
+			n 		= Length@{inds},
+			deltam 	= sign UnitStep[-sign],
+			i
+		},
+		Sum[
+			(deltam + i / (n+1)) * PartitionedSymmetrize[cd[#1]@CovDCommutator[cd[#3]@expr,{b,#2},cd]&,{inds},{i-1,1,n-i}]
+			,
+			{i,1,n}
+		]
+	];
+
+(* Worker function *)
+
+(* Eating one derivative from the left. *)
+SymmetrizeCovDs1[HoldPattern[cd_[b_][cd_[inds__][expr_]]]] :=
+	cd[inds,b][expr] - CommutatorOperator[cd,-1][inds,b][expr];
+
+(* Eating one derivative from the right. *)
+SymmetrizeCovDs1[HoldPattern[cd_[inds__][cd_[b_][expr_]]]] :=
+	cd[inds,b][expr] - CommutatorOperator[cd,1][inds,b][expr];
+
+(* General case: do a recursion. *)
+SymmetrizeCovDs1[HoldPattern[cd_[inds1__][cd_[inds2__][x_]]]] /; Length@{inds1} > 1 && Length@{inds2} > 1 :=
+	PartitionedSymmetrize[cd[#1]@SymmetrizeCovDs[cd[#2]@cd[inds2]@x,cd]&,{inds1},{Length@{inds1}-1,1}];
+
+
+(**************)
+(* ChangeCovD *)
+(**************)
+
+(* 
+ *  We simply expand all symmetrized covds before changing. 
+ *  Perhaps not efficient when covd2 is also symmetrizable, but it is simple.
+ *  Note: this overwrites xTensor code, instead of extending it.
+ *  TODO: write more efficient code for this.
+ *)
+
+Unprotect[ChangeCovD];
+
+ChangeCovD[expr_, covd_?CovDQ, covd2_:PD] :=
+	If[
+		xAct`xTensor`Private`CompatibleCovDsQ[covd,covd2]
+		,
+		xAct`xTensor`Private`changeCovD[
+			ExpandSymCovDs[expr,covd],
+			covd,covd2,xAct`xTensor`Private`Identity1,Identity
+		]
+		,
+		expr
+	];
+
+Protect[ChangeCovD];
+
+
+(******************)
+(* ContractMetric *)
+(******************)
+
+(* 
+ *  This is a simple modification of xTensor's ContractMetric1. 
+ *  It currently ignores OverDerivatives and only contracts when the 
+ *  derivative is metric compatible.
+ *  TODO: support OverDerivatives.
+ *)
+
+(CM:xAct`xTensor`Private`ContractMetric1[{od_,aud_},{metric_,nv_}])[rest_. der_?SymCovDQ[inds__][expr_]met:metric_[b_,c_]]:=
+	Module[{dm=der[inds][met],result},
+		If[
+			(dm===0)&&xAct`xTensor`Private`differentexpressionsQ[result=CM[expr met],{expr,met}]
+			,
+			CM[rest der[inds][result]]
+			,
+			CM[rest met]der[inds][expr]
+		]
+	] /; (MemberQ[FindFreeIndices[expr],ChangeIndex[c]|ChangeIndex[b]]&&Head[expr]=!=metric);
+
+
+
+(********)
+(* VarD *)
+(********)
+
+VarD[tensor_,covd_][covd_?SymCovDQ[inds__][expr_],rest_] := 
+	(-1)^Length[{inds}]VarD[tensor,covd][expr,covd[inds][rest]]
+
+
+(*****************)
+(* Perturbations *)
+(*****************)
+
+(*
+ *  We simply expand any symmetric covds inside Perturbations. 
+ *  This is the simplest approach, but not the most efficient. 
+ *  Ideally Perturbation should not expand symcovds; only 
+ *  xAct`xPert`ExpandPerturbationDer should.
+ *  TODO: make this more efficient.
+ *)
+
+Unprotect[Perturbation];
+
+HoldPattern[Perturbation[p_,n_.]] /; !FreeQ[p, _?SymCovDQ[inds__][_]/;Length@{inds}>1] := 
+	Perturbation[ExpandSymCovDs[p],n]
+
+Protect[Perturbation];
+
+
+(****************)
+(* DefCovD hook *)
+(****************)
+
+(* Insert the SymCovD option into the option list of DefCovD. *)
+Unprotect[xAct`xTensor`DefCovD];
+If[FreeQ[Options[xAct`xTensor`DefCovD], SymCovD], 
+	Options[xAct`xTensor`DefCovD] ^= Append[Options[xAct`xTensor`DefCovD], SymCovD -> True];
+, 
+	Null;
+];
+Protect[xAct`xTensor`DefCovD];
+
+xTension["xTras`xTensor2`", DefCovD, "End"] := xTrasDefSymCovD;
+
+xTrasDefSymCovD[covd_[ind_], vbundles_, options___?OptionQ] := With[
+	{
+		cd			= covd,
+		tbundle 	= VBundleOfIndex[ind], 
+		metric		= FromMetric	/. CheckOptions[options] /. Options[DefCovD],
+		metricQ		= (FromMetric	/. CheckOptions[options] /. Options[DefCovD]) =!= Null,
+		ot			= OrthogonalTo 	/. CheckOptions[options] /. Options[DefCovD],
+		symq		= SymCovD		/. CheckOptions[options] /. Options[DefCovD]
+	},
+	If[symq,
+		With[
+			{
+				leibnitzQ	= ot === {},
+				frozenQ 	= If[metricQ, xAct`xTensor`Private`FrozenMetricQ[metric], False],
+				tbQ			= SymbolJoin[tbundle,"`Q"],
+				tbpmQ		= SymbolJoin[tbundle,"`pmQ"]
+			},
+			With[
+				{
+					invmetric = If[metricQ, If[frozenQ, GiveSymbol[Inv, metric], metric], False]
+				},
+			
+				(* Say we're making cd symmetrizable. *)
+				xAct`xTensor`Private`MakeDefInfo[DefCovD, covd[ind], {"covariant derivative","to be symmetrizable"}];
+				
+				(* Set the correct SGS. *)
+				cd /: SymmetryGroupOfCovD[HoldPattern[cd[inds__]]] := 
+					Symmetric[ Range@Length@{inds} ];
+					
+				(* Register as a symmetrized derivative. *)
+				cd /: SymCovDQ[cd] =
+					True;
+					
+				(* Collapse zero indices to the identity. *)
+				cd[] = 
+					Identity;
+					
+				(* Map over lists. *)
+				HoldPattern[cd[inds__][x_List]] :=
+  					cd[inds] /@ x;
+  					
+  				(* Map over sums. *)
+				HoldPattern[cd[inds__][x_Plus]]:=
+					cd[inds] /@ x;
+					
+				(* Action on constants. *)
+				HoldPattern[cd[__][_?ConstantQ]] :=
+  					0;
+
+				(* On Scalars. *)
+				HoldPattern[cd[inds__][Scalar[x_]]] :=
+					cd[inds][ReplaceDummies[x]];
+					
+				(* Leibnitz behaviour. *)
+				If[leibnitzQ,
+					(* Simple expression for when one of the factors is constant. *)
+					HoldPattern[cd[inds__][x_?ConstantQ * y_]] :=
+						x cd[inds][y];
+					(* Generic expression. *)
+					HoldPattern[cd[inds__][x_ * y_]] :=
+						Module[
+							{
+								i, l = Length@{inds}
+							},
+							Sum[
+								Binomial[l,i] PartitionedSymmetrize[cd[#1][x]cd[#2][y]&,{inds},{i,l-i}],
+								{i,0,l} 
+							]
+						];
+					(* Powers. *)
+					HoldPattern[cd[inds__][x_^y_]] :=
+						Block[{Keep},
+							cd[inds][Keep[x]x^(y-1)] /. Keep->Sequence
+						];
+				];
+				
+				(* Metric compatibility. *)
+				If[
+					metricQ
+					,
+					If[
+						frozenQ
+						,
+						HoldPattern[cd[__][invmetric[_Symbol?tbQ,_Symbol?tbQ]]]  := 0;
+						HoldPattern[cd[__][metric[-_Symbol?tbQ,-_Symbol?tbQ]]]   := 0;
+						,
+						HoldPattern[cd[__][metric[_?tbpmQ,_?tbpmQ]]] := 0;	
+					]
+				];
+			]
+		]
+	]
+];
+
 
 
 
