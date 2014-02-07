@@ -354,17 +354,20 @@ ClearAutomaticRules[symbol_Symbol, rules_List, options___?OptionQ] := Module[{
 ClearCurvatureRelations[cd_?CovDQ, options___?OptionQ] := (
 	ClearAutomaticRules[Evaluate[GiveSymbol[Ricci, cd]], CurvatureRelations[cd, Ricci], options];
 	ClearAutomaticRules[Evaluate[GiveSymbol[Riemann, cd]], CurvatureRelations[cd, Riemann], options];
+	ClearAutomaticRules[Evaluate[GiveSymbol[SymRiemann, cd]], CurvatureRelations[cd, SymRiemann], options];
 );
 
 SetCurvatureRelations[cd_?CovDQ, options___?OptionQ] := (
 	AutomaticRules[Evaluate[GiveSymbol[Ricci, cd]], CurvatureRelations[cd, Ricci], options];
 	AutomaticRules[Evaluate[GiveSymbol[Riemann, cd]], CurvatureRelations[cd, Riemann], options];
+	AutomaticRules[Evaluate[GiveSymbol[SymRiemann, cd]], CurvatureRelations[cd, SymRiemann], options];
 );
 
 CurvatureRelationsQ[cd_?CovDQ] := With[
 	{
-		ricci 	= GiveSymbol[Ricci, cd], 
-		riemann	= GiveSymbol[Riemann, cd]
+		ricci 	 = GiveSymbol[Ricci, cd], 
+		riemann	 = GiveSymbol[Riemann, cd],
+		sriemann = GiveSymbol[SymRiemann, cd]
 	},
 	Complement[
 		CurvatureRelations[cd, Ricci], 
@@ -373,6 +376,10 @@ CurvatureRelationsQ[cd_?CovDQ] := With[
 		CurvatureRelations[cd, Riemann], 
 		DownValues[riemann], 
 		UpValues[riemann]
+	] === {} && Complement[
+		CurvatureRelations[cd, SymRiemann], 
+		DownValues[sriemann], 
+		UpValues[sriemann]
 	] === {}
 ];
 
@@ -433,7 +440,8 @@ xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 		cd2			= ExtendedFrom	/. CheckOptions[options] /. Options[DefCovD],
 		definfo		= DefInfo 		/. CheckOptions[options] /. Options[DefCovD],
 		ot			= OrthogonalTo 	/. CheckOptions[options] /. Options[DefCovD],
-		pw			= ProjectedWith	/. CheckOptions[options] /. Options[DefCovD]
+		pw			= ProjectedWith	/. CheckOptions[options] /. Options[DefCovD],
+		curvrels	= CurvatureRelations /. CheckOptions[options] /. Options[DefCovD]
 	},
 	With[
 		{
@@ -547,6 +555,30 @@ xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 					MetricOn -> All,
 					UseSymmetries -> True
 				]
+			];
+			(* Curvature rules for the symmetrized Riemann tensor. *)
+			If[metricQ && !torsionQ,
+				cd /: CurvatureRelations[cd, SymRiemann] = Join[
+					MakeRule[
+						{
+							sriemann[a,-a,b,c],
+							$RicciSign * ricci[b,c]
+						},
+						MetricOn -> All,
+						UseSymmetries -> True
+					],
+					MakeRule[
+						{
+							sriemann[a,b,-a,c],
+							-1/2 * $RicciSign * ricci[b,c]
+						},
+						MetricOn -> All,
+						UseSymmetries -> True
+					]
+				];
+				If[curvrels,
+					AutomaticRules[Evaluate[GiveSymbol[SymRiemann, cd]], CurvatureRelations[cd, SymRiemann], Verbose->True];
+				];
 			];
 		]
 	]

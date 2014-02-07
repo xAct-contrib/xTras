@@ -136,11 +136,28 @@ Test[
 (*************************)
 
 Test[
+	SymRiemannCD[a,-a,b,c]
+	,
+	RicciCD[b,c]
+	,
+	TestID->"xTensor-20130102-O4A0D6"
+]
+
+Test[
+	SymRiemannCD[a,b,-a,c]
+	,
+	-1/2 RicciCD[b,c]
+	,
+	TestID->"xTensor-20140207-Z4I4V3"
+]
+
+
+Test[
 	CurvatureRelationsQ[CD]
 	,
 	True
 	,
-	TestID->"xTensor-20130102-O4A0D6"
+	TestID->"xTensor-20140207-Q7O3S0"
 ]
 
 ClearCurvatureRelations[CD]
@@ -169,6 +186,23 @@ Test[
 	TestID->"xTensor-20130102-N8B2Z0"
 ]
 
+Test[
+	SymRiemannCD[a,-a,b,c]
+	,
+	SymRiemannCD[a,-a,b,c]
+	,
+	TestID->"xTensor-20140207-T8X9W2"
+]
+
+Test[
+	SymRiemannCD[a,b,-a,c]
+	,
+	SymRiemannCD[a,b,-a,c]
+	,
+	TestID->"xTensor-20140207-F2J3O8"
+]
+
+
 SetCurvatureRelations[CD]
 
 Test[
@@ -194,6 +228,23 @@ Test[
 	,
 	TestID->"xTensor-20130102-Y5Y4E2"
 ]
+
+Test[
+	SymRiemannCD[a,-a,b,c]
+	,
+	RicciCD[b,c]
+	,
+	TestID->"xTensor-20140207-D1K6G8"
+]
+
+Test[
+	SymRiemannCD[a,b,-a,c]
+	,
+	-1/2 RicciCD[b,c]
+	,
+	TestID->"xTensor-20140207-R4K7S2"
+]
+
 
 
 (**********************************)
@@ -284,9 +335,9 @@ Test[
 (*****************************)
 
 Test[
-	xTensorQ /@ {SchoutenCD, EinsteinCCCD, SchoutenCCCD}
+	xTensorQ /@ {SchoutenCD, EinsteinCCCD, SchoutenCCCD, SymRiemannCD}
 	,
-	{True, True, True}
+	{True, True, True, True}
 	,
 	TestID->"xTensor-20130101-K2C1H5"
 ]
@@ -407,6 +458,56 @@ Test[
 	,
 	TestID->"xTensor-20130126-A4I4Y7"
 ]
+
+Test[
+	SymRiemannCD[a,b,c,d] // SymRiemannToRiemann
+	,
+	RiemannCD[a, c, b, d]/2 + RiemannCD[a, d, b, c]/2
+	,
+	TestID->"xTensor-20140207-Y5V1W6"
+]
+
+Test[
+	RiemannCD[a,b,c,d] // RiemannToSymRiemann
+	,
+	(2*SymRiemannCD[a, c, b, d])/3 - (2*SymRiemannCD[a, d, c, b])/3
+	,
+	TestID->"xTensor-20140207-K2T4K2"
+]
+
+Test[
+	RiemannCD[e,f,g,h] // SymmetryOfExpression
+	,
+	RiemannCD[e,f,g,h] // RiemannToSymRiemann // SymmetryOfExpression
+	,
+	TestID->"xTensor-20140207-F1O8A9"
+]
+
+Test[
+	SymRiemannCD[e,f,g,h] // SymmetryOfExpression
+	,
+	SymRiemannCD[e,f,g,h] // SymRiemannToRiemann // SymmetryOfExpression
+	,
+	TestID->"xTensor-20140207-O2I5K1"
+]
+
+Test[
+	RiemannCD[-a,-b,-c,-d]//RiemannToSymRiemann//SymRiemannToRiemann//ToCanonical
+	,
+	RiemannCD[-a, -b, -c, -d] // RiemannYoungProject
+	,
+	TestID->"xTensor-20140207-Z6C6E0"
+]
+
+Test[
+	SymRiemannCD[-a,-b,-c,-d]//SymRiemannToRiemann //RiemannToSymRiemann//ToCanonical
+	,
+	SymRiemannCD[-a,-b,-c,-d]// YoungProject[#, {{-a, -b}, {-c, -d}},ManifestSymmetry -> Symmetric] &
+	,
+	TestID->"xTensor-20140207-Q2F1X7"
+]
+
+
 
 (***************************)
 (*                         *)
