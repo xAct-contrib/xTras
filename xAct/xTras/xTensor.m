@@ -40,6 +40,11 @@ derivatives sorted, and False otherwise. \
 
 (* Extra curvature tensors *)
 
+ToRiemann::usage =
+	"ToRiemann[expr] converts Weyl tensors, symmetrized Riemann tensors, any \
+Riemann tensor with down indices of a frozen metric, and gradients of Christoffel \
+symbols to Riemann tensors.";
+
 SymRiemann::usage =
 	"SymRiemann is a reserved word in xTras. It is used to generated the name \
 of the symmetrized Riemann tensor.";
@@ -660,6 +665,17 @@ RicciToEinsteinCC[K_][expr_, cd_?CovDQ] /; MetricOfCovD[cd] =!= Null := With[
 ];
 RicciToEinsteinCC[K_][expr_,_] := expr;
 RicciToEinsteinCC[K_][expr_] := Fold[RicciToEinsteinCC[K], expr, $CovDs];
+
+
+
+ToRiemann[expr_, cd_?CovDQ] := 
+	Composition[
+		WeylToRiemann[#, cd]&,
+		SymRiemannToRiemann[#, cd]&,
+		RiemannDownToRiemann[#, cd]&,
+		GradChristoffelToRiemann[#, cd]&
+	][expr];
+ToRiemann[expr_] := Fold[ToRiemann, expr, $CovDs];
 
 
 RiemannToSymRiemann[expr_, cd_?CovDQ] /; MetricOfCovD[cd] =!= Null && !TorsionQ[cd] := With[
