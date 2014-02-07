@@ -638,25 +638,55 @@ YoungProject[tensor_?xTensorQ, tableau : {{___Integer} ...}, options___?OptionQ]
 ] /; TnsrYoungQ[tensor,tableau];
 
 
-RiemannYoungRule[cd_?CovDQ, options___?OptionQ] := Module[
+RiemannYoungRule[cd_?CovDQ] /; MetricOfCovD[cd] =!= Null && !TorsionQ[cd] := Module[
 	{
-		riemann, expr1, expr2, a, b, c, d, e
+		riemann, sriemann, weyl, expr1, expr2, expr3, expr4, expr5, expr6, a, b, c, d, e
 	},
 	riemann		= GiveSymbol[Riemann, cd];
+	sriemann	= GiveSymbol[SymRiemann, cd];
+	weyl		= GiveSymbol[Weyl, cd];
 	{a,b,c,d,e}	= -GetIndicesOfVBundle[First@VBundlesOfCovD[cd], 5];
 	expr1 		= riemann[a,b,c,d];
 	expr2		= cd[e]@expr1;
-	Join[
-		If[expr1===0,{},MakeRule@Evaluate@{expr1, YoungProject[expr1, {{a,c},  {b,d}}, options]}],
-		If[expr2===0,{},MakeRule@Evaluate@{expr2, YoungProject[expr2, {{a,c,e},{b,d}}, options]}]
-	]	
+	expr3		= weyl[a,b,c,d];
+	expr4		= cd[e]@expr3;
+	expr5		= sriemann[a,b,c,d];
+	expr6		= cd[e]@expr5;	
+	With[
+		{
+			covd = cd, 
+			rules = FoldedRule[
+				(* The manifestly antisymmetric projectors do not care about the order,
+				   because all the mono-term symmetry of the Riemann tensor is preserved
+				   in the Young diagram of the derivative of the Riemann. *)
+				Join[
+					If[expr1===0,{},MakeRule@Evaluate@{expr1, YoungProject[expr1, {{a,c},  {b,d}}, ManifestSymmetry -> Antisymmetric]}],
+					If[expr2===0,{},MakeRule@Evaluate@{expr2, YoungProject[expr2, {{a,c,e},{b,d}}, ManifestSymmetry -> Antisymmetric]}],
+					If[expr3===0,{},MakeRule@Evaluate@{expr3, YoungProject[expr3, {{a,c},  {b,d}}, ManifestSymmetry -> Antisymmetric]}],
+					If[expr4===0,{},MakeRule@Evaluate@{expr4, YoungProject[expr4, {{a,c,e},{b,d}}, ManifestSymmetry -> Antisymmetric]}]
+				],
+				(* For the manifestly symmetric projectors we need to be a bit more careful,
+				   because the interchange symmetry of the symmetrized Riemann tensor is
+				   not present in the Young tableau of the derivative of it.
+				   So we explicitly project both the tensor and it derivative onto their 
+				   respective Young diagrams.
+				   We need a folded rule for this, because otherwise the tensors inside 
+				   the derivative will not be touched by ReplaceAll because the rule
+				   for the derivative gets matched first. *)
+				If[expr5===0,{},MakeRule@Evaluate@{expr5, YoungProject[expr5, {{a,b},  {c,d}}, ManifestSymmetry -> Symmetric]}],
+				If[expr6===0,{},MakeRule@Evaluate@{expr6, YoungProject[expr6, {{a,b,e},{c,d}}, ManifestSymmetry -> Symmetric]}]
+			]
+		},
+		covd /: RiemannYoungRule[covd] = rules
+	]
 ];
+RiemannYoungRule[_] = {};
 
-RiemannYoungProject[expr_, cd_?CovDQ, options___?OptionQ] :=
-	expr /. RiemannYoungRule[cd, options];
+RiemannYoungProject[expr_, cd_?CovDQ] :=
+	expr /. RiemannYoungRule[cd];
 
-RiemannYoungProject[expr_, options___?OptionQ] := 
-	Fold[RiemannYoungProject[#1, #2, options]&, expr, DeleteCases[$CovDs, PD]];
+RiemannYoungProject[expr_] := 
+	Fold[RiemannYoungProject[#1, #2]&, expr, $CovDs];
 
 TableauSymmetric[tableau_?YoungTableauQ, options___?OptionQ] := Module[
 	{

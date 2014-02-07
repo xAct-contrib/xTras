@@ -37,6 +37,60 @@ Test[
 	TestID->"Combinatorics-20130106-O0D1Q2"
 ]
 
+Test[
+	Antisymmetrize[
+		WeylCD[-a,-b,-c,-d],
+		{-a,-b,-c}
+	] // ToCanonical // RiemannYoungProject// ToCanonical
+	,
+	0
+	,
+	TestID->"Combinatorics-20140207-M5K1K5"
+]
+
+Test[
+	Antisymmetrize[
+		CD[-a]@WeylCD[-b,-c,-d,-e],
+		{-a,-b,-c}
+	] //ToCanonical // RiemannYoungProject // ToCanonical
+	,
+	0
+	,
+	TestID->"Combinatorics-20140207-T3N3Q5"
+]
+
+Test[
+	Symmetrize[
+		SymRiemannCD[-a,-b,-c,-d],
+		{-a,-b,-c}
+	] // ToCanonical // RiemannYoungProject// ToCanonical
+	,
+	0
+	,
+	TestID->"Combinatorics-20140207-L7M2H2"
+]
+
+Test[
+	Symmetrize[
+		CD[-a]@SymRiemannCD[-b,-c,-d,-e],
+		{-a,-b,-c,-d}
+	] //ToCanonical // RiemannYoungProject // ToCanonical
+	,
+	0
+	,
+	TestID->"Combinatorics-20140207-E3Z6Q7"
+]
+
+Test[
+	Symmetrize[
+		CD[-a]@SymRiemannCD[-b,-c,-d,-e],
+		{-a,-c,-d,-e}
+	] //ToCanonical // RiemannYoungProject // ToCanonical
+	,
+	0
+	,
+	TestID->"Combinatorics-20140207-M1Y6Y7"
+]
 
 (***************************)
 (*                         *)
