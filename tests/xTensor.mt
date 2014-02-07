@@ -685,46 +685,6 @@ Test[
 ]
 
 
-(*****************************)
-(*                           *)
-(* SymImplode and SymExplode *)
-(*                           *)
-(*****************************)
-
-Test[
-	SymImplode[ CD[a]@RicciCD[b,c] ] // ToCanonical
-	,
-	SCDRicciCD[b, c, a]
-	,
-	TestID->"xTensor-20140127-F8N1S2"
-]
-
-Test[
-	SymImplode[ CD[d]@SCDRicciCD[b, c, a] + CD[a]@SCDRicciCD[c, b, d] ] // ToCanonical
-	,
-	2 SCDSCDRicciCD[b, c, a, d]
-	,
-	TestID->"xTensor-20140127-M4O1O1"
-]
-
-Test[
-	2 SCDSCDRicciCD[b, c, a, d] // SymExplode // ToCanonical
-	,
-	CD[a][CD[d][RicciCD[b, c]]] + CD[d][CD[a][RicciCD[b, c]]]
-	,
-	TestID->"xTensor-20140127-W2L2J2"
-]
-
-Test[
-	- RicciCD[d, e]*RiemannCD[a, b, c, -e] - RicciCD[c, e]*RiemannCD[a, b, d, -e] 
-	+ CD[a]@CD[b]@RicciCD[c, d] - CD[b]@CD[a]@RicciCD[c, d] // SymImplode // ToCanonical
-	,
-	0
-	,
-	TestID->"xTensor-20140127-X0K7V9"
-]
-
-
 
 
 (*************************************)
