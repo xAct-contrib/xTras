@@ -213,18 +213,18 @@ Test[
 (*                          *)
 (****************************)
 
-DefTensor[T1[], M];
+DefTensor[S1[], M];
 DefTensor[T2[], M];
 
 
 Test[
 	SolveTensors[
-		MakeAnsatz[{T1[], T2[], T1[], T2[], T1[] T2[]}] == 0, 
+		MakeAnsatz[{S1[], T2[], S1[], T2[], S1[] T2[]}] == 0, 
 		T2[], 
 		MakeRule -> False, BreakInMonomials -> True
 	]
 	,
-	{{T2[] -> -(((C1 + C3)*T1[])/(C2 + C4 + C5*T1[]))}}
+	{{T2[] -> -(((C1 + C3)*S1[])/(C2 + C4 + C5*S1[]))}}
 	,
 	TestID->"Algebra-20130103-A4V4F8"
 ]

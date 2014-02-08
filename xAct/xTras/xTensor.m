@@ -160,21 +160,16 @@ to Riemann tensors.";
 
 (* Symmetrized covariant derivatives *)
 
-SymCovD::usage =
-	"SymCovD is a boolean option for DefCovD specifying whether the derivative \
-can be symmetrized or not. The default is True.";
-
 SymCovDQ::usage =
 	"SymCovD[cd] gives True is cd is a covariant derivative that can be symetrized, \
-and False otherwise.";
+and False otherwise. \
+It is also a boolean option for DefCovD specifying whether the derivative \
+can be symmetrized or not. The default is False.";
 
 ExpandSymCovDs::usage =
 	"ExpandSymCovDs[expr] expands all symmetric covariant derivatives in terms of ordinary ones.\
 ExpandSymCovDs[expr,cd] expands only symmetric covariant derivatives associated \
 to the covariant derivative cd.";
-
-CovDCommutator::usage =
-	"CovDCommutator[x,{a,b},cd] gives the commutator [cd_a, cd_b] x.";
 
 SymmetrizeCovDs::usage =
 	"SymmetrizeCovDs[expr] converts all covariant derivatives in expr into  \
@@ -563,7 +558,7 @@ xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 					]
 				];
 				If[curvrels,
-					AutomaticRules[Evaluate[GiveSymbol[SymRiemann, cd]], CurvatureRelations[cd, SymRiemann], Verbose->True];
+					AutomaticRules[Evaluate[GiveSymbol[SymRiemann, cd]], CurvatureRelations[cd, SymRiemann], Verbose->False];
 				];
 			];
 		]
@@ -1129,8 +1124,8 @@ Protect[Perturbation];
 
 (* Insert the SymCovD option into the option list of DefCovD. *)
 Unprotect[xAct`xTensor`DefCovD];
-If[FreeQ[Options[xAct`xTensor`DefCovD], SymCovD], 
-	Options[xAct`xTensor`DefCovD] ^= Append[Options[xAct`xTensor`DefCovD], SymCovD -> True];
+If[FreeQ[Options[xAct`xTensor`DefCovD], SymCovDQ], 
+	Options[xAct`xTensor`DefCovD] ^= Append[Options[xAct`xTensor`DefCovD], SymCovDQ -> False];
 , 
 	Null;
 ];
@@ -1145,7 +1140,7 @@ xTrasDefSymCovD[covd_[ind_], vbundles_, options___?OptionQ] := With[
 		metric		= FromMetric	/. CheckOptions[options] /. Options[DefCovD],
 		metricQ		= (FromMetric	/. CheckOptions[options] /. Options[DefCovD]) =!= Null,
 		ot			= OrthogonalTo 	/. CheckOptions[options] /. Options[DefCovD],
-		symq		= SymCovD		/. CheckOptions[options] /. Options[DefCovD]
+		symq		= SymCovDQ		/. CheckOptions[options] /. Options[DefCovD]
 	},
 	If[symq,
 		With[

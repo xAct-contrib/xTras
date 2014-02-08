@@ -27,7 +27,8 @@ Test[
 		metric[-a,-b],
 		CD,
 		PrintAs -> "g",
-		CurvatureRelations -> True
+		CurvatureRelations -> True,
+		SymCovDQ -> True
 	]
 	,
 	Null
