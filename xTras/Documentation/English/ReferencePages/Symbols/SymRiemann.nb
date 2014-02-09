@@ -129,9 +129,10 @@ tensor associated to a connection acting on a tangent bundle."
 
 Cell["\<\
 The symmetrized Riemann tensor is only defined when there is a metric and no \
-torsion\
+torsion.\
 \>", "Notes",
- CellChangeTimes->{{3.600855388648386*^9, 3.6008554016475477`*^9}},
+ CellChangeTimes->{{3.600855388648386*^9, 3.6008554016475477`*^9}, 
+   3.600967681636381*^9},
  CellID->1067943069],
 
 Cell[TextData[{
@@ -141,14 +142,20 @@ Cell[TextData[{
  Cell[BoxData[
   FormBox[
    RowBox[{
-    SubscriptBox["P", "abcd"], "=", 
+    SubscriptBox["P", 
+     StyleBox["abcd",
+      FontSlant->"Italic"]], "=", 
     RowBox[{
      RowBox[{
       FractionBox["1", "2"], 
-      SubscriptBox["R", "acbd"]}], "+", 
+      SubscriptBox["R", 
+       StyleBox["acbd",
+        FontSlant->"Italic"]]}], "+", 
      RowBox[{
       FractionBox["1", "2"], 
-      SubscriptBox["R", "adbc"]}]}]}], TraditionalForm]], "InlineMath"],
+      SubscriptBox["R", 
+       StyleBox["adbc",
+        FontSlant->"Italic"]]}]}]}], TraditionalForm]], "InlineMath"],
  ". "
 }], "Notes",
  CellChangeTimes->{{3.600855404072056*^9, 3.600855409007412*^9}, {
@@ -156,24 +163,72 @@ Cell[TextData[{
  CellID->512783290],
 
 Cell[TextData[{
- "The Riemann tensor in terms of the symmetrized Riemann tensor is ",
+ "The Riemann tensor in terms of the symmetrized Riemann tensor reads ",
  StyleBox[" ",
   Deletable->True],
  Cell[BoxData[
   FormBox[
    RowBox[{
-    SubscriptBox["R", "abcd"], "=", 
+    SubscriptBox["R", 
+     StyleBox["abcd",
+      FontSlant->"Italic"]], "=", 
     RowBox[{
      RowBox[{
       FractionBox["2", "3"], 
-      SubscriptBox["P", "acbd"]}], "-", 
+      SubscriptBox["P", 
+       StyleBox["acbd",
+        FontSlant->"Italic"]]}], "-", 
      RowBox[{
       FractionBox["2", "3"], 
-      SubscriptBox["P", "adbc"]}]}]}], TraditionalForm]], "InlineMath"],
+      SubscriptBox["P", 
+       StyleBox["adbc",
+        FontSlant->"Italic"]]}]}]}], TraditionalForm]], "InlineMath"],
  "."
 }], "Notes",
- CellChangeTimes->{{3.600855575785323*^9, 3.6008556352938757`*^9}},
- CellID->1676674303]
+ CellChangeTimes->{{3.600855575785323*^9, 3.6008556352938757`*^9}, {
+  3.600967698324379*^9, 3.600967698995638*^9}},
+ CellID->1676674303],
+
+Cell[TextData[{
+ "The symmetrized Riemann tensor has the following symmetries: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["P", 
+     StyleBox["abcd",
+      FontSlant->"Italic"]], "=", 
+    SubscriptBox["P", 
+     RowBox[{
+      RowBox[{"(", 
+       StyleBox["ab",
+        FontSlant->"Italic"], ")"}], 
+      RowBox[{"(", 
+       StyleBox["cd",
+        FontSlant->"Italic"], ")"}]}]]}], TraditionalForm]], "InlineMath"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["P", 
+     StyleBox["abcd",
+      FontSlant->"Italic"]], "=", 
+    SubscriptBox["R", 
+     StyleBox["cdab",
+      FontSlant->"Italic"]]}], TraditionalForm]], "InlineMath"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["P", 
+     RowBox[{
+      RowBox[{"(", "abc", ")"}], "d"}]], "=", "0"}], TraditionalForm]], 
+  "InlineMath"],
+ "."
+}], "Notes",
+ CellChangeTimes->{{3.600967708456472*^9, 3.600967719299013*^9}, {
+  3.6009677818776293`*^9, 3.600967913828211*^9}, {3.600967952211114*^9, 
+  3.60096795221131*^9}},
+ CellID->616927442]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -613,7 +668,7 @@ Cell[BoxData[
  CellID->589267740]
 }, Open  ]]
 },
-WindowSize->{700, 770},
+WindowSize->{893, 766},
 WindowMargins->{{259, Automatic}, {Automatic, 12}},
 CellContext->"Global`",
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
