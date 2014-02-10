@@ -142,6 +142,30 @@ Test[
 	TestID->"Combinatorics-20140210-K3W9M1"
 ]
 
+Test[
+	CD[a]@RiemannCD[b,c,d,e]//RiemannToSymRiemann//ToCanonical//Antisymmetrize[#,{a,b,c}]&//ToCanonical//RiemannYoungProject//ToCanonical
+	,
+	0
+	,
+	TestID->"Combinatorics-20140210-G8C6D2"
+]
+
+Test[
+	CD[a]@RiemannCD[b,c,d,e]//RiemannToSymRiemann//ToCanonical//Antisymmetrize[#,{a,b,d}]&//ToCanonical//RiemannYoungProject//ToCanonical
+	,
+	0
+	,
+	TestID->"Combinatorics-20140210-U5J4J2"
+]
+
+Test[
+	RiemannCD[b,c,d,e]//RiemannToSymRiemann//ToCanonical//Antisymmetrize[#,{b,c,d}]&//ToCanonical//RiemannYoungProject//ToCanonical
+	,
+	0
+	,
+	TestID->"Combinatorics-20140210-I8Y0O8"
+]
+
 (***************************)
 (*                         *)
 (*      MakeTraceless      *)
