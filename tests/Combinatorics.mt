@@ -27,6 +27,14 @@ Test[
 ]
 
 Test[
+	ToCanonical[# - RiemannYoungProject[#]]& @ RiemannYoungProject[ RiemannCD[-e,-f,-g,-h] ]
+	,
+	0
+	,
+	TestID->"Combinatorics-20140207-M1Y6Y7"
+]
+
+Test[
 	Antisymmetrize[
 		CD[-a]@RiemannCD[-b,-c,-d,-e],
 		{-a,-b,-c}
@@ -35,6 +43,14 @@ Test[
 	0
 	,
 	TestID->"Combinatorics-20130106-O0D1Q2"
+]
+
+Test[
+	ToCanonical[# - RiemannYoungProject[#]]& @ RiemannYoungProject[ CD[-a]@RiemannCD[-b,-c,-d,-e] ]
+	,
+	0
+	,
+	TestID->"Combinatorics-20140210-T1B5Z6"
 ]
 
 Test[
@@ -49,6 +65,14 @@ Test[
 ]
 
 Test[
+	ToCanonical[# - RiemannYoungProject[#]]& @ RiemannYoungProject[ WeylCD[-a,-b,-c,-d] ]
+	,
+	0
+	,
+	TestID->"Combinatorics-20140210-S4U4S1"
+]
+
+Test[
 	Antisymmetrize[
 		CD[-a]@WeylCD[-b,-c,-d,-e],
 		{-a,-b,-c}
@@ -60,6 +84,15 @@ Test[
 ]
 
 Test[
+	ToCanonical[# - RiemannYoungProject[#]]& @ RiemannYoungProject[ CD[-a]@WeylCD[-b,-c,-d,-e] ]
+	,
+	0
+	,
+	TestID->"Combinatorics-20140210-L5Y2F1"
+]
+
+
+Test[
 	Symmetrize[
 		SymRiemannCD[-a,-b,-c,-d],
 		{-a,-b,-c}
@@ -69,6 +102,15 @@ Test[
 	,
 	TestID->"Combinatorics-20140207-L7M2H2"
 ]
+
+Test[
+	ToCanonical[# - RiemannYoungProject[#]]& @ RiemannYoungProject[ SymRiemannCD[-a,-b,-c,-d] ]
+	,
+	0
+	,
+	TestID->"Combinatorics-20140210-U9G6C3"
+]
+
 
 Test[
 	Symmetrize[
@@ -89,7 +131,15 @@ Test[
 	,
 	0
 	,
-	TestID->"Combinatorics-20140207-M1Y6Y7"
+	TestID->"Combinatorics-20140210-G1H0G4"
+]
+
+Test[
+	ToCanonical[# - RiemannYoungProject[#]]& @ RiemannYoungProject[ CD[-e]@SymRiemannCD[-a,-b,-c,-d] ]
+	,
+	0
+	,
+	TestID->"Combinatorics-20140210-K3W9M1"
 ]
 
 (***************************)

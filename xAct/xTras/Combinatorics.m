@@ -655,26 +655,25 @@ RiemannYoungRule[cd_?CovDQ] /; MetricOfCovD[cd] =!= Null && !TorsionQ[cd] := Mod
 	With[
 		{
 			covd = cd, 
-			rules = FoldedRule[
-				(* The manifestly antisymmetric projectors do not care about the order,
-				   because all the mono-term symmetry of the Riemann tensor is preserved
-				   in the Young diagram of the derivative of the Riemann. *)
-				Join[
+			rules = Join[
 					If[expr1===0,{},MakeRule@Evaluate@{expr1, YoungProject[expr1, {{a,c},  {b,d}}, ManifestSymmetry -> Antisymmetric]}],
 					If[expr2===0,{},MakeRule@Evaluate@{expr2, YoungProject[expr2, {{a,c,e},{b,d}}, ManifestSymmetry -> Antisymmetric]}],
 					If[expr3===0,{},MakeRule@Evaluate@{expr3, YoungProject[expr3, {{a,c},  {b,d}}, ManifestSymmetry -> Antisymmetric]}],
-					If[expr4===0,{},MakeRule@Evaluate@{expr4, YoungProject[expr4, {{a,c,e},{b,d}}, ManifestSymmetry -> Antisymmetric]}]
-				],
-				(* For the manifestly symmetric projectors we need to be a bit more careful,
-				   because the interchange symmetry of the symmetrized Riemann tensor is
-				   not present in the Young tableau of the derivative of it.
-				   So we explicitly project both the tensor and it derivative onto their 
-				   respective Young diagrams.
-				   We need a folded rule for this, because otherwise the tensors inside 
-				   the derivative will not be touched by ReplaceAll because the rule
-				   for the derivative gets matched first. *)
-				If[expr5===0,{},MakeRule@Evaluate@{expr5, YoungProject[expr5, {{a,b},  {c,d}}, ManifestSymmetry -> Symmetric]}],
-				If[expr6===0,{},MakeRule@Evaluate@{expr6, YoungProject[expr6, {{a,b,e},{c,d}}, ManifestSymmetry -> Symmetric]}]
+					If[expr4===0,{},MakeRule@Evaluate@{expr4, YoungProject[expr4, {{a,c,e},{b,d}}, ManifestSymmetry -> Antisymmetric]}],
+					If[expr5===0,{},MakeRule@Evaluate@{expr5, YoungProject[expr5, {{a,b},  {c,d}}, ManifestSymmetry -> Symmetric]}],
+					(* We need to be careful for the derivative of the symmetrized Riemann tensor, because the symmetric {3,2} tableaux do not
+					   have the interchange symmetry the {2,2} tableaux have. This is a problem because the expression CD[_]@P[__] does
+					   have this interchange symmetry. Note that for the normal Riemann tensor this isn't an
+					   issue, because in the convention with manifest antisymmetric projectors the {2+n,2} tableaux still
+					   have the interchange symmetry of the {2,2} tableaux.
+					   In this case, we need to project onto a sum of standard Young tableaux in such a way that the projected
+					   expression does have the interchange symmetry. The manifest symmetry in the 3 + 2 indices is lost however.
+					 *)
+					If[expr6===0,{},MakeRule@Evaluate@{expr6, ToCanonical[
+						  YoungProject[expr6, {{a,b,e},{c,d}}, ManifestSymmetry -> Symmetric]
+						+ YoungProject[expr6, {{a,b,d},{c,e}}, ManifestSymmetry -> Symmetric]
+						+ YoungProject[expr6, {{a,b,c},{d,e}}, ManifestSymmetry -> Symmetric]
+					]}]
 			]
 		},
 		covd /: RiemannYoungRule[covd] = rules
