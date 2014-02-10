@@ -167,6 +167,12 @@ returns the first order perbutation expansion of  \*StyleBox[\"expr\", \
 \*StyleBox[\"n\", \"TI\"] th order perbutation expansion of  \
 \*StyleBox[\"expr\", \"TI\"]\(\(\\ on an flat background.\)\)\), \
 DisplayForm]\)"; 
+ExpandSymCovDs::usage = "\!\(\*TagBox[\(ExpandSymCovDs[ \*StyleBox[\"expr\", \
+\"TI\"]] expands all symmetrized covariant derivatives in terms of single \
+covariant derivatives. \[LineSeparator] ExpandSymCovDs[ \*StyleBox[\"expr\", \
+\"TI\"],  \*StyleBox[\"cd\", \"TI\"]] only expands symmetried covariant \
+derivatives of the covariant derivative  \*StyleBox[\"cd\", \"TI\"] .\), \
+DisplayForm]\)"; 
 ExtraRules::usage = "ExtraRules is an option for ToBackground, \
 PerturbBackground, and ExpandBackground that can be used to specify \
 backgrounds values of tensors."; 
@@ -366,16 +372,23 @@ curvature tensors of the metric  \*StyleBox[\"g\", \"TI\"]\(\(\\ in \
 \"TI\"]] only simplifies curvature tensors of the metric  \*StyleBox[\"g\", \
 \"TI\"]\(\(\\ up to the \)\)\*StyleBox[\"l\", \"TI\"] th step in  \
 \*StyleBox[\"expr.\", \"TI\"]\), DisplayForm]\)"; 
+RiemannToSymRiemann::usage = "\!\(\*TagBox[\(RiemannToSymRiemann[ \
+\*StyleBox[\"expr\", \"TI\"]] converts all Riemann tensors to symmetrized \
+Riemann tensors. \[LineSeparator] RiemannToSymRiemann[ \*StyleBox[\"expr\", \
+\"TI\"], \*StyleBox[\"cd\", \"TI\"]] only converts Riemann tensors of the \
+covariant derivative  \*StyleBox[\"cd\", \"TI\"] .\), DisplayForm]\)"; 
 RiemannYoungProject::usage = "\!\(\*TagBox[\(RiemannYoungProject[ \
-\*StyleBox[\"expr\", \"TI\"]] projects all Riemann tensors and their first \
-derivatives in  \*StyleBox[\"expr\", \"TI\"]\(\(\\ onto their Young tableaux. \
-\)\)\[LineSeparator] RiemannYoungProject[ \*StyleBox[\"expr\", \"TI\"],  \
-\*StyleBox[\"cd\", \"TI\"]] only projects Riemann tensors of the covariant \
-derivative  \*StyleBox[\"cd\", \"TI\"] .\), DisplayForm]\)"; 
+\*StyleBox[\"expr\", \"TI\"]] projects all Riemann, Weyl, and symmetrized \
+Riemann tensors and their first derivatives in  \*StyleBox[\"expr\", \
+\"TI\"]\(\(\\ onto their respective Young tableaux. \)\)\[LineSeparator] \
+RiemannYoungProject[ \*StyleBox[\"expr\", \"TI\"],  \*StyleBox[\"cd\", \
+\"TI\"]] only projects curvature tensors of the covariant derivative  \
+\*StyleBox[\"cd\", \"TI\"] .\), DisplayForm]\)"; 
 RiemannYoungRule::usage = "\!\(\*TagBox[\(RiemannYoungRule[ \
-\*StyleBox[\"cd\", \"TI\"]] gives the projection rules for the Riemann tensor \
-of the covariant derivative  \*StyleBox[\"cd\", \"TI\"]\(\(\\ onto its Young \
-tableau.\)\)\), DisplayForm]\)"; 
+\*StyleBox[\"cd\", \"TI\"]] gives the projection rules for the Riemann \
+tensor, the Weyl tensor, the symmetrized Riemann tensor, and their first \
+derivatives of the covariant derivative  \*StyleBox[\"cd\", \"TI\"]\(\(\\ \
+onto their respective Young tableaux.\)\)\), DisplayForm]\)"; 
 SchoutenCC::usage = "\!\(\*TagBox[\(SchoutenCC is a reserved word in  \
 \*StyleBox[\"xTras\", Rule[FontSlant, \"Italic\"]] . It is used to generate \
 the name of the cosmological Schouten curvature tensor associated to a \
@@ -446,13 +459,35 @@ checks the covariant derivative  \*StyleBox[\"cd\", \"TI\"] .\), \
 DisplayForm]\)"; 
 SortMethod::usage = "SortMethod is an option for SolveTensors that determines \
 which tensors get solved first."; 
+SymCovDQ::usage = "\!\(\*TagBox[\(SymCovDQ[ \*StyleBox[\"cd\", \"TI\"]] gives \
+True if  \*StyleBox[\"cd\", \"TI\"]\(\(\\ has been defined as a symmetrizable \
+covariant derivative, and False otherwise.\)\)\[LineSeparator] SymCovDQ is \
+also an option for  \*Cell[BoxData[\"DefCovD\"], \"InlineFormula\", \
+Rule[FormatType, \"StandardForm\"]]\(\(\\ specifying whether the derivative \
+to be defined is symmetrizable or not.\)\)\), DisplayForm]\)"; 
 SymmetricSpaceRules::usage = "\!\(\*TagBox[\(SymmetricSpaceRules[ \
 \*StyleBox[\"cd\", \"TI\"], \*StyleBox[\"K\", \"TI\"]] produces replacement \
 rules for the curvature tensors of the covariant derivative  \
 \*StyleBox[\"cd\", \"TI\"]\(\(\\ on a symmetric space of constant curvature \
 \)\)\*StyleBox[\"K\", \"TI\"] .\), DisplayForm]\)"; 
+SymmetrizeCovDs::usage = "\!\(\*TagBox[\(SymmetrizeCovDs[ \
+\*StyleBox[\"expr\", \"TI\"]] symmetrizes all symmetrizable covariant \
+derivatives in  \*StyleBox[\"expr. \", \"TI\"] \[LineSeparator] \
+SymmetrizeCovDs[ \*StyleBox[\"expr\", \"TI\"],  \*StyleBox[\"cd\", \"TI\"]] \
+only symmetrizes the covariant derivative  \*StyleBox[\"cd.\", \"TI\"]\), \
+DisplayForm]\)"; 
 SymmetrizeMethod::usage = "SymmetrizeMethod is an option for AllContractions \
 that specifies how it should symmetrize the free indices."; 
+SymRiemann::usage = "\!\(\*TagBox[\(SymRiemann is a reserved word in  \
+\*StyleBox[\"xTras\", Rule[FontSlant, \"Italic\"]] . It is used to generate \
+the name of the symmetrized Riemann curvature tensor associated to a \
+connection acting on a tangent bundle.\), DisplayForm]\)"; 
+SymRiemannToRiemann::usage = "\!\(\*TagBox[\(SymRiemannToRiemann[ \
+\*StyleBox[\"expr\", \"TI\"]] converts all symmetrized Riemann tensors to \
+Riemann tensors. \[LineSeparator] SymRiemannToRiemann[ \*StyleBox[\"expr\", \
+\"TI\"], \*StyleBox[\"cd\", \"TI\"]] only converts symmetrized Riemann \
+tensors of the covariant derivative  \*StyleBox[\"cd\", \"TI\"] .\), \
+DisplayForm]\)"; 
 TableauDimension::usage = "\!\(\*TagBox[\(TableauDimension[ \
 \*StyleBox[\"tab\", \"TI\"]] gives the dimension of the Young diagram \
 associated to the Young tableau  \*StyleBox[\"tab\", \"TI\"] .\), \
@@ -493,6 +528,12 @@ ToRicci::usage = "\!\(\*TagBox[\(ToRicci[ \*StyleBox[\"expr\", \"TI\"]] \
 converts all curvature tensors of rank two in  \*StyleBox[\"expr\", \
 \"TI\"]\(\(\\ to Ricci tensors and scalars. \)\)\[LineSeparator] ToRicci[ \
 \*StyleBox[\"expr\", \"TI\"],  \*StyleBox[\"cd\", \"TI\"]] converts only for \
+curvature tensors of the covariant derivative  \*StyleBox[\"cd\", \"TI\"] \
+.\), DisplayForm]\)"; 
+ToRiemann::usage = "\!\(\*TagBox[\(ToRiemann[ \*StyleBox[\"expr\", \"TI\"]] \
+converts Weyl tensors, symmetrized Riemann tensors, and gradients of \
+Christoffel symbols to Riemann tensors. \[LineSeparator] ToRiemann[ \
+\*StyleBox[\"expr\", \"TI\"],  \*StyleBox[\"cd\", \"TI\"]] only converts \
 curvature tensors of the covariant derivative  \*StyleBox[\"cd\", \"TI\"] \
 .\), DisplayForm]\)"; 
 UncontractedIndices::usage = "UncontractedIndices is an option for \

@@ -1,6 +1,21 @@
 xTras changelog
 ===============
 
+v1.3.0, 2014-02-10
+------------------
+
+Big changes:
+
+  * Added functions for symmetrizing covariant derivatives (SymmetrizeCovDs and ExpandSymCovDs).
+  * Added the symmetrized Riemann tensor. 
+
+Other changes:
+
+  * Added the function ToRiemann.
+  * RiemannYoungProject only projects if the Riemann tensor has its full symmetries; otherwise it does nothing. 
+  * RiemannYoungProject also projects Weyl and symmetrized Riemann tensors.
+  * TableauSymmetric now inherits the value of its option ManifestSymmetry from YoungSymmetrize.
+
 v1.2.3, 2013-11-22
 ------------------
 

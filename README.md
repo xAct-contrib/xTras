@@ -9,6 +9,7 @@ Some of the extra functionality it brings is:
 * Generating a list of all contractions of a given tensorial expression.
 * Generating lists of dimensional dependent identities (e.g. the vanishing of the Weyl tensor in D=3).
 * Making any tensorial expression traceless.
+* Symmetrizing covariant derivatives.
 * Computing equations of motion of monomials of Riemann tensors.
 * Perturbations around AdS spaces.
 * Killing vectors.
