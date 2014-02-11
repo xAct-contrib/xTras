@@ -981,17 +981,17 @@ Test[
 ]
 
 Test[
-	Perturbation[CD[d]@CD[a,b]@T1[c]]
+	ToCanonical @ ExpandPerturbation @ Perturbation[CD[d]@CD[a,b]@T1[c] - 1/2 CD[d][ CD[a]@CD[b]@T1[c] + CD[b]@CD[a]@T1[c] ] ]
 	,
-	(Perturbation[CD[d][CD[a][CD[b][T1[c]]]]] + Perturbation[CD[d][CD[b][CD[a][T1[c]]]]])/2
+	0
 	,
 	TestID->"xTensor-20140206-J5E7S1"
 ]
 
 Test[
-	Perturbation[CD[a,b]@RicciScalarCD[]]
+	ToCanonical @ ExpandPerturbation @ Perturbation[CD[a,b]@RicciScalarCD[] - 1/2 (CD[a]@CD[b]@RicciScalarCD[] + CD[b]@CD[a]@RicciScalarCD[]) ]
 	,
-	(Perturbation[CD[a][CD[b][RicciScalarCD[]]]] + Perturbation[CD[b][CD[a][RicciScalarCD[]]]])/2
+	0
 	,
 	TestID->"xTensor-20140206-M2P0X3"
 ]

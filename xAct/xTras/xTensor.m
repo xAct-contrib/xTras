@@ -177,6 +177,10 @@ symmetrized covariant derivatives by commuting them. \
 SymmetrizeCovDs[expr, cd] only convert the covariant derivative cd.";
 
 
+$SymmetrizeCovDs::usage =
+	"$SymmetrizeCovDs is a boolean setting determining whether symmetrizable \
+covariant derivatives are automatically symmetrized or not.";
+
 (* Create RemoveConstants in the non-private context, because we need it here. *)
 RemoveConstants::usage = "bla";
 CollectTensors::usage = "bla";
@@ -923,6 +927,8 @@ CovDCommutator[expr_,{a_,b_},covd_?CovDQ] :=
 (* Generic definitions *)
 (***********************)
 
+$SymmetrizeCovDs = False;
+
 SymCovDQ[_] := False;
 
 Unprotect[delta];
@@ -981,13 +987,14 @@ ExpandSymCovDs[expr_] :=
 	Fold[ExpandSymCovDs[#1,#2]&, expr, $CovDs];
 
 (* Second argument is a symcovd: do the expansion. *) 
-ExpandSymCovDs[expr_, cd_?SymCovDQ] :=
+(* Only expand if $SymmetrizeCovDs is False in order to prevent recursion. *)
+ExpandSymCovDs[expr_, cd_?SymCovDQ] /; Not @ TrueQ @ $SymmetrizeCovDs :=
 	expr //. HoldPattern[cd[inds__][x_]] /; Length@{inds} > 1 :> Symmetrize[
 		Fold[cd[#2][#1]&, x, {inds}],
 		{inds}
 	];
 
-(* Second argument is generic: return the same expression. *)
+(* Second argument is generic or $SymmetrizeCovDs is True: return the same expression. *)
 ExpandSymCovDs[expr_, _] :=
 	expr;
 
@@ -1052,15 +1059,18 @@ SymmetrizeCovDs1[HoldPattern[cd_[inds1__][cd_[inds2__][x_]]]] /; Length@{inds1} 
 Unprotect[ChangeCovD];
 
 ChangeCovD[expr_, covd_?CovDQ, covd2_:PD] :=
-	If[
-		xAct`xTensor`Private`CompatibleCovDsQ[covd,covd2]
-		,
-		xAct`xTensor`Private`changeCovD[
-			ExpandSymCovDs[expr,covd],
-			covd,covd2,xAct`xTensor`Private`Identity1,Identity
+	Block[
+		{$SymmetrizeCovDs = False},
+		If[
+			xAct`xTensor`Private`CompatibleCovDsQ[covd,covd2]
+			,
+			xAct`xTensor`Private`changeCovD[
+				ExpandSymCovDs[expr,covd],
+				covd,covd2,xAct`xTensor`Private`Identity1,Identity
+			]
+			,
+			expr
 		]
-		,
-		expr
 	];
 
 Protect[ChangeCovD];
@@ -1105,17 +1115,15 @@ VarD[tensor_,covd_][covd_?SymCovDQ[inds__][expr_],rest_] :=
 (*
  *  We simply expand any symmetric covds inside Perturbations. 
  *  This is the simplest approach, but not the most efficient. 
- *  Ideally Perturbation should not expand symcovds; only 
- *  xAct`xPert`ExpandPerturbationDer should.
  *  TODO: make this more efficient.
  *)
 
-Unprotect[Perturbation];
 
-HoldPattern[Perturbation[p_,n_.]] /; !FreeQ[p, _?SymCovDQ[inds__][_]/;Length@{inds}>1] := 
-	Perturbation[ExpandSymCovDs[p],n]
-
-Protect[Perturbation];
+xAct`xPert`Private`ExpandPerturbation1[Perturbation[p_,n_.],options___] /; !FreeQ[p,_?SymCovDQ[inds__][_]/;Length@{inds}>1] :=
+	Block[
+		{$SymmetrizeCovDs=False},
+		ExpandPerturbation[Perturbation[ExpandSymCovDs[p] ,n], options]
+	];
 
 
 (****************)
@@ -1222,6 +1230,13 @@ xTrasDefSymCovD[covd_[ind_], vbundles_, options___?OptionQ] := With[
 						HoldPattern[cd[__][metric[_?tbpmQ,_?tbpmQ]]] := 0;	
 					]
 				];
+				
+				(* Automatic symmetrization. *)
+				HoldPattern[cd[x__][cd[y__][z_]]] /; TrueQ @ $SymmetrizeCovDs :=
+					Block[
+						{$SymmetrizeCovDs = False},
+						SymmetrizeCovDs[cd[x]@cd[y]@z]
+					];
 			]
 		]
 	]
