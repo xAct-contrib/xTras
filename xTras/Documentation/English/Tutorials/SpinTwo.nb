@@ -1211,11 +1211,10 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"Solve", "::", "svars"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Equations may not give solutions for all \\\"solve\\\" \
-variables. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
+   RowBox[{"Solve", "::", "svars"}], "MessageName"], ":", 
+  " ", "\<\"Equations may not give solutions for all \\\"solve\\\" variables. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
 ButtonNote -> \\\"Solve::svars\\\"]\\)\"\>"}]], "Message", "MSG",
  CellChangeTimes->{3.581921694734934*^9, 3.585634683499495*^9},
  CellLabel->"During evaluation of In[14]:=",
@@ -2758,11 +2757,10 @@ Cell[BoxData[
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"Solve", "::", "svars"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Equations may not give solutions for all \\\"solve\\\" \
-variables. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\
-\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
+   RowBox[{"Solve", "::", "svars"}], "MessageName"], ":", 
+  " ", "\<\"Equations may not give solutions for all \\\"solve\\\" variables. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Solve/svars\\\", \
 ButtonNote -> \\\"Solve::svars\\\"]\\)\"\>"}]], "Message", "MSG",
  CellChangeTimes->{3.581923948642036*^9, 3.5856347031910048`*^9},
  CellLabel->"During evaluation of In[20]:=",
@@ -3465,9 +3463,11 @@ Cell[BoxData[
 }, Open  ]]
 }, Open  ]],
 
-Cell["These are precisely the linearized Eintein equations.", "Text",
+Cell["\<\
+These are precisely the linearized Einstein equations.\
+\>", "Text",
  CellChangeTimes->{{3.581924050206996*^9, 3.581924103359702*^9}, 
-   3.581924148783894*^9},
+   3.581924148783894*^9, 3.6014888719371977`*^9},
  CellID->1901833935]
 }, Open  ]],
 
