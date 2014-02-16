@@ -176,10 +176,15 @@ SymmetrizeCovDs::usage =
 symmetrized covariant derivatives by commuting them. \
 SymmetrizeCovDs[expr, cd] only convert the covariant derivative cd.";
 
-
 $SymmetrizeCovDs::usage =
 	"$SymmetrizeCovDs is a boolean setting determining whether symmetrizable \
 covariant derivatives are automatically symmetrized or not.";
+
+$SymCovDCache::usage =
+	"$SymCovDCache stores rules for symmetrizing covariant derivatives.";
+
+ClearSymCovDCache::usage =
+	"ClearSymCovDCache clear the cache of SymmetrizeCovDs by setting $SymCovDCache to {}.";
 
 (* Create RemoveConstants in the non-private context, because we need it here. *)
 RemoveConstants::usage = "bla";
@@ -1009,11 +1014,59 @@ SymmetrizeCovDs[expr_] :=
 
 (* Second argument is a symcovd: symmetrize. *) 
 SymmetrizeCovDs[expr_, cd_?SymCovDQ] :=
-	expr //. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDs1[p];
+	expr /. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDsReplace[p, cd];
 
 (* Second argument is generic: return the same expression. *)
 SymmetrizeCovDs[expr_, _] :=
 	expr;
+
+SetAttributes[SymmetrizeCovDs, HoldFirst];
+
+(* Because symmetric imploding is a time consuming process (mainly because it is
+   recurvise), we use caching to speed things up. This is done by storing 
+   symmetric implosions as replacement rules in the list $SymImplodedRules.*)
+ClearSymCovDCache[] :=
+	(
+		Unprotect @ $SymCovDCache;
+		$SymCovDCache = {};
+		Protect @ $SymCovDCache;
+	);
+ClearSymCovDCache[]
+
+
+(* If there are already rules for expr, return the replaced. 
+   It is important to only replace if the full expression matches any of the 
+   stored rules. Because of the recursive nature of symmetric imploding, 
+   we don't want to replace partial matches. 
+   Note that ReplaceAll first tries to replace the whole expression and then 
+   moves to subexpressions, so we don't need to take precautions to prevent 
+   replacing subexpressions if one of the rules already matches the whole 
+   expression. *)
+SymmetrizeCovDsReplace[expr_, cd_] /; MatchQ[expr, Alternatives@@First /@ $SymCovDCache] := 
+	expr /. $SymCovDCache;
+
+(* If there are no previously compute rules, compute the imploded expression. *)
+SymmetrizeCovDsReplace[expr_, cd_] := 
+	Module[
+		{
+			symmetrized = ToCanonical @ ContractMetric @ SymmetrizeCovDs1[expr, cd]
+		}
+		,
+		(* Make rules and save them. *)
+		Unprotect @ $SymCovDCache;
+		$SymCovDCache = Union[
+			$SymCovDCache,
+			MakeRule[Evaluate@{expr,symmetrized},MetricOn->All,UseSymmetries->False]
+		];
+		Protect@$SymCovDCache;
+		(* Return. *)
+		symmetrized
+	];
+
+
+SymmetrizeCovDs1[expr_, cd_] :=
+	expr //. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDs2[p];
+
 
 (* Helper function *)
 CommutatorOperator[cd_, sign:(1|-1)][inds___, b_][expr_] :=
@@ -1033,15 +1086,15 @@ CommutatorOperator[cd_, sign:(1|-1)][inds___, b_][expr_] :=
 (* Worker function *)
 
 (* Eating one derivative from the left. *)
-SymmetrizeCovDs1[HoldPattern[cd_[b_][cd_[inds__][expr_]]]] :=
+SymmetrizeCovDs2[HoldPattern[cd_[b_][cd_[inds__][expr_]]]] :=
 	cd[inds,b][expr] - CommutatorOperator[cd,-1][inds,b][expr];
 
 (* Eating one derivative from the right. *)
-SymmetrizeCovDs1[HoldPattern[cd_[inds__][cd_[b_][expr_]]]] :=
+SymmetrizeCovDs2[HoldPattern[cd_[inds__][cd_[b_][expr_]]]] :=
 	cd[inds,b][expr] - CommutatorOperator[cd,1][inds,b][expr];
 
 (* General case: do a recursion. *)
-SymmetrizeCovDs1[HoldPattern[cd_[inds1__][cd_[inds2__][x_]]]] /; Length@{inds1} > 1 && Length@{inds2} > 1 :=
+SymmetrizeCovDs2[HoldPattern[cd_[inds1__][cd_[inds2__][x_]]]] /; Length@{inds1} > 1 && Length@{inds2} > 1 :=
 	PartitionedSymmetrize[cd[#1]@SymmetrizeCovDs[cd[#2]@cd[inds2]@x,cd]&,{inds1},{Length@{inds1}-1,1}];
 
 
