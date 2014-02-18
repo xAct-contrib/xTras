@@ -902,17 +902,28 @@ UnorderedPartitionedPermutations[{},{}]:=
 Protect[UnorderedPartitionedPermutations];
 
 
-PartitionedSymmetrize[f_Function,indices:(List|IndexList)[___],partition:{___Integer}] /; Total@partition === Length@indices :=
-	With[
-		{
-			fseq = f /. s_Slot :> Sequence@@s
-		}
-		,
-		Times@@(partition!)/Total[partition]!  Total[
-			fseq@@#& /@ UnorderedPartitionedPermutations[indices, partition]
+(* This helper function comes from http://forums.wolfram.com/mathgroup/archive/1992/Nov/msg00096.html *)
+PartitionByPartition[list_, {integers__Integer}] := 
+	Map[
+		Take[list, #] &,
+		Most @ Transpose @ {# + 1, RotateLeft[#]} & @ Accumulate @ {0, integers}
+	];
+
+PartitionedSymmetrize[f_Function, indices:(List|IndexList)[___], partition:{___Integer}] /; Total@partition === Length@indices :=
+	PartitionedSymmetrize[
+		f @@ PartitionByPartition[indices, partition],
+		indices,
+		partition
+	];
+
+PartitionedSymmetrize[expr_, indices:(List|IndexList)[___], partition:{___Integer}] /; Total@partition === Length@indices :=
+	Times@@(partition!) / Total[partition]! Total[
+		ReplaceIndex[
+			expr,
+			Thread[indices -> Flatten@#]& /@ UnorderedPartitionedPermutations[indices, partition]
 		]
 	];
-	
+
 
 (* 
  *  CovDCommutator is a helper function that defines the commutator. 
@@ -1068,35 +1079,160 @@ SymmetrizeCovDs1[expr_, cd_] :=
 	expr //. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDs2[p];
 
 
-(* Helper function *)
-CommutatorOperator[cd_, sign:(1|-1)][inds___, b_][expr_] :=
-	Module[
-		{
-			n 		= Length@{inds},
-			deltam 	= sign UnitStep[-sign],
-			i
-		},
-		Sum[
-			(deltam + i / (n+1)) * PartitionedSymmetrize[cd[#1]@CovDCommutator[cd[#3]@expr,{b,#2},cd]&,{inds},{i-1,1,n-i}]
-			,
-			{i,1,n}
-		]
-	];
-
 (* Worker function *)
 
 (* Eating one derivative from the left. *)
 SymmetrizeCovDs2[HoldPattern[cd_[b_][cd_[inds__][expr_]]]] :=
-	cd[inds,b][expr] - CommutatorOperator[cd,-1][inds,b][expr];
+	cd[inds,b][expr] - CommutatorOperator[cd,(-1+#1/(#2+1))&][inds,b][expr];
 
 (* Eating one derivative from the right. *)
 SymmetrizeCovDs2[HoldPattern[cd_[inds__][cd_[b_][expr_]]]] :=
-	cd[inds,b][expr] - CommutatorOperator[cd,1][inds,b][expr];
+	cd[inds,b][expr] - CommutatorOperator[cd,(#1/(#2+1))&][inds,b][expr];
 
 (* General case: do a recursion. *)
 SymmetrizeCovDs2[HoldPattern[cd_[inds1__][cd_[inds2__][x_]]]] /; Length@{inds1} > 1 && Length@{inds2} > 1 :=
-	PartitionedSymmetrize[cd[#1]@SymmetrizeCovDs[cd[#2]@cd[inds2]@x,cd]&,{inds1},{Length@{inds1}-1,1}];
+	PartitionedSymmetrize[
+		(cd@@#1) @ SymmetrizeCovDs[ (cd@@#2) @ cd[inds2] @ x, cd] &,
+		{inds1},
+		{Length@{inds1}-1,1}
+	];
 
+
+(* Commutator operator function *)
+
+(* The special case: no torsion, a metric derivative, and only the tangent bundle. *)
+CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, a_, b_][expr_] :=
+	Module[
+		{
+			curvaturelist = addCurvatureList[expr, cd, {b,a}, All],
+			curvlist2,
+			newcoeffunction,
+			n = Length@{inds} + 1,
+			i,j,k
+		},
+		(* There are three contributions ... *)
+		Plus[
+			(* The contribution from when the commutator acts on the indices
+			   of the input expression. *)
+			Sum[
+				Sum[
+					coefffunction[j,n] Binomial[j-1,i],
+					{j,i+1,n}
+				] *
+				PartitionedSymmetrize[
+					CommutatorOperatorHelper[cd, curvaturelist, {inds}, i],
+					{inds,a},
+					{i,n-i-1,1}
+				]
+				,
+				{i,0,n-1}
+			]
+			,
+			(* The contribution from when the commutator acts on an index of 
+			   a symmetrized derivative. *)
+			Sum[
+				Sum[
+					coefffunction[j, n] (n - j) Binomial[j-1, i],
+					{j,i+1,n-1}
+				] *
+				PartitionedSymmetrize[
+					CommutatorOperatorHelper[
+						cd, 
+						addCurvatureList[(cd@@({inds}[[i+1;;-1]])) @ expr, cd, {b,a}, {Last@{inds}}], 
+						{inds}[[1;;i]], 
+						i
+					],
+					{inds,a},
+					{i,n-i-2,1,1}
+				]
+				,
+				{i,0,n-2}
+			]
+			,
+			(* And finally the contribution from when the commutator acts on an index of 
+			   a symmetrized derivative, compensated for making the derivative completely
+			   symmetric. This is the recursive part. *)
+			-1 * Sum[
+				(* First construct the new coefficient function. *)
+				newcoeffunction = With[ (* With is needed because Function (&) is HoldAll. *)
+					{inew = i},
+					Sum[
+						coefffunction[k,#2+inew+2] * (#2 + inew + 2 - k) * Binomial[k-1, inew] *
+						(
+							( #1 / (#2+1) ) - UnitStep[#2-k+inew] * ( #1 + inew - k + 1) / (#2 + inew + 2 -#1)
+						)
+						,
+						{k,inew+1,#2+inew+1}
+					]&
+				];
+				curvlist2 = First @ addCurvatureList[(cd@@({inds}[[i+1;;-1]])) @ expr, cd, {b,a}, {Last@{inds}}];
+				PartitionedSymmetrize[
+					(cd@@({inds}[[1;;i]]))[First @ curvlist2] * 
+					CommutatorOperator[
+						cd, newcoeffunction
+					][
+						Sequence@@({inds}[[i+1;;-2]]), Last @ curvlist2
+					][expr],
+					{inds,a},
+					{i,n-i-2,1,1}
+				]
+				,
+				{i,0,n-3}
+			]		
+		]
+	] /; !TorsionQ[cd] && MetricOfCovD[cd] =!= Null && VBundlesOfCovD[cd] === {VBundleOfMetric[MetricOfCovD[cd]]};
+
+
+(* Generic case. *)
+CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, b_][expr_] :=
+	Module[
+		{
+			n = Length@{inds},
+			i
+		},
+		Sum[
+			coefffunction[i,n] * PartitionedSymmetrize[
+				(cd@@#1) @ CovDCommutator[(cd@@#3) @ expr, {b,Sequence@@#2}, cd] &,
+				{inds},
+				{i-1,1,n-i}
+			]
+			,
+			{i,1,n}
+		]
+	];
+	
+(* Helper function *)
+CommutatorOperatorHelper[cd_, curvaturelist_List, indices_List, i_Integer] :=
+	Total @ Apply[
+		Times[ (cd@@(indices[[1;;i]]))[#1] , (cd@@(indices[[i+1;;-1]]))[#2] ]&,
+		curvaturelist,
+		{1}
+	];
+	
+(* addCurvatureList comes more or less straight from xTensor.nb,
+   except for the interchange of indices {a,b}->{b,a} and the list structure. *)
+addCurvatureList[expr_,covd_,{a_,b_}, onIndices_:All] := 
+	With[
+		{
+			dummy	= DummyIn @ First @ VBundlesOfCovD @ covd,
+			vbQ		= xAct`xTensor`Private`VBundleIndexQ[First @ VBundlesOfCovD @ covd],
+			curv	= Riemann[covd],
+			frees	= If[onIndices === All,
+						Select[FindFreeIndices[expr],AIndexQ],
+						onIndices
+					  ]			
+		},
+		List@@Join[
+			Map[
+				{$RiemannSign curv[b,a,-dummy,#],ReplaceIndex[expr,#->dummy], dummy}&,
+				Select[frees,vbQ]
+			],
+			Map[
+				{-$RiemannSign curv[b,a,-#,dummy],ReplaceIndex[expr,-#->-dummy], -dummy}&,
+				Select[ChangeIndex/@frees,vbQ]
+			]
+		]
+	];
 
 (**************)
 (* ChangeCovD *)
@@ -1259,7 +1395,11 @@ xTrasDefSymCovD[covd_[ind_], vbundles_, options___?OptionQ] := With[
 								i, l = Length@{inds}
 							},
 							Sum[
-								Binomial[l,i] PartitionedSymmetrize[cd[#1][x]cd[#2][y]&,{inds},{i,l-i}],
+								Binomial[l,i] PartitionedSymmetrize[
+									(cd@@#1)[x] * (cd@@#2)[y] &,
+									{inds},
+									{i,l-i}
+								],
 								{i,0,l} 
 							]
 						];

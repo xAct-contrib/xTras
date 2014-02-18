@@ -733,7 +733,7 @@ DefTensor[S3[a,b,c],M,Symmetric[{a,b,c}]];
 DefTensor[S4[a,b,c,d],M,Symmetric[{a,b,c,d}]];
 
 Test[
-	xAct`xTras`Private`PartitionedSymmetrize[S2[#1] S3[#2] &, {a, b, c, d, e}, {2, 3}] // Expand
+	xAct`xTras`Private`PartitionedSymmetrize[S2@@#1 S3@@#2 &, {a, b, c, d, e}, {2, 3}] // Expand
 	,
 	S2[a, b] S3[c, d, e] // Symmetrize // ToCanonical
 	,
@@ -741,7 +741,15 @@ Test[
 ]
 
 Test[
-	xAct`xTras`Private`PartitionedSymmetrize[T1[#1]S4[#2]&,{a,b,c,d,e},{1,4}] // Expand
+	xAct`xTras`Private`PartitionedSymmetrize[S2[a,b] S3[c,d,e], {a, b, c, d, e}, {2, 3}] // Expand
+	,
+	S2[a, b] S3[c, d, e] // Symmetrize // ToCanonical
+	,
+	TestID->"xTensor-20140217-X2S9U4"
+]
+
+Test[
+	xAct`xTras`Private`PartitionedSymmetrize[T1@@#1 S4@@#2 &, {a,b,c,d,e},{1,4}] // Expand
 	,
 	T1[a]S4[b,c,d,e]//Symmetrize//ToCanonical
 	,
@@ -749,19 +757,44 @@ Test[
 ]
 
 Test[
-	xAct`xTras`Private`PartitionedSymmetrize[S4[#1] &, {a, b, c, d}, {4}]
+	xAct`xTras`Private`PartitionedSymmetrize[T1[a]S4[b,c,d,e], {a,b,c,d,e},{1,4}] // Expand
+	,
+	T1[a]S4[b,c,d,e]//Symmetrize//ToCanonical
+	,
+	TestID->"xTensor-20140217-E2L9A4"
+]
+
+Test[
+	xAct`xTras`Private`PartitionedSymmetrize[S4@@#1 &, {a, b, c, d}, {4}]
 	,
 	S4[a,b,c,d]
 	,
 	TestID->"xTensor-20140206-I4P1F5"
 ]
 
+
 Test[
-	xAct`xTras`Private`PartitionedSymmetrize[S2[#1]T1[#2]S3[#3]&,{a,b,c,d,e,f},{2,1,3}]//Expand
+	xAct`xTras`Private`PartitionedSymmetrize[S4[a,b,c,d], {a, b, c, d}, {4}]
+	,
+	S4[a,b,c,d]
+	,
+	TestID->"xTensor-20140217-N7J1I4"
+]
+
+Test[
+	xAct`xTras`Private`PartitionedSymmetrize[S2@@#1 T1@@#2 S3@@#3 &,{a,b,c,d,e,f},{2,1,3}]//Expand
 	,
 	S2[a,b]T1[c]S3[d,e,f]//Symmetrize//ToCanonical
 	,
 	TestID->"xTensor-20140206-T8Q5S1"
+]
+
+Test[
+	xAct`xTras`Private`PartitionedSymmetrize[S2[a,b]T1[c]S3[d,e,f],{a,b,c,d,e,f},{2,1,3}]//Expand
+	,
+	S2[a,b]T1[c]S3[d,e,f]//Symmetrize//ToCanonical
+	,
+	TestID->"xTensor-20140217-N8J6U9"
 ]
 
 Test[
