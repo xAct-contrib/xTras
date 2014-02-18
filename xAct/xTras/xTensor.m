@@ -1025,7 +1025,7 @@ SymmetrizeCovDs[expr_] :=
 
 (* Second argument is a symcovd: symmetrize. *) 
 SymmetrizeCovDs[expr_, cd_?SymCovDQ] :=
-	expr /. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDsReplace[p, cd];
+	expr //. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDsReplace[p, cd];
 
 (* Second argument is generic: return the same expression. *)
 SymmetrizeCovDs[expr_, _] :=
@@ -1076,7 +1076,9 @@ SymmetrizeCovDsReplace[expr_, cd_] :=
 
 
 SymmetrizeCovDs1[expr_, cd_] :=
-	expr //. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDs2[p];
+	(* The recursion to SymmetrizeCovDs is there to ensure that any
+	   unsymmetrized derivatives get symmetrized before caching. *)
+	SymmetrizeCovDs[ SymmetrizeCovDs2[expr], cd];
 
 
 (* Worker function *)
