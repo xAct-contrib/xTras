@@ -1110,7 +1110,7 @@ CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, a_, b_][expr_] :=
 			curvlist2,
 			newcoeffunction,
 			n = Length@{inds} + 1,
-			i,j,k
+			i,j
 		},
 		(* There are three contributions ... *)
 		Plus[
@@ -1151,21 +1151,26 @@ CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, a_, b_][expr_] :=
 				{i,0,n-2}
 			]
 			,
-			(* And finally the contribution from when the commutator acts on an index of 
-			   a symmetrized derivative, compensated for making the derivative completely
-			   symmetric. This is the recursive part. *)
+			(* And finally the recursive part: the contribution from when the 
+			   commutator acts on an index of a symmetrized derivative, 
+			   compensated for making the derivative completely symmetric. *)
 			-1 * Sum[
 				(* First construct the new coefficient function. *)
-				newcoeffunction = With[ (* With is needed because Function (&) is HoldAll. *)
-					{inew = i},
-					Sum[
-						coefffunction[k,#2+inew+2] * (#2 + inew + 2 - k) * Binomial[k-1, inew] *
-						(
-							( #1 / (#2+1) ) - UnitStep[#2-k+inew] * ( #1 + inew - k + 1) / (#2 + inew + 2 -#1)
-						)
-						,
-						{k,inew+1,#2+inew+1}
-					]&
+				newcoeffunction = With[ (* "With" is needed because Function (&) is HoldAll. *)
+					{
+						inew = i,
+						nnew = n
+					},
+					Module[{k},
+						Sum[
+							coefffunction[k,nnew] * (nnew - k) * Binomial[k-1, inew] *
+							(
+								( #1 / (nnew - inew - 1) ) - UnitStep[#1 - k + inew] * ( #1 + inew - k + 1) / (nnew - k)
+							)
+							,
+							{k,inew+1,nnew -1}
+						]&
+					]
 				];
 				curvlist2 = First @ addCurvatureList[(cd@@({inds}[[i+1;;-1]])) @ expr, cd, {b,a}, {Last@{inds}}];
 				PartitionedSymmetrize[
