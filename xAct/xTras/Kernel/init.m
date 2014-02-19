@@ -20,7 +20,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = {"1.3.0", {2014, 2, 10}};
+xAct`xTras`$Version = {"1.3.0.1", {2014, 2, 13}};
 xAct`xTras`$xTensorVersionExpected = {"1.0.5", {2013, 1, 27}};
 xAct`xTras`$SymManipulatorVersionExpected = {"0.8.5", {2013, 4, 13}};
 xAct`xTras`$MathematicaVersionNeeded = 6.;
@@ -96,7 +96,9 @@ Get["xAct`xTras`xCoba`"];
 Get["xAct`xTras`Algebra`"];
 Get["xAct`xTras`Combinatorics`"];
 
-(* Load fancy usage messages. *)
+(* Load fancy usage messages. 
+   These need to be loaded last because they overwrite plain usage messages
+   defined in the files loaded above. *)
 Get["xAct`xTras`Interface`"];
 
 Begin["`Private`"]

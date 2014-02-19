@@ -176,8 +176,8 @@ SymmetrizeCovDs::usage =
 symmetrized covariant derivatives by commuting them. \
 SymmetrizeCovDs[expr, cd] only convert the covariant derivative cd.";
 
-$SymmetrizeCovDs::usage =
-	"$SymmetrizeCovDs is a boolean setting determining whether symmetrizable \
+$AutoSymmetrizeCovDs::usage =
+	"$AutoSymmetrizeCovDs is a boolean setting determining whether symmetrizable \
 covariant derivatives are automatically symmetrized or not.";
 
 $SymCovDCache::usage =
@@ -865,7 +865,6 @@ GradChristoffelToRiemannRules[cd_?CurvatureQ] :=
  *  additional applications.
  *)
 
-ClearAll[UnorderedPartitionedPermutations];
 
 UnorderedPartitionedPermutations::usage =
 	"UnorderedPartitionedPermutations[list, partition] gives all permutations of \
@@ -899,7 +898,6 @@ UnorderedPartitionedPermutations[set_List,partition:{i1_Integer}] /; Total@parti
 UnorderedPartitionedPermutations[{},{}]:=
 	{};
 
-Protect[UnorderedPartitionedPermutations];
 
 
 (* This helper function comes from http://forums.wolfram.com/mathgroup/archive/1992/Nov/msg00096.html *)
@@ -943,7 +941,7 @@ CovDCommutator[expr_,{a_,b_},covd_?CovDQ] :=
 (* Generic definitions *)
 (***********************)
 
-$SymmetrizeCovDs = False;
+$AutoSymmetrizeCovDs = False;
 
 SymCovDQ[_] := False;
 
@@ -1003,14 +1001,14 @@ ExpandSymCovDs[expr_] :=
 	Fold[ExpandSymCovDs[#1,#2]&, expr, $CovDs];
 
 (* Second argument is a symcovd: do the expansion. *) 
-(* Only expand if $SymmetrizeCovDs is False in order to prevent recursion. *)
-ExpandSymCovDs[expr_, cd_?SymCovDQ] /; Not @ TrueQ @ $SymmetrizeCovDs :=
+(* Only expand if $AutoSymmetrizeCovDs is False in order to prevent infinite recursion. *)
+ExpandSymCovDs[expr_, cd_?SymCovDQ] /; Not @ TrueQ @ $AutoSymmetrizeCovDs :=
 	expr //. HoldPattern[cd[inds__][x_]] /; Length@{inds} > 1 :> Symmetrize[
 		Fold[cd[#2][#1]&, x, {inds}],
 		{inds}
 	];
 
-(* Second argument is generic or $SymmetrizeCovDs is True: return the same expression. *)
+(* Second argument is generic or $AutoSymmetrizeCovDs is True: return the same expression. *)
 ExpandSymCovDs[expr_, _] :=
 	expr;
 
@@ -1019,16 +1017,27 @@ ExpandSymCovDs[expr_, _] :=
 (* Symmetrizing *)
 (****************)
 
+Options[SymmetrizeCovDs] ^=
+	{
+		"UseCache" -> True
+	};
+
 (* No second argument: fold over $CovDs. *)
-SymmetrizeCovDs[expr_] :=
-	Fold[SymmetrizeCovDs[#1,#2]&, expr, $CovDs];
+SymmetrizeCovDs[expr_, options___?OptionQ] :=
+	Fold[SymmetrizeCovDs[#1, #2, options]&, expr, $CovDs];
 
 (* Second argument is a symcovd: symmetrize. *) 
-SymmetrizeCovDs[expr_, cd_?SymCovDQ] :=
-	expr //. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDsReplace[p, cd];
+SymmetrizeCovDs[expr_, cd_?SymCovDQ, options___?OptionQ] :=
+	If[
+		TrueQ [ "UseCache" /. CheckOptions[options] /. Options[SymmetrizeCovDs] ]
+		,
+		expr //. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDsReplace[p, cd]
+		,
+		expr //. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDs2[p]
+	];
 
 (* Second argument is generic: return the same expression. *)
-SymmetrizeCovDs[expr_, _] :=
+SymmetrizeCovDs[expr_, _, options___?OptionQ] :=
 	expr;
 
 SetAttributes[SymmetrizeCovDs, HoldFirst];
@@ -1056,7 +1065,7 @@ ClearSymCovDCache[]
 SymmetrizeCovDsReplace[expr_, cd_] /; MatchQ[expr, Alternatives@@First /@ $SymCovDCache] := 
 	expr /. $SymCovDCache;
 
-(* If there are no previously compute rules, compute the imploded expression. *)
+(* If there are no previously computed rules, compute the imploded expression. *)
 SymmetrizeCovDsReplace[expr_, cd_] := 
 	Module[
 		{
@@ -1161,7 +1170,7 @@ CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, a_, b_][expr_] :=
 						inew = i,
 						nnew = n
 					},
-					Module[{k},
+					Module[{k}, (* Question: do we need Module to make k unique in each summand, or is it overkill? *)
 						Sum[
 							coefffunction[k,nnew] * (nnew - k) * Binomial[k-1, inew] *
 							(
@@ -1190,7 +1199,7 @@ CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, a_, b_][expr_] :=
 	] /; !TorsionQ[cd] && MetricOfCovD[cd] =!= Null && VBundlesOfCovD[cd] === {VBundleOfMetric[MetricOfCovD[cd]]};
 
 
-(* Generic case. *)
+(* Generic case. Much simpler, but much slower. *)
 CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, b_][expr_] :=
 	Module[
 		{
@@ -1256,7 +1265,7 @@ Unprotect[ChangeCovD];
 
 ChangeCovD[expr_, covd_?CovDQ, covd2_:PD] :=
 	Block[
-		{$SymmetrizeCovDs = False},
+		{$AutoSymmetrizeCovDs = False},
 		If[
 			xAct`xTensor`Private`CompatibleCovDsQ[covd,covd2]
 			,
@@ -1317,7 +1326,7 @@ VarD[tensor_,covd_][covd_?SymCovDQ[inds__][expr_],rest_] :=
 
 xAct`xPert`Private`ExpandPerturbation1[Perturbation[p_,n_.],options___] /; !FreeQ[p,_?SymCovDQ[inds__][_]/;Length@{inds}>1] :=
 	Block[
-		{$SymmetrizeCovDs=False},
+		{$AutoSymmetrizeCovDs=False},
 		ExpandPerturbation[Perturbation[ExpandSymCovDs[p] ,n], options]
 	];
 
@@ -1432,9 +1441,9 @@ xTrasDefSymCovD[covd_[ind_], vbundles_, options___?OptionQ] := With[
 				];
 				
 				(* Automatic symmetrization. *)
-				HoldPattern[cd[x__][cd[y__][z_]]] /; TrueQ @ $SymmetrizeCovDs :=
+				HoldPattern[cd[x__][cd[y__][z_]]] /; TrueQ @ $AutoSymmetrizeCovDs :=
 					Block[
-						{$SymmetrizeCovDs = False},
+						{$AutoSymmetrizeCovDs = False},
 						SymmetrizeCovDs[cd[x]@cd[y]@z]
 					];
 			]
