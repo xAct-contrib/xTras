@@ -311,7 +311,7 @@ CollectConstants[expr_,Optional[notvars:!(_List|_Symbol)], options___?OptionQ] :
 	CollectConstants[
 		expr,
 		Complement[
-			Union@Cases[expr, _Symbol?ConstantSymbolQ, {0,Infinity}, Heads->True],
+			ConstantSymbolsOf[expr],
 			Flatten[{!notvars}]
 		],
 		options
@@ -363,11 +363,7 @@ SolveConstants[expr_,Optional[notvars:!(_List|_Symbol)]] :=
 	Solve[
 		expr /. HoldPattern[equation_Equal] :> ToConstantSymbolEquations[equation],
 		Complement[
-			(* Get all constant symbols, and select the non-numeric ones (we don't want things like Pi) *)
-			Select[
-				Union@Cases[expr, _Symbol?ConstantSymbolQ, {0,Infinity}, Heads->True],
-				!NumericQ[#]&
-			],
+			ConstantSymbolsOf[expr],
 			Flatten[{!notvars}]
 		]
 	];

@@ -1,3 +1,6 @@
+ConstantSymbolsOf::usage =
+	"ConstantSymbolsOf[expr] returns a list of all non-numeric constant symbols in expr.";
+
 DefNiceConstantSymbol::usage =
 	"DefNiceConstantSymbol[ head[i1,-i2,...] ] defines the constant symbol headi1i2 \
 that prints as head^i1_i2.";
@@ -203,6 +206,13 @@ Begin["`Private`"]
 ConstantExprQ[(Plus | Times | _?ScalarFunctionQ)[args__]] := And @@ Map[ConstantExprQ, List@args];
 ConstantExprQ[x_] := ConstantQ[x];
 
+
+ConstantSymbolsOf[expr_] := 
+	(* Get all constant symbols, and select the non-numeric ones (we don't want things like Pi) *)
+	Select[
+		Union@Cases[expr, _Symbol?ConstantSymbolQ, {0,Infinity}, Heads->True],
+		!NumericQ[#]&
+	]
 
 DefNiceConstantSymbol[ symbol_ ] := 
 	DefNiceConstantSymbol[ symbol, {}, {} ];
