@@ -1,7 +1,7 @@
 Notebook[{
 Cell[TextData[{
  "New in: ",
- Cell["1.2.0", "HistoryData",
+ Cell["1.3.1", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
  Cell[" ", "HistoryData",
@@ -13,8 +13,7 @@ Cell[TextData[{
  Cell[" ", "HistoryData",
   CellTags->"Excised"]
 }], "History",
- CellChangeTimes->{{3.580381411529636*^9, 3.580381413325136*^9}, {
-  3.583731620251215*^9, 3.583731621607935*^9}},
+ CellChangeTimes->{{3.6018773478482924`*^9, 3.601877349202208*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -26,17 +25,16 @@ Cell["Symbol", "Categorization",
  CellLabel->"Entity Type",
  CellID->686433507],
 
-Cell["xTras Package", "Categorization",
+Cell["xTras", "Categorization",
  CellLabel->"Paclet Name",
- CellID->1001335407],
+ CellID->605800465],
 
 Cell["xTras`", "Categorization",
  CellLabel->"Context",
- CellID->1762327557],
+ CellID->468444828],
 
-Cell["xTras/ref/DefNiceConstantSymbol", "Categorization",
- CellLabel->"URI",
- CellID->1344791075]
+Cell["xTras/ref/$AutoSymmetrizeCovDs", "Categorization",
+ CellLabel->"URI"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -114,106 +112,18 @@ Cell["XXXX", "Details",
 
 Cell[CellGroupData[{
 
-Cell["DefNiceConstantSymbol", "ObjectName",
+Cell["$AutoSymmetrizeCovDs", "ObjectName",
  CellID->1224892054],
 
 Cell[TextData[{
  Cell["   ", "ModInfo"],
- Cell[BoxData[
-  RowBox[{"DefNiceConstantSymbol", "[", 
-   RowBox[{
-    StyleBox["c", "TI"], ",", " ", 
-    StyleBox["i", "TI"]}], "]"}]], "InlineFormula"],
- "\[LineSeparator]defines the constant symbol ",
- Cell[BoxData["ci"], "InlineFormula"],
- " that prints as ",
- Cell[BoxData[
-  FormBox[
-   SubscriptBox["c", "i"], TraditionalForm]], "InlineMath"],
- ".\n",
- Cell["   ", "ModInfo"],
- Cell[BoxData[
-  RowBox[{"DefNiceConstantSymbol", "[", 
-   RowBox[{
-    StyleBox["c", "TI"], ",", " ", 
-    StyleBox["i", "TI"], 
-    StyleBox[",", "TI"], 
-    StyleBox[" ", "TI"], 
-    StyleBox["j", "TI"]}], "]"}]], "InlineFormula"],
- "\[LineSeparator]defines the constant symbol ",
- Cell[BoxData["cij"], "InlineFormula"],
- " that prints as ",
- Cell[BoxData[
-  FormBox[
-   SubsuperscriptBox["c", "i", "j"], TraditionalForm]], "InlineMath"],
- ".\n",
- Cell["   ", "ModInfo"],
- Cell[BoxData[
-  RowBox[{"DefNiceConstantSymbol", "[", 
-   RowBox[{
-    StyleBox["c", "TI"], ",", " ", 
-    RowBox[{"{", 
-     RowBox[{
-      SubscriptBox[
-       StyleBox["i", "TI"], "1"], 
-      StyleBox[",", "TI"], 
-      StyleBox[" ", "TI"], 
-      SubscriptBox[
-       StyleBox["i", "TI"], "2"], 
-      StyleBox[",", "TI"], 
-      StyleBox["...", "TI"]}], "}"}]}], "]"}]], "InlineFormula"],
- "\[LineSeparator]defines the constant symbol ",
- Cell[BoxData["ci1i2"], "InlineFormula"],
- " that prints as ",
- Cell[BoxData[
-  FormBox[
-   SubscriptBox["c", 
-    RowBox[{
-     SubscriptBox["i", "1"], 
-     SubscriptBox["i", "2"]}]], TraditionalForm]], "InlineMath"],
- ".\n",
- Cell["   ", "ModInfo"],
- Cell[BoxData[
-  RowBox[{"DefNiceConstantSymbol", "[", 
-   RowBox[{
-    StyleBox["c", "TI"], ",", "  ", 
-    RowBox[{"{", 
-     RowBox[{
-      SubscriptBox[
-       StyleBox["i", "TI"], "1"], 
-      StyleBox[",", "TI"], 
-      StyleBox[" ", "TI"], 
-      SubscriptBox[
-       StyleBox["i", "TI"], "2"], 
-      StyleBox[",", "TI"], 
-      StyleBox["...", "TI"]}], "}"}], ",", " ", 
-    RowBox[{"{", 
-     RowBox[{
-      SubscriptBox[
-       StyleBox["j", "TI"], "1"], 
-      StyleBox[",", "TI"], 
-      StyleBox[" ", "TI"], 
-      SubscriptBox[
-       StyleBox["j", "TI"], "2"], 
-      StyleBox[",", "TI"], 
-      StyleBox["...", "TI"]}], "}"}]}], "]"}]], "InlineFormula"],
- "\[LineSeparator]defines the constant symbol ",
- Cell[BoxData["ci1i2j1j2"], "InlineFormula"],
- " that prints as ",
- Cell[BoxData[
-  FormBox[
-   SubsuperscriptBox["c", 
-    RowBox[{
-     SubscriptBox["i", "1"], " ", 
-     SubscriptBox["i", "2"]}], 
-    RowBox[{
-     SubscriptBox["j", "1"], " ", 
-     SubscriptBox["j", "2"]}]], TraditionalForm]], "InlineMath"],
- "."
+ Cell[BoxData["$AutoSymmetrizeCovDs"], "InlineFormula"],
+ " \[LineSeparator]is a boolean variable determining whether all \
+symmetrizable covariant derivatives are automatically symmetrized or not. The \
+default is False."
 }], "Usage",
- CellChangeTimes->{{3.5803808018629847`*^9, 3.580380853983976*^9}, {
-  3.580380933927309*^9, 3.580381017866185*^9}, {3.580381141203875*^9, 
-  3.580381196391366*^9}, {3.580381237184066*^9, 3.580381376746911*^9}}],
+ CellChangeTimes->{{3.6018773543913927`*^9, 3.60187741542159*^9}},
+ CellID->982511436],
 
 Cell["XXXX", "Notes",
  CellID->1067943069]
@@ -253,17 +163,21 @@ Cell["See Also", "SeeAlsoSection",
 
 Cell[TextData[{
  Cell[BoxData[
-  ButtonBox["MakeAnsatz",
+  ButtonBox["SymmetrizeCovDs",
    BaseStyle->"Link",
-   ButtonData->"paclet:xTras/ref/MakeAnsatz"]], "InlineFormula"],
+   ButtonData->"paclet:xTras/ref/SymmetrizeCovDs"]], "InlineFormula"],
  " \[EmptyVerySmallSquare] ",
  Cell[BoxData[
-  ButtonBox["ConstantSymbolsOf",
+  ButtonBox["ExpandSymCovDs",
    BaseStyle->"Link",
-   ButtonData->"paclet:xTras/ref/ConstantSymbolsOf"]], "InlineFormula"]
+   ButtonData->"paclet:xTras/ref/ExpandSymCovDs"]], "InlineFormula"],
+ " \[EmptyVerySmallSquare] ",
+ Cell[BoxData[
+  ButtonBox["SymCovDQ",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/SymCovDQ"]], "InlineFormula"]
 }], "SeeAlso",
- CellChangeTimes->{{3.5804787507119207`*^9, 3.5804787581122513`*^9}, {
-  3.601877085003296*^9, 3.601877146061328*^9}},
+ CellChangeTimes->{{3.601877550937848*^9, 3.601877573666625*^9}},
  CellID->929782353]
 }, Open  ]],
 
@@ -291,98 +205,183 @@ Cell[BoxData[
   $Line = 0; Null]], "PrimaryExamplesSection",
  CellID->880084151],
 
+Cell[TextData[{
+ "When ",
+ Cell[BoxData["$AutoSymmetrizeCovDs"], "InlineFormula",
+  FormatType->"StandardForm"],
+ " is False, symmetrizable covariant derivatives are not automatically \
+symmetrized:"
+}], "ExampleText",
+ CellChangeTimes->{{3.601879912222468*^9, 3.601879953285881*^9}},
+ CellID->1446664810],
+
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"DefNiceConstantSymbol", "[", 
-  RowBox[{"c", ",", "1"}], "]"}]], "Input",
- CellChangeTimes->{{3.580380857379562*^9, 3.580380881409321*^9}},
+ RowBox[{"$AutoSymmetrizeCovDs", "=", "False"}]], "Input",
+ CellChangeTimes->{{3.601879490454359*^9, 3.6018794957522163`*^9}},
+ CellLabel->"In[5]:=",
+ CellID->984552821],
+
+Cell[BoxData["False"], "Output",
+ CellChangeTimes->{3.601879496326747*^9},
+ CellLabel->"Out[5]=",
+ CellID->509499411]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CD", "[", 
+   RowBox[{"-", "a"}], "]"}], "@", 
+  RowBox[{
+   RowBox[{"CD", "[", 
+    RowBox[{"-", "b"}], "]"}], "@", 
+   RowBox[{"RicciScalarCD", "[", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.6018794726082478`*^9, 3.6018794864450207`*^9}},
+ CellLabel->"In[6]:=",
+ CellID->1391766927],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   RowBox[{
+    SubscriptBox["\[EmptyDownTriangle]", "a"], 
+    SubscriptBox["\[EmptyDownTriangle]", "b"], 
+    RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}]}],
+   ShowAutoStyles->False,
+   AutoSpacing->False],
+  $CellContext`CD[-$CellContext`a][
+   $CellContext`CD[-$CellContext`b][
+    $CellContext`RicciScalarCD[]]],
+  Editable->False]], "Output",
+ CellChangeTimes->{{3.601879482311995*^9, 3.601879498943947*^9}},
+ CellLabel->"Out[6]=",
+ CellID->1303167501]
+}, Open  ]],
+
+Cell[TextData[{
+ "When ",
+ Cell[BoxData["$AutoSymmetrizeCovDs"], "InlineFormula",
+  FormatType->"StandardForm"],
+ " is True, symmetrizable covariant derivatives are automatically symmetrized:"
+}], "ExampleText",
+ CellChangeTimes->{{3.601879912222468*^9, 3.601879967016238*^9}},
+ CellID->1864588167],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"$AutoSymmetrizeCovDs", "=", "True"}]], "Input",
+ CellChangeTimes->{{3.601879490454359*^9, 3.601879510394973*^9}},
+ CellLabel->"In[7]:=",
+ CellID->1434886007],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{{3.601879496326747*^9, 3.6018795111788692`*^9}},
+ CellLabel->"Out[7]=",
+ CellID->2041759819]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CD", "[", 
+   RowBox[{"-", "a"}], "]"}], "@", 
+  RowBox[{
+   RowBox[{"CD", "[", 
+    RowBox[{"-", "b"}], "]"}], "@", 
+   RowBox[{"RicciScalarCD", "[", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.6018794726082478`*^9, 3.6018794864450207`*^9}},
+ CellLabel->"In[8]:=",
+ CellID->1284967786],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   RowBox[{
+    SubsuperscriptBox["\[EmptyDownTriangle]", 
+     RowBox[{"(", "ab", ")"}], "    "], 
+    RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}]}],
+   ShowAutoStyles->False,
+   AutoSpacing->False],
+  $CellContext`CD[-$CellContext`a, -$CellContext`b][
+   $CellContext`RicciScalarCD[]],
+  Editable->False]], "Output",
+ CellChangeTimes->{{3.601879482311995*^9, 3.601879519623622*^9}},
+ CellLabel->"Out[8]=",
+ CellID->1890575292]
+}, Open  ]],
+
+Cell["\<\
+Non-symmetrizable derivatives are not automatically symmetrized however:\
+\>", "ExampleText",
+ CellChangeTimes->{{3.601879912222468*^9, 3.601879967016238*^9}, {
+  3.601879997183876*^9, 3.601880008341346*^9}},
+ CellID->1669566510],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"$AutoSymmetrizeCovDs", "=", "True"}]], "Input",
+ CellChangeTimes->{{3.601879490454359*^9, 3.601879510394973*^9}},
+ CellLabel->"In[7]:=",
+ CellID->1383001868],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{{3.601879496326747*^9, 3.6018795111788692`*^9}},
+ CellLabel->"Out[7]=",
+ CellID->1896883995]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"SymCovDQ", "[", "PD", "]"}]], "Input",
+ CellChangeTimes->{{3.60188001115049*^9, 3.601880014070549*^9}},
+ CellLabel->"In[9]:=",
+ CellID->1968529681],
+
+Cell[BoxData["False"], "Output",
+ CellChangeTimes->{3.601880014567185*^9},
+ CellLabel->"Out[9]=",
+ CellID->1902403239]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PD", "[", 
+   RowBox[{"-", "a"}], "]"}], "@", 
+  RowBox[{
+   RowBox[{"PD", "[", 
+    RowBox[{"-", "b"}], "]"}], "@", 
+   RowBox[{"RicciScalarCD", "[", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.6018794726082478`*^9, 3.6018794864450207`*^9}, {
+  3.60188001687354*^9, 3.601880019111444*^9}},
  CellLabel->"In[10]:=",
- CellID->146929421],
+ CellID->1534564250],
 
 Cell[BoxData[
  InterpretationBox[
   StyleBox[
-   SubsuperscriptBox["c", "1", ""],
+   RowBox[{
+    SubscriptBox["\[PartialD]", "a"], 
+    SubscriptBox["\[PartialD]", "b"], 
+    RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}]}],
    ShowAutoStyles->False,
    AutoSpacing->False],
-  $CellContext`c1,
+  xAct`xTensor`PD[-$CellContext`a][
+   xAct`xTensor`PD[-$CellContext`b][
+    $CellContext`RicciScalarCD[]]],
   Editable->False]], "Output",
- CellChangeTimes->{3.580380882888929*^9},
+ CellChangeTimes->{{3.601879482311995*^9, 3.601879519623622*^9}, 
+   3.601880019630809*^9},
  CellLabel->"Out[10]=",
- CellID->1984068344]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"DefNiceConstantSymbol", "[", 
-  RowBox[{"c", ",", "1", ",", "2"}], "]"}]], "Input",
- CellChangeTimes->{{3.580380884271295*^9, 3.580380890009078*^9}},
- CellLabel->"In[11]:=",
- CellID->110586992],
-
-Cell[BoxData[
- InterpretationBox[
-  StyleBox[
-   SubsuperscriptBox["c", "1", "2"],
-   ShowAutoStyles->False,
-   AutoSpacing->False],
-  $CellContext`c12,
-  Editable->False]], "Output",
- CellChangeTimes->{3.58038089035*^9},
- CellLabel->"Out[11]=",
- CellID->1062219889]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"DefNiceConstantSymbol", "[", 
-  RowBox[{"c", ",", 
-   RowBox[{"{", 
-    RowBox[{"1", ",", "2", ",", "3"}], "}"}]}], "]"}]], "Input",
- CellChangeTimes->{{3.580380892736655*^9, 3.580380894632504*^9}},
- CellLabel->"In[12]:=",
- CellID->698116912],
-
-Cell[BoxData[
- InterpretationBox[
-  StyleBox[
-   SubsuperscriptBox["c", "123", ""],
-   ShowAutoStyles->False,
-   AutoSpacing->False],
-  $CellContext`c123,
-  Editable->False]], "Output",
- CellChangeTimes->{3.580380895475827*^9},
- CellLabel->"Out[12]=",
- CellID->1547776423]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"DefNiceConstantSymbol", "[", 
-  RowBox[{"c", ",", 
-   RowBox[{"{", 
-    RowBox[{"1", ",", "2", ",", "3"}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"4", ",", "5"}], "}"}]}], "]"}]], "Input",
- CellChangeTimes->{{3.580380897128283*^9, 3.580380907063675*^9}},
- CellLabel->"In[13]:=",
- CellID->1008925250],
-
-Cell[BoxData[
- InterpretationBox[
-  StyleBox[
-   SubsuperscriptBox["c", "123", "45"],
-   ShowAutoStyles->False,
-   AutoSpacing->False],
-  $CellContext`c12345,
-  Editable->False]], "Output",
- CellChangeTimes->{3.5803809079949503`*^9},
- CellLabel->"Out[13]=",
- CellID->475800038]
+ CellID->1513180343]
 }, Open  ]]
 }, Open  ]],
 
@@ -446,8 +445,8 @@ Cell[BoxData[
  CellID->589267740]
 }, Open  ]]
 },
-WindowSize->{700, 770},
-WindowMargins->{{-1114, Automatic}, {Automatic, -123}},
+WindowSize->{936, 725},
+WindowMargins->{{-1797, Automatic}, {Automatic, -204}},
 CellContext->"Global`",
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
 2011)",

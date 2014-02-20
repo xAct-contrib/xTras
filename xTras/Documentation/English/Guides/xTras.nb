@@ -4,7 +4,7 @@ Cell[TextData[{
  Cell["1.2.0", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
- Cell["1.3.0 ", "HistoryData",
+ Cell["1.3.1 ", "HistoryData",
   CellTags->"Modified"],
  " | Obsolete in: ",
  Cell[" ", "HistoryData",
@@ -14,7 +14,8 @@ Cell[TextData[{
   CellTags->"Excised"]
 }], "History",
  CellChangeTimes->{{3.580906000389572*^9, 3.58090602990597*^9}, {
-  3.600855131738778*^9, 3.6008551428502607`*^9}},
+  3.600855131738778*^9, 3.6008551428502607`*^9}, {3.601881237851282*^9, 
+  3.601881237904076*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -289,9 +290,7 @@ Cell["\t", "GuideDelimiter",
 
 Cell[CellGroupData[{
 
-Cell["\<\
-Symmetrized covariant derivatives\
-\>", "GuideFunctionsSubsection",
+Cell["Symmetrized covariant derivatives", "GuideFunctionsSubsection",
  CellChangeTimes->{{3.580912002503883*^9, 3.580912004765306*^9}, {
   3.600854852591288*^9, 3.600854858331311*^9}},
  CellID->107500421],
@@ -330,7 +329,23 @@ Cell[TextData[{
  " \[LongDash] sets covariant derivatives to be symmetrizable"
 }], "GuideText",
  CellChangeTimes->{{3.600855084151833*^9, 3.6008551151545353`*^9}},
- CellID->309657972]
+ CellID->309657972],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["$AutoSymmetrizeCovDs",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/$AutoSymmetrizeCovDs"]], "InlineFormula"],
+ " . ",
+ Cell[BoxData[
+  ButtonBox["ClearSymCovDCache",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ClearSymCovDCache"]], "InlineFormula"]
+}], "InlineGuideFunctionListing",
+ CellChangeTimes->{{3.5809119456783323`*^9, 3.580911968463826*^9}, {
+  3.601881287115912*^9, 3.601881287116108*^9}, {3.601881319078412*^9, 
+  3.60188134499988*^9}},
+ CellID->582612590]
 }, Open  ]],
 
 Cell["\t", "GuideDelimiter",
@@ -743,7 +758,7 @@ Cell["Related Links", "GuideRelatedLinksSection",
  CellID->415694148]
 },
 WindowSize->{1027, 770},
-WindowMargins->{{136, Automatic}, {37, Automatic}},
+WindowMargins->{{-1637, Automatic}, {Automatic, -123}},
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
 2011)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "GuidePageStyles.nb", 
