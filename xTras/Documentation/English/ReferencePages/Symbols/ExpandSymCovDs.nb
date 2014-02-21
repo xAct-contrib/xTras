@@ -146,8 +146,7 @@ Cell[TextData[{
    BaseStyle->"Link",
    ButtonData->"paclet:xTras/ref/$AutoSymmetrizeCovDs"]], "InlineFormula"],
  " is set to True, ",
- Cell[BoxData["ExpandSymCovDs"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["ExpandSymCovDs"], "InlineFormula"],
  " returns the input expression without expanding symmetrized derivatives."
 }], "Notes",
  CellChangeTimes->{{3.601877845203936*^9, 3.60187791722571*^9}},
@@ -159,7 +158,10 @@ Cell[CellGroupData[{
 Cell["Tutorials", "TutorialsSection",
  CellID->250839057],
 
-Cell["XXXX", "Tutorials",
+Cell[TextData[ButtonBox["Symmetrized Covariant Derivatives",
+ BaseStyle->"Link",
+ ButtonData->"paclet:xTras/tutorial/SymmetrizedDerivatives"]], "Tutorials",
+ CellChangeTimes->{3.6019964220464697`*^9},
  CellID->341631938]
 }, Open  ]],
 
@@ -1393,7 +1395,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 WindowSize->{700, 770},
-WindowMargins->{{-1570, Automatic}, {Automatic, -241}},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 CellContext->"Global`",
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
 2011)",

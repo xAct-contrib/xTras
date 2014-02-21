@@ -128,8 +128,7 @@ otherwise.\n",
  Cell["      ", "ModInfo"],
  Cell[BoxData["SymCovDQ"], "InlineFormula"],
  "\[LineSeparator]is also an option for ",
- Cell[BoxData["DefCovD"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["DefCovD"], "InlineFormula"],
  " specifying whether the derivative to be defined is symmetrizable or not."
 }], "Usage",
  CellChangeTimes->{{3.6008534928172827`*^9, 3.6008536081807003`*^9}},
@@ -137,11 +136,9 @@ otherwise.\n",
 
 Cell[TextData[{
  "The default value for the option ",
- Cell[BoxData["SymCovDQ"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["SymCovDQ"], "InlineFormula"],
  " of ",
- Cell[BoxData["DefCovD"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["DefCovD"], "InlineFormula"],
  " is False."
 }], "Notes",
  CellChangeTimes->{{3.600853748944551*^9, 3.600853775475745*^9}},
@@ -153,7 +150,10 @@ Cell[CellGroupData[{
 Cell["Tutorials", "TutorialsSection",
  CellID->250839057],
 
-Cell["XXXX", "Tutorials",
+Cell[TextData[ButtonBox["Symmetrized Covariant Derivatives",
+ BaseStyle->"Link",
+ ButtonData->"paclet:xTras/tutorial/SymmetrizedDerivatives"]], "Tutorials",
+ CellChangeTimes->{3.601996429719716*^9},
  CellID->341631938]
 }, Open  ]],
 
@@ -373,11 +373,9 @@ Cell["", "ExampleText",
 
 Cell[TextData[{
  "Note that the option ",
- Cell[BoxData["SymCovDQ"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["SymCovDQ"], "InlineFormula"],
  " could also have been given to ",
- Cell[BoxData["DefMetric"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["DefMetric"], "InlineFormula"],
  ".\[LineSeparator]CD is now registered as a symmetrizable covariant \
 derivative:"
 }], "ExampleText",

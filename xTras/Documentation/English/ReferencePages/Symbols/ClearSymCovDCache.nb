@@ -123,8 +123,7 @@ Cell[TextData[{
  Cell[BoxData[
   ButtonBox["SymmetrizeCovDs",
    BaseStyle->"Link",
-   ButtonData->"paclet:xTras/ref/SymmetrizeCovDs"]], "InlineFormula",
-  FormatType->"StandardForm"],
+   ButtonData->"paclet:xTras/ref/SymmetrizeCovDs"]], "InlineFormula"],
  "."
 }], "Usage",
  CellChangeTimes->{{3.601880475638546*^9, 3.601880499996957*^9}},
@@ -135,8 +134,7 @@ Cell[TextData[{
  Cell[BoxData[
   ButtonBox["$SymCovDCache",
    BaseStyle->"Link",
-   ButtonData->"paclet:xTras/ref/$SymCovDCache"]], "InlineFormula",
-  FormatType->"StandardForm"],
+   ButtonData->"paclet:xTras/ref/$SymCovDCache"]], "InlineFormula"],
  "."
 }], "Notes",
  CellChangeTimes->{{3.601880597229515*^9, 3.601880606347042*^9}},
@@ -148,7 +146,10 @@ Cell[CellGroupData[{
 Cell["Tutorials", "TutorialsSection",
  CellID->250839057],
 
-Cell["XXXX", "Tutorials",
+Cell[TextData[ButtonBox["Symmetrized Covariant Derivatives",
+ BaseStyle->"Link",
+ ButtonData->"paclet:xTras/tutorial/SymmetrizedDerivatives"]], "Tutorials",
+ CellChangeTimes->{3.6019964409453363`*^9},
  CellID->341631938]
 }, Open  ]],
 
@@ -184,8 +185,7 @@ Cell[TextData[{
  Cell[BoxData[
   ButtonBox["$SymCovDCache",
    BaseStyle->"Link",
-   ButtonData->"paclet:xTras/ref/$SymCovDCache"]], "InlineFormula",
-  FormatType->"StandardForm"]
+   ButtonData->"paclet:xTras/ref/$SymCovDCache"]], "InlineFormula"]
 }], "SeeAlso",
  CellChangeTimes->{{3.601880511668068*^9, 3.601880523751535*^9}, {
   3.601880878175653*^9, 3.6018808934710903`*^9}},
@@ -216,9 +216,7 @@ Cell[BoxData[
   $Line = 0; Null]], "PrimaryExamplesSection",
  CellID->880084151],
 
-Cell["\<\
-At the beginning, the cache is empty:\
-\>", "ExampleText",
+Cell["At the beginning, the cache is empty:", "ExampleText",
  CellChangeTimes->{{3.6018805563208*^9, 3.601880579468349*^9}},
  CellID->2017859371],
 
@@ -631,8 +629,7 @@ $CellContext`f, $CellContext`g]],
 
 Cell[TextData[{
  "The cache can be reset with ",
- Cell[BoxData["ClearSymCovDCache"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["ClearSymCovDCache"], "InlineFormula"],
  ":"
 }], "ExampleText",
  CellChangeTimes->{{3.601880828221143*^9, 3.6018808457064447`*^9}},
@@ -716,7 +713,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 WindowSize->{898, 853},
-WindowMargins->{{-1636, Automatic}, {Automatic, -204}},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 CellContext->"Global`",
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
 2011)",
