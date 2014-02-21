@@ -1042,9 +1042,9 @@ SymmetrizeCovDs[expr_, cd_?SymCovDQ, options___?OptionQ] :=
 	If[
 		TrueQ [ "UseCache" /. CheckOptions[options] /. Options[SymmetrizeCovDs] ]
 		,
-		expr //. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDsReplace[p, cd]
+		expr //. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDsReplace[p, cd, options]
 		,
-		expr //. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDs2[p]
+		expr //. p:HoldPattern[cd[__][cd[__][_]]] :> SymmetrizeCovDs2[p, options]
 	];
 
 (* Second argument is generic: return the same expression. *)
@@ -1073,14 +1073,14 @@ ClearSymCovDCache[]
    moves to subexpressions, so we don't need to take precautions to prevent 
    replacing subexpressions if one of the rules already matches the whole 
    expression. *)
-SymmetrizeCovDsReplace[expr_, cd_] /; MatchQ[expr, Alternatives@@First /@ $SymCovDCache] := 
+SymmetrizeCovDsReplace[expr_, cd_, options___] /; MatchQ[expr, Alternatives@@First /@ $SymCovDCache] := 
 	expr /. $SymCovDCache;
 
 (* If there are no previously computed rules, compute the imploded expression. *)
-SymmetrizeCovDsReplace[expr_, cd_] := 
+SymmetrizeCovDsReplace[expr_, cd_, options___] := 
 	Module[
 		{
-			symmetrized = ToCanonical @ ContractMetric @ SymmetrizeCovDs1[expr, cd]
+			symmetrized = ToCanonical @ ContractMetric @ SymmetrizeCovDs1[expr, cd, options]
 		}
 		,
 		(* Make rules and save them. *)
@@ -1095,26 +1095,26 @@ SymmetrizeCovDsReplace[expr_, cd_] :=
 	];
 
 
-SymmetrizeCovDs1[expr_, cd_] :=
+SymmetrizeCovDs1[expr_, cd_, options___] :=
 	(* The recursion to SymmetrizeCovDs is there to ensure that any
 	   unsymmetrized derivatives get symmetrized before caching. *)
-	SymmetrizeCovDs[ SymmetrizeCovDs2[expr], cd];
+	SymmetrizeCovDs[ SymmetrizeCovDs2[expr, options], cd, options];
 
 
 (* Worker function *)
 
 (* Eating one derivative from the left. *)
-SymmetrizeCovDs2[HoldPattern[cd_[b_][cd_[inds__][expr_]]]] :=
+SymmetrizeCovDs2[HoldPattern[cd_[b_][cd_[inds__][expr_]]], options___] :=
 	cd[inds,b][expr] - CommutatorOperator[cd,(-1+#1/(#2+1))&][inds,b][expr];
 
 (* Eating one derivative from the right. *)
-SymmetrizeCovDs2[HoldPattern[cd_[inds__][cd_[b_][expr_]]]] :=
+SymmetrizeCovDs2[HoldPattern[cd_[inds__][cd_[b_][expr_]]], options___] :=
 	cd[inds,b][expr] - CommutatorOperator[cd,(#1/(#2+1))&][inds,b][expr];
 
 (* General case: do a recursion. *)
-SymmetrizeCovDs2[HoldPattern[cd_[inds1__][cd_[inds2__][x_]]]] /; Length@{inds1} > 1 && Length@{inds2} > 1 :=
+SymmetrizeCovDs2[HoldPattern[cd_[inds1__][cd_[inds2__][x_]]], options___] /; Length@{inds1} > 1 && Length@{inds2} > 1 :=
 	PartitionedSymmetrize[
-		(cd@@#1) @ SymmetrizeCovDs[ (cd@@#2) @ cd[inds2] @ x, cd] &,
+		(cd@@#1) @ SymmetrizeCovDs[ (cd@@#2) @ cd[inds2] @ x, cd, options] &,
 		{inds1},
 		{Length@{inds1}-1,1}
 	];

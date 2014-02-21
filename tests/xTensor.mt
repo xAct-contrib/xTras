@@ -913,6 +913,16 @@ Test[
 ]
 
 Test[
+	ToCanonical@SortCovDs@ExpandSymCovDs[# - SymmetrizeCovDs[#]]& @ CD[a, b]@CD[-a, -b]@RicciScalarCD[]
+	,
+	0
+	,
+	TestID->"xTensor-20140221-X0G2L5"
+]
+
+
+
+Test[
 	VarD[T1[a],CD][T1[a]CD[-a,c]@T1[-c]]//CollectTensors//ScreenDollarIndices
 	,
 	2*CD[-a, -b][T1[b]]
