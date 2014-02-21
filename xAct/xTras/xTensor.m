@@ -924,13 +924,42 @@ UnorderedPartitionedPermutations[{},{}]:=
    		CD[a]@RicciCD[-a,c] -> 1/2 ( CD[a]@RicciCD[-a,c] + CD[b]@RicciCD[-a,c] )
    
    which has inconsistent indices and is clearly wrong.
-   So this means we cannot evaluate the expression we want to symmetrize beforehand.
+   This means we cannot evaluate all expressions we want to symmetrize beforehand.
    This is a pity, since some of the things we want to symmetrize are recursive
-   functions.  
+   functions. 
+   The best we can do is check for each case if all indices
+   are still present in the first summand of the symmetrization, and if so,
+   use it to generate tu full symmetrization with re-evaluating it again.
    *)
-PartitionedSymmetrize[f_Function, indices : (List | IndexList)[___], partition : {___Integer}] /; Total@partition === Length@indices := 
-	Times @@ (partition!) / Total[partition]! Total[
-		f @@ # & /@ UnorderedPartitionedPermutations[indices, partition]
+PartitionedSymmetrize[f_Function, indices : (List | IndexList)[], partition : {}] = 
+	0;
+
+PartitionedSymmetrize[f_Function, indices : (List | IndexList)[__], partition : {__Integer}] /; Total@partition === Length@indices := 
+	Times @@ (partition!) / Total[partition]! With[
+		{
+			permutations = UnorderedPartitionedPermutations[indices, partition]
+		},
+		With[
+			{
+				ffirst = f @@ First @ permutations,
+				pfirst = Flatten @ First @ permutations
+			},
+			(* See if all indices are still present. *)
+			If[
+				(* The indices to be symmetrized should be a subset of 
+				   the list of free indices of the expression. *)				  
+				Complement[ IndexList @@ indices, IndicesOf[Free][ffirst] ] === IndexList[],
+				(* If so, use ReplaceIndex to replace stuff. *)
+				ffirst + Total[
+					ReplaceIndex[
+						ffirst,
+						Thread[pfirst -> Flatten@#]
+					]& /@ Rest[permutations]
+				],
+				(* If not, evaluate the function f each time. *)
+				ffirst + Total[ f @@ # & /@ Rest[permutations] ]
+			]
+		]
 	];
 
 

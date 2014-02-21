@@ -896,6 +896,16 @@ Test[
 	TestID->"xTensor-20140206-J2F2G6"
 ]
 
+
+Test[
+	CD[f]@CD[d]@CD[c]@CD[b]@CD[a]@T1[e]//SymmetrizeCovDs//ToCanonical//ExpandSymCovDs//SortCovDs//ToCanonical//RiemannYoungProject//ToCanonical
+	,
+	CD[f]@CD[d]@CD[c]@CD[b]@CD[a]@T1[e]
+	,
+	TestID->"xTensor-20140221-T7S1X9"
+]
+
+
 Test[
 	CD[a,b,c]@RicciCD[f,g]//ExpandSymCovDs//Expand//SymmetrizeCovDs//ToCanonical
 	,
