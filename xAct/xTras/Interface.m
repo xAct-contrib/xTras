@@ -48,6 +48,9 @@ of \)\)\*StyleBox[\"symbol\", \"TI\"] .\), DisplayForm]\)";
 ClearCurvatureRelations::usage = "\!\(\*TagBox[\(ClearCurvatureRelations[ \
 \*StyleBox[\"cd\", \"TI\"]] removes the automatic curvature relations for the \
 covariant derivative  \*StyleBox[\"cd\", \"TI\"] .\), DisplayForm]\)"; 
+ClearSymCovDCache::usage = "\!\(\*TagBox[\(ClearSymCovDCache[] clears the \
+cache used by  \*Cell[BoxData[\"SymmetrizeCovDs\"], \"InlineFormula\", \
+Rule[FormatType, \"StandardForm\"]] .\), DisplayForm]\)"; 
 Coefficients::usage = "Coefficients is an option for InvarLagrangian that \
 specifies the coefficients in the Lagrangian."; 
 CollectConstants::usage = "\!\(\*TagBox[\(CollectConstants[ \
@@ -78,6 +81,9 @@ contains constants (i.e. constant symbols and integers, fractions, etc), and \
 False otherwise.\)\)\), DisplayForm]\)"; 
 ConstantPrefix::usage = "ConstantPrefix is an option for MakeAnsatz that \
 determines the prefix of the constant symbols."; 
+ConstantSymbolsOf::usage = "\!\(\*TagBox[\(ConstantSymbolsOf[ \
+\*StyleBox[\"expr\", \"TI\"]] returns a list of all non-numeric constant \
+symbols in expr.\), DisplayForm]\)"; 
 ConstructDDIs::usage = "\!\(\*TagBox[\(ConstructDDIs[ \*StyleBox[\"expr\", \
 \"TI\"]] constructs all scalar dimensional dependent identities that can be \
 build out of  \*StyleBox[\"expr\", \"TI\"] . \[LineSeparator] ConstructDDIs[ \
@@ -170,7 +176,7 @@ DisplayForm]\)";
 ExpandSymCovDs::usage = "\!\(\*TagBox[\(ExpandSymCovDs[ \*StyleBox[\"expr\", \
 \"TI\"]] expands all symmetrized covariant derivatives in terms of single \
 covariant derivatives. \[LineSeparator] ExpandSymCovDs[ \*StyleBox[\"expr\", \
-\"TI\"],  \*StyleBox[\"cd\", \"TI\"]] only expands symmetried covariant \
+\"TI\"],  \*StyleBox[\"cd\", \"TI\"]] only expands symmetrized covariant \
 derivatives of the covariant derivative  \*StyleBox[\"cd\", \"TI\"] .\), \
 DisplayForm]\)"; 
 ExtraRules::usage = "ExtraRules is an option for ToBackground, \
@@ -564,6 +570,12 @@ Young tableau \)\)\*StyleBox[\"tab\", \"TI\"] . \), DisplayForm]\)";
 YoungTableauQ::usage = "\!\(\*TagBox[\(YoungTableauQ[ \*StyleBox[\"tab\", \
 \"TI\"]] returns True if  \*StyleBox[\"tab\", \"TI\"]\(\(\\ is a proper Young \
 tableau, and False otherwise.\)\)\), DisplayForm]\)"; 
+$AutoSymmetrizeCovDs::usage = "$AutoSymmetrizeCovDs is a boolean variable \
+determining whether all symmetrizable covariant derivatives are automatically \
+symmetrized or not. The default is False."; 
+$SymCovDCache::usage = "\!\(\*TagBox[\($SymCovDCache stores the cache used by \
+ \*Cell[BoxData[\"SymmetrizeCovDs\"], \"InlineFormula\", Rule[FormatType, \
+\"StandardForm\"]] .\), DisplayForm]\)"; 
 $TensorWrapperColor::usage = "$TensorWrapperColor is a global variable \
 specifying the color of the parentheses surrounding the formatting of a \
 TensorWrapper expression."; 

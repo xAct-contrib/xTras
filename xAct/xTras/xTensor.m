@@ -909,27 +909,28 @@ UnorderedPartitionedPermutations[{},{}]:=
 	{};
 
 
-
-(* This helper function comes from http://forums.wolfram.com/mathgroup/archive/1992/Nov/msg00096.html *)
-PartitionByPartition[list_, {integers__Integer}] := 
-	Map[
-		Take[list, #] &,
-		Most @ Transpose @ {# + 1, RotateLeft[#]} & @ Accumulate @ {0, integers}
-	];
-
-PartitionedSymmetrize[f_Function, indices:(List|IndexList)[___], partition:{___Integer}] /; Total@partition === Length@indices :=
-	PartitionedSymmetrize[
-		f @@ PartitionByPartition[indices, partition],
-		indices,
-		partition
-	];
-
-PartitionedSymmetrize[expr_, indices:(List|IndexList)[___], partition:{___Integer}] /; Total@partition === Length@indices :=
-	Times@@(partition!) / Total[partition]! Total[
-		ReplaceIndex[
-			expr,
-			Thread[indices -> Flatten@#]& /@ UnorderedPartitionedPermutations[indices, partition]
-		]
+(* The first argument to PartitionedSymmetrize has to be held (we don't need
+   HoldFirst for this, as the first argument is already a pure function)
+   because replacement of contractions of tensors can remove some indices 
+   we want to symmetrize over.
+   One example of this is
+   
+   		PartitionedSymmetrized[ CD[a]@RiemannCD[-a,-b,b,c], {a,b}, {1,1} ]
+   		
+   which should symmetrize the indices a and b. The correct result is zero, but
+   if we replace the contraction of the Riemann tensor with the Ricci tensor,
+   the result becomes non-sensical:
+   
+   		CD[a]@RicciCD[-a,c] -> 1/2 ( CD[a]@RicciCD[-a,c] + CD[b]@RicciCD[-a,c] )
+   
+   which has inconsistent indices and is clearly wrong.
+   So this means we cannot evaluate the expression we want to symmetrize beforehand.
+   This is a pity, since some of the things we want to symmetrize are recursive
+   functions.  
+   *)
+PartitionedSymmetrize[f_Function, indices : (List | IndexList)[___], partition : {___Integer}] /; Total@partition === Length@indices := 
+	Times @@ (partition!) / Total[partition]! Total[
+		f @@ # & /@ UnorderedPartitionedPermutations[indices, partition]
 	];
 
 
@@ -1122,11 +1123,11 @@ SymmetrizeCovDs2[HoldPattern[cd_[inds1__][cd_[inds2__][x_]]]] /; Length@{inds1} 
 (* Commutator operator function *)
 
 (* The special case: no torsion, a metric derivative, and only the tangent bundle. *)
+(* This code might be a bit unreadable, but its action is documented in the 
+   tutorial on symmetrized derivatives. *)
 CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, a_, b_][expr_] :=
 	Module[
 		{
-			curvaturelist = addCurvatureList[expr, cd, {b,a}, All],
-			curvlist2,
 			newcoeffunction,
 			n = Length@{inds} + 1,
 			i,j
@@ -1140,10 +1141,15 @@ CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, a_, b_][expr_] :=
 					coefffunction[j,n] Binomial[j-1,i],
 					{j,i+1,n}
 				] *
-				PartitionedSymmetrize[
-					CommutatorOperatorHelper[cd, curvaturelist, {inds}, i],
-					{inds,a},
-					{i,n-i-1,1}
+				With[
+					{
+						inew = i
+					},
+					PartitionedSymmetrize[
+						CommutatorOperatorHelper[cd, addCurvatureList[expr, cd, {b,Sequence@@#3}, All], Join[#1,#2], inew]&,
+						{inds,a},
+						{i,n-i-1,1}
+					]
 				]
 				,
 				{i,0,n-1}
@@ -1156,15 +1162,20 @@ CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, a_, b_][expr_] :=
 					coefffunction[j, n] (n - j) Binomial[j-1, i],
 					{j,i+1,n-1}
 				] *
-				PartitionedSymmetrize[
-					CommutatorOperatorHelper[
-						cd, 
-						addCurvatureList[(cd@@({inds}[[i+1;;-1]])) @ expr, cd, {b,a}, {Last@{inds}}], 
-						{inds}[[1;;i]], 
-						i
-					],
-					{inds,a},
-					{i,n-i-2,1,1}
+				With[
+					{
+						inew = i
+					},
+					PartitionedSymmetrize[
+						CommutatorOperatorHelper[
+							cd, 
+							addCurvatureList[(cd@@Join[#2,#3]) @ expr, cd, {b,Sequence@@#4}, #3], 
+							#1, 
+							inew
+						]&,
+						{inds,a},
+						{i,n-i-2,1,1}
+					]
 				]
 				,
 				{i,0,n-2}
@@ -1191,16 +1202,23 @@ CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, a_, b_][expr_] :=
 						]&
 					]
 				];
-				curvlist2 = First @ addCurvatureList[(cd@@({inds}[[i+1;;-1]])) @ expr, cd, {b,a}, {Last@{inds}}];
-				PartitionedSymmetrize[
-					(cd@@({inds}[[1;;i]]))[First @ curvlist2] * 
-					CommutatorOperator[
-						cd, newcoeffunction
-					][
-						Sequence@@({inds}[[i+1;;-2]]), Last @ curvlist2
-					][expr],
-					{inds,a},
-					{i,n-i-2,1,1}
+				With[
+					{
+						newcoeffunctionnew = newcoeffunction
+					},
+					PartitionedSymmetrize[
+						Function[
+							curvlist,
+							(cd@@#1)[First @ curvlist] * 
+							CommutatorOperator[
+								cd, newcoeffunctionnew
+							][
+								Sequence@@#2, Last @ curvlist
+							][expr]
+						][ First @ addCurvatureList[(cd@@Join[#2,#3]) @ expr, cd, {b,Sequence@@#4}, #3] ] &,
+						{inds,a},
+						{i,n-i-2,1,1}
+					]
 				]
 				,
 				{i,0,n-3}
