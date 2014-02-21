@@ -931,10 +931,10 @@ UnorderedPartitionedPermutations[{},{}]:=
    are still present in the first summand of the symmetrization, and if so,
    use it to generate tu full symmetrization with re-evaluating it again.
    *)
-PartitionedSymmetrize[f_Function, indices : (List | IndexList)[], partition : {}] = 
+PartitionedSymmetrize[f_Function, indices : (List | IndexList)[], partition : {}, evaluateonce_:False] = 
 	0;
 
-PartitionedSymmetrize[f_Function, indices : (List | IndexList)[__], partition : {__Integer}] /; Total@partition === Length@indices := 
+PartitionedSymmetrize[f_Function, indices : (List | IndexList)[__], partition : {__Integer}, evaluateonce_:False] /; Total@partition === Length@indices := 
 	Times @@ (partition!) / Total[partition]! With[
 		{
 			permutations = UnorderedPartitionedPermutations[indices, partition]
@@ -948,7 +948,7 @@ PartitionedSymmetrize[f_Function, indices : (List | IndexList)[__], partition : 
 			If[
 				(* The indices to be symmetrized should be a subset of 
 				   the list of free indices of the expression. *)				  
-				Complement[ IndexList @@ indices, IndicesOf[Free][ffirst] ] === IndexList[],
+				(TrueQ @ evaluateonce) && (Complement[ IndexList @@ indices, IndicesOf[Free][ffirst] ] === IndexList[]),
 				(* If so, use ReplaceIndex to replace stuff. *)
 				ffirst + Total[
 					ReplaceIndex[
@@ -1145,7 +1145,8 @@ SymmetrizeCovDs2[HoldPattern[cd_[inds1__][cd_[inds2__][x_]]], options___] /; Len
 	PartitionedSymmetrize[
 		(cd@@#1) @ SymmetrizeCovDs[ (cd@@#2) @ cd[inds2] @ x, cd, options] &,
 		{inds1},
-		{Length@{inds1}-1,1}
+		{Length@{inds1}-1,1},
+		True
 	];
 
 
@@ -1177,7 +1178,8 @@ CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, a_, b_][expr_] :=
 					PartitionedSymmetrize[
 						CommutatorOperatorHelper[cd, addCurvatureList[expr, cd, {b,Sequence@@#3}, All], Join[#1,#2], inew]&,
 						{inds,a},
-						{i,n-i-1,1}
+						{i,n-i-1,1},
+						True
 					]
 				]
 				,
@@ -1203,7 +1205,8 @@ CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, a_, b_][expr_] :=
 							inew
 						]&,
 						{inds,a},
-						{i,n-i-2,1,1}
+						{i,n-i-2,1,1},
+						True
 					]
 				]
 				,
@@ -1246,7 +1249,8 @@ CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, a_, b_][expr_] :=
 							][expr]
 						][ First @ addCurvatureList[(cd@@Join[#2,#3]) @ expr, cd, {b,Sequence@@#4}, #3] ] &,
 						{inds,a},
-						{i,n-i-2,1,1}
+						{i,n-i-2,1,1},
+						True
 					]
 				]
 				,
@@ -1267,7 +1271,8 @@ CommutatorOperator[cd_, coefffunction_:(#1/(#2+1)&)][inds___, b_][expr_] :=
 			coefffunction[i,n] * PartitionedSymmetrize[
 				(cd@@#1) @ CovDCommutator[(cd@@#3) @ expr, {b,Sequence@@#2}, cd] &,
 				{inds},
-				{i-1,1,n-i}
+				{i-1,1,n-i},
+				True
 			]
 			,
 			{i,1,n}
@@ -1471,7 +1476,8 @@ xTrasDefSymCovD[covd_[ind_], vbundles_, options___?OptionQ] := With[
 								Binomial[l,i] PartitionedSymmetrize[
 									(cd@@#1)[x] * (cd@@#2)[y] &,
 									{inds},
-									{i,l-i}
+									{i,l-i},
+									False
 								],
 								{i,0,l} 
 							]
