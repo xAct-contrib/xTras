@@ -48,9 +48,8 @@ of \)\)\*StyleBox[\"symbol\", \"TI\"] .\), DisplayForm]\)";
 ClearCurvatureRelations::usage = "\!\(\*TagBox[\(ClearCurvatureRelations[ \
 \*StyleBox[\"cd\", \"TI\"]] removes the automatic curvature relations for the \
 covariant derivative  \*StyleBox[\"cd\", \"TI\"] .\), DisplayForm]\)"; 
-ClearSymCovDCache::usage = "\!\(\*TagBox[\(ClearSymCovDCache[] clears the \
-cache used by  \*Cell[BoxData[\"SymmetrizeCovDs\"], \"InlineFormula\", \
-Rule[FormatType, \"StandardForm\"]] .\), DisplayForm]\)"; 
+ClearSymCovDCache::usage = 
+  "ClearSymCovDCache[] clears the cache used by SymmetrizeCovDs."; 
 Coefficients::usage = "Coefficients is an option for InvarLagrangian that \
 specifies the coefficients in the Lagrangian."; 
 CollectConstants::usage = "\!\(\*TagBox[\(CollectConstants[ \
@@ -468,9 +467,8 @@ which tensors get solved first.";
 SymCovDQ::usage = "\!\(\*TagBox[\(SymCovDQ[ \*StyleBox[\"cd\", \"TI\"]] gives \
 True if  \*StyleBox[\"cd\", \"TI\"]\(\(\\ has been defined as a symmetrizable \
 covariant derivative, and False otherwise.\)\)\[LineSeparator] SymCovDQ is \
-also an option for  \*Cell[BoxData[\"DefCovD\"], \"InlineFormula\", \
-Rule[FormatType, \"StandardForm\"]]\(\(\\ specifying whether the derivative \
-to be defined is symmetrizable or not.\)\)\), DisplayForm]\)"; 
+also an option for DefCovD specifying whether the derivative to be defined is \
+symmetrizable or not.\), DisplayForm]\)"; 
 SymmetricSpaceRules::usage = "\!\(\*TagBox[\(SymmetricSpaceRules[ \
 \*StyleBox[\"cd\", \"TI\"], \*StyleBox[\"K\", \"TI\"]] produces replacement \
 rules for the curvature tensors of the covariant derivative  \
@@ -573,9 +571,8 @@ tableau, and False otherwise.\)\)\), DisplayForm]\)";
 $AutoSymmetrizeCovDs::usage = "$AutoSymmetrizeCovDs is a boolean variable \
 determining whether all symmetrizable covariant derivatives are automatically \
 symmetrized or not. The default is False."; 
-$SymCovDCache::usage = "\!\(\*TagBox[\($SymCovDCache stores the cache used by \
- \*Cell[BoxData[\"SymmetrizeCovDs\"], \"InlineFormula\", Rule[FormatType, \
-\"StandardForm\"]] .\), DisplayForm]\)"; 
+$SymCovDCache::usage = 
+  "$SymCovDCache stores the cache used by SymmetrizeCovDs."; 
 $TensorWrapperColor::usage = "$TensorWrapperColor is a global variable \
 specifying the color of the parentheses surrounding the formatting of a \
 TensorWrapper expression."; 

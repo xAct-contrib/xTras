@@ -1,6 +1,17 @@
 xTras changelog
 ===============
 
+v1.3.1, 2014-02-22
+------------------
+
+  * Added the function ConstantSymbolsOf.
+  * Added possibility (controlled by the variable $AutoSymmetrizeCovDs) 
+    to automatically symmetrize covariant derivatives.
+  * Added caching to SymmetrizeCovDs, controlled by the "UseCache" option. 
+  * Improved algorithm for symmetrizing covariant derivatives in the case 
+    when there is no torsion and the derivative is metric-compatible.  
+  * Perturbation no longer expands symmetrized covariant derivatives.
+
 v1.3.0, 2014-02-10
 ------------------
 
