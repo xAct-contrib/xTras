@@ -1140,15 +1140,37 @@ SymmetrizeCovDs2[HoldPattern[cd_[b_][cd_[inds__][expr_]]], options___] :=
 SymmetrizeCovDs2[HoldPattern[cd_[inds__][cd_[b_][expr_]]], options___] :=
 	cd[inds,b][expr] - CommutatorOperator[cd,(#1/(#2+1))&][inds,b][expr];
 
-(* General case: do a recursion. *)
-SymmetrizeCovDs2[HoldPattern[cd_[inds1__][cd_[inds2__][x_]]], options___] /; Length@{inds1} > 1 && Length@{inds2} > 1 :=
+(* General situation: do a recursion. 
+   We break up one of the two derivatives into a single derivative plus the rest,
+   after which the single derivative gets eaten by the other derivative.
+   We have to be careful to always let the bigger derivative eat the smaller
+   derivative; doing it the other way around is inefficient. *)
+(* Case 1: the outer derivative has less (or an equal amout of) indices 
+   than the inner derivative. The inner derivative eats the outer derivative 
+   step-by-step. *)
+SymmetrizeCovDs2[HoldPattern[cd_[outer__][cd_[inner__][x_]]], options___] :=
 	PartitionedSymmetrize[
-		(cd@@#1) @ SymmetrizeCovDs[ (cd@@#2) @ cd[inds2] @ x, cd, options] &,
-		{inds1},
-		{Length@{inds1}-1,1},
+		(* We need the call to SymmetrizeCovDs inside the leftover of the
+		   outer derivative, otherwise it will eat the single derivative 
+		   we've just split off in the next recursion. *)
+		(cd@@#1) @ SymmetrizeCovDs[ (cd@@#2) @ cd[inner] @ x, cd, options] &,
+		{outer},
+		{Length@{outer}-1,1},
 		True
-	];
-
+	] /; Length@{outer} > 1 && Length@{inner} > 1 && Length@{outer} <= Length@{inner};
+(* Case 2: the outer derivative has more indices than the inner one. 
+   The outer derivative eats the inner derivative step-by-step. *)	
+SymmetrizeCovDs2[HoldPattern[cd_[outer__][cd_[inner__][x_]]], options___] :=
+	PartitionedSymmetrize[
+		(* The pattern matcher will match the outer derivative eating the 
+		   single derivative split off from the innermost derivative,
+		   so the recursive call to SymmetrizeCovDs can take everything
+		   as its argument. *)
+		SymmetrizeCovDs[ cd[outer] @ (cd@@#1) @ (cd@@#2) @ x, cd, options] &,
+		{inner},
+		{1, Length@{inner}-1},
+		True
+	] /; Length@{outer} > 1 && Length@{inner} > 1 && Length@{outer} > Length@{inner};
 
 (* Commutator operator function *)
 
