@@ -869,6 +869,16 @@ GradChristoffelToRiemannRules[cd_?CurvatureQ] :=
 (********************)
 
 
+DummiesToFrees::usage = 
+	"DummiesToFrees[expr] replaces all down dummy indices in expr with \
+new indices in the same vector bundle.";
+ 
+DummiesToFrees[expr_] :=
+	ReplaceIndex[
+		expr, 
+		Inner[Rule, #, DummyAs /@ #, List]& @ IndicesOf[Dummy, Down][expr]
+	];
+
 (* 
  *  UnorderedPartitionedPermutations.
  *  I'm keeping this private for the moment as I don't see any obvious 
@@ -1107,20 +1117,38 @@ SymmetrizeCovDsReplace[expr_, cd_, options___] /; MatchQ[expr, Alternatives@@Fir
 
 (* If there are no previously computed rules, compute the imploded expression. *)
 SymmetrizeCovDsReplace[expr_, cd_, options___] := 
-	Module[
+	With[
 		{
-			symmetrized = ToCanonical @ ContractMetric @ SymmetrizeCovDs1[expr, cd, options]
+			(* Make a rule for symmetrizing the input expression without dummies. *)
+			(* The dummies are stripped to prevent doing this for every dummy
+			   index configuration. *)
+			rule = MakeRule[
+				Evaluate @ {
+					#,
+					ToCanonical @ ContractMetric @ SymmetrizeCovDs1[ #, cd, options]
+				},
+				MetricOn -> All, UseSymmetries -> False
+			]& @ DummiesToFrees[ expr ]
 		}
 		,
-		(* Make rules and save them. *)
-		Unprotect @ $SymCovDCache;
-		$SymCovDCache = Union[
-			$SymCovDCache,
-			MakeRule[Evaluate@{expr,symmetrized},MetricOn->All,UseSymmetries->False]
-		];
-		Protect@$SymCovDCache;
-		(* Return. *)
-		symmetrized
+		If[ 
+			(* Match the new rule(s) the input expression? *) 
+			! MatchQ[expr, Alternatives@@First /@ rule]
+			,
+			(* If not, throw an error. *)
+			Message[SymmetrizeCovDs::error, "Cached rule does not match input expression."];
+			Throw[];
+			,
+			(* If they do, save them and return. *)
+			(* Save the rules. *)
+			Unprotect @ $SymCovDCache;
+			$SymCovDCache = Union[
+				$SymCovDCache,
+				rule
+			];
+			(* Return the replace expression. *)
+			expr /. rule
+		]
 	];
 
 
