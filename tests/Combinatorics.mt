@@ -272,6 +272,43 @@ Test[
 
 (***************************)
 (*                         *)
+(*      ConstructDDIs      *)
+(*                         *)
+(***************************)
+
+
+dim = 3;
+
+Test[
+	ConstructDDIs[
+		RiemannCD[a, b, c, d], 
+		{a, b, c, d}, 
+		RiemannSymmetric[{a, b, c, d}]
+	] //  RiemannToWeyl // CollectTensors // RiemannYoungProject // CollectTensors // xAct`xTras`Private`DeleteDuplicateFactors
+	,
+	{WeylCD[a, b, c, d] + WeylCD[a, c, b, d]/2 - WeylCD[a, d, b, c]/2}
+	,
+	TestID->"Combinatorics-20140224-X1V4E8"
+]
+
+dim = 2;
+
+Test[
+	ConstructDDIs[
+		RiemannCD[a, b, c, d], 
+		{a, b}, 
+		Symmetric[{a, b}]
+	] // RicciToEinstein
+	,
+	{EinsteinCD[a, b]}
+	,
+	TestID->"Combinatorics-20140224-R6L4K1"
+]
+
+dim =. ;
+
+(***************************)
+(*                         *)
 (*   IndexConfigurations   *)
 (*                         *)
 (***************************)

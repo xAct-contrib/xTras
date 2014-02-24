@@ -7,5 +7,6 @@ TestSuite[{
 	"xCoba.mt",
 	"Algebra.mt",
 	"Combinatorics.mt",
+	"xAct.mt",
 	"PrintSystemVersion.mt"
 }]
