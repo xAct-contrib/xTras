@@ -1444,6 +1444,53 @@ xAct`xPert`Private`ExpandPerturbation1[Perturbation[p_,n_.],options___] /; !Free
 
 
 (****************)
+(*  Validation  *)
+(****************)
+
+(* The validation code comes more or less straight from section 11.3 of xTensor.nb,
+   with a few modifications. *)
+
+Unprotect[xAct`xTensor`Private`UncatchedValidate];
+
+xAct`xTensor`Private`UncatchedValidate[covd : _?SymCovDQ[__][_]] := 
+	ValidateSymCovD[covd];
+	
+Protect[xAct`xTensor`Private`UncatchedValidate];
+
+ValidateSymCovD[x:der_[inds__][expr_]] := 
+	Catch[
+		(* Check derivative name *)
+		If[!CovDQ[der],
+			Throw[Message[Validate::unknown,"covariant derivative",der];ERROR[x]]
+		];
+		(* Check index. Patterns are not accepted *)
+		Map[
+			If[!GIndexQ[#],
+				Throw[Message[Validate::unknown,"g-index",#];ERROR[x]]
+			]&,
+			{inds}
+		];
+		(* Check expression *)
+		xAct`xTensor`Private`UncatchedValidate[Unevaluated[expr]];
+		(* Check that derivative and index are compatible *)
+		Map[
+			If[!xAct`xTensor`Private`IndexOnQ[#,xAct`xTensor`Private`TangentBundleOfCovD[der[#]]],
+				Throw[Message[Validate::invalid,#,"index for derivative"<>ToString[der]];ERROR[x]]
+			]&,
+			{inds}
+		];
+		(* Check that there is a metric if index is an up-index *)
+		Map[
+			If[UpIndexQ[#]&&!MetricEndowedQ[VBundleOfIndex[#]],
+				Throw[Message[Validate::invalid,#,"index for a derivative because ther is no metric in its vector bundle"];ERROR[x]]
+			]&,
+			{inds}
+		];
+		(* Return the expression. *)
+		x
+	];
+
+(****************)
 (* DefCovD hook *)
 (****************)
 

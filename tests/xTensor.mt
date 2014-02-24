@@ -696,11 +696,39 @@ Test[
 
 
 Test[
+	Validate[CD[a,b]@RicciScalarCD[]]
+	,
+	CD[a,b]@RicciScalarCD[]
+	,
+	TestID->"xTensor-20140206-G5W8M3"
+]
+
+Test[
+	Validate[CD[a,_]@RicciScalarCD[]]
+	,
+	ERROR[CD[a,_][RicciScalarCD[]]]
+	,
+	{Validate::unknown}
+	,
+	TestID->"xTensor-20140224-J7C9K2"
+]
+
+Test[
+	Validate[CD[a,b]@RicciCD[c,_]]
+	,
+	CD[a,b]@RicciCD[c,_]
+	,
+	{Validate::pat, Validate::unknown}
+	,
+	TestID->"xTensor-20140224-F5G6K2"
+]
+
+Test[
 	Last@SymmetryOf[CD[a,b]@RicciScalarCD[]]
 	,
 	Symmetric[{1, 2}, Cycles]
 	,
-	TestID->"xTensor-20140206-G5W8M3"
+	TestID->"xTensor-20140224-H6R2O3"
 ]
 
 Test[
