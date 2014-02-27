@@ -4,7 +4,7 @@ Cell[TextData[{
  Cell["1.1", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
- Cell[" ", "HistoryData",
+ Cell["1.3 ", "HistoryData",
   CellTags->"Modified"],
  " | Obsolete in: ",
  Cell[" ", "HistoryData",
@@ -13,6 +13,7 @@ Cell[TextData[{
  Cell[" ", "HistoryData",
   CellTags->"Excised"]
 }], "History",
+ CellChangeTimes->{{3.6024797139923697`*^9, 3.602479715453*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -173,7 +174,6 @@ Cell[TextData[{
 Cell[BoxData[GridBox[{
    {"xPrint", Cell["formatted input", "TableText"]},
    {"SymManipulator", Cell["symmetrized expressions", "TableText"]},
-   {"AVF", Cell["exterior calculus with algebra-valued forms", "TableText"]},
    {
     ButtonBox["xTras",
      BaseStyle->"Link",
@@ -188,16 +188,17 @@ Cell[BoxData[GridBox[{
           BoxBaselineShift->0.5,
           BoxMargins->{{-0.3, 0}, {0, 0}}], "X"}], "TR",
         SingleLetterItalics->False], TraditionalForm]]],
-     " code to formatting"
+     " code formatting"
     }], "TableText"]},
-   {"xPand", Cell["cosmological perturbation theory", "TableText"]}
+   {"xPand", Cell["cosmological perturbation theory", "TableText"]},
+   {"xTerior", Cell["differential forms", "TableText"]}
   }]], "DefinitionBox",
  CellChangeTimes->{{3.581830826215315*^9, 3.5818309733044443`*^9}, {
    3.5818310772260237`*^9, 3.5818311467082157`*^9}, {3.581831236121224*^9, 
    3.581831336445983*^9}, 3.581831382745121*^9, {3.581849413665176*^9, 
    3.581849468170876*^9}, {3.5818495130443573`*^9, 3.581849525413025*^9}, {
    3.5818495717210817`*^9, 3.581849686840212*^9}, {3.581849774812595*^9, 
-   3.581849870893545*^9}},
+   3.581849870893545*^9}, {3.602479639814496*^9, 3.602479692499578*^9}},
  CellID->1256384716],
 
 Cell[TextData[{
@@ -290,9 +291,7 @@ Cell[BoxData[GridBox[{
   3.585028006137236*^9}, {3.585028291223393*^9, 3.585028345438787*^9}},
  CellID->1578102565],
 
-Cell["\<\
-Commands for defining manifolds, metrics, and tensors.\
-\>", "Caption",
+Cell["Commands for defining manifolds, metrics, and tensors.", "Caption",
  CellChangeTimes->{{3.581850567168826*^9, 3.581850582198028*^9}, 
    3.5850292252738037`*^9},
  CellID->1746769505],

@@ -20,7 +20,7 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = {"1.3.1", {2014, 2, 22}};
+xAct`xTras`$Version = {"1.3.1.4", {2014, 2, 24}};
 xAct`xTras`$xTensorVersionExpected = {"1.0.5", {2013, 1, 27}};
 xAct`xTras`$SymManipulatorVersionExpected = {"0.8.5", {2013, 4, 13}};
 xAct`xTras`$MathematicaVersionNeeded = 6.;
@@ -51,7 +51,7 @@ BeginPackage[xAct`xTras`Private`$xTrasContext, {
 (* Print info *)
 Print[xAct`xCore`Private`bars];
 Print["Package xAct`xTras`  version ", xAct`xTras`$Version[[1]],", ",xAct`xTras`$Version[[2]]];
-Print["CopyRight (C) 2012-2013, Teake Nutma, under the General Public License."];
+Print["CopyRight (C) 2012-2014, Teake Nutma, under the General Public License."];
 
 
 (* Check if we have the correct version of xAct. *)
