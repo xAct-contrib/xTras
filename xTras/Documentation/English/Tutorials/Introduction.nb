@@ -127,16 +127,35 @@ Cell[TextData[{
  CellID->853708862],
 
 Cell[BoxData[GridBox[{
-   {"xCore", Cell["generic programming tools", "TableText"]},
-   {"xPerm", Cell[
+   {
+    ButtonBox["xCore",
+     BaseStyle->"Hyperlink",
+     ButtonData->{
+       URL["http://www.xact.es/xCore/"], None}], Cell[
+    "generic programming tools", "TableText"]},
+   {
+    ButtonBox["xPerm",
+     BaseStyle->"Hyperlink",
+     ButtonData->{
+       URL["http://www.xact.es/xPerm/"], None}], Cell[
     "manipulation of large groups of permutations", "TableText"]},
-   {"xTensor", Cell["abstract tensor computations", "TableText"]},
-   {"xCoba", Cell["component tensor computations", "TableText"]}
+   {
+    ButtonBox["xTensor",
+     BaseStyle->"Hyperlink",
+     ButtonData->{
+       URL["http://www.xact.es/xTensor/"], None}], Cell[
+    "abstract tensor computations", "TableText"]},
+   {
+    ButtonBox["xCoba",
+     BaseStyle->"Hyperlink",
+     ButtonData->{
+       URL["http://www.xact.es/xCoba/"], None}], Cell[
+    "component tensor computations", "TableText"]}
   }]], "DefinitionBox",
  CellChangeTimes->{{3.581830826215315*^9, 3.5818309733044443`*^9}, {
    3.5818310772260237`*^9, 3.5818311467082157`*^9}, {3.581831236121224*^9, 
    3.581831336445983*^9}, 3.581831382745121*^9, {3.5818498024421053`*^9, 
-   3.581849802442189*^9}},
+   3.581849802442189*^9}, {3.602569486833427*^9, 3.6025695192707863`*^9}},
  CellID->2096742444],
 
 Cell[TextData[{
@@ -150,15 +169,35 @@ Cell[TextData[{
  CellID->1891092685],
 
 Cell[BoxData[GridBox[{
-   {"xPert", Cell["high-order perturbation theory in GR", "TableText"]},
-   {"Harmonics", Cell["tensor spherical harmonics", "TableText"]},
-   {"Invar", Cell["polynomial invariants of the Riemann tensor", "TableText"]},
-   {"Spinors", Cell["spinor computations in GR", "TableText"]}
+   {
+    ButtonBox["xPert",
+     BaseStyle->"Hyperlink",
+     ButtonData->{
+       URL["http://www.xact.es/xPert/"], None}], Cell[
+    "high-order perturbation theory in GR", "TableText"]},
+   {
+    ButtonBox["Harmonics",
+     BaseStyle->"Hyperlink",
+     ButtonData->{
+       URL["http://www.xact.es/Harmonics/"], None}], Cell[
+    "tensor spherical harmonics", "TableText"]},
+   {
+    ButtonBox["Invar",
+     BaseStyle->"Hyperlink",
+     ButtonData->{
+       URL["http://www.xact.es/Invar/"], None}], Cell[
+    "polynomial invariants of the Riemann tensor", "TableText"]},
+   {
+    ButtonBox["Spinors",
+     BaseStyle->"Hyperlink",
+     ButtonData->{
+       URL["http://www.xact.es/Spinors/"], None}], Cell[
+    "spinor computations in GR", "TableText"]}
   }]], "DefinitionBox",
  CellChangeTimes->{{3.581830826215315*^9, 3.5818309733044443`*^9}, {
    3.5818310772260237`*^9, 3.5818311467082157`*^9}, {3.581831236121224*^9, 
    3.581831336445983*^9}, 3.581831382745121*^9, {3.581849413665176*^9, 
-   3.581849468170876*^9}},
+   3.581849468170876*^9}, {3.602569394983534*^9, 3.602569451405253*^9}},
  CellID->946598027],
 
 Cell[TextData[{
@@ -172,14 +211,27 @@ Cell[TextData[{
  CellID->914182813],
 
 Cell[BoxData[GridBox[{
-   {"xPrint", Cell["formatted input", "TableText"]},
-   {"SymManipulator", Cell["symmetrized expressions", "TableText"]},
+   {
+    ButtonBox["xPrint",
+     BaseStyle->"Hyperlink",
+     ButtonData->"https://sites.google.com/site/xprintforxact/"], Cell[
+    "formatted input", "TableText"]},
+   {
+    ButtonBox["SymManipulator",
+     BaseStyle->"Hyperlink",
+     ButtonData->{
+       URL["http://www.xact.es/SymManipulator/"], None}], Cell[
+    "symmetrized expressions", "TableText"]},
    {
     ButtonBox["xTras",
      BaseStyle->"Link",
      ButtonData->"paclet:xTras/guide/xTras"], Cell[
     "field theory inspired additions", "TableText"]},
-   {"TexAct", Cell[TextData[{
+   {
+    ButtonBox["TexAct",
+     BaseStyle->"Hyperlink",
+     ButtonData->{
+       URL["http://www.xact.es/TexAct/"], None}], Cell[TextData[{
      Cell[BoxData[
       FormBox[
        StyleBox[
@@ -190,15 +242,26 @@ Cell[BoxData[GridBox[{
         SingleLetterItalics->False], TraditionalForm]]],
      " code formatting"
     }], "TableText"]},
-   {"xPand", Cell["cosmological perturbation theory", "TableText"]},
-   {"xTerior", Cell["differential forms", "TableText"]}
+   {
+    ButtonBox["xPand",
+     BaseStyle->"Hyperlink",
+     ButtonData->{
+       URL["http://www.xact.es/xPand/"], None}], Cell[
+    "cosmological perturbation theory", "TableText"]},
+   {
+    ButtonBox["xTerior",
+     BaseStyle->"Hyperlink",
+     ButtonData->{
+       URL["http://www.xact.es/xTerior/"], None}], Cell[
+    "differential forms", "TableText"]}
   }]], "DefinitionBox",
  CellChangeTimes->{{3.581830826215315*^9, 3.5818309733044443`*^9}, {
    3.5818310772260237`*^9, 3.5818311467082157`*^9}, {3.581831236121224*^9, 
    3.581831336445983*^9}, 3.581831382745121*^9, {3.581849413665176*^9, 
    3.581849468170876*^9}, {3.5818495130443573`*^9, 3.581849525413025*^9}, {
    3.5818495717210817`*^9, 3.581849686840212*^9}, {3.581849774812595*^9, 
-   3.581849870893545*^9}, {3.602479639814496*^9, 3.602479692499578*^9}},
+   3.581849870893545*^9}, {3.602479639814496*^9, 3.602479692499578*^9}, {
+   3.602569193555602*^9, 3.602569363910667*^9}},
  CellID->1256384716],
 
 Cell[TextData[{
@@ -2081,7 +2144,7 @@ Cell["XXXX", "TutorialRelatedLinks",
 }, Open  ]]
 },
 WindowSize->{1111, 695},
-WindowMargins->{{14, Automatic}, {Automatic, 22}},
+WindowMargins->{{90, Automatic}, {Automatic, 97}},
 ShowSelection->True,
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
 2011)",
