@@ -944,8 +944,8 @@ UnorderedPartitionedPermutations[{},{}]:=
 PartitionedSymmetrize[f_Function, indices : (List | IndexList)[], partition : {}, evaluateonce_:False] = 
 	0;
 
-PartitionedSymmetrize[f_Function, indices : (List | IndexList)[__], partition : {__Integer}, evaluateonce_:False] /; Total@partition === Length@indices := 
-	Times @@ (partition!) / Total[partition]! With[
+PartitionedSymmetrize[f_Function, indices : (List | IndexList)[__], partition : {parts__Integer}, evaluateonce_:False] /; Total@partition === Length@indices := 
+	1 / Multinomial[parts] With[
 		{
 			permutations = UnorderedPartitionedPermutations[indices, partition]
 		},
@@ -1628,7 +1628,19 @@ xTrasDefSymCovD[covd_[ind_], vbundles_, options___?OptionQ] := With[
 									{i,1,Length@{inds}}
 								]
 							]
-						]
+						];
+					,
+					(* Not Leibnitz. *)
+					(* On scalar functions. *)
+					HoldPattern[cd[inds__,a_][f_?ScalarFunctionQ[args___]]] :=
+						Block[{$AutoSymmetrizeCovDs = False},
+							PartitionedSymmetrize[
+								(cd@@#1) @ (cd@@#2) @ f[args],
+								{inds,a},
+								{Length@{inds},1},
+								False
+							]
+						];							
 				];
 				
 				(* Metric compatibility. *)
