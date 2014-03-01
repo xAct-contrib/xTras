@@ -1421,8 +1421,13 @@ Protect[ChangeCovD];
 (* VarD *)
 (********)
 
+(* Same connection. *)
 VarD[tensor_,covd_][covd_?SymCovDQ[inds__][expr_],rest_] := 
 	(-1)^Length[{inds}]VarD[tensor,covd][expr,covd[inds][rest]]
+
+(* Different connenction. *)
+VarD[tensor_, covd1_?CovDQ][expr : covd2_?SymCovDQ[__][_], rest_] := 
+	VarD[tensor, covd1][ChangeCovD[expr, covd2, covd1], rest] /; xAct`xTensor`Private`CompatibleCovDsQ[covd1, covd2];
 
 
 (*****************)
@@ -1579,11 +1584,51 @@ xTrasDefSymCovD[covd_[ind_], vbundles_, options___?OptionQ] := With[
 								{i,0,l} 
 							]
 						];
-					(* Powers. *)
-					HoldPattern[cd[inds__][x_^y_]] :=
-						Block[{Keep},
-							cd[inds][Keep[x]x^(y-1)] /. Keep->Sequence
-						];
+					(* Scalar functions.
+					   The code below is a bit unreadable, but the formula can
+					   be found in the tutorial on symmetrized derivatives. *)
+					HoldPattern[cd[inds__][f_?ScalarFunctionQ[args___]]] :=
+						Block[
+							{
+								slot, apply
+							},
+							Module[
+								{
+									i,j,k
+								},
+								Sum[
+									Sum[
+										With[
+											{
+												product = Product[apply[cd, slot[k]][{args}[[j[k]]]], {k,1,i}]
+											},
+											Apply[
+												Derivative,
+												Count[Table[j[k],{k,1,i}], #]& /@ Range@Length@{args} 
+											][f][args] *
+											Total @ Map[
+												Function[
+													partition,
+													Multinomial@@partition / Times @@ Factorial[Last /@ Tally[partition]] *
+													PartitionedSymmetrize[
+														product& /. {slot -> Slot, apply -> Apply}
+														,
+														{inds},
+														partition,
+														False
+													]
+												],
+												IntegerPartitions[Length@{inds},{i}]
+											]
+										]
+										,
+										##
+									]& @@ Table[{j[k],1,Length@{args}}, {k, 1, i}]
+									,
+									{i,1,Length@{inds}}
+								]
+							]
+						]
 				];
 				
 				(* Metric compatibility. *)

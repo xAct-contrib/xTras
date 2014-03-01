@@ -4498,13 +4498,15 @@ Cell[BoxData[
           SubscriptBox["a", "1"], "..."}], 
          SubscriptBox["a", "n"]}], ")"}]], "X"}], "+", 
      RowBox[{
-      SubscriptBox["\[Del]", 
-       RowBox[{"(", 
-        RowBox[{
+      RowBox[{
+       SubscriptBox["\[Del]", 
+        RowBox[{"(", 
          RowBox[{
-          SubscriptBox["a", "1"], "..."}], 
-         SubscriptBox["a", "n"]}], ")"}]], "Y"}]}]}]}], 
+          RowBox[{
+           SubscriptBox["a", "1"], "..."}], 
+          SubscriptBox["a", "n"]}], ")"}]], "Y"}], " ", "."}]}]}]}], 
   TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.60261732116512*^9, 3.6026173219733963`*^9}},
  CellID->684418808]
 }, Open  ]],
 
@@ -4545,15 +4547,17 @@ Cell[BoxData[
             SubscriptBox["a", "1"], "..."}], 
            SubscriptBox["a", "i"]}], ")"}]}]], "X"}], "  ", 
       RowBox[{
-       SubscriptBox["\[Del]", 
-        RowBox[{
-         RowBox[{"(", 
-          RowBox[{
+       RowBox[{
+        SubscriptBox["\[Del]", 
+         RowBox[{
+          RowBox[{"(", 
            RowBox[{
-            SubscriptBox["a", 
-             RowBox[{"i", "+", "1"}]], "..."}], 
-           SubscriptBox["a", "n"]}], ")"}], ")"}]], "Y"}]}]}]}]}], 
-  TraditionalForm]], "DisplayFormulaNumbered",
+            RowBox[{
+             SubscriptBox["a", 
+              RowBox[{"i", "+", "1"}]], "..."}], 
+            SubscriptBox["a", "n"]}], ")"}], ")"}]], "Y"}], " ", 
+       "."}]}]}]}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.602617324790204*^9, 3.602617325670269*^9}},
  CellID->360567600]
 }, Open  ]],
 
@@ -4620,9 +4624,200 @@ Cell[BoxData[
           RowBox[{
            SubscriptBox["a", "1"], "..."}], 
           SubscriptBox["a", "n"]}], ")"}]], "Y"}]}], "+", " ", 
-     RowBox[{"total", " ", "derivative"}]}]}]}], 
+     RowBox[{"total", " ", 
+      RowBox[{"derivative", "."}]}]}]}]}], 
   TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.602617314890811*^9, 3.602617316198162*^9}},
  CellID->1226406141]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Furthermore, the action of a Leibnitz symmetrized derivative on a generic \
+function with ",
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]], "InlineMath"],
+ " arguments can be written as:"
+}], "Text",
+ CellChangeTimes->{{3.602617399850976*^9, 3.602617414891529*^9}, {
+  3.602658987152573*^9, 3.602659015543762*^9}, {3.6026591484918137`*^9, 
+  3.602659150456195*^9}},
+ CellID->1077413774],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"\t", 
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Del]", 
+      RowBox[{"(", 
+       RowBox[{
+        SubscriptBox["a", "1"], "\[CenterEllipsis]", " ", 
+        SubscriptBox["a", "n"]}], ")"}]], 
+     RowBox[{"F", "(", 
+      RowBox[{
+       SubscriptBox["X", "1"], ",", "\[Ellipsis]", " ", ",", " ", 
+       SubscriptBox["X", "p"]}], ")"}]}], " ", "=", " ", 
+    RowBox[{
+     UnderoverscriptBox["\[Sum]", 
+      RowBox[{"i", "=", "1"}], "n"], 
+     RowBox[{
+      UnderoverscriptBox["\[Sum]", 
+       RowBox[{" ", 
+        RowBox[{
+         SubscriptBox["j", "1"], "=", "1"}]}], "p"], 
+      RowBox[{"\[CenterEllipsis]", 
+       RowBox[{
+        UnderoverscriptBox["\[Sum]", 
+         RowBox[{" ", 
+          RowBox[{
+           SubscriptBox["j", "i"], "=", "1"}]}], "p"], 
+        RowBox[{
+         FractionBox[
+          RowBox[{
+           SuperscriptBox["\[PartialD]", "i"], 
+           RowBox[{"F", "(", 
+            RowBox[{
+             SubscriptBox["X", "1"], ",", "\[Ellipsis]", ",", " ", 
+             SubscriptBox["X", "p"]}], ")"}]}], 
+          RowBox[{
+           RowBox[{"\[PartialD]", 
+            SubscriptBox["X", 
+             SubscriptBox["j", "1"]]}], "\[CenterEllipsis]", 
+           RowBox[{"\[PartialD]", 
+            SubscriptBox["X", 
+             SubscriptBox["j", "i"]]}]}]], 
+         RowBox[{
+          UnderscriptBox["\[Sum]", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              SubscriptBox["k", "1"], ",", "\[Ellipsis]", ",", " ", 
+              SubscriptBox["k", "i"]}], "}"}], "\[Element]", 
+            RowBox[{"P", "(", 
+             RowBox[{"n", ",", "i"}], ")"}]}]], 
+          RowBox[{
+           RowBox[{"M", "(", 
+            RowBox[{
+             SubscriptBox["k", "1"], ",", "\[Ellipsis]", ",", 
+             SubscriptBox["k", "i"]}], ")"}], " ", 
+           RowBox[{
+            SubscriptBox["\[Del]", 
+             RowBox[{
+              RowBox[{
+               SubscriptBox["a", "1"], "..."}], 
+              SubscriptBox["a", 
+               SubscriptBox["k", "1"]]}]], 
+            SubscriptBox["X", 
+             SubscriptBox["j", "1"]]}], "\[CenterEllipsis]", 
+           RowBox[{
+            SubscriptBox["\[Del]", 
+             RowBox[{
+              SubscriptBox["a", 
+               RowBox[{"n", "-", 
+                SubscriptBox["k", "i"]}]], "\[CenterEllipsis]", " ", 
+              SubscriptBox["a", "n"]}]], 
+            SubscriptBox["X", 
+             SubscriptBox["j", "i"]]}]}]}]}]}]}]}]}]}]}], 
+  TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.6026174242106457`*^9, 3.602617631093977*^9}, {
+  3.60261767652182*^9, 3.6026176960100327`*^9}, {3.602617730088085*^9, 
+  3.602617906418038*^9}, {3.6026179440055943`*^9, 3.602617955594253*^9}, {
+  3.602617994807365*^9, 3.60261806287746*^9}, {3.60261810649015*^9, 
+  3.602618235976269*^9}, {3.6026590560871677`*^9, 3.6026590588576317`*^9}},
+ CellID->511188114]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "where  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"P", "(", 
+     RowBox[{"n", ",", "i"}], ")"}], "="}], TraditionalForm]], "InlineMath"],
+ Cell[BoxData[
+  RowBox[{
+   ButtonBox["IntegerPartitions",
+    BaseStyle->"Link",
+    ButtonData->"paclet:ref/IntegerPartitions"], "[", 
+   RowBox[{"n", ",", 
+    RowBox[{"{", "i", "}"}]}], "]"}]], "InlineFormula",
+  FormatType->"StandardForm"],
+ " is the set of partitions ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["k", "1"], ",", "\[Ellipsis]", ",", 
+     SubscriptBox["k", "i"]}], "}"}], TraditionalForm]], "InlineMath"],
+ " of ",
+ Cell[BoxData[
+  FormBox["n", TraditionalForm]], "InlineMath"],
+ " into ",
+ Cell[BoxData[
+  FormBox["i", TraditionalForm]], "InlineMath"],
+ " integers (such that  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     UnderoverscriptBox["\[Sum]", 
+      RowBox[{"p", "=", "1"}], "i"], 
+     SubscriptBox["k", "p"]}], "=", "n"}], TraditionalForm]], "InlineMath"],
+ "), and ",
+ Cell[BoxData[
+  FormBox["M", TraditionalForm]], "InlineMath"],
+ " is the normalized multinomial:"
+}], "Text",
+ CellChangeTimes->{{3.602617399850976*^9, 3.602617414891529*^9}, {
+  3.602618275682599*^9, 3.602618484214864*^9}, {3.602658295363652*^9, 
+  3.602658425133637*^9}, {3.6026590771895943`*^9, 3.602659081157789*^9}},
+ CellID->1037358316],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"\t", 
+   RowBox[{
+    RowBox[{"M", "(", 
+     RowBox[{
+      SubscriptBox["k", "1"], ",", "\[Ellipsis]", ",", 
+      SubscriptBox["k", "i"]}], ")"}], "  ", "=", " ", 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       ButtonBox["Multinomial",
+        BaseStyle->"Link",
+        ButtonData->"paclet:ref/Multinomial"], 
+       RowBox[{"(", 
+        RowBox[{
+         SubscriptBox["k", "1"], ",", "\[Ellipsis]", ",", 
+         SubscriptBox["k", "i"]}], ")"}]}], 
+      RowBox[{
+       UnderoverscriptBox["\[Product]", 
+        RowBox[{"p", "=", "1"}], "n"], 
+       RowBox[{
+        ButtonBox["Count",
+         BaseStyle->"Link",
+         ButtonData->"paclet:ref/Count"], 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             SubscriptBox["k", "1"], ",", "\[Ellipsis]", ",", 
+             SubscriptBox["k", "i"]}], "}"}], ",", "p"}], ")"}], "!"}]}]}]], 
+     "."}]}]}], TraditionalForm]], "DisplayFormulaNumbered",
+ CellChangeTimes->{{3.6026174242106457`*^9, 3.602617631093977*^9}, {
+  3.60261767652182*^9, 3.6026176960100327`*^9}, {3.602617730088085*^9, 
+  3.602617906418038*^9}, {3.6026179440055943`*^9, 3.602617955594253*^9}, {
+  3.602617994807365*^9, 3.60261806287746*^9}, {3.60261810649015*^9, 
+  3.602618235976269*^9}, {3.6026584417163897`*^9, 3.602658484257303*^9}, {
+  3.602658574886188*^9, 3.602658732227957*^9}, {3.602659062864401*^9, 
+  3.602659064849534*^9}},
+ CellID->638456319]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -4657,7 +4852,7 @@ Cell["XXXX", "TutorialRelatedLinks",
 }, Open  ]]
 },
 WindowSize->{1099, 856},
-WindowMargins->{{53, Automatic}, {Automatic, 0}},
+WindowMargins->{{123, Automatic}, {Automatic, 0}},
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
 2011)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "TutorialPageStyles.nb", 

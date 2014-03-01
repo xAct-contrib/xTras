@@ -869,6 +869,47 @@ Test[
 ]
 
 Test[
+	CD[-a, -b]@Exp[RicciScalarCD[]]
+	,
+	E^RicciScalarCD[]*CD[-a][RicciScalarCD[]]*CD[-b][RicciScalarCD[]] + E^RicciScalarCD[]*CD[-a, -b][RicciScalarCD[]]
+	,
+	TestID->"xTensor-20140301-H1D2Z4"
+]
+
+Test[
+	ToCanonical@RiemannYoungProject@ToCanonical[SymmetrizeCovDs[ExpandSymCovDs[#1]/.#2]-(#1/.#2)]&[
+		CD[-a,-b,-c,-d]@RicciScalarCD[],
+		RicciScalarCD[]->Exp[RicciScalarCD[]]
+	]
+	,
+	0
+	,
+	TestID->"xTensor-20140301-M5J8P6"
+]
+
+Test[
+	ToCanonical@RiemannYoungProject@ToCanonical[SymmetrizeCovDs[ExpandSymCovDs[#1]/.#2]-(#1/.#2)]&[
+		CD[-a,-b,-c,-d]@RicciScalarCD[],
+		RicciScalarCD[]->RicciScalarCD[]^KretschmannCD[]
+	]
+	,
+	0
+	,
+	TestID->"xTensor-20140301-Y7H4B7"
+]
+
+Test[
+	ToCanonical@RiemannYoungProject@ToCanonical[SymmetrizeCovDs[ExpandSymCovDs[#1]/.#2]-(#1/.#2)]&[
+		CD[-a,-b,-c,-d]@RicciScalarCD[],
+		RicciScalarCD[]->RicciScalarCD[]^(3/4)
+	]
+	,
+	0
+	,
+	TestID->"xTensor-20140301-A5A3S7"
+]
+
+Test[
 	CD[a,b][RicciScalarCD[]RicciCD[c,d]]-Symmetrize[CD[a]@CD[b][RicciScalarCD[]RicciCD[c,d]],{a,b}]//ExpandSymCovDs//ToCanonical
 	,
 	0
