@@ -38,3 +38,20 @@ Test[
 ]
 
 dim =. ;
+
+(* ToCanonical on PD reported by Guillaume. *)
+
+DefManifold[E3, 3, {aa, bb, ii, jj}]
+DefMetric[1, Metricdelta[-ii,-jj], PD, {",", "\[PartialD]"},FlatMetric -> True]
+DefTensor[v[ii], E3]
+
+Test[
+	ToCanonical[
+		v[aa] v[bb] PD[-ii][v[-bb]] PD[ii][v[-aa]] -
+		v[aa] v[-bb] PD[-ii][v[-aa]] PD[ii][v[bb]]
+	]
+	,
+	0
+	,
+	TestID->"xAct-20140302-Z5O4J5"
+]

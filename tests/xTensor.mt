@@ -909,6 +909,42 @@ Test[
 	TestID->"xTensor-20140301-A5A3S7"
 ]
 
+DefScalarFunction[scalarF]
+DefTensor[SymbolJoin["scalar", #][], M] & /@ Range[8]
+
+Test[
+	ToCanonical[
+		( CD[-a,-b][ scalarF[scalar1[], scalar2[], scalar3[], scalar4[], scalar5[], scalar6[], scalar7[], scalar8[]] ] /. scalarF->Times )
+		- CD[-a,-b][   Times[scalar1[], scalar2[], scalar3[], scalar4[], scalar5[], scalar6[], scalar7[], scalar8[]] ]
+	]
+	,
+	0
+	,
+	TestID->"xTensor-20140302-S6V0J1"
+]
+
+Test[
+	ToCanonical[
+		( CD[-a,-b,-c,-d,-e][ scalarF[scalar1[], scalar2[]] ] /. scalarF->Times )
+		- CD[-a,-b,-c,-d,-e][   Times[scalar1[], scalar2[]] ]
+	]
+	,
+	0
+	,
+	TestID->"xTensor-20140302-H7O3G1"
+]
+
+Test[
+	ToCanonical[
+		( CD[-a,-b,-c,-d][ scalarF[scalar1[], scalar2[]], scalar3[], scalar4[] ] /. scalarF->Times )
+		- CD[-a,-b,-c,-d][   Times[scalar1[], scalar2[]], scalar3[], scalar4[] ]
+	]
+	,
+	0
+	,
+	TestID->"xTensor-20140302-Q4Y1F1"
+]
+
 Test[
 	CD[a,b][RicciScalarCD[]RicciCD[c,d]]-Symmetrize[CD[a]@CD[b][RicciScalarCD[]RicciCD[c,d]],{a,b}]//ExpandSymCovDs//ToCanonical
 	,
