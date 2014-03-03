@@ -261,12 +261,20 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 	];
 	
 	(* Expand. *)
-	If[verbose,
-		mod = MapTimedIfPlus[Expand@NoScalar[#]&,expr,Description->"Expanding terms and removing Scalar heads"];
+	If[!FreeQ[expr,Scalar],
+		If[verbose,
+			mod = MapTimedIfPlus[ExpandTensors@NoScalar[#]&,expr,Description->"Removing Scalar heads and expanding tensorial terms"];
+		,
+			mod = MapIfPlus[ExpandTensors@NoScalar[#]&,expr];
+		]
 	,
-		mod = MapIfPlus[Expand@NoScalar[#]&,expr];
+		If[verbose,
+			mod = MapTimedIfPlus[ExpandTensors[#]&,expr,Description->"Expanding tensorial terms"];
+		,
+			mod = MapIfPlus[ExpandTensors[#]&,expr];
+		]
 	];
-	print["Expanded to " <> ToString@Length@mod <> " terms"];
+	print["Expanded to " <> ToString@Length@mod <> " tensorial terms"];
 	
 	(* Find dummies. *)
 	(* TODO: this doesn't work when expr is a list whose free indices are not uniform. *)
@@ -322,6 +330,25 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 		/. x_*y_TensorWrapper :> simplify[x] y 
 		// rtc
 ];
+
+ExpandTensors::usage =
+	"ExpandTensors[expr] only expands sub-expressions in expr that have tensors."; 
+(* Thread over Plus, List, and Equal. *)
+ExpandTensors[expr_Plus]  := ExpandTensors /@ expr;
+ExpandTensors[expr_List]  := ExpandTensors /@ expr;
+ExpandTensors[expr_Equal] := ExpandTensors /@ expr;
+(* Expand only the factors of Times that have tensors. *)
+ExpandTensors[HoldPattern[Times[x__]]] :=
+	Times[
+		(* The terms without tensors are not expanded. *)
+		Times @@ Pick[{x}, Not /@ #],
+		(* The terms with tensors are expanded. *)
+		Expand[
+			Times @@ Pick[{x}, #] 
+		]
+	]& [ ! FreeQ[#, _?xTensorQ | _?ParameterQ] & /@ {x} ];
+(* On everything else: expand. *)
+ExpandTensors[expr_] := Expand[expr];
 
 
 Options[CollectConstants] ^= {

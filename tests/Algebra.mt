@@ -149,6 +149,38 @@ Test[
 (***************************)
 
 Test[
+	xAct`xTras`Private`ExpandTensors[ 
+		RicciScalarCD[] (metric[a, b] + RicciCD[a, b])
+	]
+	,
+	metric[a, b]*RicciScalarCD[] + RicciCD[a, b]*RicciScalarCD[]
+	,
+	TestID->"Algebra-20130103-S8S5H5"
+]
+
+
+Test[
+	xAct`xTras`Private`ExpandTensors[ 
+		(2 + Pi) RicciScalarCD[] (metric[a, b] + RicciCD[a, b]) + RicciCD[a, b]
+	]
+	,
+	RicciCD[a, b] + (2 + Pi)*(metric[a, b]*RicciScalarCD[] + RicciCD[a, b]*RicciScalarCD[])
+	,
+	TestID->"Algebra-20130103-S8S5H5"
+]
+
+Test[
+	xAct`xTras`Private`ExpandTensors[ 
+		2 (Pi + I)
+	]
+	,
+	2 (Pi + I)
+	,
+	TestID->"Algebra-20130103-S8S5H5"
+]
+
+
+Test[
 	CollectTensors[ 
 		metric[a,b] K + 2 metric[a,b] + RiemannCD[a,c,b,d] RicciCD[-c,-d] + 3 K RiemannCD[b,e,a,f] RicciCD[-f,-e]
 	]
