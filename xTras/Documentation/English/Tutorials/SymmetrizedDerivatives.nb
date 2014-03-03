@@ -4561,8 +4561,8 @@ Cell[BoxData[
 }, Open  ]],
 
 Cell[TextData[{
- "A consistency check on this formula is counting the number of terms on \
-boths sides; the left-hand-side has ",
+ "Counting the number of terms on boths sides provides a consistency check on \
+this formula; the left-hand-side has ",
  Cell[BoxData[
   FormBox[
    SuperscriptBox["2", "n"], TraditionalForm]], "InlineMath"],
@@ -4592,7 +4592,7 @@ boths sides; the left-hand-side has ",
 }], "Text",
  CellChangeTimes->{{3.601913457488826*^9, 3.601913473539494*^9}, {
   3.602048660427458*^9, 3.602048672650756*^9}, {3.602758223166317*^9, 
-  3.6027582798105507`*^9}},
+  3.6027582798105507`*^9}, {3.602822686421352*^9, 3.602822696891654*^9}},
  CellID->2008285013],
 
 Cell[CellGroupData[{
@@ -5127,11 +5127,19 @@ Cell[BoxData[
  CellID->1633043657]
 }, Open  ]],
 
-Cell["\<\
-Similarly, the distributivity property is also a limiting case of the \
-generalized chain rule.\
-\>", "Text",
- CellChangeTimes->{{3.6027588463569927`*^9, 3.602758878008811*^9}},
+Cell[TextData[{
+ "Similarly, the distributivity property can also be derived from the \
+generalized chain rule by setting ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"F", "(", 
+     SuperscriptBox["X", "\[Mu]"], ")"}], " ", "=", " ", 
+    RowBox[{"X", "+", "Y"}]}], TraditionalForm]], "InlineMath"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.6027588463569927`*^9, 3.602758878008811*^9}, {
+  3.602822640364243*^9, 3.6028226625737467`*^9}},
  CellID->1455394655]
 }, Open  ]]
 }, Open  ]],

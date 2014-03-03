@@ -332,3 +332,11 @@ Test[
 	,
 	TestID->"Algebra-20130418-R7F2C5"
 ]
+
+Test[
+	metric[a,b] /. SolveTensors[metric[a,b]==0, MakeRule -> True]
+	,
+	{0}
+	,
+	TestID->"Algebra-20130418-R7F2C5"
+]

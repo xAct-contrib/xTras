@@ -417,7 +417,7 @@ SolveTensors1[expr_, patterns_List, options___?OptionQ] := Module[
 					]
 				}
 			],
-			options
+			FilterRules[{options},Options[MakeRule]]
 		],
 		mrrule = {}
 	];

@@ -4,7 +4,7 @@ Cell[TextData[{
  Cell["1.2.0", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
- Cell["1.3.1 ", "HistoryData",
+ Cell["1.3.2 ", "HistoryData",
   CellTags->"Modified"],
  " | Obsolete in: ",
  Cell[" ", "HistoryData",
@@ -15,7 +15,7 @@ Cell[TextData[{
 }], "History",
  CellChangeTimes->{{3.580906000389572*^9, 3.58090602990597*^9}, {
   3.600855131738778*^9, 3.6008551428502607`*^9}, {3.601881237851282*^9, 
-  3.601881237904076*^9}},
+  3.601881237904076*^9}, {3.602776501670086*^9, 3.60277650175105*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -97,14 +97,20 @@ Cell["xTras package", "GuideTitle",
  CellID->942062912],
 
 Cell[TextData[{
- StyleBox["xTras",
+ StyleBox[ButtonBox["xTras",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://xact.es/xtras/"], None}],
   FontSlant->"Italic"],
  " is a field-theory inspired add-on package for ",
- StyleBox["xAct",
+ StyleBox[ButtonBox["xAct",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://xact.es/"], None}],
   FontSlant->"Italic"],
  ". It contains new functions for doing tensor algebra, making Ansatze, \
-computing contractions, and much more.\[LineSeparator]\[LineSeparator]",
- "Below is a list of new functionality in ",
+computing contractions, and much more.\[LineSeparator]\[LineSeparator]Below \
+is a list of new functionality in ",
  StyleBox["xTras",
   FontSlant->"Italic"],
  ". If you're new to xAct, have a look at the ",
@@ -114,7 +120,9 @@ computing contractions, and much more.\[LineSeparator]\[LineSeparator]",
 }], "GuideAbstract",
  CellChangeTimes->{{3.5801894604015102`*^9, 3.580189494508747*^9}, {
   3.580913308693431*^9, 3.5809133450959473`*^9}, {3.580913401764153*^9, 
-  3.580913403363968*^9}, {3.581920076768135*^9, 3.581920077624528*^9}},
+  3.580913403363968*^9}, {3.581920076768135*^9, 3.581920077624528*^9}, {
+  3.602776436275445*^9, 3.602776436403501*^9}, {3.6027764690532103`*^9, 
+  3.6027764889717493`*^9}},
  CellID->2001916300]
 }, Open  ]],
 
