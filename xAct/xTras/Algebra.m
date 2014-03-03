@@ -109,9 +109,31 @@ TensorWrapper[x_Equal] := TensorWrapper /@ x;
 (* TensorWrapper on itself returns a single TensorWrapper. *)
 HoldPattern[TensorWrapper[TensorWrapper[expr_]]] := TensorWrapper[expr];
 
-(* The next line will clash if TensorWrapper is LinearQ (which it is not). *)
-TensorWrapper[x_ * y_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x TensorWrapper[y];
-TensorWrapper[x_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] && x =!= UnitConstant := x TensorWrapper[ UnitConstant ];
+(* TensorWrapper on Times. Doing a recursive definition like
+   TensorWrapper[x_ * y_] /; FreeQ[x, _?xTensorQ | _?ParameterQ] := x TensorWrapper[y];
+   is exponentially slow. So we do it differently. *)
+TensorWrapper[HoldPattern[Times[x__]]] :=
+	With[
+		{
+			tensorqlist = ! FreeQ[#, _?xTensorQ | _?ParameterQ] & /@ {x}
+		},
+		Times[
+			(* The terms without tensors go outside the tensorwrapper. *)
+			Times @@ Pick[{x}, Not /@ tensorqlist],
+			(* The terms with tensors go inside the tensorwrapper. *)
+			(* Note that when no terms go inside the tensorwrapper,
+			   it still produces rest*TensorWrapper[UnitConstant] because
+			   Times[] gives 1. *)
+			TensorWrapper[
+				Times @@ Pick[{x}, tensorqlist] 
+			]
+		(* The conditional below is to prevent infinite recursion
+		   in the case when all factors have tensors. *)
+		] /; ! And @@ (tensorqlist)
+	];
+(* TensorWrapper on a single term. *)
+TensorWrapper[x_] /; Head[x] =!= Times && x =!= UnitConstant && FreeQ[x, _?xTensorQ | _?ParameterQ] := 
+	x TensorWrapper[UnitConstant];
 
 (* Move a tensor wrapper on the unit constant inside another tensor wrapper *)
 TensorWrapper /: TensorWrapper[UnitConstant] * HoldPattern@TensorWrapper[x_] := TensorWrapper[x];

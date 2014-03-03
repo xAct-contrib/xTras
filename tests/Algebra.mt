@@ -29,11 +29,36 @@ Test[
 ]
 
 Test[
+	TensorWrapper[ 2 Pi I ]
+	,
+	2 Pi I TensorWrapper[ UnitConstant ]
+	,
+	TestID->"Algebra-20130103-Q1N7G9"
+]
+
+Test[
+	TensorWrapper[ RicciScalarCD[] KretschmannCD[] ]
+	,
+	TensorWrapper[ RicciScalarCD[] KretschmannCD[] ]
+	,
+	TestID->"Algebra-20140303-V8A5R2"
+]
+
+
+Test[
+	TensorWrapper[ 2 Pi I RicciScalarCD[] KretschmannCD[] ]
+	,
+	2 Pi I TensorWrapper[ RicciScalarCD[] KretschmannCD[] ]
+	,
+	TestID->"Algebra-20140303-V5U8B0"
+]
+
+Test[
 	UnitConstant * TensorWrapper[ UnitConstant ]
 	,
 	TensorWrapper[ UnitConstant ]
 	,
-	TestID->"Algebra-20130103-Q1N7G9"
+	TestID->"Algebra-20140303-X7R7L2"
 ]
 
 Test[
@@ -338,5 +363,5 @@ Test[
 	,
 	{0}
 	,
-	TestID->"Algebra-20130418-R7F2C5"
+	TestID->"Algebra-20140303-R8K5W6"
 ]
