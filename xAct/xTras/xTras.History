@@ -1,6 +1,18 @@
 xTras changelog
 ===============
 
+v1.3.2, 2014-03-03
+---------------------
+
+  * Symmetrized derivatives use the chain rule on scalar functions.
+  * Improved speed of SymmetrizeCovDs in some situations.
+  * SymmetrizeCovDs strips all dummy indices before caching. 
+  * VarD on symmetrized derivatives w.r.t. to another derivative works. 
+  * Symmetrized covariant derivatives pass Validate.
+  * CollectTensors is faster on expressions that are (partially) collected. 
+  * TensorWrapper is much faster on large products (was exponential in the number of terms, is now linear). 
+  * Fixed warning message in SolveTensors. 
+
 v1.3.1, 2014-02-22
 ------------------
 
