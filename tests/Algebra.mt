@@ -166,7 +166,7 @@ Test[
 	,
 	RicciCD[a, b] + (2 + Pi)*(metric[a, b]*RicciScalarCD[] + RicciCD[a, b]*RicciScalarCD[])
 	,
-	TestID->"Algebra-20130103-S8S5H5"
+	TestID->"Algebra-20140305-Y1L3T6"
 ]
 
 Test[
@@ -176,7 +176,7 @@ Test[
 	,
 	2 (Pi + I)
 	,
-	TestID->"Algebra-20130103-S8S5H5"
+	TestID->"Algebra-20140305-B1I5B1"
 ]
 
 
@@ -187,8 +187,23 @@ Test[
 	,
 	(K+2)metric[a,b] + (3K+1) RiemannCD[a,-c,b,-d] RicciCD[c,d]
 	,
-	TestID->"Algebra-20130103-S8S5H5"
+	TestID->"Algebra-20140305-P5V6Z2"
 ]
+
+Off[FrontEndObject::notavail]
+
+Test[
+	CollectTensors[ 
+		metric[a,b] K + 2 metric[a,b] + RiemannCD[a,c,b,d] RicciCD[-c,-d] + 3 K RiemannCD[b,e,a,f] RicciCD[-f,-e],
+		Verbose->True
+	]
+	,
+	(K+2)metric[a,b] + (3K+1) RiemannCD[a,-c,b,-d] RicciCD[c,d]
+	,
+	TestID->"Algebra-20140305-L0P3E7"
+]
+
+On[FrontEndObject::notavail]
 
 Test[
 	CollectTensors[ 
@@ -199,6 +214,21 @@ Test[
 	,
 	TestID->"Algebra-20130103-S3E0M5"
 ]
+
+Off[FrontEndObject::notavail]
+
+Test[
+	CollectTensors[ 
+		0 == metric[a,b] K + 2 metric[a,b] + RiemannCD[a,c,b,d] RicciCD[-c,-d] + 3 K RiemannCD[b,e,a,f] RicciCD[-f,-e],
+		Verbose->True
+	]
+	,
+	0 == (K+2)metric[a,b] + (3K+1) RiemannCD[a,-c,b,-d] RicciCD[c,d]
+	,
+	TestID->"Algebra-20140305-L1N7J1"
+]
+
+On[FrontEndObject::notavail]
 
 Test[
 	CollectTensors[{ 
@@ -214,6 +244,24 @@ Test[
 	TestID->"Algebra-20130103-G2F5H0"
 ]
 
+Off[FrontEndObject::notavail]
+
+Test[
+	CollectTensors[{ 
+		metric[a,b] K + 2 metric[a,b] + RiemannCD[a,c,b,d] RicciCD[-c,-d] + 3 K RiemannCD[b,e,a,f] RicciCD[-f,-e],
+		2 RiemannCD[a,-g,b,-d] RicciCD[g,d] + 1/K RiemannCD[a,-h,b,-k] RicciCD[h,k]
+	},Verbose->True]
+	,
+	{
+		(K+2)metric[a,b] + (3K+1) RiemannCD[a,-c,b,-d] RicciCD[c,d],
+		(2 + 1/K) RiemannCD[a,-c,b,-d] RicciCD[c,d]
+	}
+	,
+	TestID->"Algebra-20140305-F9E8J1"
+]
+
+On[FrontEndObject::notavail]
+
 Test[
 	CollectTensors[Equal[
 		metric[a,b] K + 2 metric[a,b] + RiemannCD[a,c,b,d] RicciCD[-c,-d] + 3 K RiemannCD[b,e,a,f] RicciCD[-f,-e],
@@ -228,6 +276,24 @@ Test[
 	TestID->"Algebra-20130103-D7L1K6"
 ]
 
+Off[FrontEndObject::notavail]
+
+Test[
+	CollectTensors[Equal[
+		metric[a,b] K + 2 metric[a,b] + RiemannCD[a,c,b,d] RicciCD[-c,-d] + 3 K RiemannCD[b,e,a,f] RicciCD[-f,-e],
+		2 RiemannCD[a,-g,b,-d] RicciCD[g,d] + 1/K RiemannCD[a,-h,b,-k] RicciCD[h,k]
+	],Verbose->True]
+	,
+	Equal[
+		(K+2)metric[a,b] + (3K+1) RiemannCD[a,-c,b,-d] RicciCD[c,d],
+		(2 + 1/K) RiemannCD[a,-c,b,-d] RicciCD[c,d]
+	]
+	,
+	TestID->"Algebra-20140305-Z3D3S7"
+]
+
+On[FrontEndObject::notavail]
+
 Test[
 	CollectTensors[ metric[a,b] ]
 	,
@@ -235,6 +301,18 @@ Test[
 	,
 	TestID->"Algebra-20130103-O1F4P0"
 ]
+
+Off[FrontEndObject::notavail]
+
+Test[
+	CollectTensors[ metric[a,b], Verbose->True ]
+	,
+	metric[a,b]
+	,
+	TestID->"Algebra-20140305-K2X6U2"
+]
+
+On[FrontEndObject::notavail]
 
 Test[
 	CollectTensors[ 1 / (1+ RicciScalarCD[] ) + RicciScalarCD[] / (1 + RicciScalarCD[]) ]
@@ -246,6 +324,19 @@ Test[
 	TestID->"Algebra-20130103-J4J4K6"
 ]
 
+Off[FrontEndObject::notavail]
+
+Test[
+	CollectTensors[ 1 / (1+ RicciScalarCD[] ) + RicciScalarCD[] / (1 + RicciScalarCD[]), Verbose->True ]
+	,
+	1 / (1+ RicciScalarCD[] ) + RicciScalarCD[] / (1 + RicciScalarCD[])
+	,
+	CollectTensors::denominator
+	,
+	TestID->"Algebra-20140305-X5K5V9"
+]
+
+On[FrontEndObject::notavail]
 
 (***************************)
 (*                         *)

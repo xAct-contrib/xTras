@@ -325,10 +325,23 @@ Module[{verbose,print,time,method,simplify,rtc,mod,dummies,tcs,tcscanon,tcscanon
 		Message[CollectTensors::denominator]
 	];
 	
-	(* Collect in terms of the tensors, simplify the overall factors, and remove TensorWrappers. *)
-	Collect[mod, tcscanondd] 
-		/. x_*y_TensorWrapper :> simplify[x] y 
-		// rtc
+	(* Collect in terms of the tensors. *)
+	mod = Collect[mod, tcscanondd];
+	print["Collected TensorWrappers"];
+	
+	(* Simplify the overall factors, and remove TensorWrappers. *)
+	mod = If[!verbose,
+		(mod /. x_*y_TensorWrapper :> simplify[x] y) // rtc,
+		MapTimedIfPlus[
+			rtc[# /. x_*y_TensorWrapper :> simplify[x] y]&,
+			mod,
+			Description -> "Simplifying coefficient of each term"
+		]
+	]; 
+	print["Simplified coefficient of each term"];
+	
+	(* Return. *)
+	mod
 ];
 
 ExpandTensors::usage =
