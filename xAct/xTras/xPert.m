@@ -160,9 +160,9 @@ xTrasxPertDefMetric[signdet_, metric_[-a_, -b_], cd_, options___] :=
 			GiveSymbol[Perturbation,metric],
 			GiveSymbol[PerturbationParameter,metric]
 		];
-		PrintAs[GiveSymbol[Perturbation,metric]] ^= StringJoin[
-			PrintAs[Perturbation],
-			PrintAs[metric]
+		PrintAs[Evaluate@GiveSymbol[Perturbation,metric]] ^= StringJoin[
+			PrintAs[Evaluate@Perturbation],
+			PrintAs[Evaluate@metric]
 		];
 	];
 

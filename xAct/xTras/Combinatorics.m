@@ -433,7 +433,7 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 		Range[numContractions],
 		Description -> StringJoin[
 			"Contracting ", ToString@numContractions, 
-			" pairs of indices with metric ", ToString@PrintAs[metric]
+			" pairs of indices with metric ", ToString@PrintAs[Evaluate@metric]
 		]
 	];
 	
