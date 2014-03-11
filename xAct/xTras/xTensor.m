@@ -268,7 +268,12 @@ MakeBoxes[IndexFree[expr_], StandardForm] :=
 	] /. "["|"]" -> Sequence[];
 
 FromIndexFree[expr_] :=
-	expr /. HoldPattern[IndexFree[sub_]] :> FromIndexFree1[sub];
+	Block[
+		{
+			$AutoSymmetrizeCovDs = False
+		},
+		expr /. HoldPattern[IndexFree[sub_]] :> FromIndexFree1[sub]
+	];
 
 FromIndexFree1[expr_] := ScreenDollarIndices[ FromIndexFreeTensors@FromIndexFreeSymCovDs@FromIndexFreeCovDs@expr ];
 	
@@ -740,6 +745,7 @@ SortCovDsToBox[tensor_, CD_?CovDQ][x_] := x //. {
 };
 
 
+(* TODO: symmetrized derivatives. *)
 DivFreeQ[expr_, tens_] := And @@ (DivFreeQ[expr, tens, #] & /@ $CovDs);
 DivFreeQ[expr_, tens_, CD_?CovDQ] := 
 	FreeQ[expr, CD[a_][inner_] /; ! FreeQ[inner, tens[___, ChangeIndex[a], ___]]];
