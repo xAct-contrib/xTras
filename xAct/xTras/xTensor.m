@@ -1440,17 +1440,43 @@ VarD[tensor_, covd1_?CovDQ][expr : covd2_?SymCovDQ[__][_], rest_] :=
 (* Perturbations *)
 (*****************)
 
-(*
- *  We simply expand any symmetric covds inside Perturbations. 
- *  This is the simplest approach, but not the most efficient. 
- *  TODO: make this more efficient.
- *)
+(* This is literally copy-pasted from xPert.nb section 3.5, with the
+   only modification that the derivatives now have a SymCovD pattern to match. *)
+xAct`xPert`Private`ExpandPerturbation1[Perturbation[expr_,n_.],options___] := 
+	Module[
+		{sepmetric,od,tmp}
+		,
+		{sepmetric,od} = {SeparateMetric, OverDerivatives} /. CheckOptions[options] /. Options[ExpandPerturbation];
+		
+		(* Separate metrics *)
+		tmp = Perturbation[If[sepmetric,SeparateMetric[][expr],expr], n];
+		(* Derivatives *)
+		If[
+			od,
+			tmp = tmp /. expr1:HoldPattern[Perturbation[_Symbol?CovDQ[_][_]|_Symbol?SymCovDQ[__][_]|LieD[_][_]|Bracket[_,_][_],_.]] :> xAct`xPert`Private`ExpandPerturbationDer[expr1]
+		];
+		(* Reexpand *)
+		If[
+			tmp =!= Perturbation[expr,n],
+			tmp = ExpandPerturbation[tmp,options]
+		];
+		
+		(* Return result *)
+		tmp
+	];
 
-
-xAct`xPert`Private`ExpandPerturbation1[Perturbation[p_,n_.],options___] /; !FreeQ[p,_?SymCovDQ[inds__][_]/;Length@{inds}>1] :=
+(* Expansion of symmetrized derivatives: peel off one derivative on the outside,
+   and pass it back to ExpandPerturbation so that the existing xPert code can expand
+   the single derivative. *)
+xAct`xPert`Private`ExpandPerturbationDer[Perturbation[cd_Symbol?SymCovDQ[-a_,rest__][expr_],n_.]]:=
 	Block[
 		{$AutoSymmetrizeCovDs=False},
-		ExpandPerturbation[Perturbation[ExpandSymCovDs[p] ,n], options]
+		PartitionedSymmetrize[
+			ExpandPerturbation@Perturbation[(cd@@#1)@(cd@@#2)@expr,n]&,
+			{-a,rest},
+			{1,Length@{rest}},
+			False
+		]
 	];
 
 

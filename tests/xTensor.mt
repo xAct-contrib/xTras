@@ -1110,7 +1110,7 @@ Test[
 ]
 
 Test[
-	ToCanonical @ ExpandPerturbation @ Perturbation[CD[d]@CD[a,b]@T1[c] - 1/2 CD[d][ CD[a]@CD[b]@T1[c] + CD[b]@CD[a]@T1[c] ] ]
+	ToCanonical @ ExpandSymCovDs @ ExpandPerturbation @ Perturbation[CD[d]@CD[a,b]@T1[c] - 1/2 CD[d][ CD[a]@CD[b]@T1[c] + CD[b]@CD[a]@T1[c] ] ]
 	,
 	0
 	,
@@ -1118,7 +1118,7 @@ Test[
 ]
 
 Test[
-	ToCanonical @ ExpandPerturbation @ Perturbation[CD[a,b]@RicciScalarCD[] - 1/2 (CD[a]@CD[b]@RicciScalarCD[] + CD[b]@CD[a]@RicciScalarCD[]) ]
+	ToCanonical @ SymmetrizeCovDs @ ToCanonical @ ContractMetric @ ExpandPerturbation @ Perturbation[CD[a,b]@RicciScalarCD[] - 1/2 (CD[a]@CD[b]@RicciScalarCD[] + CD[b]@CD[a]@RicciScalarCD[]) ]
 	,
 	0
 	,
