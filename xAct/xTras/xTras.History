@@ -1,6 +1,16 @@
 xTras changelog
 ===============
 
+v1.3.3, 2014-03-31
+------------------
+
+  * xTras now requires xTensor 1.1.0. 
+  * Products of symmetrized derivatives that commutate are now fully canonicalized. 
+  * Improved speed of perturbations of symmetrized derivatives. 
+  * Fixed two PrintAs related issues. 
+  * FromIndexFree is now compatible with $AutoSymmetrizeCovDs = True. 
+  * CollectTensors is more verbose while simplifying coefficients.
+
 v1.3.2, 2014-03-03
 ---------------------
 
