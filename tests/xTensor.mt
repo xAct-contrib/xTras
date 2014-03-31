@@ -740,6 +740,30 @@ Test[
 ]
 
 Test[
+	Last@SymmetryOf[CD[a]@RicciScalarCD[] CD[c,d]@RicciScalarCD[]]
+	,
+	StrongGenSet[{2, 3}, GenSet[Cycles[{2, 3}]]]
+	,
+	TestID->"xTensor-20140331-A7B5A6"
+]
+
+Test[
+	Last@SymmetryOf[CD[a]@RicciScalarCD[] CD[c]@RicciScalarCD[]]
+	,
+	StrongGenSet[{1, 2}, GenSet[Cycles[{1, 2}]]]
+	,
+	TestID->"xTensor-20140331-Q7I7P6"
+]
+
+Test[
+	Last@SymmetryOf[CD[a,b]@RicciScalarCD[] CD[c, d]@RicciScalarCD[]]
+	,
+	StrongGenSet[{1, 2, 3, 4}, GenSet[Cycles[{1, 2}], Cycles[{3, 4}], Cycles[{1, 3}, {2, 4}]]]
+	,
+	TestID->"xTensor-20140331-O7F7G5"
+]
+
+Test[
 	CD[b, a]@RicciCD[d, e] - CD[a, b]@RicciCD[d, e] // ToCanonical
 	,
 	0
@@ -759,6 +783,14 @@ DefTensor[T1[a],M];
 DefTensor[S2[a,b],M,Symmetric[{a,b}]];
 DefTensor[S3[a,b,c],M,Symmetric[{a,b,c}]];
 DefTensor[S4[a,b,c,d],M,Symmetric[{a,b,c,d}]];
+
+Test[
+	CD[-a, d, -d][S3[a, b, c]]*CD[-c, -e, -f][S3[-b, e, f]] -  CD[-a, -b, d][S3[a, b, c]]*CD[-e, f, -f][S3[-c, -d, e]] // ToCanonical
+	,
+	0
+	,
+	TestID->"xTensor-20140331-H2D6K0"
+]
 
 Test[
 	xAct`xTras`Private`PartitionedSymmetrize[S2@@#1 S3@@#2 &, {a, b, c, d, e}, {2, 3}] // Expand

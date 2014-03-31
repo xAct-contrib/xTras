@@ -1368,6 +1368,33 @@ addCurvatureList[expr_,covd_,{a_,b_}, onIndices_:All] :=
 		]
 	];
 
+
+(***************)
+(* ObjectOrder *)
+(***************)
+
+(* xSort calls ObjectOrder to determine the ordering of objects,
+ * which in turn calls SortingName to determine the name for sorting objects.
+ * Sorting name has a rule for single derivatives, but we need to 
+ * add a rule for symmetrized derivatives.
+ * If we don't, xSort doesn't see that products of the same tensor with the
+ * same number of symmetrized derivatives commute, and hence these products
+ * will not be fully canonicalized upon calling ToCanonical.
+ *)
+
+(* We simply overwrite the function SortingName. *)
+xAct`xTensor`Private`SortingName[xAct`xTensor`Private`name_List] := 
+	xAct`xTensor`Private`name /. 
+	{
+		(* This is the existing rule in xTensor.nb *)
+		xAct`xTensor`Private`MyDer[xAct`xTensor`Private`covd_?CovDQ[_]] :> 
+			xAct`xTensor`Private`MyDer[xAct`xTensor`Private`covd],
+		(* This is the new rule for symmetrized derivatives. *)
+		xAct`xTensor`Private`MyDer[xAct`xTensor`Private`covd_?SymCovDQ[x__]] :>
+			xAct`xTensor`Private`MyDer[xAct`xTensor`Private`covd, Length@{x}]
+	};
+
+
 (**************)
 (* ChangeCovD *)
 (**************)
@@ -1564,7 +1591,7 @@ xTrasDefSymCovD[covd_[ind_], vbundles_, options___?OptionQ] := With[
 					invmetric = If[metricQ, If[frozenQ, GiveSymbol[Inv, metric], metric], False]
 				},
 			
-				(* Say we're making cd symmetrizable. *)
+				(* Inform the user that cd will be symmetrizable. *)
 				xAct`xTensor`Private`MakeDefInfo[DefCovD, covd[ind], {"covariant derivative","to be symmetrizable"}];
 				
 				(* Set the correct SGS. *)
