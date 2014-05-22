@@ -207,10 +207,10 @@ ConstantExprQ[(Plus | Times | _?ScalarFunctionQ)[args__]] := And @@ Map[Constant
 ConstantExprQ[x_] := ConstantQ[x];
 
 
-ConstantSymbolsOf[expr_] := 
+ConstantSymbolsOf[expr__] := 
 	(* Get all constant symbols, and select the non-numeric ones (we don't want things like Pi) *)
 	Select[
-		Union@Cases[expr, _Symbol?ConstantSymbolQ, {0,Infinity}, Heads->True],
+		Union@Cases[{expr}, _Symbol?ConstantSymbolQ, {0,Infinity}, Heads->True],
 		!NumericQ[#]&
 	]
 
@@ -1083,6 +1083,7 @@ SymmetrizeCovDs[expr_, options___?OptionQ] :=
 	Fold[SymmetrizeCovDs[#1, #2, options]&, expr, $CovDs];
 
 (* Second argument is a symcovd: symmetrize. *) 
+(* TODO: simple algorithm for no curvature case. *)
 SymmetrizeCovDs[expr_, cd_?SymCovDQ, options___?OptionQ] :=
 	If[
 		TrueQ [ "UseCache" /. CheckOptions[options] /. Options[SymmetrizeCovDs] ]

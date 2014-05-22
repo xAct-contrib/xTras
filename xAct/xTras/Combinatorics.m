@@ -865,6 +865,7 @@ ConstructDDIs[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, option
 	];
 
 	(* Init geometric variables. *)
+	(* TODO: make this work for PD *)
 	tensors = Union@Cases[expr, _?xTensorQ, {0, Infinity}, Heads -> True];
 	cd 		= CovDOfMetric@First@MetricsOfVBundle@First@Cases[SlotsOfTensor /@ tensors, _?VBundleQ, {0, Infinity}, Heads -> True];
 	D 		= DimOfManifold@ManifoldOfCovD@cd;
