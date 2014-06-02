@@ -309,7 +309,7 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 		expl,verbose,symmethod,map,exprIndices,numIndices,VB,metric,
 		auxT,auxTexpr,auxTname,indexlist,dummylist,dummies,M,removesign,process,step,
 		contractions,
-		sym,sgs,frees,dummysets,newdummies,newdummypairs,previousdummies,
+		sym,sgs,sgslist,frees,dummysets,newdummies,newdummypairs,previousdummies,translateddummysets,
 		numContractions,uncons,
 		freeMetrics, countFreeMetrics
 	},
@@ -340,6 +340,10 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 	(* Do some checks *)
 	(* Throw exceptions for when there are errors that shouldn't happen,
 	   and return an empty list for cases where there are no contractions. *)
+	
+	If[!xpermQ,
+		Throw@Message[AllContractions::error, "There is no link to the external xPerm executable."];
+	];
 	
 	If[IndicesOf[Dummy][expl] =!= IndexList[],
 		Throw@Message[AllContractions::error, "Input expression cannot have dummy indices."];
@@ -391,6 +395,7 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 	(* Get the symmetry and its Strong Generating Set. *)
 	sym			= SymmetryOf[auxTexpr];
 	sgs			= sym[[4]];
+	sgslist		= {xAct`xPerm`Private`tosgslist[sgs, First@sym, True]};
 	
 	(* One more check. *)
 	If[numIndices =!= First@sym,
@@ -400,16 +405,30 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 		];
 	];
 	
-	
 	(* Canonicalization might give a minus sign or zero. 
-	   Remove both and the Images head. *)
-	removesign[0] 	= Sequence[];
-	removesign[-Images[perm_]] := perm;
-	removesign[ Images[perm_]] := perm;
+	   Remove both as well as the Images head. *)
+	removesign[Images[{(0) ..}]] = Sequence[];
+	removesign[-Images[perm_]]  := perm;
+	removesign[ Images[perm_]]  := perm;
+
+	(* We directly call the external xPerm executable for canonicalizing 
+	   permutations, because everything else is too slow.
+	   Even calling CanonicalPerm (which is the only xPerm function ToCanonical
+	   calls) is too slow because it recomputes 'sgslist' everytime, which 
+	   is a huge waste because it is the same throughout the computation.
+	 *) 
+	FastMathLinkCanonicalPerm[sperm_] :=
+		xAct`xPerm`Private`MLCanonicalPerm[
+			xAct`xPerm`Private`toimagelist[numIndices][sperm], 
+			numIndices + 2,
+			Sequence @@ sgslist,
+	   		frees,
+			Sequence @@ translateddummysets
+		];
 
 	(* The actual processing function that does all possible single contractions of a permutation. *)
 	process[entry_] := Map[
-		removesign@CanonicalPerm[Images[#],numIndices,sgs,frees,dummysets]&,
+		removesign@FastMathLinkCanonicalPerm[Images[#]]&,
 		NextDummyPermutations[entry,newdummies,previousdummies]
 	] // Union;
 
@@ -422,6 +441,7 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 	map[(
 		frees 			= Range[numIndices-2step];
 		dummysets 		= {DummySet[VB,Reverse[newdummypairs[[1;;step]]],1]};
+		translateddummysets = {xAct`xPerm`Private`TranslateSet[dummysets]};
 		newdummies 		= newdummypairs[[step]];
 		previousdummies = Flatten@Reverse[newdummypairs[[1;;step-1]]];
 		contractions 	= Union@@(map[
