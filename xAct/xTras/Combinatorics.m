@@ -468,6 +468,7 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 	] // Union;
 
 	(* Initiliaze some variables for below. *)
+	contractions	= { Range@numIndices };
 	newdummypairs 	= Reverse /@ Partition[Reverse@Range@numIndices, {2}];
 	(* Temporarily set the allowed new positions for dummies to all possible index pairs. 
 	   The correct positions will be computed at the first step in the algorithm below. *)

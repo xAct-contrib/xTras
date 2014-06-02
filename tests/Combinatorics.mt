@@ -201,38 +201,6 @@ Test[
 (***************************)
 
 Test[
-	xAct`xTras`Private`NextDummyPermutations[{1, 2, 3, 4}, {3, 4}, {}]
-	,
-	{{3,4,1,2},{3,1,4,2},{3,1,2,4},{1,3,4,2},{1,3,2,4},{1,2,3,4}}
-	,
-	TestID->"Combinatorics-20130104-V8M7C2"
-]
-
-Test[
-	xAct`xTras`Private`NextDummyPermutations[{1, 3, 2, 4}, {1, 2}, {3, 4}]
-	,
-	{{1, 3, 2, 4}}
-	,
-	TestID->"Combinatorics-20130104-O0V6Z4"
-]
-
-Test[
-	xAct`xTras`Private`NextDummyPermutations[{1, 2, 5, 3, 6, 4}, {3, 4}, {5, 6}]
-	,
-	{{3, 4, 5, 1, 6, 2}, {3, 1, 5, 4, 6, 2}, {3, 1, 5, 2, 6, 4}, {1, 3, 5, 4, 6, 2}, {1, 3, 5, 2, 6, 4}, {1, 2, 5, 3, 6, 4}}
-	,
-	TestID->"Combinatorics-20130104-F4H4M5"
-]
-
-Test[
-	xAct`xTras`Private`NextDummyPermutations[{1, 3, 5, 2, 6, 4}, {1, 2}, {3, 4, 5, 6}]
-	,
-	{{1, 3, 5, 2, 6, 4}}
-	,
-	TestID->"Combinatorics-20130104-B4Y0S1"
-]
-
-Test[
 	AllContractions[ RiemannCD[a,b,c,d] ]
 	,
 	{RicciScalarCD[]}
@@ -267,6 +235,92 @@ Test[
 	{ RicciCD[a,b] }
 	,
 	TestID->"Combinatorics-20130104-X6T4E6"
+]
+
+Test[
+	AllContractions[ IndexFree[RiemannCD^3] ]
+	,
+	{
+	 RicciCD[-a, c]*RicciCD[a, b]*RicciCD[-b, -c], RicciCD[-a, -b]*RicciCD[a, b]*RicciScalarCD[], 
+	 RicciScalarCD[]^3, RicciCD[a, b]*RicciCD[c, d]*RiemannCD[-a, -c, -b, -d], 
+	 RicciScalarCD[]*RiemannCD[-a, -b, -c, -d]*RiemannCD[a, b, c, d], 
+	 RicciScalarCD[]*RiemannCD[-a, -c, -b, -d]*RiemannCD[a, b, c, d], 
+	 RicciCD[a, b]*RiemannCD[-a, c, d, e]*RiemannCD[-b, -c, -d, -e], 
+	 RicciCD[a, b]*RiemannCD[-a, c, d, e]*RiemannCD[-b, -d, -c, -e], 
+	 RiemannCD[-a, -c, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, -e, -d, -f], 
+	 RiemannCD[-a, e, -c, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, -e, -d, -f], 
+	 RiemannCD[-a, e, -c, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, -f, -d, -e], 
+	 RiemannCD[-a, -b, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-c, -d, -e, -f], 
+	 RiemannCD[-a, -b, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-c, -e, -d, -f]
+	}
+	,
+	TestID->"Combinatorics-20140602-I3E3Q6"
+]
+
+
+Test[
+	AllContractions[ IndexFree[RiemannCD^4] ]
+	,
+	{
+	 RicciCD[-a, c]*RicciCD[a, b]*RicciCD[-b, d]*RicciCD[-c, -d], 
+	 RicciCD[-a, -b]*RicciCD[a, b]*RicciCD[-c, -d]*RicciCD[c, d], 
+	 RicciCD[-a, c]*RicciCD[a, b]*RicciCD[-b, -c]*RicciScalarCD[], 
+	 RicciCD[-a, -b]*RicciCD[a, b]*RicciScalarCD[]^2, RicciScalarCD[]^4, 
+	 RicciCD[a, b]*RicciCD[c, d]*RicciScalarCD[]*RiemannCD[-a, -c, -b, -d], 
+	 RicciScalarCD[]^2*RiemannCD[-a, -b, -c, -d]*RiemannCD[a, b, c, d], 
+	 RicciScalarCD[]^2*RiemannCD[-a, -c, -b, -d]*RiemannCD[a, b, c, d], 
+	 RicciCD[a, b]*RicciScalarCD[]*RiemannCD[-a, c, d, e]*RiemannCD[-b, -c, -d, -e], 
+	 RicciCD[-a, c]*RicciCD[a, b]*RicciCD[d, e]*RiemannCD[-b, -d, -c, -e], 
+	 RicciCD[a, b]*RicciScalarCD[]*RiemannCD[-a, c, d, e]*RiemannCD[-b, -d, -c, -e], 
+	 RicciCD[a, b]*RicciCD[c, d]*RiemannCD[-a, -c, e, f]*RiemannCD[-b, -d, -e, -f], 
+	 RicciCD[a, b]*RicciCD[c, d]*RiemannCD[-a, -c, e, f]*RiemannCD[-b, -e, -d, -f], 
+	 RicciCD[a, b]*RicciCD[c, d]*RiemannCD[-a, e, -c, f]*RiemannCD[-b, -e, -d, -f], 
+	 RicciScalarCD[]*RiemannCD[-a, -c, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, -e, -d, -f], 
+	 RicciScalarCD[]*RiemannCD[-a, e, -c, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, -e, -d, -f], 
+	 RicciCD[a, b]*RicciCD[c, d]*RiemannCD[-a, e, -c, f]*RiemannCD[-b, -f, -d, -e], 
+	 RicciScalarCD[]*RiemannCD[-a, e, -c, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, -f, -d, -e], 
+	 RicciScalarCD[]*RiemannCD[-a, -b, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-c, -d, -e, -f], 
+	 RicciCD[-a, c]*RicciCD[a, b]*RiemannCD[-b, d, e, f]*RiemannCD[-c, -d, -e, -f], 
+	 RicciCD[a, b]*RicciCD[c, d]*RiemannCD[-a, e, -b, f]*RiemannCD[-c, -e, -d, -f], 
+	 RicciScalarCD[]*RiemannCD[-a, -b, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-c, -e, -d, -f], 
+	 RicciCD[-a, c]*RicciCD[a, b]*RiemannCD[-b, d, e, f]*RiemannCD[-c, -e, -d, -f], 
+	 RicciCD[a, b]*RiemannCD[-a, c, d, e]*RiemannCD[-b, -d, f, g]*RiemannCD[-c, -e, -f, -g], 
+	 RicciCD[a, b]*RiemannCD[-a, c, d, e]*RiemannCD[-b, f, -d, g]*RiemannCD[-c, -e, -f, -g], 
+	 RicciCD[a, b]*RiemannCD[-a, c, d, e]*RiemannCD[-b, -d, f, g]*RiemannCD[-c, -f, -e, -g], 
+	 RicciCD[a, b]*RiemannCD[-a, c, d, e]*RiemannCD[-b, f, -d, g]*RiemannCD[-c, -f, -e, -g], 
+	 RicciCD[a, b]*RiemannCD[-a, c, d, e]*RiemannCD[-b, f, -d, g]*RiemannCD[-c, -g, -e, -f], 
+	 RicciCD[-a, -b]*RicciCD[a, b]*RiemannCD[-c, -d, -e, -f]*RiemannCD[c, d, e, f], 
+	 RicciCD[-a, -b]*RicciCD[a, b]*RiemannCD[-c, -e, -d, -f]*RiemannCD[c, d, e, f], 
+	 RicciCD[a, b]*RiemannCD[-a, c, d, e]*RiemannCD[-b, -c, f, g]*RiemannCD[-d, -e, -f, -g], 
+	 RicciCD[a, b]*RiemannCD[-a, c, -b, d]*RiemannCD[-c, e, f, g]*RiemannCD[-d, -e, -f, -g], 
+	 RicciCD[a, b]*RiemannCD[-a, c, d, e]*RiemannCD[-b, -c, f, g]*RiemannCD[-d, -f, -e, -g], 
+	 RicciCD[a, b]*RiemannCD[-a, c, -b, d]*RiemannCD[-c, e, f, g]*RiemannCD[-d, -f, -e, -g], 
+	 RiemannCD[-a, -b, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-c, -e, g, h]*RiemannCD[-d, -f, -g, -h], 
+	 RiemannCD[-a, -c, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, -e, g, h]*RiemannCD[-d, -g, -f, -h], 
+	 RiemannCD[-a, -c, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, g, -e, h]*RiemannCD[-d, -g, -f, -h], 
+	 RiemannCD[-a, e, -c, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, g, -e, h]*RiemannCD[-d, -g, -f, -h], 
+	 RiemannCD[-a, -b, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-c, -e, g, h]*RiemannCD[-d, -g, -f, -h], 
+	 RiemannCD[-a, -b, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-c, g, -e, h]*RiemannCD[-d, -g, -f, -h], 
+	 RiemannCD[-a, e, -c, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, g, -f, h]*RiemannCD[-d, -h, -e, -g], 
+	 RiemannCD[-a, -c, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, g, -e, h]*RiemannCD[-d, -h, -f, -g], 
+	 RiemannCD[-a, e, -c, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, g, -e, h]*RiemannCD[-d, -h, -f, -g], 
+	 RiemannCD[-a, -b, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-c, g, -e, h]*RiemannCD[-d, -h, -f, -g], 
+	 RiemannCD[-a, -b, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-c, -d, g, h]*RiemannCD[-e, -f, -g, -h], 
+	 RiemannCD[-a, -b, -c, e]*RiemannCD[a, b, c, d]*RiemannCD[-d, f, g, h]*RiemannCD[-e, -f, -g, -h], 
+	 RiemannCD[-a, -c, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, -d, g, h]*RiemannCD[-e, -g, -f, -h], 
+	 RiemannCD[-a, -c, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, g, -d, h]*RiemannCD[-e, -g, -f, -h], 
+	 RiemannCD[-a, e, -c, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, g, -d, h]*RiemannCD[-e, -g, -f, -h], 
+	 RiemannCD[-a, -b, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-c, -d, g, h]*RiemannCD[-e, -g, -f, -h], 
+	 RiemannCD[-a, -b, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-c, g, -d, h]*RiemannCD[-e, -g, -f, -h], 
+	 RiemannCD[-a, -b, -c, e]*RiemannCD[a, b, c, d]*RiemannCD[-d, f, g, h]*RiemannCD[-e, -g, -f, -h], 
+	 RiemannCD[-a, -c, -b, e]*RiemannCD[a, b, c, d]*RiemannCD[-d, f, g, h]*RiemannCD[-e, -g, -f, -h], 
+	 RiemannCD[-a, e, -c, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, g, -d, h]*RiemannCD[-e, -h, -f, -g], 
+	 RiemannCD[-a, -b, -c, -d]*RiemannCD[a, b, c, d]*RiemannCD[-e, -f, -g, -h]*RiemannCD[e, f, g, h], 
+	 RiemannCD[-a, -b, -c, -d]*RiemannCD[a, b, c, d]*RiemannCD[-e, -g, -f, -h]*RiemannCD[e, f, g, h], 
+	 RiemannCD[-a, -c, -b, -d]*RiemannCD[a, b, c, d]*RiemannCD[-e, -g, -f, -h]*RiemannCD[e, f, g, h]
+	}
+	,
+	TestID->"Combinatorics-20140602-U6Y7G0"
 ]
 
 
