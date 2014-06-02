@@ -307,11 +307,13 @@ AllContractions[expr_List, freeIndices:(IndexList|List)[___?AIndexQ], symmetry_,
 AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
 	{
 		expl,verbose,symmethod,map,exprIndices,numIndices,VB,metric,
-		auxT,auxTexpr,auxTname,indexlist,dummylist,dummies,M,removesign,process,step,
+		auxT,auxTexpr,auxTname,indexlist,dummylist,dummies,M,removesign,process,
 		contractions,
-		sym,sgs,sgslist,frees,dummysets,newdummies,newdummypairs,previousdummies,translateddummysets,
-		numContractions,uncons,
-		freeMetrics, countFreeMetrics
+		sym,sgs,sgslist,newfrees,oldfrees,newdummies,newdummypairs,translateddummysets,
+		numContractions,uncons,newdummypositions,
+		freeMetrics, countFreeMetrics,
+		NextDummyPermutations,
+		FastMathLinkCanonicalPerm
 	},
 
 	(* Set the options. *)
@@ -422,34 +424,96 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 			xAct`xPerm`Private`toimagelist[numIndices][sperm], 
 			numIndices + 2,
 			Sequence @@ sgslist,
-	   		frees,
+	   		newfrees,
 			Sequence @@ translateddummysets
+		];
+		
+	(* NextDummyPermutations take a list representing an Images permutation,
+	   and gives all possible permutations of positions of the new dummies 
+	   (stored in the variable newdummies) in the initial permutation
+	   while leaving the old dummies alone.
+	   The code of this function should be read backwards, because of the
+	   pure function and map constructs.
+	 *)
+	NextDummyPermutations[perm_] :=
+		Function[freepositions,
+			(* Step 3: use ReplacePart to permute the old free indices in 'perm' (thus newfrees + newdummies)
+			   such that the newdummies end up in all relevant new positions (see step 2),
+			   and the order of the newfrees doesn't change. *)
+			Map[
+				ReplacePart[
+					perm,
+					Join[
+						Thread[#->newdummies],
+						Thread[Complement[freepositions,#]->newfrees]
+					]
+				]&,
+				(* Step 2: select the relevant new positions for the new dummy indices.
+				   These are selected from the pre-computed minimal set 'newdummypositions'. *)
+				Select[
+					newdummypositions,
+					Intersection[freepositions,#]===#&
+				]
+			]
+		][
+			(* Step 1: compute the positions of the indices that were
+			   free indices at the previous step. *)
+			Position[perm,#][[1,1]]& /@ oldfrees
 		];
 
 	(* The actual processing function that does all possible single contractions of a permutation. *)
 	process[entry_] := Map[
 		removesign@FastMathLinkCanonicalPerm[Images[#]]&,
-		NextDummyPermutations[entry,newdummies,previousdummies]
+		NextDummyPermutations[entry]
 	] // Union;
 
 	(* Initiliaze some variables for below. *)
-	step 			= 1;
-	contractions 	= {Range@numIndices};
 	newdummypairs 	= Reverse /@ Partition[Reverse@Range@numIndices, {2}];
+	(* Temporarily set the allowed new positions for dummies to all possible index pairs. 
+	   The correct positions will be computed at the first step in the algorithm below. *)
+	newdummypositions = Subsets[Range@numIndices, {2}];
 
 	(* Apply the processing function numContraction times, starting from the seed. *)
-	map[(
-		frees 			= Range[numIndices-2step];
-		dummysets 		= {DummySet[VB,Reverse[newdummypairs[[1;;step]]],1]};
-		translateddummysets = {xAct`xPerm`Private`TranslateSet[dummysets]};
-		newdummies 		= newdummypairs[[step]];
-		previousdummies = Flatten@Reverse[newdummypairs[[1;;step-1]]];
-		contractions 	= Union@@(map[
-				process,
-				contractions,
-				Description -> "Contracting pair " <> ToString[step++]
-			]);
-		)&,
+	map[
+		Function[step,
+			(* The range of free indices at this step. *)
+			newfrees 		= Range[numIndices-2step];
+			(* The range of free indices at the previous step. *)
+			oldfrees		= Range[numIndices-2step+2];
+			(* The pair of indices that become dummies at this step. *)
+			newdummies 		= newdummypairs[[step]];
+			(* The dummysets, translated so that MLCanonicalPerm can use them. *)
+			translateddummysets = {xAct`xPerm`Private`TranslateSet[{DummySet[VB,Reverse[newdummypairs[[1;;step]]],1]}]};
+			(* Compute the possible contractions at this step. *)
+			If[
+				(* Are we at the first step? *)
+				step===1,
+				(* If so, we need to compute the allowed set of new positions for new dummy indices. *)
+				(* We do this here because it has overlap with computing the first set of contractions. *)
+				(* Firstly, compute all canonicalized single contractions, while keeping
+				   the uncanonicalized single contractions. *) 
+				contractions = DeleteCases[
+					{#,removesign@FastMathLinkCanonicalPerm[Images[#]]}& /@ NextDummyPermutations[ Range@numIndices ],
+					{_}
+				];
+				(* Of the above pairs, gather them by canonicalized contractions (GatherBy), 
+				   take only the uncanonicalized contractions (Map[First,...,{2}]),
+				   of those take the least sorted one (Last /@ Sort /@),
+				   and then read off the positions of the first two dummy indices.
+				   The result is then the set of least canonical positions of dummy indices
+				   that are not related by canonicalization.
+				 *)
+				newdummypositions = {
+					Position[#, First@newdummies][[1, 1]], 
+					Position[#,  Last@newdummies][[1, 1]]
+				}& /@ Last /@ Sort /@ Map[First, GatherBy[contractions,Last], {2}];
+				(* Lastly, don't forget to set the single contractions to the canonicalized ones. *)
+				contractions = Union[Last /@ contractions];
+				,
+				(* No, we're not at the first step. Just process the previous contractions. *)
+				contractions = Union@@(process /@ contractions);
+			];
+		],
 		Range[numContractions],
 		Description -> StringJoin[
 			"Contracting ", ToString@numContractions, 
@@ -532,27 +596,6 @@ RemoveAuxT[list_List, auxT_?xTensorQ, frees_, dummies_, symmethod_] := Module[
 			Times
 		]
 	]	
-];
-
-(* 
- * NextDummyPermutations take a list representing an Images permutation,
- * a pair of new dummies, and a list of old dummies, and gives all possible
- * permutations of positions of the new dummies in the initial permutation
- * while leaving the old dummies alone.
- * All inputs are assumed to be lists of numbers, and previousDummies 
- * is assumed to ordered, and newDummy1 < newDummy2. 
- *)
-NextDummyPermutations[perm_List, {newDummy1_,newDummy2_}, previousDummies_] := With[
-	{
-		positions	= Sort[{Position[perm,#][[1,1]],#}&/@previousDummies],
-		subsets 	= Subsets[Range[Length@perm - Length@previousDummies],{2}],
-		range 		= Range[Length@perm - Length@previousDummies-2]
-	},
-	Fold[
-		Insert[#1, #2[[2]], #2[[1]] ]&,
-		Insert[Insert[range, newDummy1, #[[1]]], newDummy2, #[[2]] ],
-		positions
-	]& /@ subsets
 ];
 
 
