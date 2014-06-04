@@ -307,13 +307,9 @@ AllContractions[expr_List, freeIndices:(IndexList|List)[___?AIndexQ], symmetry_,
 AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
 	{
 		expl,verbose,symmethod,map,exprIndices,numIndices,VB,metric,
-		auxT,auxTexpr,auxTname,indexlist,dummylist,dummies,M,removesign,process,
-		contractions,
-		sym,sgs,sgslist,newfrees,oldfrees,newdummies,newdummypairs,translateddummysets,
-		numContractions,uncons,newdummypositions,
-		freeMetrics, countFreeMetrics,
-		NextDummyPermutations,
-		FastMathLinkCanonicalPerm
+		auxT,auxTexpr,auxTname,indexlist,dummylist,dummies,M,
+		contractions,sym, numContractions,uncons,
+		freeMetrics, countFreeMetrics
 	},
 
 	(* Set the options. *)
@@ -391,136 +387,22 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 		ValidateSymbol[Evaluate@auxT];
 		Block[{$DefInfoQ=False},DefTensor[auxT@@freeIndices,M,symmetry]];
 	];
-
+	
 	(* Replace indices on the auxT (because they might overlap with expr). *)
 	auxTexpr	= expl * auxT@@Table[DummyIn@VB,{Length@freeIndices}];
-	(* Get the symmetry and its Strong Generating Set. *)
+	(* Get the symmetry. *)
 	sym			= SymmetryOf[auxTexpr];
-	sgs			= sym[[4]];
-	sgslist		= {xAct`xPerm`Private`tosgslist[sgs, First@sym, True]};
-	
+
 	(* One more check. *)
 	If[numIndices =!= First@sym,
 		Throw@Message[
 			AllContractions::error, 
 			"Number of indices and range of symmetry doesn't match."
 		];
-	];
+	];	
 	
-	(* Canonicalization might give a minus sign or zero. 
-	   Remove both as well as the Images head. *)
-	removesign[Images[{(0) ..}]] = Sequence[];
-	removesign[-Images[perm_]]  := perm;
-	removesign[ Images[perm_]]  := perm;
-
-	(* We directly call the external xPerm executable for canonicalizing 
-	   permutations, because everything else is too slow.
-	   Even calling CanonicalPerm (which is the only xPerm function ToCanonical
-	   calls) is too slow because it recomputes 'sgslist' everytime, which 
-	   is a huge waste because it is the same throughout the computation.
-	 *) 
-	FastMathLinkCanonicalPerm[sperm_] :=
-		xAct`xPerm`Private`MLCanonicalPerm[
-			xAct`xPerm`Private`toimagelist[numIndices][sperm], 
-			numIndices + 2,
-			Sequence @@ sgslist,
-	   		newfrees,
-			Sequence @@ translateddummysets
-		];
-		
-	(* NextDummyPermutations take a list representing an Images permutation,
-	   and gives all possible permutations of positions of the new dummies 
-	   (stored in the variable newdummies) in the initial permutation
-	   while leaving the old dummies alone.
-	   The code of this function should be read backwards, because of the
-	   pure function and map constructs.
-	 *)
-	NextDummyPermutations[perm_] :=
-		Function[freepositions,
-			(* Step 3: use ReplacePart to permute the old free indices in 'perm' (thus newfrees + newdummies)
-			   such that the newdummies end up in all relevant new positions (see step 2),
-			   and the order of the newfrees doesn't change. *)
-			Map[
-				ReplacePart[
-					perm,
-					Join[
-						Thread[#->newdummies],
-						Thread[Complement[freepositions,#]->newfrees]
-					]
-				]&,
-				(* Step 2: select the relevant new positions for the new dummy indices.
-				   These are selected from the pre-computed minimal set 'newdummypositions'. *)
-				Select[
-					newdummypositions,
-					Intersection[freepositions,#]===#&
-				]
-			]
-		][
-			(* Step 1: compute the positions of the indices that were
-			   free indices at the previous step. *)
-			Position[perm,#][[1,1]]& /@ oldfrees
-		];
-
-	(* The actual processing function that does all possible single contractions of a permutation. *)
-	process[entry_] := Map[
-		removesign@FastMathLinkCanonicalPerm[Images[#]]&,
-		NextDummyPermutations[entry]
-	] // Union;
-
-	(* Initiliaze some variables for below. *)
-	contractions	= { Range@numIndices };
-	newdummypairs 	= Reverse /@ Partition[Reverse@Range@numIndices, {2}];
-	(* Temporarily set the allowed new positions for dummies to all possible index pairs. 
-	   The correct positions will be computed at the first step in the algorithm below. *)
-	newdummypositions = Subsets[Range@numIndices, {2}];
-
-	(* Apply the processing function numContraction times, starting from the seed. *)
-	map[
-		Function[step,
-			(* The range of free indices at this step. *)
-			newfrees 		= Range[numIndices-2step];
-			(* The range of free indices at the previous step. *)
-			oldfrees		= Range[numIndices-2step+2];
-			(* The pair of indices that become dummies at this step. *)
-			newdummies 		= newdummypairs[[step]];
-			(* The dummysets, translated so that MLCanonicalPerm can use them. *)
-			translateddummysets = {xAct`xPerm`Private`TranslateSet[{DummySet[VB,Reverse[newdummypairs[[1;;step]]],1]}]};
-			(* Compute the possible contractions at this step. *)
-			If[
-				(* Are we at the first step? *)
-				step===1,
-				(* If so, we need to compute the allowed set of new positions for new dummy indices. *)
-				(* We do this here because it has overlap with computing the first set of contractions. *)
-				(* Firstly, compute all canonicalized single contractions, while keeping
-				   the uncanonicalized single contractions. *) 
-				contractions = DeleteCases[
-					{#,removesign@FastMathLinkCanonicalPerm[Images[#]]}& /@ NextDummyPermutations[ Range@numIndices ],
-					{_}
-				];
-				(* Of the above pairs, gather them by canonicalized contractions (GatherBy), 
-				   take only the uncanonicalized contractions (Map[First,...,{2}]),
-				   of those take the least sorted one (Last /@ Sort /@),
-				   and then read off the positions of the first two dummy indices.
-				   The result is then the set of least canonical positions of dummy indices
-				   that are not related by canonicalization.
-				 *)
-				newdummypositions = {
-					Position[#, First@newdummies][[1, 1]], 
-					Position[#,  Last@newdummies][[1, 1]]
-				}& /@ Last /@ Sort /@ Map[First, GatherBy[contractions,Last], {2}];
-				(* Lastly, don't forget to set the single contractions to the canonicalized ones. *)
-				contractions = Union[Last /@ contractions];
-				,
-				(* No, we're not at the first step. Just process the previous contractions. *)
-				contractions = Union@@(process /@ contractions);
-			];
-		],
-		Range[numContractions],
-		Description -> StringJoin[
-			"Contracting ", ToString@numContractions, 
-			" pairs of indices with metric ", ToString@PrintAs[Evaluate@metric]
-		]
-	];
+	(* Compute the contractions. *)
+	contractions = ComputeContractions[VB, metric, sym[[4]], numIndices, numContractions, verbose];
 	
 	(* Construct a list of indices. Don't include freeIndices, because they
 	   will clash later when we remove the auxiliary tensor. *)
@@ -552,10 +434,10 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 	(* Now remove redundant contractions with a ToCanonical. *)
 	contractions = DeleteDuplicateFactors[
 		map[
-			ToCanonical[#]&,
+			ToCanonical,
 			contractions,
 			Description -> "Removing duplicates."
-			]
+		]
 	];	
 	
 	(* Remove the auxiliary tensor. *)
@@ -600,6 +482,175 @@ RemoveAuxT[list_List, auxT_?xTensorQ, frees_, dummies_, symmethod_] := Module[
 ];
 
 
+(* Trivial case: no contractions. *)
+ComputeContractions[VB_, metric_, sgs_, numIndices_Integer, 0, verbose_:False] :=
+	{ Range @ numIndices };
+
+(* Generic case. *)
+ComputeContractions[VB_, metric_, sgs_, numIndices_Integer, numContractions_Integer, verbose_:False] :=
+	Module[
+		{
+			(* Precompute the SGS lists of the given SGS and its non-antisymmetric counterpart. *)
+			sgslist 	= {xAct`xPerm`Private`tosgslist[sgs, numIndices, True]},
+			symsgslist 	= {xAct`xPerm`Private`tosgslist[sgs /. -c_Cycles :> c, numIndices, True]},
+			(* A list of dummy pairs, of the form {{n-1,n},{n-3,n-2},...,{3,4},{1,2}}. *)
+			newdummypairs		= Reverse @ Partition[Range@numIndices, {2}],
+			(* Positions where to insert new dummies. This will be recomputed later
+			  taking the SGS into account. *)
+			newdummypositions 	= Subsets[Range@numIndices, {2}],
+			(* Shorthands for commonly used functions. *)
+			CanonPerm, CanonPermMapOrIdentity, SymCanonPerm, NextDummyPerms,
+			(* Variables that get new values at each step of the loop. *)
+			contractions, newfrees, oldfrees, newdummies,
+			translateddummysets, symtranslateddummysets
+		},
+		
+		(* Set commonly used functions. *)
+		
+		NextDummyPerms[perm_] :=
+			NextDummyPermutations[ perm, oldfrees, newdummypositions ];
+		
+		(* CanonPerm canonicalizes a permutation while keeping the free indices distinguishable. *)
+		(* We need this in addition to SymCanonPerm, because when the SGS has 
+		   antisymmetric cycles this eliminates additional permutations. *)
+		CanonPerm[perm_] :=
+			RemoveImagesSign@FastMathLinkCanonicalPerm[Images[perm], numIndices, sgslist, newfrees, translateddummysets];
+
+		(* When the SGS does not have antisymmetric cycles we actually don't need CanonPerm. *)
+		CanonPermMapOrIdentity = If[sgslist === symsgslist,
+			Identity,
+			Map[CanonPerm, #]&
+		];
+		
+		(* SymCanonPerm canonicalizes a permutation while setting the free indices indistinguishable
+		   by putting them in a RepeatedSet before feeding the permutation to MLCanonicalPerm. *)
+		SymCanonPerm[perm_] :=
+			RemoveImagesSign@FastMathLinkCanonicalPerm[Images[perm], numIndices, symsgslist, {}, symtranslateddummysets];
+			
+		(* Do the actual computation. 
+		   Loop over {1,...,numContractions} with a Map (or MapTimed). *)
+		
+		If[TrueQ[verbose],
+			MapTimed,
+			Map[#1,#2]&
+		][
+			Function[step,
+				(* The range of free indices at this step. *)
+				newfrees 		= Range[numIndices-2step];
+				(* The range of free indices at the previous step. *)
+				oldfrees		= Range[numIndices-2step+2];
+				(* The pair of indices that become dummies at this step. *)
+				newdummies 		= newdummypairs[[step]];
+				(* The dummysets, translated so that MLCanonicalPerm can use them. *)
+				translateddummysets = {xAct`xPerm`Private`TranslateSet@{
+					DummySet[VB,Reverse[newdummypairs[[1;;step]]],1]
+				}};
+				symtranslateddummysets = {xAct`xPerm`Private`TranslateSet@{
+					DummySet[VB,{},1],
+					RepeatedSet[ newfrees ],
+					Sequence @@ (RepeatedSet /@ Reverse[newdummypairs[[1;;step]]])
+				}};
+				(* Compute the possible contractions at this step. *)
+				If[
+					(* Are we at the first step? *)
+					step === 1,
+					(* If so, we need to compute the allowed set of new positions for new dummy indices. *)
+					(* We do this here because it has overlap with computing the first set of contractions. *)
+					(* Firstly, compute all canonicalized single contractions, while keeping
+					   the uncanonicalized single contractions. *) 
+					contractions = DeleteCases[
+						{ #, CanonPerm[#] }& /@ NextDummyPerms[ Range@numIndices ],
+						{_}
+					];
+					(* Of the above pairs, gather them by canonicalized contractions (GatherBy), 
+					   take only the uncanonicalized contractions (Map[First,...,{2}]),
+					   of those take the least sorted one (Last /@ Sort /@),
+					   and then read off the positions of the first two dummy indices.
+					   The result is then the set of least canonical positions of dummy indices
+					   that are not related by canonicalization.
+					 *)
+					newdummypositions = {
+						Position[#, First@newdummies][[1, 1]], 
+						Position[#,  Last@newdummies][[1, 1]]
+					}& /@ Last /@ Sort /@ Map[First, GatherBy[contractions,Last], {2}];
+					(* Lastly, don't forget to set the single contractions to the canonicalized ones. *)
+					contractions = Union[ SymCanonPerm /@ Union[Last /@ contractions] ];
+					,
+					(* No, we're not at the first step. Just process the previous contractions. *)
+					(* We first compute all next dummy permutations, flatten those, 
+					   compute their canonical permutations, and then finally 
+					   compute their canonical permutations with unordered free indices. *)
+					contractions = Union[
+						SymCanonPerm /@ Union[ CanonPermMapOrIdentity @ Flatten[NextDummyPerms /@ contractions, 1] ]
+					];
+				];
+			]
+			,
+			Range[numContractions]
+			,
+			Description -> StringJoin[
+				"Contracting ", ToString@numContractions, 
+				" pairs of indices with metric ", ToString@PrintAs[Evaluate@metric]
+			]
+		];
+		
+		(* Return. *)
+		contractions
+	];
+
+(* Canonicalization might give a minus sign or zero. 
+   Remove both as well as the Images head. *)
+RemoveImagesSign[Images[{(0) ..}]] = Sequence[];
+RemoveImagesSign[-Images[perm_]]  := perm;
+RemoveImagesSign[ Images[perm_]]  := perm;
+
+(* We directly call the external xPerm executable for canonicalizing 
+   permutations, because everything else is too slow.
+   Even calling CanonicalPerm (which is the only xPerm function ToCanonical
+   calls) is too slow because it recomputes 'sgslist' everytime, which 
+   is a huge waste because it is the same throughout the computation.
+ *) 
+FastMathLinkCanonicalPerm[sperm_,numIndices_,sgsList_,freeindices_,translatedDummysets_] :=
+	xAct`xPerm`Private`MLCanonicalPerm[
+		xAct`xPerm`Private`toimagelist[numIndices][sperm], 
+		numIndices + 2,
+		Sequence @@ sgsList,
+   		freeindices,
+		Sequence @@ translatedDummysets
+	];
+	
+(* NextDummyPermutations take a list representing an Images permutation,
+   and gives all possible permutations of positions of the new dummies 
+   (stored in the variable newdummies) in the initial permutation
+   while leaving the old dummies alone.
+   The code of this function should be read backwards, because of the
+   pure function and map constructs.
+ *)
+NextDummyPermutations[perm_, oldfrees_, newdummypositions_] :=
+	Function[freepositions,
+		(* Step 3: use ReplacePart to permute the old free indices in 'perm' (thus newfrees + newdummies)
+		   such that the newdummies end up in all relevant new positions (see step 2),
+		   and the order of the newfrees doesn't change. *)
+		Map[
+			ReplacePart[
+				perm,
+				Join[
+					Thread[#->(oldfrees[[-2;;-1]])],
+					Thread[Complement[freepositions,#]->(oldfrees[[1;;-3]])]
+				]
+			]&,
+			(* Step 2: select the relevant new positions for the new dummy indices.
+			   These are selected from the pre-computed minimal set 'newdummypositions'. *)
+			Select[
+				newdummypositions,
+				Intersection[freepositions,#]===#&
+			]
+		]
+	][
+		(* Step 1: compute the positions of the indices that were
+		   free indices at the previous step. *)
+		Position[perm,#][[1,1]]& /@ oldfrees
+	];
 
 
 IndexConfigurations[expr_] := Module[
