@@ -306,7 +306,7 @@ AllContractions[expr_List, freeIndices:(IndexList|List)[___?AIndexQ], symmetry_,
 
 AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
 	{
-		expl,verbose,symmethod,map,exprIndices,numIndices,VB,metric,
+		expl,verbose,symmethod,map,exprIndices,numIndices,VB,
 		auxT,auxTexpr,auxTname,indexlist,dummylist,dummies,M,
 		contractions,sym, numContractions,uncons,
 		freeMetrics, countFreeMetrics
@@ -368,10 +368,9 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 	(* Init geometric variables. *)
 	VB 		= VBundleOfIndex@First@exprIndices;
 	M 		= BaseOfVBundle@VB;
-	metric 	= First@MetricsOfVBundle@VB;
-	
+
 	(* Check if the metric is symmetric. *)
-	If[xAct`xTensor`Private`SymmetryOfMetric[metric] =!= 1,
+	If[xAct`xTensor`Private`SymmetryOfMetric @ First @ MetricsOfVBundle @ VB =!= 1,
 		Throw@Message[AllContractions::error, "Can't do contractions for non-symmetric metrics."];
 	];
 	
@@ -401,8 +400,8 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 		];
 	];	
 	
-	(* Compute the contractions. *)
-	contractions = ComputeContractions[VB, metric, sym[[4]], numIndices, numContractions, verbose];
+	(* Compute the contractions. Function definition is below. *)
+	contractions = ComputeContractions[sym[[4]], numIndices, numContractions, verbose];
 	
 	(* Construct a list of indices. Don't include freeIndices, because they
 	   will clash later when we remove the auxiliary tensor. *)
@@ -483,11 +482,11 @@ RemoveAuxT[list_List, auxT_?xTensorQ, frees_, dummies_, symmethod_] := Module[
 
 
 (* Trivial case: no contractions. *)
-ComputeContractions[VB_, metric_, sgs_, numIndices_Integer, 0, verbose_:False] :=
+ComputeContractions[sgs_, numIndices_Integer, 0, verbose_:False] :=
 	{ Range @ numIndices };
 
 (* Generic case. *)
-ComputeContractions[VB_, metric_, sgs_, numIndices_Integer, numContractions_Integer, verbose_:False] :=
+ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer, verbose_:False] :=
 	Module[
 		{
 			(* Precompute the SGS lists of the given SGS and its non-antisymmetric counterpart. *)
@@ -499,7 +498,7 @@ ComputeContractions[VB_, metric_, sgs_, numIndices_Integer, numContractions_Inte
 			  taking the SGS into account. *)
 			newdummypositions 	= Subsets[Range@numIndices, {2}],
 			(* Shorthands for commonly used functions. *)
-			CanonPerm, CanonPermMapOrIdentity, SymCanonPerm, NextDummyPerms,
+			CanonPerm, SymCanonPerm, NextDummyPerms,
 			(* Variables that get new values at each step of the loop. *)
 			contractions, newfrees, oldfrees, newdummies,
 			translateddummysets, symtranslateddummysets
@@ -516,12 +515,6 @@ ComputeContractions[VB_, metric_, sgs_, numIndices_Integer, numContractions_Inte
 		CanonPerm[perm_] :=
 			RemoveImagesSign@FastMathLinkCanonicalPerm[Images[perm], numIndices, sgslist, newfrees, translateddummysets];
 
-		(* When the SGS does not have antisymmetric cycles we actually don't need CanonPerm. *)
-		CanonPermMapOrIdentity = If[sgslist === symsgslist,
-			Identity,
-			Map[CanonPerm, #]&
-		];
-		
 		(* SymCanonPerm canonicalizes a permutation while setting the free indices indistinguishable
 		   by putting them in a RepeatedSet before feeding the permutation to MLCanonicalPerm. *)
 		SymCanonPerm[perm_] :=
@@ -542,11 +535,13 @@ ComputeContractions[VB_, metric_, sgs_, numIndices_Integer, numContractions_Inte
 				(* The pair of indices that become dummies at this step. *)
 				newdummies 		= newdummypairs[[step]];
 				(* The dummysets, translated so that MLCanonicalPerm can use them. *)
+				(* Note that the first argument of DummySet should in principle be a vector bundle,
+				   but xAct`xPerm`Private`TranslateSet throws that information away anyhow. *)
 				translateddummysets = {xAct`xPerm`Private`TranslateSet@{
-					DummySet[VB,Reverse[newdummypairs[[1;;step]]],1]
+					DummySet[Null,Reverse[newdummypairs[[1;;step]]],1]
 				}};
 				symtranslateddummysets = {xAct`xPerm`Private`TranslateSet@{
-					DummySet[VB,{},1],
+					DummySet[Null,{},1],
 					RepeatedSet[ newfrees ],
 					Sequence @@ (RepeatedSet /@ Reverse[newdummypairs[[1;;step]]])
 				}};
@@ -574,15 +569,20 @@ ComputeContractions[VB_, metric_, sgs_, numIndices_Integer, numContractions_Inte
 						Position[#,  Last@newdummies][[1, 1]]
 					}& /@ Last /@ Sort /@ Map[First, GatherBy[contractions,Last], {2}];
 					(* Lastly, don't forget to set the single contractions to the canonicalized ones. *)
-					contractions = Union[ SymCanonPerm /@ Union[Last /@ contractions] ];
+					contractions = Union[Last /@ contractions];
 					,
 					(* No, we're not at the first step. Just process the previous contractions. *)
-					(* We first compute all next dummy permutations, flatten those, 
-					   compute their canonical permutations, and then finally 
-					   compute their canonical permutations with unordered free indices. *)
-					contractions = Union[
-						SymCanonPerm /@ Union[ CanonPermMapOrIdentity @ Flatten[NextDummyPerms /@ contractions, 1] ]
+					contractions = Union @@ Map[
+						Union[ CanonPerm /@ NextDummyPerms[#] ]&, 
+						contractions 
 					];
+				];
+				(* Lastly, canonicalize the permutations with indistinguishable
+				   free indices. Don't do this at the final step though (when all
+				   indices are contracted), because then just it amounts to 
+				   doing CanonPerm. *)
+				If[step =!= numIndices / 2,
+					contractions = Union[ SymCanonPerm /@ contractions ];
 				];
 			]
 			,
@@ -590,7 +590,7 @@ ComputeContractions[VB_, metric_, sgs_, numIndices_Integer, numContractions_Inte
 			,
 			Description -> StringJoin[
 				"Contracting ", ToString@numContractions, 
-				" pairs of indices with metric ", ToString@PrintAs[Evaluate@metric]
+				" pairs of indices"
 			]
 		];
 		
