@@ -301,7 +301,13 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ],options___?Optio
 AllContractions[expr_List, freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, options___?OptionQ] :=
 	Apply[
 		Union,
-		AllContractions[#, freeIndices, symmetry, options]& /@ expr
+		If[TrueQ[Verbose/.CheckOptions[options] /. Options[AllContractions]],
+			MapTimed[#1,#2,Description -> "Computing all contractions"]&,
+			Map
+		][
+			AllContractions[#, freeIndices, symmetry, options]&,
+			expr
+		]
 	];
 
 AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
