@@ -459,11 +459,18 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 	DeleteDuplicateFactors[contractions] 
 ];
 
-RemoveAuxT[list_List, auxT_?xTensorQ, frees_, dummies_, symmethod_] := Module[
+RemoveAuxT[list_List, auxT_, frees_, dummies_, symmethod:(ImposeSymmetry|ImposeSym)] /; Length[frees] === 0 :=
+(
+	ReplaceDummies[#,dummies]& /@ ( list /. auxT[] -> Sequence[] )
+);
+
+RemoveAuxT[list_List, auxT_?xTensorQ, frees_, dummies_, symmethod:(ImposeSymmetry|ImposeSym)] := Module[
 	{
 		canon = ReplaceDummies[ToCanonical@ContractMetric[#],dummies]&,
 		symm
 	},
+	Print[frees];
+	Print[list];
 	Switch[symmethod,
 		(* ImposeSymmetry: impose symmetry first, and then canonalize later. *)
 		ImposeSymmetry,
@@ -486,6 +493,8 @@ RemoveAuxT[list_List, auxT_?xTensorQ, frees_, dummies_, symmethod_] := Module[
 	]	
 ];
 
+RemoveAuxT[list_List, auxT_?xTensorQ, frees_, dummies_, symmethod_] :=
+	list;
 
 (* Trivial case: no contractions. *)
 ComputeContractions[sgs_, numIndices_Integer, 0, verbose_:False] :=
@@ -617,7 +626,7 @@ RemoveImagesSign[ Images[perm_]]  := perm;
    is a huge waste because it is the same throughout the computation.
  *) 
 FastMathLinkCanonicalPerm[sperm_,numIndices_,sgsList_,freeindices_,translatedDummysets_] :=
-	xAct`xPerm`Private`MLCanonicalPerm[
+	xAct`xPerm`Private`CheckDeadLink@xAct`xPerm`Private`MLCanonicalPerm[
 		xAct`xPerm`Private`toimagelist[numIndices][sperm], 
 		numIndices + 2,
 		Sequence @@ sgsList,
