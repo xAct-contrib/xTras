@@ -289,7 +289,8 @@ Options[AllContractions] ^= {
 	SymmetrizeMethod -> ImposeSymmetry,
 	UncontractedIndices -> None,
 	FreeMetrics -> All,
-	AuxiliaryTensor -> Default
+	AuxiliaryTensor -> Default,
+	Parallelization -> ( System`$VersionNumber >= 7 )
 };
 
 AllContractions[expr_,options___?OptionQ] := 
@@ -312,15 +313,15 @@ AllContractions[expr_List, freeIndices:(IndexList|List)[___?AIndexQ], symmetry_,
 
 AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, options___?OptionQ] := Module[
 	{
-		expl,verbose,symmethod,map,exprIndices,numIndices,VB,
+		expl,parallel,verbose,symmethod,map,exprIndices,numIndices,VB,
 		auxT,auxTexpr,auxTname,indexlist,dummylist,dummies,M,
 		contractions,sym, numContractions,uncons,
 		freeMetrics, countFreeMetrics
 	},
 
 	(* Set the options. *)
-	{verbose,symmethod,uncons,freeMetrics,auxTname} = 
-		{Verbose, SymmetrizeMethod, UncontractedIndices, FreeMetrics, AuxiliaryTensor} 
+	{parallel,verbose,symmethod,uncons,freeMetrics,auxTname} = 
+		{Parallelization,Verbose, SymmetrizeMethod, UncontractedIndices, FreeMetrics, AuxiliaryTensor} 
 		/. CheckOptions[options] /. Options[AllContractions];
 	If[TrueQ[verbose],
 		map = MapTimed,
@@ -407,7 +408,7 @@ AllContractions[expr_,freeIndices:(IndexList|List)[___?AIndexQ], symmetry_, opti
 	];	
 	
 	(* Compute the contractions. Function definition is below. *)
-	contractions = ComputeContractions[sym[[4]], numIndices, numContractions, verbose];
+	contractions = ComputeContractions[sym[[4]], numIndices, numContractions, TrueQ @ parallel, verbose];
 	
 	(* Construct a list of indices. Don't include freeIndices, because they
 	   will clash later when we remove the auxiliary tensor. *)
@@ -497,11 +498,11 @@ RemoveAuxT[list_List, auxT_?xTensorQ, frees_, dummies_, symmethod_] :=
 	list;
 
 (* Trivial case: no contractions. *)
-ComputeContractions[sgs_, numIndices_Integer, 0, verbose_:False] :=
+ComputeContractions[sgs_, numIndices_Integer, 0, parallel_, verbose_:False] :=
 	{ Range @ numIndices };
 
 (* Generic case. *)
-ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer, verbose_:False] :=
+ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer, parallel:(True|False), verbose_:False] :=
 	Module[
 		{
 			(* Precompute the SGS lists of the given SGS and its non-antisymmetric counterpart. *)
@@ -513,7 +514,7 @@ ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer, verbose_:
 			  taking the SGS into account. *)
 			newdummypositions 	= Subsets[Range@numIndices, {2}],
 			(* Shorthands for commonly used functions. *)
-			CanonPerm, SymCanonPerm, NextDummyPerms,
+			CanonPerm, SymCanonPerm, NextDummyPerms, ParallelOrNormalMap,
 			(* Variables that get new values at each step of the loop. *)
 			contractions, newfrees, oldfrees, newdummies,
 			translateddummysets, symtranslateddummysets
@@ -528,12 +529,19 @@ ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer, verbose_:
 		(* We need this in addition to SymCanonPerm, because when the SGS has 
 		   antisymmetric cycles this eliminates additional permutations. *)
 		CanonPerm[perm_] :=
-			RemoveImagesSign@FastMathLinkCanonicalPerm[Images[perm], numIndices, sgslist, newfrees, translateddummysets];
+			(Global`calls++;RemoveImagesSign@FastMathLinkCanonicalPerm[Images[perm], numIndices, sgslist, newfrees, translateddummysets]);
 
 		(* SymCanonPerm canonicalizes a permutation while setting the free indices indistinguishable
 		   by putting them in a RepeatedSet before feeding the permutation to MLCanonicalPerm. *)
 		SymCanonPerm[perm_] :=
-			RemoveImagesSign@FastMathLinkCanonicalPerm[Images[perm], numIndices, symsgslist, {}, symtranslateddummysets];
+			(Global`calls++;RemoveImagesSign@FastMathLinkCanonicalPerm[Images[perm], numIndices, symsgslist, {}, symtranslateddummysets]);
+
+		If[parallel && System`$VersionNumber >= 7,
+			ParallelxPermConnect[];
+			DistributeDefinitions[NextDummyPerms,CanonPerm,SymCanonPerm];
+			ParallelOrNormalMap = ParallelMap[#1,#2,Method->"CoarsestGrained",DistributedContexts -> None]&,
+			ParallelOrNormalMap = Map
+		];
 			
 		(* Do the actual computation. 
 		   Loop over {1,...,numContractions} with a Map (or MapTimed). *)
@@ -560,6 +568,9 @@ ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer, verbose_:
 					RepeatedSet[ newfrees ],
 					Sequence @@ (RepeatedSet /@ Reverse[newdummypairs[[1;;step]]])
 				}};
+				If[parallel && System`$VersionNumber >= 7,
+					DistributeDefinitions[newdummypositions,newfrees,oldfrees,newdummies,translateddummysets,symtranslateddummysets];
+				];
 				(* Compute the possible contractions at this step. *)
 				If[
 					(* Are we at the first step? *)
@@ -587,7 +598,7 @@ ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer, verbose_:
 					contractions = Union[Last /@ contractions];
 					,
 					(* No, we're not at the first step. Just process the previous contractions. *)
-					contractions = Union @@ Map[
+					contractions = Union @@ ParallelOrNormalMap[
 						Union[ CanonPerm /@ NextDummyPerms[#] ]&, 
 						contractions 
 					];
@@ -595,9 +606,12 @@ ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer, verbose_:
 				(* Lastly, canonicalize the permutations with indistinguishable
 				   free indices. Don't do this at the final step though (when all
 				   indices are contracted), because then just it amounts to 
-				   doing CanonPerm. *)
-				If[step =!= numIndices / 2,
-					contractions = Union[ SymCanonPerm /@ contractions ];
+				   doing CanonPerm.
+				   Also don't do this when the amount of indistinghuisable free
+				   indices is large, because then the double coset algorithm
+				   can take an excessive amount of time. *)
+				If[step =!= numIndices / 2 && (numIndices - 2 step) <= 10,
+					contractions = Union @ ParallelOrNormalMap[SymCanonPerm, contractions];
 				];
 			]
 			,

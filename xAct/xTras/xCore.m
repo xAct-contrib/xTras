@@ -135,6 +135,12 @@ MapTimed[func_,expr_,levelspec_: {1},options___?OptionQ]/;LevelSpecQ[levelspec] 
 MapTimedIfPlus[f_, expr_Plus, rest___] := MapTimed[f, expr, rest];
 MapTimedIfPlus[f_, expr_, rest___] := f[expr];
 
-
+ParallelxPermConnect[] := 
+	If[ System`$VersionNumber >= 7 && Not[ And @@ ($xpermLink =!= # & /@ ParallelEvaluate[$xpermLink]) ],
+		ParallelEvaluate @ Block[{Print},
+			Needs["xAct`xPerm`"];
+			$xpermQ = xAct`xPerm`Private`xpermConnect
+		]
+	];
 
 End[]
