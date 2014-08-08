@@ -470,8 +470,6 @@ RemoveAuxT[list_List, auxT_?xTensorQ, frees_, dummies_, symmethod:(ImposeSymmetr
 		canon = ReplaceDummies[ToCanonical@ContractMetric[#],dummies]&,
 		symm
 	},
-	Print[frees];
-	Print[list];
 	Switch[symmethod,
 		(* ImposeSymmetry: impose symmetry first, and then canonalize later. *)
 		ImposeSymmetry,
@@ -528,13 +526,13 @@ ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer, parallel:
 		(* CanonPerm canonicalizes a permutation while keeping the free indices distinguishable. *)
 		(* We need this in addition to SymCanonPerm, because when the SGS has 
 		   antisymmetric cycles this eliminates additional permutations. *)
-		CanonPerm[perm_] :=
-			(Global`calls++;RemoveImagesSign@FastMathLinkCanonicalPerm[Images[perm], numIndices, sgslist, newfrees, translateddummysets]);
+		CanonPerm = 
+			RemoveImagesSign@FastMathLinkCanonicalPerm[Images[#], numIndices, sgslist, newfrees, translateddummysets] &;
 
 		(* SymCanonPerm canonicalizes a permutation while setting the free indices indistinguishable
 		   by putting them in a RepeatedSet before feeding the permutation to MLCanonicalPerm. *)
-		SymCanonPerm[perm_] :=
-			(Global`calls++;RemoveImagesSign@FastMathLinkCanonicalPerm[Images[perm], numIndices, symsgslist, {}, symtranslateddummysets]);
+		SymCanonPerm =
+			RemoveImagesSign@FastMathLinkCanonicalPerm[Images[perm], numIndices, symsgslist, {}, symtranslateddummysets] &;
 
 		If[parallel && System`$VersionNumber >= 7,
 			ParallelxPermConnect[];
@@ -607,12 +605,17 @@ ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer, parallel:
 				   free indices. Don't do this at the final step though (when all
 				   indices are contracted), because then just it amounts to 
 				   doing CanonPerm.
-				   Also don't do this when the amount of indistinghuisable free
-				   indices is large, because then the double coset algorithm
-				   can take an excessive amount of time. *)
-				If[step =!= numIndices / 2 && (numIndices - 2 step) <= 10,
+				   This is disabled for now, because the double coset algorithm
+				   can take an excessive amount of time for a large number of 
+				   indices. This is because the symmetric group is the worst-case
+				   scenario, and xPerm doesn't have special cases hardcoded for it.
+				   Also, it generates different output for more than 0 free indices
+				   (a less redundant and still equivalent output, but different nonetheless. *)
+				(*
+				If[step =!= numIndices / 2,
 					contractions = Union @ ParallelOrNormalMap[SymCanonPerm, contractions];
 				];
+				*)
 			]
 			,
 			Range[numContractions]
