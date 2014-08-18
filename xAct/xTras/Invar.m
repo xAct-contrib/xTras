@@ -176,7 +176,7 @@ RiemannSimplification[metric_?MetricQ, level_Integer][expr_] := Module[
 	If[FreeQ[expr, Cycles] && !FreeQ[result, Cycles],
 		Message[
 			RiemannSimplification::error, 
-			"Result containts Cycles and input did not. Returning input."
+			"Failed to simplify Riemann tensors. Most likely caused by automatic rules on the Riemann tensor. Returning unmodified input expression."
 		];
 		expr,
 		result
