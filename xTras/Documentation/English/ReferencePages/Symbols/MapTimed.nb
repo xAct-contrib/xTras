@@ -175,14 +175,19 @@ Cell[BoxData[GridBox[{
     ButtonBox["False",
      BaseStyle->"Link"], Cell[TextData[{
      "whether or not to use ",
-     StyleBox["ParallelMap", "InlineCode"],
+     StyleBox[ButtonBox["ParallelMap",
+      BaseStyle->"Link",
+      ButtonData->"paclet:ref/ParallelMap"], "InlineCode"],
      " instead of ",
-     StyleBox["Map", "InlineCode"],
+     StyleBox[ButtonBox["Map",
+      BaseStyle->"Link",
+      ButtonData->"paclet:ref/Map"], "InlineCode"],
      " "
     }], "TableText"]}
   }]], "3ColumnTableMod",
  CellChangeTimes->{{3.580375900465065*^9, 3.5803759032039843`*^9}, {
-  3.580375986397787*^9, 3.5803760670860577`*^9}}],
+  3.580375986397787*^9, 3.5803760670860577`*^9}, {3.617337488301313*^9, 
+  3.617337488403561*^9}, {3.617337690430107*^9, 3.617337690521487*^9}}],
 
 Cell[TextData[{
  "Possible settings for ",

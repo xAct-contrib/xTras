@@ -4,7 +4,7 @@ Cell[TextData[{
  Cell["1.3.1", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
- Cell[" ", "HistoryData",
+ Cell["1.4.0 ", "HistoryData",
   CellTags->"Modified"],
  " | Obsolete in: ",
  Cell[" ", "HistoryData",
@@ -13,7 +13,8 @@ Cell[TextData[{
  Cell[" ", "HistoryData",
   CellTags->"Excised"]
 }], "History",
- CellChangeTimes->{{3.6018766463497477`*^9, 3.601876646392185*^9}},
+ CellChangeTimes->{{3.6018766463497477`*^9, 3.601876646392185*^9}, {
+  3.617339701311387*^9, 3.61733970228123*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -120,10 +121,26 @@ Cell[TextData[{
  Cell[BoxData[
   RowBox[{"ConstantSymbolsOf", "[", 
    StyleBox["expr", "TI"], "]"}]], "InlineFormula"],
- " \[LineSeparator]",
- "returns a list of all non-numeric constant symbols in expr."
+ " \[LineSeparator]returns a list of all non-numeric constant symbols in \
+expr.\n",
+ Cell["      ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{"ConstantSymbolsOf", "[", 
+   RowBox[{
+    SubscriptBox[
+     StyleBox["expr", "TI"], "1"], ",", 
+    SubscriptBox[
+     StyleBox["expr", "TI"], "2"], ",", "..."}], "]"}]], "InlineFormula"],
+ " \[LineSeparator]returns a list of all non-numeric constant symbols in all \
+of the ",
+ Cell[BoxData[
+  SubscriptBox[
+   StyleBox["expr", "TI"], 
+   StyleBox["i", "TI"]]]],
+ "."
 }], "Usage",
- CellChangeTimes->{{3.601876665579249*^9, 3.601876683601451*^9}},
+ CellChangeTimes->{{3.601876665579249*^9, 3.601876683601451*^9}, {
+  3.617339713417226*^9, 3.617339774488224*^9}},
  CellID->982511436],
 
 Cell["XXXX", "Notes",
@@ -570,7 +587,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 WindowSize->{700, 770},
-WindowMargins->{{-1698, Automatic}, {Automatic, -69}},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 CellContext->"Global`",
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
 2011)",

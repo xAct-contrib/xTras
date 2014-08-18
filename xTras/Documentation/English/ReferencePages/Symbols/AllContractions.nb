@@ -4,7 +4,7 @@ Cell[TextData[{
  Cell["1.0.3", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
- Cell[" 1.2.0", "HistoryData",
+ Cell[" 1.4.0", "HistoryData",
   CellTags->"Modified"],
  " | Obsolete in: ",
  Cell[" ", "HistoryData",
@@ -14,7 +14,8 @@ Cell[TextData[{
   CellTags->"Excised"]
 }], "History",
  CellChangeTimes->{{3.579754037930477*^9, 3.579754062123941*^9}, {
-  3.5852829118768787`*^9, 3.585282913183873*^9}},
+  3.5852829118768787`*^9, 3.585282913183873*^9}, {3.617338777757687*^9, 
+  3.617338777823621*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -261,6 +262,15 @@ Cell[BoxData[GridBox[{
     ButtonBox["False",
      BaseStyle->"Link"], Cell[
     "display information while computing", "TableText"]},
+   {Cell["      ", "ModInfo"], 
+    ButtonBox["Parallelization",
+     BaseStyle->"Link",
+     ButtonData->"paclet:ref/Parallelization"], 
+    ButtonBox["True",
+     BaseStyle->"Link",
+     ButtonData->"paclet:ref/True"], Cell["\<\
+whether or not to distribute the computation over all available kernels\
+\>", "TableText"]},
    {Cell["   ", "ModInfo"], 
     ButtonBox["SymmetrizeMethod",
      BaseStyle->"Link",
@@ -296,7 +306,10 @@ Cell[BoxData[GridBox[{
    3.5797680439932327`*^9}, {3.579768100072884*^9, 3.579768107855693*^9}, {
    3.579768261172038*^9, 3.579768304621511*^9}, {3.5797691419191723`*^9, 
    3.579769141969328*^9}, 3.579769275228362*^9, {3.580189909333795*^9, 
-   3.580189922710552*^9}, {3.580189968041004*^9, 3.580189968295454*^9}}],
+   3.580189922710552*^9}, {3.580189968041004*^9, 3.580189968295454*^9}, 
+   3.61733732238686*^9, 3.617337407754747*^9, {3.617337448091626*^9, 
+   3.6173374776868153`*^9}, {3.617338365471294*^9, 3.617338412643042*^9}},
+ CellID->811216961],
 
 Cell[TextData[{
  "Possible settings for ",
@@ -369,6 +382,16 @@ additionally specified free indices)\
   3.579769673707369*^9, 3.579769689713191*^9}, {3.5797697816513567`*^9, 
   3.579769876423462*^9}, {3.580189985918515*^9, 3.580190037162438*^9}},
  CellID->981633022],
+
+Cell[TextData[{
+ Cell[BoxData["Parallelization"], "InlineFormula"],
+ " only works for ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " version 7 and higher."
+}], "Notes",
+ CellChangeTimes->{{3.580376415501739*^9, 3.580376425704195*^9}},
+ CellID->942293402],
 
 Cell[TextData[{
  "When ",
@@ -471,10 +494,13 @@ symmetry of the free indices specified in the second and third argument of ",
 
 Cell[TextData[{
  Cell[BoxData["AllContractions"], "InlineFormula"],
- " uses a brute-force algorithm. Its efficiency is exponential in the number \
-of free indices."
+ " uses a semi brute-force algorithm. In the worst case scenario (i.e. when \
+the underlying expression has no symmetry) its efficiency is exponential in \
+the number of free indices."
 }], "Notes",
- CellChangeTimes->{{3.580826624300078*^9, 3.5808267661652412`*^9}},
+ CellChangeTimes->{{3.580826624300078*^9, 3.5808267661652412`*^9}, {
+  3.617338698484749*^9, 3.617338728592904*^9}, {3.617338759438776*^9, 
+  3.6173387685907097`*^9}},
  CellID->1308502142]
 }, Open  ]],
 
@@ -1444,12 +1470,16 @@ Cell[BoxData[
   $Line = 0; Null]], "ExampleDelimiter",
  CellID->2084680034],
 
-Cell["\<\
-Typing all the indices can become cumbersome, so instead we can use the \
-pseudo index-free notation:\
-\>", "ExampleText",
+Cell[TextData[{
+ "Typing all the indices can become cumbersome, so instead we can use the ",
+ ButtonBox["pseudo index-free notation",
+  BaseStyle->"Link",
+  ButtonData->"paclet:xTras/ref/IndexFree"],
+ ":"
+}], "ExampleText",
  CellChangeTimes->{{3.5797718701020184`*^9, 3.5797718797138166`*^9}, {
-  3.5797719127439747`*^9, 3.5797719488169537`*^9}},
+  3.5797719127439747`*^9, 3.5797719488169537`*^9}, {3.6173385962172403`*^9, 
+  3.6173386097714777`*^9}},
  CellID->794178932],
 
 Cell[CellGroupData[{
@@ -8285,7 +8315,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 WindowSize->{1217, 675},
-WindowMargins->{{48, Automatic}, {Automatic, 26}},
+WindowMargins->{{Automatic, 241}, {138, Automatic}},
 CellContext->"Global`",
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
 2011)",
