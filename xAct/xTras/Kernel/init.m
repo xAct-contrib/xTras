@@ -20,10 +20,10 @@
 (*                   *)
 (*********************)
 
-xAct`xTras`$Version = {"1.3.3", {2014, 3, 31}};
+xAct`xTras`$Version = {"1.3.3.12", {2014, 8, 8}};
 xAct`xTras`$xTensorVersionExpected = {"1.1.0", {2014, 2, 23}};
 xAct`xTras`$SymManipulatorVersionExpected = {"0.8.5", {2013, 4, 13}};
-xAct`xTras`$MathematicaVersionNeeded = 6.;
+xAct`xTras`$MathematicaVersionNeeded = 7.;
 
 If[Unevaluated[xAct`xCore`Private`$LastPackage] === xAct`xCore`Private`$LastPackage, 
 	xAct`xCore`Private`$LastPackage = "xAct`xTras`"

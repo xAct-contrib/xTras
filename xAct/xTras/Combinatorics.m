@@ -290,7 +290,7 @@ Options[AllContractions] ^= {
 	UncontractedIndices -> None,
 	FreeMetrics -> All,
 	AuxiliaryTensor -> Default,
-	Parallelization -> ( System`$VersionNumber >= 7 )
+	Parallelization -> ( System`$VersionNumber >= 8 )
 };
 
 AllContractions[expr_,options___?OptionQ] := 
@@ -534,7 +534,7 @@ ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer, parallel:
 		SymCanonPerm =
 			RemoveImagesSign@FastMathLinkCanonicalPerm[Images[perm], numIndices, symsgslist, {}, symtranslateddummysets] &;
 
-		If[parallel && System`$VersionNumber >= 7,
+		If[parallel && System`$VersionNumber >= 8,
 			ParallelxPermConnect[];
 			DistributeDefinitions[NextDummyPerms,CanonPerm,SymCanonPerm];
 			ParallelOrNormalMap = ParallelMap[#1,#2,Method->"CoarsestGrained",DistributedContexts -> None]&,
@@ -566,7 +566,7 @@ ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer, parallel:
 					RepeatedSet[ newfrees ],
 					Sequence @@ (RepeatedSet /@ Reverse[newdummypairs[[1;;step]]])
 				}};
-				If[parallel && System`$VersionNumber >= 7,
+				If[parallel && System`$VersionNumber >= 8,
 					DistributeDefinitions[newdummypositions,newfrees,oldfrees,newdummies,translateddummysets,symtranslateddummysets];
 				];
 				(* Compute the possible contractions at this step. *)
