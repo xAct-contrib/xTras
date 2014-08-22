@@ -578,7 +578,7 @@ ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer, parallel:
 					(* Firstly, compute all canonicalized single contractions, while keeping
 					   the uncanonicalized single contractions. *) 
 					contractions = DeleteCases[
-						{ #, CanonPerm[#] }& /@ NextDummyPerms[ Range@numIndices ],
+						{ CanonPerm[#], # }& /@ NextDummyPerms[ Range@numIndices ],
 						{_}
 					];
 					(* Of the above pairs, gather them by canonicalized contractions (GatherBy), 
@@ -591,9 +591,9 @@ ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer, parallel:
 					newdummypositions = {
 						Position[#, First@newdummies][[1, 1]], 
 						Position[#,  Last@newdummies][[1, 1]]
-					}& /@ Last /@ Sort /@ Map[First, GatherBy[contractions,Last], {2}];
+					}& /@ Last /@ Sort /@ Map[Last, Split[Sort@contractions,First[#1] == First[#2] &], {2}];
 					(* Lastly, don't forget to set the single contractions to the canonicalized ones. *)
-					contractions = Union[Last /@ contractions];
+					contractions = Union[First /@ contractions];
 					,
 					(* No, we're not at the first step. Just process the previous contractions. *)
 					contractions = Union @@ ParallelOrNormalMap[
