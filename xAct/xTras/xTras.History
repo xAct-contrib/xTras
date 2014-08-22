@@ -1,6 +1,15 @@
 xTras changelog
 ===============
 
+v1.4.0, 2014-08-22
+------------------
+
+  * AllContractions automatically parallelizes on Mathematica 8 or newer. 
+  * AllContractions has an improved algorithm. 
+  * AllContractions directly calls the external xPerm executable, which makes it about 5x faster. 
+  * ConstantSymbolsOf now takes multiple arguments.
+  * RiemannSimplification's error-message is more human-readable. 
+
 v1.3.3, 2014-03-31
 ------------------
 

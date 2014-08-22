@@ -82,7 +82,11 @@ ConstantPrefix::usage = "ConstantPrefix is an option for MakeAnsatz that \
 determines the prefix of the constant symbols."; 
 ConstantSymbolsOf::usage = "\!\(\*TagBox[\(ConstantSymbolsOf[ \
 \*StyleBox[\"expr\", \"TI\"]] returns a list of all non-numeric constant \
-symbols in expr.\), DisplayForm]\)"; 
+symbols in expr. \[LineSeparator] ConstantSymbolsOf[ \(\*StyleBox[\"expr\", \
+\"TI\"]\)\_1, \(\*StyleBox[\"expr\", \"TI\"]\)\_2,...] returns a list of all \
+non-numeric constant symbols in all of the  \
+\*Cell[BoxData[\(\(\*StyleBox[\"expr\", \"TI\"]\)\_\(\*StyleBox[\"i\", \
+\"TI\"]\)\)]] .\), DisplayForm]\)"; 
 ConstructDDIs::usage = "\!\(\*TagBox[\(ConstructDDIs[ \*StyleBox[\"expr\", \
 \"TI\"]] constructs all scalar dimensional dependent identities that can be \
 build out of  \*StyleBox[\"expr\", \"TI\"] . \[LineSeparator] ConstructDDIs[ \
@@ -238,7 +242,7 @@ while temporarily configuring settings associated to the metric  \
 \"TI\"][\*StyleBox[\"g,expr\", \"TI\"], \*StyleBox[\"args\", \"TI\"]] while \
 temporarily configuring settings associated to the metric  \*StyleBox[\"g\", \
 \"TI\"]\(\(\\ to \)\)\*StyleBox[\"Invar\", Rule[FontSlant, \"Italic\"]]\(\(\\ \
-compatible values..\)\)\), DisplayForm]\)"; 
+compatible values.\)\)\), DisplayForm]\)"; 
 KillingVectorOf::usage = "\!\(\*TagBox[\(KillingVectorOf is an option for  \
 \*Cell[BoxData[\"DefTensor\"], \"InlineFormula\", Rule[FormatType, \
 \"StandardForm\"]]\(\(\\ that determines whether the defined tensor is a \
