@@ -1033,7 +1033,8 @@ Test[
 	TestID->"xTensor-20140206-J2F2G6"
 ]
 
-
+(* This test takes too long to run repeatedly. *)
+(*
 Test[
 	CD[f]@CD[d]@CD[c]@CD[b]@CD[a]@T1[e]//SymmetrizeCovDs//ToCanonical//ExpandSymCovDs//SortCovDs//ToCanonical//RiemannYoungProject//ToCanonical
 	,
@@ -1041,6 +1042,7 @@ Test[
 	,
 	TestID->"xTensor-20140221-T7S1X9"
 ]
+*)
 
 
 Test[

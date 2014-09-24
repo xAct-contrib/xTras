@@ -60,59 +60,6 @@ Begin["`Private`"]
 
 
 
-
-(********************************)
-(* Metric determinant varations *)
-(********************************)
-
-(* This code comes from JMM. See 
-   http://groups.google.com/group/xact/browse_thread/thread/8d687342a34e033c/7d79f11620a7d866 *)
-xAct`xPert`Private`DefGenPertDet[vbundle_, metric_, pert_] := With[
-	{
-		dim 			= DimOfVBundle[vbundle], 
-		metricepsilon 	= epsilon[metric], 
-		mdet 			= Determinant[metric][]
-	},
-
-	If[IntegerQ[dim],
-		(* Old xPert code, works only for non-generic dimensions *)
-		xAct`xPert`Private`ExpandPerturbation1[ Perturbation[mdet, order_.] ] := With[
-			{inds = Table[DummyIn[vbundle], {2 dim}]},
-  			With[
-				{
-					inds1 = inds[[Range[dim]]], 
-					inds2 = inds[[Range[dim + 1, 2 dim]]]
-				}, 
-				ContractMetric[
-					Perturbation[Times @@ Apply[metric, Transpose[-{inds1, inds2}], {1}], order] *
-					mdet/dim! SignDetOfMetric[metric] metricepsilon@@inds1 metricepsilon@@inds2
-				]
-			]
-		]
-	,
-		(* 'New' code, works for any dimension, but is slower. *)
-		xAct`xPert`Private`ExpandPerturbation1[ Perturbation[mdet, order_.] ] := Module[{ind},
-			If[order === 1,
-				ind = DummyIn[vbundle]; 
-				mdet pert[LI[1], ind, -ind]
-			,
-				Perturbation[
-					ExpandPerturbation@Perturbation@mdet, 
-					order - 1
-				] /. expr_Perturbation :> ExpandPerturbation[expr]
-			]
-		];
-	];
-
-	xAct`xPert`Private`ExpandPerturbation1[ Perturbation[metricepsilon[superinds__?UpIndexQ], order_.] ] := 
-		metricepsilon[superinds] Sqrt[mdet] ExpandPerturbation[Perturbation[1/Sqrt[mdet], order]];
-	
-	xAct`xPert`Private`ExpandPerturbation1[ Perturbation[metricepsilon[subinds__?DownIndexQ], order_.] ] := 
-		metricepsilon[subinds]/Sqrt[mdet] ExpandPerturbation[Perturbation[Sqrt[mdet], order]];
-];
-
-
-
 (**************)
 (* Variations *)
 (**************)

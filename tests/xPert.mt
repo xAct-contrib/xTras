@@ -34,6 +34,60 @@ Test[
 ]
 
 Test[
+	Detmetric[] // Perturbation // ExpandPerturbation // ContractMetric // ToCanonical // ScreenDollarIndices
+	,
+	Detmetric[] * Perturbationmetric[LI[1], a, -a]
+	,
+	TestID->"xPert-20140923-T3L2W7"
+]
+
+DetMetricDiff[n_]:=
+	ToCanonical @ ContractMetric[
+		+ ExpandPerturbation @ Perturbation[#, n] & @ Detmetric[]
+		- Nest[ExpandPerturbation@Perturbation[#]&, Detmetric[], n]
+	]
+
+Test[
+	DetMetricDiff[1]
+	,
+	0
+	,
+	TestID->"xPert-20140924-F7E5E6"
+]
+
+Test[
+	DetMetricDiff[2]
+	,
+	0
+	,
+	TestID->"xPert-20140923-C1M6D2"
+]
+
+Test[
+	DetMetricDiff[3]
+	,
+	0
+	,
+	TestID->"xPert-20140923-N2I5K4"
+]
+
+Test[
+	DetMetricDiff[4]
+	,
+	0
+	,
+	TestID->"xPert-20140923-F5O8U7"
+]
+
+Test[
+	DetMetricDiff[5]
+	,
+	0
+	,
+	TestID->"xPert-20140923-Y5T2W0"
+]
+
+Test[
 	ToCanonical@VarL[metric[a, b], CD][RicciScalarCD[]]
 	,
 	RicciCD[-a, -b] - metric[-a, -b]/2 RicciScalarCD[]

@@ -257,7 +257,8 @@ Test[
 	TestID->"Combinatorics-20140602-I3E3Q6"
 ]
 
-
+(* This test also takes pretty long. *)
+(*
 Test[
 	AllContractions[ IndexFree[RiemannCD^4] ]
 	,
@@ -322,6 +323,7 @@ Test[
 	,
 	TestID->"Combinatorics-20140602-U6Y7G0"
 ]
+*)
 
 
 (***************************)
