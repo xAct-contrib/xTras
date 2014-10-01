@@ -4,7 +4,7 @@ Cell[TextData[{
  Cell["1.0.0", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
- Cell[" ", "HistoryData",
+ Cell["1.4.1 ", "HistoryData",
   CellTags->"Modified"],
  " | Obsolete in: ",
  Cell[" ", "HistoryData",
@@ -13,7 +13,8 @@ Cell[TextData[{
  Cell[" ", "HistoryData",
   CellTags->"Excised"]
 }], "History",
- CellChangeTimes->{{3.5805440535499067`*^9, 3.580544054779216*^9}},
+ CellChangeTimes->{{3.5805440535499067`*^9, 3.580544054779216*^9}, {
+  3.6211636625929193`*^9, 3.621163663182773*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -221,7 +222,29 @@ Cell[TextData[{
 }], "Notes",
  CellChangeTimes->{{3.580544263920459*^9, 3.580544308843383*^9}, {
   3.580545365354123*^9, 3.580545390376154*^9}},
- CellID->2005239068]
+ CellID->2005239068],
+
+Cell["The following options can be given: ", "Notes",
+ CellID->1629038028],
+
+Cell[BoxData[GridBox[{
+   {Cell["   ", "ModInfo"], 
+    ButtonBox["Verbose",
+     BaseStyle->"Link"], 
+    ButtonBox["False",
+     BaseStyle->"Link"], Cell[
+    "display information while computing", "TableText"]}
+  }]], "3ColumnTableMod",
+ CellChangeTimes->{{3.579767529868553*^9, 3.579767622781605*^9}, {
+   3.579767656179701*^9, 3.5797676561798077`*^9}, {3.5797679972821217`*^9, 
+   3.5797680439932327`*^9}, {3.579768100072884*^9, 3.579768107855693*^9}, {
+   3.579768261172038*^9, 3.579768304621511*^9}, {3.5797691419191723`*^9, 
+   3.579769141969328*^9}, 3.579769275228362*^9, {3.580189909333795*^9, 
+   3.580189922710552*^9}, {3.580189968041004*^9, 3.580189968295454*^9}, 
+   3.61733732238686*^9, 3.617337407754747*^9, {3.617337448091626*^9, 
+   3.6173374776868153`*^9}, {3.617338365471294*^9, 3.617338412643042*^9}, {
+   3.621163537768808*^9, 3.621163556747573*^9}},
+ CellID->811216961]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1281,7 +1304,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 WindowSize->{1004, 877},
-WindowMargins->{{259, Automatic}, {27, Automatic}},
+WindowMargins->{{128, Automatic}, {Automatic, 0}},
 CellContext->"Global`",
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
 2011)",

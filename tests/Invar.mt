@@ -4,6 +4,7 @@
 (*                 *)
 (*******************)
 
+
 Test[
 	ToCanonical[
 		NoScalar@EulerDensity[CD,4]
@@ -14,6 +15,28 @@ Test[
 	0
 	,
 	TestID->"Invar-20130102-C9X8J2"
+]
+
+Test[
+	EulerDensity[CD,2]
+	,
+	-RicciScalarCD[]
+	,
+	TestID->"Invar-20141001-Z1G1N1"
+]
+
+Test[
+	EulerDensity[CD,6]
+	,
+	-RicciScalarCD[]^3 + 12*RicciScalarCD[]*Scalar[RicciCD[-a, -b]*RicciCD[a, b]] 
+	-16*Scalar[RicciCD[-a, c]*RicciCD[a, b]*RicciCD[-b, -c]] 
+	-24*Scalar[RicciCD[a, b]*RicciCD[c, d]*RiemannCD[-a, -c, -b, -d]] 
+	-3*RicciScalarCD[]*Scalar[RiemannCD[-a, -b, -c, -d]*RiemannCD[a, b, c, d]] 
+	+24*Scalar[RicciCD[a, b]*RiemannCD[-a, c, d, e]*RiemannCD[-b, -c, -d, -e]] 
+	+8*Scalar[RiemannCD[-a, e, -c, f]*RiemannCD[a, b, c, d]*RiemannCD[-b, -f, -d, -e]]
+	-2*Scalar[RiemannCD[-a, -b, e, f]*RiemannCD[a, b, c, d]*RiemannCD[-c, -d, -e, -f]]
+	,
+	TestID->"Invar-20141001-F7S9D3"
 ]
 
 (*******************************************)

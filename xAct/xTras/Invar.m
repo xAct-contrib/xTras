@@ -69,21 +69,43 @@ Begin["`Private`"]
 (********************)
 
 
-EulerDensity[cd_?CovDQ] := EulerDensity[cd, DimOfManifold[ManifoldOfCovD[cd]]];
+Options[EulerDensity] ^= 
+	{
+		Verbose -> False
+	};
 
-EulerDensity[cd_?CovDQ, D_?EvenQ] := Module[{indices, e1, e2, riemann, n, e},
-	indices 	= GetIndicesOfVBundle[VBundleOfMetric@MetricOfCovD@cd, 2 D];
-	e 			= GiveSymbol[epsilon, MetricOfCovD[cd]];
-	e1 			= e @@ (-indices[[1 ;; D]]);
-	e2 			= e @@ (-indices[[D + 1 ;; 2 D]]);
-	riemann[i_] := GiveSymbol[Riemann, cd][
-		indices[[2 i - 1]],
-		indices[[2 i]],
-		indices[[2 i + D - 1]],
-		indices[[2 i + D]]
+EulerDensity[cd_?CovDQ, options : OptionsPattern[]] := 
+	EulerDensity[cd, DimOfManifold @ ManifoldOfCovD @ cd, options];
+
+EulerDensity[cd_?CovDQ, dimension_?EvenQ, OptionsPattern[]]:=
+	With[
+		{
+			indices = Sort @ GetIndicesOfVBundle[VBundleOfMetric @ MetricOfCovD @ cd, dimension],
+			overallfactor = 2 SignDetOfMetric[MetricOfCovD @ cd] 1/2^(dimension/2),
+			map = If[
+				OptionValue @ Verbose, 
+				MapTimed[#1, #2, Description -> "Computing Euler density"]&, 
+				Map
+			]
+		},
+		With[
+			{
+				riemannproduct = Product[
+					GiveSymbol[Riemann,cd][
+						Slot[2i-1],
+						Slot[2i],
+						-indices[[2i-1]],
+						-indices[[2i]]
+					],
+					{i,1,dimension/2}
+				]
+			},
+			PutScalar @ SameDummies @ Total @ map[
+				overallfactor * Signature[#] * ToCanonical[riemannproduct& @@ #]&,
+				Select[Permutations @ indices, Signature[#] === 1&]
+			]
+		]
 	];
-	1/2^(D/2) e1 e2 Product[riemann[n], {n, 1, D/2}] // ContractMetric // ToCanonical // PutScalar
-];
 
 
 GetInvarOptions[cd_] := {
