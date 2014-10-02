@@ -81,7 +81,8 @@ EulerDensity[cd_?CovDQ, dimension_?EvenQ, OptionsPattern[]]:=
 	With[
 		{
 			indices = Sort @ GetIndicesOfVBundle[VBundleOfMetric @ MetricOfCovD @ cd, dimension],
-			overallfactor = 2 SignDetOfMetric[MetricOfCovD @ cd] 1/2^(dimension/2),
+			sign = SignDetOfMetric[MetricOfCovD @ cd],
+			rangeDim = Range @ dimension,
 			map = If[
 				OptionValue @ Verbose, 
 				MapTimed[#1, #2, Description -> "Computing Euler density"]&, 
@@ -101,8 +102,16 @@ EulerDensity[cd_?CovDQ, dimension_?EvenQ, OptionsPattern[]]:=
 				]
 			},
 			PutScalar @ SameDummies @ Total @ map[
-				overallfactor * Signature[#] * ToCanonical[riemannproduct& @@ #]&,
-				Select[Permutations @ indices, Signature[#] === 1&]
+				(* Reconstruction function. *)
+				sign * Signature[#] * ToCanonical[riemannproduct& @@ #]& @ PermuteList[indices, InversePerm @ #] &,
+				(* List of permutations: do a transversal over dim/2 pairs of symmetric indices.
+				   This is valid because the Riemann is always antisymmetric in its first pair of indices,
+				   and these permutations correspond to indices on the generalized (antisymmetric) delta,
+				   so the antisymmetry cancels out and becomes symmetric. *) 
+				TransversalInSymmetricGroup[
+					StrongGenSet[rangeDim, GenSet @@ (Cycles /@ Partition[rangeDim, 2])], 
+					Symmetric @ rangeDim
+				]
 			]
 		]
 	];
