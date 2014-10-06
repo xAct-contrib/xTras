@@ -679,21 +679,33 @@ ComputeContractions[sgs_, numIndices_Integer, numContractions_Integer?Positive, 
 IndexConfigurations[expr_] := Module[
 	{
 		sym = SymmetryOf[expr],
-		sgs, indices, len, perms
+		H, G, slots, indices, vbundlesOfIndices, slotsPerVbundle
 	},
-	sgs 	= sym[[4]];
-	indices = IndexSort[ IndexList @@ Last /@ sym[[3]] ];
-	len 	= sym[[1]];
-	perms	= TransversalInSymmetricGroup[
-		sgs, 
-  		Symmetric[Range@len] 
-  	];
-  	Union@Map[
+	
+	slots = Part[sym, 3, All, 1, 1];
+	indices = IndexList @@ Part[sym, 3, All, 2];
+	vbundlesOfIndices = VBundleOfIndex /@ indices;
+	slotsPerVbundle = Map[
+		Pick[slots, vbundlesOfIndices, #]&,
+		Union[vbundlesOfIndices]
+	];
+	
+	H = ReplacePart[
+		sym[[4]],
+		1 -> slots
+	];
+	
+	G = StrongGenSet[
+		slots, 
+ 		GenSet @@ Join @@ ((Cycles /@ Partition[#, 2, 1]) & /@ slotsPerVbundle)
+ 	];
+	
+  	Union @ Map[
   		UxSort@xAct`xTensor`Private`Reconstruct[
    			sym, 
    			{1, PermuteList[indices, InversePerm@#]}
 		]&, 
-		perms
+		xAct`SymManipulator`Private`TransversalComputation[H, G]
 	]
 ];
 
