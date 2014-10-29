@@ -508,6 +508,73 @@ Test[
 	TestID->"xTensor-20140207-Q2F1X7"
 ]
 
+Test[
+	KretschmannCD[] // KretschmannToRiemann
+	,
+	Scalar[RiemannCD[-a, -b, c, d]*RiemannCD[-c, -d, a, b]]
+	,
+	TestID->"xTensor-20141029-E7B8D8"
+]
+
+Test[
+	RicciScalarCD[] // RicciToRiemann
+	,
+	RicciScalarCD[]
+	,
+	TestID->"xTensor-20141029-K1K8R3"
+]
+
+Test[
+	EinsteinCD[-a,-b] // ToRiemann
+	,
+	EinsteinCD[-a,-b]
+	,
+	TestID->"xTensor-20141029-P8A1O5"
+]
+
+Test[
+	SchoutenCD[-a,-b] // ToRiemann // ScreenDollarIndices
+	,
+	SchoutenCD[-a,-b]
+	,
+	TestID->"xTensor-20141029-P7I1A9"
+]
+
+ClearCurvatureRelations[CD];
+
+Test[
+	RicciScalarCD[] // RicciToRiemann
+	,
+	Scalar[ RiemannCD[-a,-b,a,b] ]
+	,
+	TestID->"xTensor-20141029-Q2E0I1"
+]
+
+Test[
+	RicciCD[-a,-b] // RicciToRiemann // ScreenDollarIndices
+	,
+	RiemannCD[-a, -c, -b, c]
+	,
+	TestID->"xTensor-20141029-U1L5X5"
+]
+
+Test[
+	EinsteinCD[-a,-b] // ToRiemann // ScreenDollarIndices
+	,
+	RiemannCD[-a, -c, -b, c] - (metric[-b, -a]*Scalar[RiemannCD[-a, -b, a, b]])/2
+	,
+	TestID->"xTensor-20141029-J5H2V0"
+]
+
+Test[
+	SchoutenCD[-a,-b] // ToRiemann // ScreenDollarIndices
+	,
+	RiemannCD[-a, -c, -b, c]/(-2 + dim) - (metric[-a, -b]*Scalar[RiemannCD[-a, -b, a, b]])/(2*(-2 + dim)*(-1 + dim))
+	,
+	TestID->"xTensor-20141029-X4R1O3"
+]
+
+SetCurvatureRelations[CD];
 
 
 (***************************)

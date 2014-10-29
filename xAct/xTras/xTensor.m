@@ -44,9 +44,17 @@ derivatives sorted, and False otherwise. \
 (* Extra curvature tensors *)
 
 ToRiemann::usage =
-	"ToRiemann[expr] converts Weyl tensors, symmetrized Riemann tensors, any \
-Riemann tensor with down indices of a frozen metric, and gradients of Christoffel \
-symbols to Riemann tensors.";
+	"ToRiemann[expr] converts Ricci tensors, Kretschmann scalars, Weyl tensors, \
+symmetrized Riemann tensors, any Riemann tensor with down indices of a frozen \
+metric, and gradients of Christoffel symbols to Riemann tensors.";
+
+RicciToRiemann::usage =
+	"RicciToRiemann[expr] converts Ricci tensors and scalars in expr to contractions of \
+Riemann tensors.";
+
+KretschmannToRiemann::usage =
+	"KretschmannToRiemann[expr] converts Kretschmann scalars in expr to contractions \
+of Riemann tensors.";
 
 SymRiemann::usage =
 	"SymRiemann is a reserved word in xTras. It is used to generated the name \
@@ -602,7 +610,7 @@ ToRicci[expr_, cd_?CovDQ] :=
 		EinsteinCCToRicci[#, cd]&,
 		SchoutenToRicci[#, cd]&,
 		SchoutenCCToRicci[#, cd]&
-	][expr];
+	][expr /. CurvatureRelations[cd]];
 ToRicci[expr_] := Fold[ToRicci, expr, $CovDs];
 
 SchoutenToRicci[expr_, cd_?CovDQ]  /; MetricOfCovD[cd] =!= Null := With[
@@ -689,6 +697,15 @@ RicciToEinsteinCC[K_][expr_] := Fold[RicciToEinsteinCC[K], expr, $CovDs];
 
 ToRiemann[expr_, cd_?CovDQ] := 
 	Composition[
+		If[
+			!CurvatureRelationsQ[cd],
+			Composition[
+				RicciToRiemann[#, cd]&,
+				ToRicci[#, cd]&
+			],
+			Identity
+		],
+		KretschmannToRiemann[#, cd]&,
 		WeylToRiemann[#, cd]&,
 		SymRiemannToRiemann[#, cd]&,
 		RiemannDownToRiemann[#, cd]&,
@@ -717,6 +734,39 @@ SymRiemannToRiemann[expr_, cd_?CovDQ] /; MetricOfCovD[cd] =!= Null && !TorsionQ[
 ];
 SymRiemannToRiemann[expr_, _] := expr;
 SymRiemannToRiemann[expr_] := Fold[SymRiemannToRiemann, expr, $CovDs];
+
+
+
+RicciToRiemann[expr_, PD] := 
+	expr;
+RicciToRiemann[expr_, cd_?CovDQ] := 
+	With[{indices = GetIndicesOfVBundle[First@VBundlesOfCovD@cd, 2]},
+		With[{a = First@indices, b = Last@indices},
+			expr /.	{
+				Ricci[cd][c_, d_] :> Module[{e = DummyIn@First@VBundlesOfCovD@cd}, $RicciSign Riemann[cd][c, -e, d, e]],
+				RicciScalar[cd][] :> $RicciSign Scalar[ Riemann[cd][-a,-b,a,b] ]
+			}
+		]
+	];
+RicciToRiemann[expr_] := Fold[RicciToRiemann, expr, $CovDs];
+
+
+KretschmannToRiemann[expr_, cd_?CovDQ] /; MetricOfCovD[cd] =!= Null :=
+	With[{indices = GetIndicesOfVBundle[First@VBundlesOfCovD@cd, 4]},
+		With[{
+			a = indices[[1]], 
+			b = indices[[2]], 
+			c = indices[[3]], 
+			d = indices[[4]]
+		},
+			(* Definition of Kretschmann corresponds to that in xCoba (section 7.2.6 and 7.3.7). *)
+			expr /. Kretschmann[cd][] :> Scalar[ Riemann[cd][-a,-b,c,d] Riemann[cd][-c,-d,a,b] ]
+		]
+	];
+KretschmannToRiemann[expr_, _] := expr;
+KretschmannToRiemann[expr_] := Fold[KretschmannToRiemann, expr, $CovDs];
+
+
 
 (*************************)
 (* Commuting derivatives *)

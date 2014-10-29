@@ -4,7 +4,7 @@ Cell[TextData[{
  Cell["1.0.0", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
- Cell[" ", "HistoryData",
+ Cell["1.4.2 ", "HistoryData",
   CellTags->"Modified"],
  " | Obsolete in: ",
  Cell[" ", "HistoryData",
@@ -13,7 +13,8 @@ Cell[TextData[{
  Cell[" ", "HistoryData",
   CellTags->"Excised"]
 }], "History",
- CellChangeTimes->{{3.580446376198518*^9, 3.580446377474904*^9}},
+ CellChangeTimes->{{3.580446376198518*^9, 3.580446377474904*^9}, {
+  3.623575832307599*^9, 3.623575832815209*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -121,7 +122,8 @@ Cell[TextData[{
  Cell[BoxData[
   RowBox[{"ToRicci", "[", 
    StyleBox["expr", "TI"], "]"}]], "InlineFormula"],
- "\[LineSeparator]converts all curvature tensors of rank two in ",
+ "\[LineSeparator]converts all curvature tensors of rank two and contracted \
+Riemann tensors in ",
  StyleBox["expr", "TI"],
  " to Ricci tensors and scalars. \n",
  Cell["   ", "ModInfo"],
@@ -135,7 +137,8 @@ derivative ",
  StyleBox["cd", "TI"],
  "."
 }], "Usage",
- CellChangeTimes->{{3.579753769514114*^9, 3.579753769710211*^9}}],
+ CellChangeTimes->{{3.579753769514114*^9, 3.579753769710211*^9}, {
+  3.623575812229307*^9, 3.623575815600541*^9}}],
 
 Cell["\<\
 The curvature tensors of rank two are the tracefree Ricci tensor, the \
