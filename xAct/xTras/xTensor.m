@@ -739,6 +739,8 @@ SymRiemannToRiemann[expr_] := Fold[SymRiemannToRiemann, expr, $CovDs];
 
 RicciToRiemann[expr_, PD] := 
 	expr;
+RicciToRiemann[expr_, cd_?CovDQ] /; CurvatureRelationsQ[cd] :=
+	expr; 
 RicciToRiemann[expr_, cd_?CovDQ] := 
 	With[{indices = GetIndicesOfVBundle[First@VBundlesOfCovD@cd, 2]},
 		With[{a = First@indices, b = Last@indices},
