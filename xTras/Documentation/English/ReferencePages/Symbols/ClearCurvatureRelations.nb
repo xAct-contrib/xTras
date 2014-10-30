@@ -139,8 +139,7 @@ Riemann tensor to the Ricci tensor or Ricci scalar.\
 Cell[TextData[{
  "The curvature relations are usually set during the definition of a \
 covariant derivative or metric through the option ",
- Cell[BoxData["CurvatureRelations"], "InlineFormula",
-  FormatType->"StandardForm"],
+ Cell[BoxData["CurvatureRelations"], "InlineFormula"],
  "."
 }], "Notes",
  CellChangeTimes->{{3.580393644086904*^9, 3.580393705072616*^9}},
@@ -258,6 +257,12 @@ Cell[BoxData[
   $Line = 0; Null]], "PrimaryExamplesSection",
  CellID->880084151],
 
+Cell["\<\
+With curvature relations enabled:\
+\>", "ExampleText",
+ CellChangeTimes->{{3.6236480704356937`*^9, 3.623648076068295*^9}},
+ CellID->1457546448],
+
 Cell[CellGroupData[{
 
 Cell[BoxData[
@@ -304,6 +309,12 @@ Cell[BoxData[
  CellLabel->"Out[10]=",
  CellID->1921287422]
 }, Open  ]],
+
+Cell["\<\
+With curvature relations disabled:\
+\>", "ExampleText",
+ CellChangeTimes->{{3.6236480868348*^9, 3.623648092483335*^9}},
+ CellID->977676813],
 
 Cell[CellGroupData[{
 

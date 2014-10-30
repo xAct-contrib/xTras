@@ -258,6 +258,12 @@ Cell[BoxData[
   $Line = 0; Null]], "PrimaryExamplesSection",
  CellID->880084151],
 
+Cell["\<\
+With curvature relations disabled:\
+\>", "ExampleText",
+ CellChangeTimes->{{3.623648127665194*^9, 3.6236481318731327`*^9}},
+ CellID->965051062],
+
 Cell[CellGroupData[{
 
 Cell[BoxData[
@@ -306,120 +312,11 @@ $CellContext`c],
  CellID->738069426]
 }, Open  ]],
 
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"ClearCurvatureRelations", "[", "CD", "]"}]], "Input",
- CellChangeTimes->{{3.5803934870362997`*^9, 3.580393491232236*^9}, {
-  3.580394062491275*^9, 3.580394073394002*^9}},
- CellLabel->"In[16]:=",
- CellID->1513585262],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"   Rules \"\>", "\[InvisibleSpace]", 
-   RowBox[{"{", 
-    RowBox[{"17", ",", "18"}], "}"}], 
-   "\[InvisibleSpace]", "\<\" have been removed as DownValues for \"\>", 
-   "\[InvisibleSpace]", "RicciCD", "\[InvisibleSpace]", "\<\".\"\>"}],
-  SequenceForm["   Rules ", 
-   Shallow[{17, 18}], 
-   " have been removed as DownValues for ", $CellContext`RicciCD, "."],
-  Editable->False]], "Print",
- CellChangeTimes->{
-  3.5803934924252357`*^9, {3.580394056496482*^9, 3.580394074240687*^9}},
- CellLabel->"During evaluation of In[16]:=",
- CellID->2084349112],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"   Rules \"\>", "\[InvisibleSpace]", 
-   RowBox[{"{", 
-    RowBox[{
-    "1", ",", "2", ",", "3", ",", "4", ",", "5", ",", "6", ",", "7", ",", "8",
-      ",", "9", ",", "10", ",", 
-     RowBox[{"\[LeftSkeleton]", "6", "\[RightSkeleton]"}]}], "}"}], 
-   "\[InvisibleSpace]", "\<\" have been removed as UpValues for \"\>", 
-   "\[InvisibleSpace]", "RicciCD", "\[InvisibleSpace]", "\<\".\"\>"}],
-  SequenceForm["   Rules ", 
-   Shallow[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}], 
-   " have been removed as UpValues for ", $CellContext`RicciCD, "."],
-  Editable->False]], "Print",
- CellChangeTimes->{
-  3.5803934924252357`*^9, {3.580394056496482*^9, 3.580394074243627*^9}},
- CellLabel->"During evaluation of In[16]:=",
- CellID->1902275520],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"   Rules \"\>", "\[InvisibleSpace]", 
-   RowBox[{"{", 
-    RowBox[{
-    "1", ",", "2", ",", "3", ",", "4", ",", "5", ",", "6", ",", "7", ",", "8",
-      ",", "9", ",", "10", ",", 
-     RowBox[{"\[LeftSkeleton]", "4", "\[RightSkeleton]"}]}], "}"}], 
-   "\[InvisibleSpace]", "\<\" have been removed as DownValues for \"\>", 
-   "\[InvisibleSpace]", "RiemannCD", "\[InvisibleSpace]", "\<\".\"\>"}],
-  SequenceForm["   Rules ", 
-   Shallow[{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}], 
-   " have been removed as DownValues for ", $CellContext`RiemannCD, "."],
-  Editable->False]], "Print",
- CellChangeTimes->{
-  3.5803934924252357`*^9, {3.580394056496482*^9, 3.58039407424677*^9}},
- CellLabel->"During evaluation of In[16]:=",
- CellID->1955611751]
-}, Open  ]]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"RiemannCD", "[", 
-  RowBox[{
-   RowBox[{"-", "a"}], ",", 
-   RowBox[{"-", "c"}], ",", 
-   RowBox[{"-", "b"}], ",", "c"}], "]"}]], "Input",
- CellChangeTimes->{{3.580393494563257*^9, 3.580393502095965*^9}},
- CellLabel->"In[17]:=",
- CellID->201194636],
-
-Cell[BoxData[
- InterpretationBox[
-  StyleBox[GridBox[{
-     {
-      RowBox[{"R", "[", "\[EmptyDownTriangle]", "]"}], 
-      StyleBox[GridBox[{
-         {" ", " ", " ", "c"},
-         {"a", "c", "b", " "}
-        },
-        GridBoxSpacings->{"Columns" -> {
-            Offset[0.], {
-             Offset[0.034999999999999996`]}, 
-            Offset[0.]}, "ColumnsIndexed" -> {}, "Rows" -> {{
-             Offset[0.]}}, "RowsIndexed" -> {}}],
-       FontSize->9]}
-    },
-    GridBoxAlignment->{
-     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Center}}, 
-      "RowsIndexed" -> {}},
-    GridBoxSpacings->{"Columns" -> {
-        Offset[0.27999999999999997`], {
-         Offset[0.034999999999999996`]}, 
-        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
-        Offset[0.2], {
-         Offset[0.4]}, 
-        Offset[0.2]}, "RowsIndexed" -> {}}],
-   ShowAutoStyles->False,
-   AutoSpacing->False],
-  $CellContext`RiemannCD[-$CellContext`a, -$CellContext`c, -$CellContext`b, \
-$CellContext`c],
-  Editable->False]], "Output",
- CellChangeTimes->{3.580393502742495*^9, 3.5803940757933197`*^9},
- CellLabel->"Out[17]=",
- CellID->729481722]
-}, Open  ]],
+Cell["\<\
+With curvature relations enabled:\
+\>", "ExampleText",
+ CellChangeTimes->{{3.623648139681178*^9, 3.62364814436786*^9}},
+ CellID->302137184],
 
 Cell[CellGroupData[{
 

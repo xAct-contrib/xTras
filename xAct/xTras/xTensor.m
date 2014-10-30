@@ -1511,7 +1511,7 @@ Protect[ChangeCovD];
 VarD[tensor_,covd_][covd_?SymCovDQ[inds__][expr_],rest_] := 
 	(-1)^Length[{inds}]VarD[tensor,covd][expr,covd[inds][rest]]
 
-(* Different connenction. *)
+(* Different connection. *)
 VarD[tensor_, covd1_?CovDQ][expr : covd2_?SymCovDQ[__][_], rest_] := 
 	VarD[tensor, covd1][ChangeCovD[expr, covd2, covd1], rest] /; xAct`xTensor`Private`CompatibleCovDsQ[covd1, covd2];
 
