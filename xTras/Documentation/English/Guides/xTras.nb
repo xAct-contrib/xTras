@@ -4,7 +4,7 @@ Cell[TextData[{
  Cell["1.2.0", "HistoryData",
   CellTags->"New"],
  " | Modified in: ",
- Cell["1.3.2 ", "HistoryData",
+ Cell["1.4.2 ", "HistoryData",
   CellTags->"Modified"],
  " | Obsolete in: ",
  Cell[" ", "HistoryData",
@@ -15,7 +15,8 @@ Cell[TextData[{
 }], "History",
  CellChangeTimes->{{3.580906000389572*^9, 3.58090602990597*^9}, {
   3.600855131738778*^9, 3.6008551428502607`*^9}, {3.601881237851282*^9, 
-  3.601881237904076*^9}, {3.602776501670086*^9, 3.60277650175105*^9}},
+  3.601881237904076*^9}, {3.602776501670086*^9, 3.60277650175105*^9}, {
+  3.623659101650119*^9, 3.623659101696364*^9}},
  CellID->1247902091],
 
 Cell[CellGroupData[{
@@ -449,8 +450,9 @@ Cell["\t", "GuideDelimiter",
 
 Cell[CellGroupData[{
 
-Cell["New curvature tensors", "GuideFunctionsSubsection",
- CellChangeTimes->{{3.580906650747198*^9, 3.5809066534565287`*^9}},
+Cell["Curvature tensors", "GuideFunctionsSubsection",
+ CellChangeTimes->{{3.580906650747198*^9, 3.5809066534565287`*^9}, 
+   3.623658953092937*^9},
  CellID->966281796],
 
 Cell[TextData[{
@@ -492,7 +494,28 @@ Cell[TextData[{
  " \[LongDash] the cosmological Einstein tensor"
 }], "GuideText",
  CellChangeTimes->{{3.580906681448494*^9, 3.5809067416012373`*^9}},
- CellID->1713209559]
+ CellID->1713209559],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ToRicci",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ToRicci"]], "InlineGuideFunction"],
+ " \[LongDash] converts curvature tensors to Ricci tensors where possible"
+}], "GuideText",
+ CellChangeTimes->{{3.623658976494855*^9, 3.6236590378917913`*^9}},
+ CellID->629045261],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["ToRiemann",
+   BaseStyle->"Link",
+   ButtonData->"paclet:xTras/ref/ToRiemann"]], "InlineGuideFunction"],
+ " \[LongDash] converts curvature tensors to Riemann tensors where possible"
+}], "GuideText",
+ CellChangeTimes->{{3.6236590104882317`*^9, 3.6236590125230923`*^9}, {
+  3.623659043347414*^9, 3.623659055810835*^9}},
+ CellID->622915928]
 }, Open  ]],
 
 Cell["\t", "GuideDelimiter",
