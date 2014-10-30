@@ -254,6 +254,12 @@ otherwise.\)\)\[LineSeparator] KillingVectorQ[ \*StyleBox[\"v\", \"TI\"], \
 \*StyleBox[\"g\", \"TI\"]] returns True if the vector  \*StyleBox[\"v\", \
 \"TI\"]\(\(\\ is defined as a Killing vector of the metric \
 \)\)\*StyleBox[\"g\", \"TI\"], and False otherwise. \), DisplayForm]\)"; 
+KretschmannToRiemann::usage = "\!\(\*TagBox[\(KretschmannToRiemann[ \
+\*StyleBox[\"expr\", \"TI\"]] converts Kretschmann scalars in  \
+\*StyleBox[\"expr\", \"TI\"]\(\(\\ to Riemann tensors.\)\)\[LineSeparator] \
+KretschmannToRiemann[ \*StyleBox[\"expr\", \"TI\"],  \*StyleBox[\"cd\", \
+\"TI\"]] only converts curvature tensors of the covariant derivative  \
+\*StyleBox[\"cd\", \"TI\"] .\), DisplayForm]\)"; 
 LevelSpecQ::usage = "\!\(\*TagBox[\(LevelSpecQ[ \*StyleBox[\"levelspec\", \
 \"TI\"]] yields True if  \*StyleBox[\"levelspec\", \"TI\"]\(\(\\ is a valid \
 levelspec, and False otherwise.\)\)\), DisplayForm]\)"; 
@@ -357,6 +363,12 @@ tensors with cosmological constant \)\)\*StyleBox[\"K\", \"TI\"] .  \
 \*StyleBox[\"expr\", \"TI\"], \*StyleBox[\"cd\", \"TI\"]] converts only Ricci \
 tensors of the covariant derivative  \*StyleBox[\"cd\", \"TI\"] .\), \
 DisplayForm]\)"; 
+RicciToRiemann::usage = "\!\(\*TagBox[\(RicciToRiemann[ \*StyleBox[\"expr\", \
+\"TI\"]] converts Ricci tensors and scalars in  \*StyleBox[\"expr\", \
+\"TI\"]\(\(\\ to Riemann tensors.\)\)\[LineSeparator] RicciToRiemann[ \
+\*StyleBox[\"expr\", \"TI\"],  \*StyleBox[\"cd\", \"TI\"]] only converts \
+curvature tensors of the covariant derivative  \*StyleBox[\"cd\", \"TI\"] \
+.\), DisplayForm]\)"; 
 RicciToSchoutenCC::usage = "\!\(\*TagBox[\(RicciToSchoutenCC[ \
 \*StyleBox[\"K\", \"TI\"]][ \*StyleBox[\"expr\", \"TI\"]] converts all Ricci \
 tensors of in  \*StyleBox[\"expr\", \"TI\"]\(\(\\ to cosmological Schouten \
@@ -533,17 +545,16 @@ ToLevelSpec::usage = "\!\(\*TagBox[\(ToLevelSpec[ \*StyleBox[\"levelspec\", \
 \"TI\"]] converts a valid  \*StyleBox[\"levelspec\", \"TI\"]\(\(\\ into the \
 {m,n} format.\)\)\), DisplayForm]\)"; 
 ToRicci::usage = "\!\(\*TagBox[\(ToRicci[ \*StyleBox[\"expr\", \"TI\"]] \
-converts all curvature tensors of rank two in  \*StyleBox[\"expr\", \
-\"TI\"]\(\(\\ to Ricci tensors and scalars. \)\)\[LineSeparator] ToRicci[ \
-\*StyleBox[\"expr\", \"TI\"],  \*StyleBox[\"cd\", \"TI\"]] converts only for \
-curvature tensors of the covariant derivative  \*StyleBox[\"cd\", \"TI\"] \
-.\), DisplayForm]\)"; 
+converts all curvature tensors of rank two and contracted Riemann tensors in  \
+\*StyleBox[\"expr\", \"TI\"]\(\(\\ to Ricci tensors and scalars. \
+\)\)\[LineSeparator] ToRicci[ \*StyleBox[\"expr\", \"TI\"],  \
+\*StyleBox[\"cd\", \"TI\"]] converts only for curvature tensors of the \
+covariant derivative  \*StyleBox[\"cd\", \"TI\"] .\), DisplayForm]\)"; 
 ToRiemann::usage = "\!\(\*TagBox[\(ToRiemann[ \*StyleBox[\"expr\", \"TI\"]] \
-converts Weyl tensors, symmetrized Riemann tensors, and gradients of \
-Christoffel symbols to Riemann tensors. \[LineSeparator] ToRiemann[ \
-\*StyleBox[\"expr\", \"TI\"],  \*StyleBox[\"cd\", \"TI\"]] only converts \
-curvature tensors of the covariant derivative  \*StyleBox[\"cd\", \"TI\"] \
-.\), DisplayForm]\)"; 
+converts as many curvature tensors to Riemann tensors as possible. \
+\[LineSeparator] ToRiemann[ \*StyleBox[\"expr\", \"TI\"],  \*StyleBox[\"cd\", \
+\"TI\"]] only converts curvature tensors of the covariant derivative  \
+\*StyleBox[\"cd\", \"TI\"] .\), DisplayForm]\)"; 
 UncontractedIndices::usage = "UncontractedIndices is an option for \
 AllContractions which specifies how many indices should not be contracted."; 
 UnitConstant::usage = 
