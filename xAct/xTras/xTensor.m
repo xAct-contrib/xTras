@@ -570,7 +570,7 @@ xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 				]
 			];
 			(* Curvature rules for the symmetrized Riemann tensor. *)
-			If[metricQ && !torsionQ,
+			If[curvQ && metricQ && !torsionQ,
 				cd /: CurvatureRelations[cd, SymRiemann] = Join[
 					MakeRule[
 						{
