@@ -548,7 +548,7 @@ xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 			];		
 			
 			(* Contracted Bianchi identities. *)
-			If[curvQ,
+			If[!vanishQ,
 				cd /: CurvatureRelationsBianchi[cd, Riemann] = MakeRule[
 					{
 						cd[-d]@riemann[-a,-b,-c,d],
@@ -570,7 +570,7 @@ xTrasxTensorDefCovD[cd_[ind_], vbundles_, options___?OptionQ] := With[
 				]
 			];
 			(* Curvature rules for the symmetrized Riemann tensor. *)
-			If[curvQ && metricQ && !torsionQ,
+			If[!vanishQ && metricQ && !torsionQ,
 				cd /: CurvatureRelations[cd, SymRiemann] = Join[
 					MakeRule[
 						{
